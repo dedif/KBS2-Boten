@@ -42,46 +42,46 @@ namespace WpfApp13
             {
 
                 if (b.NameCheck(NameBox.Text) == true)
-                  {
-                    if(b.WeightCheck(WeightBox.Text) == true)
+                {
+                    if (b.WeightCheck(WeightBox.Text) == true)
                     {
 
 
                         double Weight = double.Parse(WeightBox.Text);
                         int Rowers = int.Parse(RowersCombo.Text);
-                            Boolean Steeringwheel = false;
+                        Boolean Steeringwheel = false;
 
-                            if (SteeringWheelCheckbox.IsChecked == true)
-                            {
-                                Steeringwheel = true;
-                            }
-
-                            b.AddBoat(NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel);
-
-
-                            MessageBoxResult Succes = MessageBox.Show(
-                                "De boot is succesvol opgeslagen",
-                                "Melding",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information);
-
-                            switch (Succes)
-                            {
-                                case MessageBoxResult.OK:
-                                    this.Hide();
-                                    MainWindow m = new MainWindow();
-                                    m.Show();
-                                    break;
-
-                            }
+                        if (SteeringWheelCheckbox.IsChecked == true)
+                        {
+                            Steeringwheel = true;
                         }
-                       
+
+                        b.AddBoat(NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel);
+
+
+                        MessageBoxResult Succes = MessageBox.Show(
+                            "De boot is succesvol opgeslagen",
+                            "Melding",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+
+                        switch (Succes)
+                        {
+                            case MessageBoxResult.OK:
+                                this.Hide();
+                                MainWindow m = new MainWindow();
+                                m.Show();
+                                break;
+
+                        }
                     }
 
-
                 }
+
+
             }
-   
         }
+
     }
+}
 
