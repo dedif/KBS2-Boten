@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace ConsoleApp1
 {
-    class Boatcontroller
+    public class Boatcontroller
     {
 
         //public void EmptyDatabase()
