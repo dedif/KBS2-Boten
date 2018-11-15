@@ -38,78 +38,50 @@ namespace WpfApp13
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(NameBox.Text) || string.IsNullOrWhiteSpace(WeightBox.Text))
+            if (b.WhiteCheck(NameBox.Text, WeightBox.Text) == true)
             {
 
-                MessageBoxResult DataIncorrect = MessageBox.Show(
-                    "U heeft niet alle gegevens ingevuld",
-                    "Melding",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-
-            }
-
-
-           else if (b.NameCheck(NameBox.Text) == false)
-            {
-                {
-                    try
+                if (b.NameCheck(NameBox.Text) == true)
+                  {
+                    if(b.WeightCheck(WeightBox.Text) == true)
                     {
+
+
                         double Weight = double.Parse(WeightBox.Text);
-
-
-
                         int Rowers = int.Parse(RowersCombo.Text);
-                        Boolean Steeringwheel = false;
+                            Boolean Steeringwheel = false;
 
-                        if (SteeringWheelCheckbox.IsChecked == true)
-                        {
-                            Steeringwheel = true;
+                            if (SteeringWheelCheckbox.IsChecked == true)
+                            {
+                                Steeringwheel = true;
+                            }
+
+                            b.AddBoat(NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel);
+
+
+                            MessageBoxResult Succes = MessageBox.Show(
+                                "De boot is succesvol opgeslagen",
+                                "Melding",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+
+                            switch (Succes)
+                            {
+                                case MessageBoxResult.OK:
+                                    this.Hide();
+                                    MainWindow m = new MainWindow();
+                                    m.Show();
+                                    break;
+
+                            }
                         }
-
-                        b.AddBoat(NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel);
-
-
-                        MessageBoxResult Succes = MessageBox.Show(
-                            "De boot is succesvol opgeslagen",
-                            "Melding",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Information);
-
-                        switch (Succes)
-                        {
-                            case MessageBoxResult.OK:
-                                this.Hide();
-                                MainWindow m = new MainWindow();
-                                m.Show();
-                                break;
-
-                        }
+                       
                     }
-                    catch
-                    {
-
-                        MessageBoxResult WeightIncorrect = MessageBox.Show(
-                            "Het gewicht moet een getal zijn",
-                            "Melding",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Error);
-                    }
-
 
 
                 }
             }
-            else
-            {
-                MessageBoxResult NameIncorrect = MessageBox.Show(
-                       "Deze bootnaam bestaat al",
-                       "Melding",
-                       MessageBoxButton.OK,
-                       MessageBoxImage.Error);
-
-         
-            }
+   
         }
     }
-}
+

@@ -3,20 +3,60 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ConsoleApp1
 {
     class Boatcontroller
     {
 
-        public void EmptyDatabase()
+        //public void EmptyDatabase()
+        //{
+        //    using (Database context = new Database())
+        //    {
+        //        context.Database.Delete();
+        //    }
+        //}
+  
+        public Boolean WhiteCheck(string name, string weight)
         {
-            using (Database context = new Database())
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(weight))
             {
-                context.Database.Delete();
+
+                MessageBoxResult DataIncorrect = MessageBox.Show(
+                    "U heeft niet alle gegevens ingevuld",
+                    "Melding",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return false;
+
+            }
+            else
+            {
+                return true;
             }
         }
-  
+
+        public Boolean WeightCheck(string weight)
+        {
+     
+            try
+            {
+                double Weight = double.Parse(weight);
+                return true;
+            }
+            catch
+            {
+
+                MessageBoxResult WeightIncorrect = MessageBox.Show(
+                    "Het gewicht moet een getal zijn",
+                    "Melding",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return false;
+            }
+        }
+
         public Boolean NameCheck(string name)
         {
             using (Database context = new Database())
@@ -26,11 +66,18 @@ namespace ConsoleApp1
                                   select b).ToList<Boat>();
                 if (CountNames.Count > 0)
                 {
-                    return true;
+                    MessageBoxResult NameIncorrect = MessageBox.Show(
+                       "Deze bootnaam bestaat al",
+                       "Melding",
+                       MessageBoxButton.OK,
+                       MessageBoxImage.Error);
+
+                    return false;
+
                 }
                 else
                 {
-                    return false;
+                    return true;
                 }
             }
         }
@@ -63,32 +110,32 @@ namespace ConsoleApp1
 
         
 
-        public List<Boat> BoatList()
-        {
-            using (Database context = new Database())
-            {
+        //public List<Boat> BoatList()
+        //{
+        //    using (Database context = new Database())
+        //    {
 
-                var boats = (from s in context.Boats
-                             orderby s.Id
-                             select s).ToList<Boat>();
+        //        var boats = (from s in context.Boats
+        //                     orderby s.Id
+        //                     select s).ToList<Boat>();
 
-                return boats;
-            }
-        }
+        //        return boats;
+        //    }
+        //}
 
-        public void Print()
-        {
-            using (Database context = new Database())
-            {
+        //public void Print()
+        //{
+        //    using (Database context = new Database())
+        //    {
 
-                foreach (var boat in BoatList())
-                {
+        //        foreach (var boat in BoatList())
+        //        {
 
-                    Console.WriteLine($"ID: {boat.Id}, Name: {boat.Name}, type : {boat.Type}, Roeiers: {boat.AmountRowers}, gewicht: {boat.Weight}, Stuur {boat.SteeringWheel}");
-                }
-                Console.ReadKey();
-            }
-        }
+        //            Console.WriteLine($"ID: {boat.Id}, Name: {boat.Name}, type : {boat.Type}, Roeiers: {boat.AmountRowers}, gewicht: {boat.Weight}, Stuur {boat.SteeringWheel}");
+        //        }
+        //        Console.ReadKey();
+        //    }
+        //}
       
 
     }
