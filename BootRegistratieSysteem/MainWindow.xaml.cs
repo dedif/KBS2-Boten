@@ -31,11 +31,18 @@ namespace BootRegistratieSysteem
         private void ButtonRegister(object sender, RoutedEventArgs e)
         {
             new RNGCryptoServiceProvider().GetBytes(salt = new Byte[16]);
-            //var passwordSalt = new Rfc2988DeriveBytes();
+            var pbkdf2 = new Rfc2898DeriveBytes(Password.Password, salt, 10000);
+            Byte[] hash = pbkdf2.GetBytes(20);
+            Byte[] hashBytes = new Byte[36];
+            Array.Copy(salt, 0, hashBytes, 0, 16);
+            Array.Copy(hash, 0, hashBytes, 16, 20);
+
+            string savedPasswordHash = Convert.ToBase64String(hashBytes);
+
             DataBaseController u = new DataBaseController();
             //b.EmptyDatabase();
             
-            u.Add_User(Password.Password, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text);
+            u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text);
         }
     }
 }

@@ -50,6 +50,20 @@ namespace BootRegistratieSysteem
 
         }
 
+        public void GetUser()
+        {
+            using (BootDataBase context = new BootDataBase())
+            {
+               var result = context.Users.ToList();
+
+                foreach(var results in result)
+                {
+                    Console.WriteLine(results);
+                }
+            }
+
+            }
+
         public void Print()
         {
             using (BootDataBase context = new BootDataBase())
