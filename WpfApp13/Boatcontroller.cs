@@ -26,11 +26,11 @@ namespace ConsoleApp1
                                   select b).ToList<Boat>();
                 if (CountNames.Count > 0)
                 {
-                    return false;
+                    return true;
                 }
                 else
                 {
-                    return true;
+                    return false;
                 }
             }
         }
@@ -38,12 +38,12 @@ namespace ConsoleApp1
         {
             using (Database context = new Database())
             {
-                if (NameCheck(name) == true)
-                {
+              
+                    Enum.TryParse(type, out Boat.type MyType);
                     var boot1 = new Boat
                     {
                         Name = name,
-                        Type = type,
+                        Type = MyType,
                         AmountRowers = rowers,
                         Weight = weight,
                         SteeringWheel = steeringwheel
@@ -56,15 +56,12 @@ namespace ConsoleApp1
 
                     context.SaveChanges();
                 }
-                else
-                {
-                    Console.WriteLine("Deze boot bestaat al");
-                }
+      
                 
 
             }
 
-        }
+        
 
         public List<Boat> BoatList()
         {
