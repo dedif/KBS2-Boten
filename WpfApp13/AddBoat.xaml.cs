@@ -31,11 +31,11 @@ namespace WpfApp13
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
             MainWindow m = new MainWindow();
             m.Show();
+            this.Hide();
         }
-
+        //Deze methode checkt op whitespace in de textvelden, de uniekheid van de Naam die is ingevoerd en dat gewicht juist is ingevoerd
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             if (b.WhiteCheck(NameBox.Text, WeightBox.Text) == true)
@@ -68,9 +68,9 @@ namespace WpfApp13
                         switch (Succes)
                         {
                             case MessageBoxResult.OK:
-                                this.Hide();
                                 MainWindow m = new MainWindow();
                                 m.Show();
+                                this.Hide();
                                 break;
 
                         }

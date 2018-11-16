@@ -17,7 +17,8 @@ namespace ConsoleApp1
         //        context.Database.Delete();
         //    }
         //}
-  
+
+        //Deze methode returnd true als naam en gewicht zijn ingevoerd (anders false)
         public Boolean WhiteCheck(string name, string weight)
         {
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(weight))
@@ -37,6 +38,7 @@ namespace ConsoleApp1
             }
         }
 
+        //Deze methode returnd true als gewicht is ingeverd als cijfers (anders false)
         public Boolean WeightCheck(string weight)
         {
      
@@ -57,6 +59,7 @@ namespace ConsoleApp1
             }
         }
 
+        //Deze methode returnd true als naam niet voor komt (anders false)
         public Boolean NameCheck(string name)
         {
             using (Database context = new Database())
@@ -81,6 +84,7 @@ namespace ConsoleApp1
                 }
             }
         }
+
         public void AddBoat(string name, string type, int rowers, double weight, bool steeringwheel)
         {
             using (Database context = new Database())

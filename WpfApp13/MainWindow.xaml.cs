@@ -27,9 +27,9 @@ namespace WpfApp13
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
             AddBoat addBoat = new AddBoat();
             addBoat.Show();
+            this.Hide();
         }
     }
 }
