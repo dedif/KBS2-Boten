@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 namespace BootRegistratieSysteem
 {
@@ -60,11 +61,20 @@ namespace BootRegistratieSysteem
 
             }
 
-        }       
+        }
         
-        public void UtilizeState(object state)
+   
+
+    public void UtilizeState(object state)
         {
             throw new NotImplementedException();
         }
-    }
+
+             
+            private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+            {
+                Regex regex = new Regex("[^0-9]+");
+                e.Handled = regex.IsMatch(e.Text);
+            }
+}
 }
