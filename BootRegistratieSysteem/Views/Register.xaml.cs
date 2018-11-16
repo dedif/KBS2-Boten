@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace BootRegistratieSysteem
 {
@@ -39,8 +40,21 @@ namespace BootRegistratieSysteem
             DataBaseController u = new DataBaseController();
 
             string savedPasswordHash = u.PasswordHash(Password.Password);
-            
-            u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text);
+            if (Password.Password.Equals(ConfirmPassword.Password))
+            {
+
+                u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text);
+            } else
+            {
+                MessageBox.Show("Uw wachtwoorden komen niet overeen");
+            } 
         }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
     }
 }
