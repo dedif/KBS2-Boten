@@ -90,14 +90,14 @@ namespace ConsoleApp1
             using (Database context = new Database())
             {
               
-                    Enum.TryParse(type, out Boat.type MyType);
+                    Enum.TryParse(type, out Boat.BoatType MyType);
                     var boot1 = new Boat
                     {
                         Name = name,
                         Type = MyType,
-                        AmountRowers = rowers,
+                        NumberOfRowers = rowers,
                         Weight = weight,
-                        SteeringWheel = steeringwheel
+                        Steering = steeringwheel
 
 
                     };
@@ -120,7 +120,7 @@ namespace ConsoleApp1
         //    {
 
         //        var boats = (from s in context.Boats
-        //                     orderby s.Id
+        //                     orderby s.BoatID
         //                     select s).ToList<Boat>();
 
         //        return boats;
@@ -135,7 +135,7 @@ namespace ConsoleApp1
         //        foreach (var boat in BoatList())
         //        {
 
-        //            Console.WriteLine($"ID: {boat.Id}, Name: {boat.Name}, type : {boat.Type}, Roeiers: {boat.AmountRowers}, gewicht: {boat.Weight}, Stuur {boat.SteeringWheel}");
+        //            Console.WriteLine($"ID: {boat.BoatID}, Name: {boat.Name}, BoatType : {boat.Type}, Roeiers: {boat.NumberOfRowers}, gewicht: {boat.Weight}, Stuur {boat.Steering}");
         //        }
         //        Console.ReadKey();
         //    }

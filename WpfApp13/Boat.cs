@@ -8,14 +8,16 @@ namespace ConsoleApp1
 {
     public class Boat
     {
-        public enum type {Scull, Skiff, Board}
+        public enum BoatType {Scull, Skiff, Board}
 
-        public int Id { get; set; }
+        public int BoatID { get; set; }
         public string Name { get; set; }
-        public type Type { get; set; }
-        public int AmountRowers { get; set;}
+        public BoatType Type { get; set; }
+        public int NumberOfRowers { get; set;}
         public double Weight { get; set; }
-        public bool SteeringWheel { get; set; }
+        public bool Steering { get; set; }
+        public string Status { get; set; }
+
 
 
 
