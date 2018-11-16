@@ -10,8 +10,9 @@ namespace ConsoleApp1
     public class Database : DbContext
     {
 
-        public Database() : base("name = BootDataBase") { }
+        public Database() : base("name = DataBase") { }
         public virtual DbSet<Boat> Boats { get; set; }
+
 
     }
 }
