@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace BootRegistratieSysteem
         //        context.Database.Delete();
         //    }
         //}
-  
+
         public void Add_User(string password, string firstname, string lastname, string address, string zipcode, string city, string phonenumber, string email)
         {
             using (BootDataBase context = new BootDataBase())
@@ -34,7 +35,7 @@ namespace BootRegistratieSysteem
                     City = city,
                     Phonenumber = phonenumber,
                     Email = email
-                  
+
                 };
 
                 context.Users.Add(user);
@@ -44,25 +45,45 @@ namespace BootRegistratieSysteem
 
 
 
-              
+
 
             }
 
         }
 
+
+        public string PasswordHash(string rawData)
+        {
+            // Create a SHA256   
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                // ComputeHash - returns byte array  
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+                // Convert byte array to a string   
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+
+
         public void GetUser()
         {
             using (BootDataBase context = new BootDataBase())
             {
-               var result = context.Users.ToList();
+                var result = context.Users.ToList();
 
-                foreach(var results in result)
+                foreach (var results in result)
                 {
                     Console.WriteLine(results);
                 }
             }
 
-            }
+        }
 
         public void Print()
         {
@@ -82,7 +103,7 @@ namespace BootRegistratieSysteem
                 Console.ReadKey();
             }
         }
-      
+
 
     }
 }

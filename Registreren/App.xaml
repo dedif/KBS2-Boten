@@ -1,7 +1,7 @@
-﻿<Application x:Class="BootRegistratieSysteem.App"
+﻿<Application x:Class="Registreren.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:BootRegistratieSysteem"
+             xmlns:local="clr-namespace:Registreren"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          
