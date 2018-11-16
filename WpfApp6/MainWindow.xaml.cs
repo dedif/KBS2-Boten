@@ -31,5 +31,6 @@ namespace WpfApp6
 
         private IEnumerable<Reservation> GetReservationsForBoatType(List<Reservation> reservations, string boatType) =>
             reservations.Where(r => r.Boat.Type.Equals(boatType));
+
     }
 }
