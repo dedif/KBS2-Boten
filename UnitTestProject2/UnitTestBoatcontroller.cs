@@ -43,21 +43,5 @@ namespace UnitTest
             Assert.AreEqual(answer, result);
         }
 
-        [Test]
-        //[TestCase("Shark", true)]
-        //[TestCase("Pietje", false)]
-        //[TestCase("Wale", true)]
-
-        //public void NameCheck_Bool()
-        //{
-        //    //Arrange
-        //    Boatcontroller boot = new Boatcontroller();
-        //    //Act
-        //    bool result = boot.NameCheck("shark");
-        //    //Assert
-        //    Assert.AreEqual(true, result);
-        //}
-
-
     }
 }
