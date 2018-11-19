@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
+using BootRegistratieSysteem.Views;
 
 namespace BootRegistratieSysteem
 {
@@ -39,6 +40,16 @@ namespace BootRegistratieSysteem
                     {
                         Console.WriteLine(results);
                         string hashedPassword = u.PasswordHash(Password.Password);
+
+                        Username.BorderBrush = Brushes.Gray;
+                        Password.BorderBrush = Brushes.Gray;
+                        Username.BorderThickness = new Thickness(1);
+                        Password.BorderThickness = new Thickness(1);
+                        LoginError.Content = "";
+                        LoginError.UpdateLayout();
+                        Username.UpdateLayout();
+                        Password.UpdateLayout();
+
                         if (Username.Text != "")
                         {
                             if (results.PersonID.Equals(int.Parse(Username.Text)))
@@ -47,7 +58,8 @@ namespace BootRegistratieSysteem
                                 {
                                     if (results.Password.Equals(hashedPassword))
                                     {
-                                        LoginError.Content = "je bent ingelogt";
+                                      
+                                        Switcher.Switch(new DashboardView());
                                         LoginError.UpdateLayout();
                                     }
 

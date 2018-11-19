@@ -53,7 +53,8 @@ namespace BootRegistratieSysteem
                 item.BorderBrush = Brushes.Gray;
                 item.BorderThickness = new Thickness(1);
 
-                if (item.Text == "")
+                
+                if (item.Text == "" && item.Name != "Middlename")
                 {
                     item.BorderBrush = Brushes.Red;
                     item.BorderThickness = new Thickness(2);
