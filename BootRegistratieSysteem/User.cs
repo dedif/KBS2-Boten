@@ -19,6 +19,8 @@ namespace BootRegistratieSysteem
         public string City { get; set; }
         public string Phonenumber { get; set; }
         public string Email { get; set; }
+        public int GenderID { get; set; }
+        public DateTime Birthday { get; set; }
 
 
 

@@ -23,11 +23,13 @@ namespace BootRegistratieSysteem
         public Register()
         {
             this.InitializeComponent();
+           
         }
 
         public void UtilizeState(object state)
         {
             throw new NotImplementedException();
+          
         }
 
         private void Login_OnClick(object sender, System.Windows.RoutedEventArgs e)
@@ -40,14 +42,31 @@ namespace BootRegistratieSysteem
             DataBaseController u = new DataBaseController();
 
             string savedPasswordHash = u.PasswordHash(Password.Password);
+            string BirthdayText = $"{Day.Text}/{Month.Text}/{Year.Text}";
+            //int genderID = int.Parse(Gender.Tag);
+
+           
+
+            DateTime dt = DateTime.Parse(BirthdayText);
+        
+            int GenderID =  int.Parse(((ComboBoxItem)this.Gender.SelectedItem).Tag.ToString());
             if (Password.Password.Equals(ConfirmPassword.Password))
             {
 
-                u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text);
+                u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
             } else
             {
-                MessageBox.Show("Uw wachtwoorden komen niet overeen");
+                Password.BorderBrush = Brushes.Red;
+                Password.BorderThickness = new Thickness(2);
+                ConfirmPassword.BorderBrush = Brushes.Red;
+                ConfirmPassword.BorderThickness = new Thickness(2);
+                Password.UpdateLayout();
+                ConfirmPassword.UpdateLayout();
+
+                RegisterError.Content = "Uw wachtwoorden komen niet overeen";
+                RegisterError.UpdateLayout();
             } 
+
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)

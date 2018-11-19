@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BootRegistratieSysteem"
         mc:Ignorable="d" Height="499.866"
         >
-    <Grid x:Name="RegisterLayout" Background="White">
+    <Grid x:Name="RegisterLayout" Background="White" >
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -23,7 +23,7 @@
         <Label Content="Woonplaats" HorizontalAlignment="Left" Margin="505,201,0,0" VerticalAlignment="Top"/>
         <Label Content="Telefoonnummer" HorizontalAlignment="Left" Margin="42,258,0,0" VerticalAlignment="Top"/>
         <Label Content="Email" HorizontalAlignment="Left" Margin="43,316,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="Lastname" HorizontalAlignment="Left" Height="23" Margin="584,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox BorderBrush="Red" BorderThickness="2" x:Name="Lastname" HorizontalAlignment="Left" Height="23" Margin="584,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="Address" HorizontalAlignment="Left" Height="23" Margin="144,204,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="Zipcode" HorizontalAlignment="Left" Height="23" Margin="421,201,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53"/>
         <TextBox x:Name="City" HorizontalAlignment="Left" Height="23" Margin="584,201,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.044,0.54"/>
@@ -35,17 +35,18 @@
         <Label Content="Tussenvoegsel&#xD;&#xA;" HorizontalAlignment="Left" Margin="293,112,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="Middlename" HorizontalAlignment="Left" Height="23" Margin="421,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53"/>
         <Label Content="Geslacht" HorizontalAlignment="Left" Margin="43,156,0,0" VerticalAlignment="Top"/>
-        <ComboBox HorizontalAlignment="Left" Margin="146,159,0,0" VerticalAlignment="Top" Width="120"   IsEditable="True" IsReadOnly="True" Text="Selecteer uw geslacht">
-            <ComboBoxItem x:Name="Men">Man</ComboBoxItem>
-            <ComboBoxItem x:Name="Woman">Vrouw</ComboBoxItem>
-            <ComboBoxItem x:Name="Something">Apache helicopter</ComboBoxItem>
+        <ComboBox x:Name="Gender" HorizontalAlignment="Left" Margin="146,159,0,0" VerticalAlignment="Top" Width="120"   IsEditable="True" IsReadOnly="True" Text="Selecteer uw geslacht">
+            <ComboBoxItem x:Name="Men" Tag="1" >Man</ComboBoxItem>
+            <ComboBoxItem x:Name="Woman" Tag="2">Vrouw</ComboBoxItem>
+            <ComboBoxItem x:Name="Something" Tag="3">Apache helicopter</ComboBoxItem>
         </ComboBox>
         <Label Content="Geboortedatum&#xD;&#xA;" HorizontalAlignment="Left" Margin="293,159,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.792,0.399"/>
         <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Day" MaxLength="2" HorizontalAlignment="Left" Height="23" Margin="421,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53"/>
         <Label Content="/" HorizontalAlignment="Left" Margin="479,163,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.941,0.565"/>
-        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Month" MaxLength="2" HorizontalAlignment="Left" Height="23" Margin="498,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" RenderTransformOrigin="-0.352,0.358"/>
-        <Label Content="/"  HorizontalAlignment="Left" Margin="556,163,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.538,0.493"/>
-        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Year" MaxLength="4"  HorizontalAlignment="Left" Height="23" Margin="575,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" RenderTransformOrigin="-0.552,0.438"/>
+        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Month" MaxLength="2" HorizontalAlignment="Left" Height="23" Margin="506,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" RenderTransformOrigin="-0.352,0.358"/>
+        <Label Content="/"  HorizontalAlignment="Left" Margin="564,163,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.538,0.493"/>
+        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Year" MaxLength="4"  HorizontalAlignment="Left" Height="23" Margin="584,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" RenderTransformOrigin="-0.552,0.438"/>
+        <Label Content="" Foreground="Red"  x:Name="RegisterError" HorizontalAlignment="Left" Margin="293,41,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </UserControl>

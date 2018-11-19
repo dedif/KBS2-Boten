@@ -12,6 +12,7 @@ namespace BootRegistratieSysteem
 
             public BootDataBase() : base("name = BootDataBase") { }
             public virtual DbSet<User> Users { get; set; }
+            //public virtual DbSet<Gender> Genders { get; set; }
 
-        }
+    }
 }

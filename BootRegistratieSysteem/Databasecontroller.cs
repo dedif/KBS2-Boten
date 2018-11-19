@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-
+using BootRegistratieSysteem;
 namespace BootRegistratieSysteem
 {
     class DataBaseController
@@ -18,7 +18,7 @@ namespace BootRegistratieSysteem
         //    }
         //}
 
-        public void Add_User(string password, string firstname, string lastname, string address, string zipcode, string city, string phonenumber, string email)
+        public void Add_User(string password, string firstname, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID,DateTime birthday)
         {
             using (BootDataBase context = new BootDataBase())
             {
@@ -34,8 +34,9 @@ namespace BootRegistratieSysteem
                     Zipcode = zipcode,
                     City = city,
                     Phonenumber = phonenumber,
-                    Email = email
-
+                    Email = email,
+                    GenderID = genderID,
+                    Birthday = birthday
                 };
 
                 context.Users.Add(user);
