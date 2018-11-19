@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using BootRegistratieSysteem.Views;
 
 namespace BootRegistratieSysteem
 {
@@ -26,46 +27,121 @@ namespace BootRegistratieSysteem
            
         }
 
+        // ISwitchable utilizes this
         public void UtilizeState(object state)
         {
             throw new NotImplementedException();
           
         }
 
+        //Redirect to DashBoard
         private void Login_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Switcher.Switch(new LoginView());
         }
 
+        //Register member of user
         private void ButtonRegister(object sender, RoutedEventArgs e)
         {
-            DataBaseController u = new DataBaseController();
+            bool validate = true;
+            TextBox[] controls = { Firstname, Middlename, Lastname, City,Zipcode, Address, Phonenumber,Email,Day,Month,Year};
+            
+            foreach (var item in controls)
+            {
+                
+                item.BorderBrush = Brushes.Gray;
+                item.BorderThickness = new Thickness(1);
 
-            string savedPasswordHash = u.PasswordHash(Password.Password);
-            string BirthdayText = $"{Day.Text}/{Month.Text}/{Year.Text}";
-            //int genderID = int.Parse(Gender.Tag);
-
+                if (item.Text == "")
+                {
+                    item.BorderBrush = Brushes.Red;
+                    item.BorderThickness = new Thickness(2);
+                    validate = false;
+                }
+                if (item.Name == "Firstname" || item.Name == "Lastname" || item.Name == "Middlename" || item.Name == "City")
+                {
+                    if (!IsAllLetters(item.Text))
+                    {
+                        item.BorderBrush = Brushes.Red;
+                        item.BorderThickness = new Thickness(2);
+                        item.UpdateLayout();
+                        validate = false;
+                    }
+                }
+            }
+            Password.BorderBrush = Brushes.Gray;
+            Password.BorderThickness = new Thickness(1);
+            ConfirmPassword.BorderBrush = Brushes.Gray;
+            ConfirmPassword.BorderThickness = new Thickness(1);
            
+            if (Password.Password == "")
+            {
+                Password.BorderBrush = Brushes.Red;
+                Password.BorderThickness = new Thickness(2);
+                validate = false;
+            }
+            if (ConfirmPassword.Password == "")
+            {
+                ConfirmPassword.BorderBrush = Brushes.Red;
+                ConfirmPassword.BorderThickness = new Thickness(2);
+                validate = false;
+            }
+            
+            
 
+            DataBaseController u = new DataBaseController(); // Get database
+
+            string savedPasswordHash = u.PasswordHash(Password.Password); // Hash password
+            string BirthdayText = $"{Day.Text}/{Month.Text}/{Year.Text}";
             DateTime dt = DateTime.Parse(BirthdayText);
-        
-            int GenderID =  int.Parse(((ComboBoxItem)this.Gender.SelectedItem).Tag.ToString());
-            if (Password.Password.Equals(ConfirmPassword.Password))
+            Console.WriteLine(DateTime.Now);
+            if (dt > DateTime.Now)
             {
 
-                u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
-            } else
-            {
+            }
+
+            
+            int GenderID = int.Parse(((ComboBoxItem)this.Gender.SelectedItem).Tag.ToString());
+
+
+
+
+            // validate passwords
+            if (!Password.Password.Equals(ConfirmPassword.Password))
+            { 
                 Password.BorderBrush = Brushes.Red;
                 Password.BorderThickness = new Thickness(2);
                 ConfirmPassword.BorderBrush = Brushes.Red;
                 ConfirmPassword.BorderThickness = new Thickness(2);
                 Password.UpdateLayout();
                 ConfirmPassword.UpdateLayout();
-
-                RegisterError.Content = "Uw wachtwoorden komen niet overeen";
+                validate = false;
+            }
+            if (validate)
+            {
+                
+                MessageBoxResult result = MessageBox.Show("UW ACCOUNT IS AANGEMAAKT!!!!" );
+                u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+                Switcher.Switch(new DashboardView());
+            }
+            else
+            {
+                RegisterError.Content = "Controleer uw gegevens!";
                 RegisterError.UpdateLayout();
-            } 
+            }
+
+        }
+
+        public static bool IsAllLetters(string s)
+        {
+            foreach (char c in s )
+            {
+                if (!Char.IsLetter(c))
+                {
+                    return false;
+                }
+            }
+            return true;
 
         }
 
@@ -75,5 +151,6 @@ namespace BootRegistratieSysteem
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        
     }
 }
