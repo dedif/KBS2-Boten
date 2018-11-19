@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp6;
 
 namespace WpfApp13
 {
@@ -29,6 +30,13 @@ namespace WpfApp13
         {
             AddBoat addBoat = new AddBoat();
             addBoat.Show();
+            this.Hide();
+        }
+
+        private void AfschrijvenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ReserveWindow sw = new ReserveWindow();
+            sw.Show();
             this.Hide();
         }
     }
