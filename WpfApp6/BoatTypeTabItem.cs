@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace WpfApp6
 {
@@ -62,7 +60,9 @@ namespace WpfApp6
                 ref isSunrise,
                 ref isSunset
                 );
-            return new DateTime[2] { sunrise, sunset };
+            Console.WriteLine(sunrise);
+            Console.WriteLine(sunset);
+            return new[] { sunrise, sunset };
         }
 
         private void OnCalendarClicked(object sender, SelectionChangedEventArgs selectionChangedEventArgs)
@@ -70,5 +70,7 @@ namespace WpfApp6
             var selectedDate = Calendar.SelectedDate;
             if (selectedDate.HasValue) PlannerGrid.Populate(GetSunriseAndSunsetTimes(selectedDate.Value));
         }
+
+//        private List<Reservation> GetReservationsForBoat()
     }
 }
