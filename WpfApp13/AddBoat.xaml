@@ -1,0 +1,36 @@
+﻿<Window x:Class="WpfApp13.AddBoat"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp13"
+        mc:Ignorable="d"
+        Title="Inbrengen boot" Height="450" Width="800"
+        WindowState="Maximized">
+    <Grid>
+
+        <Label x:Name="NameLabel" Content="Bootnaam:" HorizontalAlignment="Left" Margin="23,43,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="23" Margin="114,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="16"/>
+        <Label x:Name="TypeLabel" Content="Type:" Margin="62,80,684.6,294" FontSize="16" RenderTransformOrigin="0.985,0.426"/>
+        <Label x:Name="RowersLabel" Content="Aantal roeiers:" HorizontalAlignment="Left" Margin="-1,126,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label x:Name="WeightLabel" Content="Gewicht:" HorizontalAlignment="Left" Margin="39,164,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.858,0.188"/>
+        <TextBox x:Name="WeightBox" HorizontalAlignment="Left" Height="23" Margin="114,172,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" FontSize="16"/>
+        <CheckBox x:Name="SteeringWheelCheckbox" Content="Stuur" HorizontalAlignment="Left" Margin="39,201,0,0" VerticalAlignment="Top" FontSize="16" Height="29" Width="70" RenderTransformOrigin="0.703,1.145"/>
+        <Button x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Left" Margin="23,364,0,0" VerticalAlignment="Top" Width="75" FontSize="16" Click="SaveButton_Click"/>
+        <Button x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Left" Margin="682,371,0,0" VerticalAlignment="Top" Width="75" FontSize="16" RenderTransformOrigin="0.432,0.234" Click="CancelButton_Click"/>
+        <ComboBox x:Name="TypCombo" HorizontalAlignment="Left" Margin="114,80,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBoxItem Content="Scull" Height="23" Width="127"/>
+            <ComboBoxItem IsSelected="True" Content="Skiff" Height="22" Width="127"/>
+            <ComboBoxItem Content="Board" Height="22" Width="127"/>
+
+        </ComboBox>
+        <ComboBox x:Name="RowersCombo" HorizontalAlignment="Left" Margin="114,136,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBoxItem Content="1" Height="22" Margin="0,0,42.4,0"/>
+            <ComboBoxItem IsSelected="True" Content="2" Height="22" Margin="0,0,42.4,0"/>
+            <ComboBoxItem Content="4" Height="22" Margin="0,0,42.4,0"/>
+            <ComboBoxItem Content="8" Height="22" Margin="0,0,42.4,0"/>
+
+        </ComboBox>
+
+    </Grid>
+</Window>
