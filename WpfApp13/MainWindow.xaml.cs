@@ -30,6 +30,14 @@ namespace WpfApp13
             AddBoat addBoat = new AddBoat();
             addBoat.Show();
             this.Hide();
+
+
+        }
+
+        private void DashBoardButton_Click(object sender, RoutedEventArgs e)
+        {
+            Dashboard b = new Dashboard();
+            b.Show();
         }
     }
 }
