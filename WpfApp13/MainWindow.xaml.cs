@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp6;
 
 namespace WpfApp13
 {
@@ -38,6 +39,12 @@ namespace WpfApp13
         {
             Dashboard b = new Dashboard();
             b.Show();
+        }
+
+        private void ReservationButton_Click(object sender, RoutedEventArgs e)
+        {
+            ReserveWindow r = new ReserveWindow();
+            r.Show();
         }
     }
 }

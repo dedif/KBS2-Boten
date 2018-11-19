@@ -67,9 +67,18 @@
     <Compile Include="AddBoat.xaml.cs">
       <DependentUpon>AddBoat.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BoatTypeTabItem.cs" />
+    <Compile Include="CalcSunTimes.cs" />
     <Compile Include="Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Member.cs" />
+    <Compile Include="Reservation.cs" />
+    <Compile Include="ReserveWindow.xaml.cs">
+      <DependentUpon>ReserveWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SampleBoatController.cs" />
+    <Compile Include="SampleReservationController.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -93,8 +102,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ReserveWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PlannerGrid.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
