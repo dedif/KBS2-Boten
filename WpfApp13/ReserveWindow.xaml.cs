@@ -22,10 +22,7 @@ namespace WpfApp6
         private void addBoatTypeTabs(List<Boat> boats, List<Reservation> reservations)
         {
             foreach (var boatType in GetDifferentBoatTypes(boats))
-            {
-                //var reservationsForBoatType = GetReservationsForBoatType(reservations, boatType);
                 BoatTypeTabControl.Items.Add(new BoatTypeTabItem(boatType, reservations));
-            }
         }
         private IEnumerable<Boat.BoatType> GetDifferentBoatTypes(List<Boat> boats) =>
             boats.Select(boat => boat.Type).Distinct();

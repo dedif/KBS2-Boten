@@ -62,7 +62,7 @@ namespace WpfApp6
                 ref isSunrise,
                 ref isSunset
                 );
-            return new DateTime[2] { sunrise, sunset };
+            return new[] { sunrise, sunset };
         }
 
         private void OnCalendarClicked(object sender, SelectionChangedEventArgs selectionChangedEventArgs)

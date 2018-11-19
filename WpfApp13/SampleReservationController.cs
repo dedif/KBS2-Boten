@@ -8,7 +8,7 @@ namespace WpfApp6
         public List<Reservation> GetReservations()
         {
             var sampleBoats = new SampleBoatController().GetBoats();
-            return new List<Reservation>()
+            return new List<Reservation>
             {
                 new Reservation(sampleBoats[0],
                     new Member(),
