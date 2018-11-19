@@ -39,19 +39,41 @@ namespace BootRegistratieSysteem
                     {
                         Console.WriteLine(results);
                         string hashedPassword = u.PasswordHash(Password.Password);
-
-                        if (results.PersonID.Equals(int.Parse(Username.Text)))
+                        if (Username.Text != "")
                         {
-                            if (results.Password.Equals(hashedPassword))
+                            if (results.PersonID.Equals(int.Parse(Username.Text)))
                             {
-                                MessageBox.Show("Wachtwoord klopt");
+                                if (Password.Password != "")
+                                {
+                                    if (results.Password.Equals(hashedPassword))
+                                    {
+                                        LoginError.Content = "je bent ingelogt";
+                                        LoginError.UpdateLayout();
+                                    }
+
+                                    else
+                                    {
+
+                                        Password.BorderBrush = Brushes.Red;
+                                        Password.BorderThickness = new Thickness(2);
+
+                                        LoginError.Content = "Het wachtwoord komt niet met deze gebruiker overeen.";
+                                        LoginError.UpdateLayout();
+                                        Password.UpdateLayout();
+                                    }
+                                }
                             }
                             else
                             {
-                                MessageBox.Show("Wachtwoord klopt niet");
+                                Username.BorderBrush = Brushes.Red;
+                                Username.BorderThickness = new Thickness(2);
+
+                                LoginError.Content = "Deze gebruikersnaam bestaat niet";
+                                LoginError.UpdateLayout();
+                                Username.UpdateLayout();
                             }
+
                         }
-                        
                     }
                 }
                 else

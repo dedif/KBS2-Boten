@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using BootRegistratieSysteem.Views;
+using System.Globalization;
 
 namespace BootRegistratieSysteem
 {
@@ -93,20 +94,59 @@ namespace BootRegistratieSysteem
 
             string savedPasswordHash = u.PasswordHash(Password.Password); // Hash password
             string BirthdayText = $"{Day.Text}/{Month.Text}/{Year.Text}";
-            DateTime dt = DateTime.Parse(BirthdayText);
+          
+
+           
+
+
+
             Console.WriteLine(DateTime.Now);
-            if (dt > DateTime.Now)
-            {
-
-            }
-
+         
             
             int GenderID = int.Parse(((ComboBoxItem)this.Gender.SelectedItem).Tag.ToString());
 
 
+            if(int.Parse(Day.Text) > 31)
+            {
+                Day.BorderBrush = Brushes.Red;
+                Day.BorderThickness = new Thickness(2);
+                Day.UpdateLayout();
+                validate = false;
+            }
 
+            if (int.Parse(Month.Text) > 12)
+            {
+                Month.BorderBrush = Brushes.Red;
+                Month.BorderThickness = new Thickness(2);
+                Month.UpdateLayout();
+                validate = false;
+            }
+            if (int.Parse(Year.Text) > 2018)
+            {
+                Year.BorderBrush = Brushes.Red;
+                Year.BorderThickness = new Thickness(2);
+                Year.UpdateLayout();
+                validate = false;
+            }
 
+            DateTime dt = DateTime.ParseExact(BirthdayText, "MM/dd/yyyy", CultureInfo.InvariantCulture);
             // validate passwords
+            if(Password.Password == "")
+            {
+                Password.BorderBrush = Brushes.Red;
+                Password.BorderThickness = new Thickness(2);
+                Password.UpdateLayout();
+                validate = false;
+            }
+
+            if(ConfirmPassword.Password == "")
+            {
+                ConfirmPassword.BorderBrush = Brushes.Red;
+                ConfirmPassword.BorderThickness = new Thickness(2);
+                ConfirmPassword.UpdateLayout();
+                validate = false;
+            }
+
             if (!Password.Password.Equals(ConfirmPassword.Password))
             { 
                 Password.BorderBrush = Brushes.Red;
@@ -121,7 +161,7 @@ namespace BootRegistratieSysteem
             {
                 
                 MessageBoxResult result = MessageBox.Show("UW ACCOUNT IS AANGEMAAKT!!!!" );
-                u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+                u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, DateTime.Now);
                 Switcher.Switch(new DashboardView());
             }
             else
