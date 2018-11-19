@@ -33,11 +33,12 @@ namespace WpfApp13
         {
             MainWindow m = new MainWindow();
             m.Show();
-            this.Hide();
+            this.Close();
         }
         //Deze methode checkt op whitespace in de textvelden, de uniekheid van de Naam die is ingevoerd en dat gewicht juist is ingevoerd
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+
             if (b.WhiteCheck(NameBox.Text, WeightBox.Text) == true)
             {
 
@@ -58,6 +59,7 @@ namespace WpfApp13
 
                         b.AddBoat(NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel);
 
+                        NotificationLabel.Content = b.Notification();
 
                         MessageBoxResult Succes = MessageBox.Show(
                             "De boot is succesvol opgeslagen",
@@ -68,9 +70,7 @@ namespace WpfApp13
                         switch (Succes)
                         {
                             case MessageBoxResult.OK:
-                                MainWindow m = new MainWindow();
-                                m.Show();
-                                this.Hide();
+                               this.Close();
                                 break;
 
                         }
@@ -80,6 +80,8 @@ namespace WpfApp13
 
 
             }
+            
+            NotificationLabel.Content = b.Notification();
         }
 
     }

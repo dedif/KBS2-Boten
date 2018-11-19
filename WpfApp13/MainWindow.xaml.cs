@@ -29,7 +29,7 @@ namespace WpfApp13
         {
             AddBoat addBoat = new AddBoat();
             addBoat.Show();
-            this.Hide();
+
 
 
         }

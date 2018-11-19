@@ -9,7 +9,7 @@ namespace ConsoleApp1
 {
     public class Boatcontroller
     {
-
+        private string notification;
         //public void EmptyDatabase()
         //{
         //    using (Database context = new Database())
@@ -18,17 +18,18 @@ namespace ConsoleApp1
         //    }
         //}
 
+        public string Notification()
+        {
+            return notification;
+        }
         //Deze methode returnd true als naam en gewicht zijn ingevoerd (anders false)
+        
         public Boolean WhiteCheck(string name, string weight)
         {
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(weight))
             {
-
-                MessageBoxResult DataIncorrect = MessageBox.Show(
-                    "U heeft niet alle gegevens ingevuld",
-                    "Melding",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                notification = "U heeft niet alle gegevens ingevuld";
+                
                 return false;
 
             }
@@ -50,11 +51,8 @@ namespace ConsoleApp1
             catch
             {
 
-                MessageBoxResult WeightIncorrect = MessageBox.Show(
-                    "Het gewicht moet een getal zijn",
-                    "Melding",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                notification = "Het gewicht moet een getal zijn";
+
                 return false;
             }
         }
@@ -69,11 +67,8 @@ namespace ConsoleApp1
                                   select b).ToList<Boat>();
                 if (CountNames.Count > 0)
                 {
-                    MessageBoxResult NameIncorrect = MessageBox.Show(
-                       "Deze bootnaam bestaat al",
-                       "Melding",
-                       MessageBoxButton.OK,
-                       MessageBoxImage.Error);
+                    notification = "Deze bootnaam bestaat al";
+                   
 
                     return false;
 
@@ -87,6 +82,7 @@ namespace ConsoleApp1
 
         public void AddBoat(string name, string type, int rowers, double weight, bool steeringwheel)
         {
+            notification = "";
             using (Database context = new Database())
             {
               

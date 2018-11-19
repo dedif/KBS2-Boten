@@ -33,33 +33,15 @@ namespace WpfApp13
                 if (i % 2 == 0)
                 {
                     Label l = new Label();
-                    l.Content = "naam : ";
-                    l.Content += "\nbeschrijving:";
-                    l.Content += "\ntijd: ";
-                    l.Content += "\ndatum: ";
+                    l.Content = "Naam : ";
+                    l.Content += "\nBeschrijving:";
+                    l.Content += "\nTijd: ";
+                    l.Content += "\nDatum: ";
                     l.Margin = new Thickness(20, y1, 50, 50);
-                    l.FontSize = 18;
+                    l.FontSize = 16;
 
-
-                    Button b1 = new Button();
-                    b1.Content = "afschrijving wijzigen";
-                    b1.HorizontalAlignment = HorizontalAlignment.Left;
-                    b1.VerticalAlignment = VerticalAlignment.Top;
-                    b1.Margin = new Thickness(20, y1 + 120, 0, 0);
-                    b1.Height = 20;
-                    b1.Width = 140;
-
-                    Button b2 = new Button();
-                    b2.Content = "afschrijving annuleren";
-                    b2.HorizontalAlignment = HorizontalAlignment.Left;
-                    b2.VerticalAlignment = VerticalAlignment.Top;
-                    b2.Margin = new Thickness(20, y1 + 150, 0, 0);
-                    b2.Height = 20;
-                    b2.Width = 140;
-
-
-                    GridDashboard.Children.Add(b1);
-                    GridDashboard.Children.Add(b2);
+                    GridDashboard.Children.Add(AddButton(20, y1 + 110, "Afschrijving wijzigen"));
+                    GridDashboard.Children.Add(AddButton(20, y1 + 150, "Afschrijving annuleren"));
                     GridDashboard.Children.Add(l);
                     
                     y1 = y1 + 300;
@@ -67,32 +49,16 @@ namespace WpfApp13
                else if (i % 2 != 0)
                 {
                     Label l2 = new Label();
-                    l2.Content = "naam : ";
-                    l2.Content += "\nbeschrijving:";
-                    l2.Content += "\ntijd: ";
-                    l2.Content += "\ndatum: ";
+                    l2.Content = "Naam : ";
+                    l2.Content += "\nBeschrijving:";
+                    l2.Content += "\nTijd: ";
+                    l2.Content += "\nDatum: ";
                     l2.Margin = new Thickness(570, y2, 50, 50);
-                    l2.FontSize = 18;
-
-                    Button b3 = new Button();
-                    b3.Content = "afschrijving wijzigen";
-                    b3.HorizontalAlignment = HorizontalAlignment.Left;
-                    b3.VerticalAlignment = VerticalAlignment.Top;
-                    b3.Margin = new Thickness(570, y2 + 120, 0, 0);
-                    b3.Height = 20;
-                    b3.Width = 140;
-
-                    Button b4 = new Button();
-                    b4.Content = "afschrijving annuleren";
-                    b4.HorizontalAlignment = HorizontalAlignment.Left;
-                    b4.VerticalAlignment = VerticalAlignment.Top;
-                    b4.Margin = new Thickness(570, y2 + 150, 0, 0);
-                    b4.Height = 20;
-                    b4.Width = 140;
+                    l2.FontSize = 16;
 
 
-                    GridDashboard.Children.Add(b3);
-                    GridDashboard.Children.Add(b4);
+                    GridDashboard.Children.Add(AddButton(570, y2 + 110, "Afschrijving wijzigen"));
+                    GridDashboard.Children.Add(AddButton(570, y2 + 150, "Afschrijving annuleren"));
                     GridDashboard.Children.Add(l2);
                     y2 = y2 + 300;
                 }
@@ -105,6 +71,22 @@ namespace WpfApp13
 
 
         }
+
+        private Button AddButton(int x, int y, string omschrijving)
+        {
+            Button b3 = new Button();
+            b3.Content = omschrijving;
+            b3.HorizontalAlignment = HorizontalAlignment.Left;
+            b3.VerticalAlignment = VerticalAlignment.Top;
+            b3.Margin = new Thickness(x, y, 0, 0);
+            b3.Height = 30;
+            b3.Width = 160;
+            b3.FontSize = 16;
+            b3.HorizontalContentAlignment = HorizontalAlignment.Left;
+
+            return b3;
+        }
+      
 
         private void AddReservationButton_Click(object sender, RoutedEventArgs e)
         {
