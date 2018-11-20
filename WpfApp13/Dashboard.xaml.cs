@@ -23,17 +23,19 @@ namespace WpfApp13
 
             using (Database context = new Database())
             {
-                Boat b = new Boat("help" + j, Boat.BoatType.Board, 4, 21, true);
+                Boat b = new Boat("help", Boat.BoatType.Board, 4, 21, true);
                 Reservation reservering = new Reservation(b, new Member(), DateTime.Now, DateTime.Now);
           
                 context.Reservations.Add(reservering);
-                j++;
                 context.SaveChanges();
                
 
 
 
-                GridDashboard.Margin = new Thickness(500, 0, 0, 20);
+                GridDashboard.Margin = new Thickness(0, 0, 0, 20);
+                GridDashboard.HorizontalAlignment = HorizontalAlignment.Left;
+                
+                
 
                 for (int i = 1; i < context.Reservations.Count() + 1; i++)
                 {
@@ -54,17 +56,18 @@ namespace WpfApp13
 
                         Label l = new Label();
                         l.Content = "Naam :" + Name;
-                        l.Content += "\nBeschrijving:";
                         l.Content += "\nTijd: ";
                         l.Content += "\nDatum: ";
-                        l.Margin = new Thickness(20, y1, 50, 50);
+                        l.Margin = new Thickness(20, y2, 50, 50);
                         l.FontSize = 16;
-
-                        GridDashboard.Children.Add(AddButtonLinks(y1 + 130, "Afschrijving wijzigen"));
-                        GridDashboard.Children.Add(AddButtonLinks(y1 + 170, "Afschrijving annuleren"));
+                        l.VerticalAlignment = VerticalAlignment.Top;
+                    //    l.HorizontalAlignment = HorizontalAlignment.Left;
                         GridDashboard.Children.Add(l);
+                        GridDashboard.Children.Add(AddButtonLinks(y2 + 130, "Afschrijving wijzigen"));
+                        GridDashboard.Children.Add(AddButtonLinks(y2 + 170, "Afschrijving annuleren"));
+                        
 
-                        y1 = y1 + 300;
+                        y2 = y2 + 300;
                     }
                     else if (i % 2 != 0)
                     {
@@ -83,17 +86,18 @@ namespace WpfApp13
 
                         Label l2 = new Label();
                         l2.Content = "Naam : " + Name;
-                        l2.Content += "\nBeschrijving:";
                         l2.Content += "\nTijd: ";
                         l2.Content += "\nDatum: ";
-                        l2.Margin = new Thickness(500, y2, 50, 50);
+                        l2.Margin = new Thickness(500, y1, 50, 50);
                         l2.FontSize = 16;
+                        l2.VerticalAlignment = VerticalAlignment.Top;
+                      //  l2.HorizontalAlignment = HorizontalAlignment.Left;
 
-
-                        GridDashboard.Children.Add(AddButtonRechts(y2 + 130, "Afschrijving wijzigen"));
-                        GridDashboard.Children.Add(AddButtonRechts(y2 + 170, "Afschrijving annuleren"));
                         GridDashboard.Children.Add(l2);
-                        y2 = y2 + 300;
+                        GridDashboard.Children.Add(AddButtonRechts(y1 + 130, "Afschrijving wijzigen"));
+                        GridDashboard.Children.Add(AddButtonRechts(y1 + 170, "Afschrijving annuleren"));
+
+                        y1 = y1 + 300;
                     }
 
 

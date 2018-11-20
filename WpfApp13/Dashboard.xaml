@@ -8,7 +8,7 @@
         Title="Dashboard" Height="450" Width="800"
         WindowState="Maximized">
     <ScrollViewer>
-        <Grid Name="GridDashboard">
+        <Grid Name="GridDashboard" Width="792">
             <Button x:Name="AddReservationButton" Content="+ Afschrijving toevoegen" HorizontalAlignment="Left" Margin="63,10,0,0" VerticalAlignment="Top" Width="184" Click="AddReservationButton_Click" FontSize="16"/>
             <Button x:Name="SettingsButton" Content="Instellingen" HorizontalAlignment="right" Margin="0,81,22,0" VerticalAlignment="Top" Width="111" RenderTransformOrigin="0.524,1.334" FontSize="16"/>
             <Button x:Name="SignOutButton" Content="Uitloggen" HorizontalAlignment="right" Margin="0,131,22,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.163,0.676" FontSize="16"/>
