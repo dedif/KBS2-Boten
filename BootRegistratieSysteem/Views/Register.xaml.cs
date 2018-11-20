@@ -14,24 +14,25 @@ using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using BootRegistratieSysteem.Views;
 using System.Globalization;
+using System.Net.Mail;
 
 namespace BootRegistratieSysteem
 {
     /// <summary>
     /// Interaction logic for Register.xaml
     /// </summary>
-    public partial class Register : UserControl,ISwitchable
+    public partial class Register : UserControl, ISwitchable
     {
         public Register()
         {
             this.InitializeComponent();
-           
-        }       
+
+        }
 
         //Redirect to DashBoard
         private void Login_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            Switcher.Switch(new LoginView());
+             Switcher.Switch(new LoginView());
         }
 
         //Register member of user
@@ -40,15 +41,15 @@ namespace BootRegistratieSysteem
             bool validate = true;
             bool valDate = true;
             DateTime dt = new DateTime();
-            TextBox[] controls = { Firstname, Middlename, Lastname, City,Zipcode, Address, Phonenumber,Email,Day,Month,Year};
-            
+            TextBox[] controls = { Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year };
+
             foreach (var item in controls)
             {
-                
+
                 item.BorderBrush = Brushes.Gray;
                 item.BorderThickness = new Thickness(1);
 
-                
+
                 if (item.Text == "" && item.Name != "Middlename")
                 {
                     item.BorderBrush = Brushes.Red;
@@ -93,11 +94,12 @@ namespace BootRegistratieSysteem
 
             string savedPasswordHash = u.PasswordHash(Password.Password); // Hash password
             string BirthdayText = $"{Day.Text}-{Month.Text}-{Year.Text}";
-            
+
             //localtime
             DateTime DateTimeToday = DateTime.UtcNow.Date;
             string DateToday = DateTimeToday.ToString("dd-MM-yyyy");
 
+            // validate date
             if (valDate && ((int.Parse(Day.Text) > 31) || (int.Parse(Month.Text) > 12) || (int.Parse(Year.Text) > int.Parse(DateTime.Today.Year.ToString()))))
             {
                 Day.BorderBrush = Brushes.Red;
@@ -111,30 +113,29 @@ namespace BootRegistratieSysteem
                 Year.UpdateLayout();
 
                 valDate = false;
-                if ((int.Parse(Year.Text) > int.Parse(DateTime.Today.Year.ToString())))
-                {
-                    Console.WriteLine("JAAAR IS TE GROOT");
-                }
             }
-
-            
-           
-
 
 
             int GenderID = int.Parse(((ComboBoxItem)this.Gender.SelectedItem).Tag.ToString());
 
+            // email validation
+            if (Email.Text != "" && !IsEmailValid(Email.Text))
+            {
+                validate = false;
+                Email.BorderBrush = Brushes.Red;
+                Email.BorderThickness = new Thickness(2);
+                Email.UpdateLayout();
+            }
             
-            Console.WriteLine(int.Parse(DateTime.Today.Year.ToString()));
-            
+
             if (valDate && validate)
             {
                 dt = DateTime.ParseExact(BirthdayText, "dd-MM-yyyy", CultureInfo.InvariantCulture);
             }
-           
-            
+
+
             // validate passwords
-            if(Password.Password == "")
+            if (Password.Password == "")
             {
                 Password.BorderBrush = Brushes.Red;
                 Password.BorderThickness = new Thickness(2);
@@ -142,7 +143,7 @@ namespace BootRegistratieSysteem
                 validate = false;
             }
 
-            if(ConfirmPassword.Password == "")
+            if (ConfirmPassword.Password == "")
             {
                 ConfirmPassword.BorderBrush = Brushes.Red;
                 ConfirmPassword.BorderThickness = new Thickness(2);
@@ -151,7 +152,7 @@ namespace BootRegistratieSysteem
             }
 
             if (!Password.Password.Equals(ConfirmPassword.Password))
-            { 
+            {
                 Password.BorderBrush = Brushes.Red;
                 Password.BorderThickness = new Thickness(2);
                 ConfirmPassword.BorderBrush = Brushes.Red;
@@ -164,8 +165,8 @@ namespace BootRegistratieSysteem
             // add user to database
             if (validate && valDate)
             {
-                
-                MessageBoxResult result = MessageBox.Show("UW ACCOUNT IS AANGEMAAKT!!!!" );
+
+                MessageBoxResult result = MessageBox.Show("UW ACCOUNT IS AANGEMAAKT!!!!");
                 u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
                 Switcher.Switch(new DashboardView());
 
@@ -177,10 +178,10 @@ namespace BootRegistratieSysteem
             }
 
         }
-
+        // check if there are no numbers in inputbox
         public static bool IsAllLetters(string s)
         {
-            foreach (char c in s )
+            foreach (char c in s)
             {
                 if (!Char.IsLetter(c))
                 {
@@ -190,21 +191,28 @@ namespace BootRegistratieSysteem
             return true;
 
         }
-        public static bool validateBday(int day,int month, int year)
-        {
-            //localtime
-            DateTime DateTimeToday = DateTime.UtcNow.Date;
-            string DateToday = DateTimeToday.ToString("dd-MM-yyyy");
-
-
-            return true;
-        }
-
+        // Check if there is are no letters in input box
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+
+        public bool IsEmailValid(string emailaddress)
+        {
+            try
+            {
+
+                MailAddress m = new MailAddress(emailaddress);
+
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
+
         // ISwitchable utilizes this
         public void UtilizeState(object state)
         {
