@@ -26,14 +26,7 @@ namespace BootRegistratieSysteem
         {
             this.InitializeComponent();
            
-        }
-
-        // ISwitchable utilizes this
-        public void UtilizeState(object state)
-        {
-            throw new NotImplementedException();
-          
-        }
+        }       
 
         //Redirect to DashBoard
         private void Login_OnClick(object sender, System.Windows.RoutedEventArgs e)
@@ -45,6 +38,8 @@ namespace BootRegistratieSysteem
         private void ButtonRegister(object sender, RoutedEventArgs e)
         {
             bool validate = true;
+            bool valDate = true;
+            DateTime dt = new DateTime();
             TextBox[] controls = { Firstname, Middlename, Lastname, City,Zipcode, Address, Phonenumber,Email,Day,Month,Year};
             
             foreach (var item in controls)
@@ -59,6 +54,10 @@ namespace BootRegistratieSysteem
                     item.BorderBrush = Brushes.Red;
                     item.BorderThickness = new Thickness(2);
                     validate = false;
+                    if (item.Name == "Day" || item.Name == "Month" || item.Name == "Year")
+                    {
+                        valDate = false;
+                    }
                 }
                 if (item.Name == "Firstname" || item.Name == "Lastname" || item.Name == "Middlename" || item.Name == "City")
                 {
@@ -71,11 +70,12 @@ namespace BootRegistratieSysteem
                     }
                 }
             }
+            // update password layout 
             Password.BorderBrush = Brushes.Gray;
             Password.BorderThickness = new Thickness(1);
             ConfirmPassword.BorderBrush = Brushes.Gray;
             ConfirmPassword.BorderThickness = new Thickness(1);
-           
+            // check if passwords are filled 
             if (Password.Password == "")
             {
                 Password.BorderBrush = Brushes.Red;
@@ -88,49 +88,51 @@ namespace BootRegistratieSysteem
                 ConfirmPassword.BorderThickness = new Thickness(2);
                 validate = false;
             }
-            
-            
 
             DataBaseController u = new DataBaseController(); // Get database
 
             string savedPasswordHash = u.PasswordHash(Password.Password); // Hash password
-            string BirthdayText = $"{Day.Text}/{Month.Text}/{Year.Text}";
-          
-
-           
-
-
-
-            Console.WriteLine(DateTime.Now);
-         
+            string BirthdayText = $"{Day.Text}-{Month.Text}-{Year.Text}";
             
-            int GenderID = int.Parse(((ComboBoxItem)this.Gender.SelectedItem).Tag.ToString());
+            //localtime
+            DateTime DateTimeToday = DateTime.UtcNow.Date;
+            string DateToday = DateTimeToday.ToString("dd-MM-yyyy");
 
-
-            if(int.Parse(Day.Text) > 31)
+            if (valDate && ((int.Parse(Day.Text) > 31) || (int.Parse(Month.Text) > 12) || (int.Parse(Year.Text) > int.Parse(DateTime.Today.Year.ToString()))))
             {
                 Day.BorderBrush = Brushes.Red;
                 Day.BorderThickness = new Thickness(2);
                 Day.UpdateLayout();
-                validate = false;
-            }
-
-            if (int.Parse(Month.Text) > 12)
-            {
                 Month.BorderBrush = Brushes.Red;
                 Month.BorderThickness = new Thickness(2);
                 Month.UpdateLayout();
-                validate = false;
-            }
-            if (int.Parse(Year.Text) > 2018)
-            {
                 Year.BorderBrush = Brushes.Red;
                 Year.BorderThickness = new Thickness(2);
                 Year.UpdateLayout();
-                validate = false;
+
+                valDate = false;
+                if ((int.Parse(Year.Text) > int.Parse(DateTime.Today.Year.ToString())))
+                {
+                    Console.WriteLine("JAAAR IS TE GROOT");
+                }
             }
 
-            DateTime dt = DateTime.ParseExact(BirthdayText, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            
+           
+
+
+
+            int GenderID = int.Parse(((ComboBoxItem)this.Gender.SelectedItem).Tag.ToString());
+
+            
+            Console.WriteLine(int.Parse(DateTime.Today.Year.ToString()));
+            
+            if (valDate && validate)
+            {
+                dt = DateTime.ParseExact(BirthdayText, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            }
+           
+            
             // validate passwords
             if(Password.Password == "")
             {
@@ -158,12 +160,15 @@ namespace BootRegistratieSysteem
                 ConfirmPassword.UpdateLayout();
                 validate = false;
             }
-            if (validate)
+
+            // add user to database
+            if (validate && valDate)
             {
                 
                 MessageBoxResult result = MessageBox.Show("UW ACCOUNT IS AANGEMAAKT!!!!" );
-                u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, DateTime.Now);
+                u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
                 Switcher.Switch(new DashboardView());
+
             }
             else
             {
@@ -185,13 +190,27 @@ namespace BootRegistratieSysteem
             return true;
 
         }
+        public static bool validateBday(int day,int month, int year)
+        {
+            //localtime
+            DateTime DateTimeToday = DateTime.UtcNow.Date;
+            string DateToday = DateTimeToday.ToString("dd-MM-yyyy");
+
+
+            return true;
+        }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+        // ISwitchable utilizes this
+        public void UtilizeState(object state)
+        {
+            throw new NotImplementedException();
 
-        
+        }
+
     }
 }
