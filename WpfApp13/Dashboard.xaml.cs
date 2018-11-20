@@ -58,16 +58,16 @@ namespace WpfApp13
                         l.Content = "Naam :" + Name;
                         l.Content += "\nTijd: ";
                         l.Content += "\nDatum: ";
-                        l.Margin = new Thickness(20, y2, 50, 50);
+                        l.Margin = new Thickness(500, y1, 50, 50);
                         l.FontSize = 16;
                         l.VerticalAlignment = VerticalAlignment.Top;
                     //    l.HorizontalAlignment = HorizontalAlignment.Left;
                         GridDashboard.Children.Add(l);
-                        GridDashboard.Children.Add(AddButtonLinks(y2 + 130, "Afschrijving wijzigen"));
-                        GridDashboard.Children.Add(AddButtonLinks(y2 + 170, "Afschrijving annuleren"));
+                        GridDashboard.Children.Add(AddButtonRechts(y1 + 130, "Afschrijving wijzigen"));
+                        GridDashboard.Children.Add(AddButtonRechts(y1 + 170, "Afschrijving annuleren"));
                         
 
-                        y2 = y2 + 300;
+                        y1 = y1 + 300;
                     }
                     else if (i % 2 != 0)
                     {
@@ -88,16 +88,16 @@ namespace WpfApp13
                         l2.Content = "Naam : " + Name;
                         l2.Content += "\nTijd: ";
                         l2.Content += "\nDatum: ";
-                        l2.Margin = new Thickness(500, y1, 50, 50);
+                        l2.Margin = new Thickness(20, y2, 50, 50);
                         l2.FontSize = 16;
                         l2.VerticalAlignment = VerticalAlignment.Top;
                       //  l2.HorizontalAlignment = HorizontalAlignment.Left;
 
                         GridDashboard.Children.Add(l2);
-                        GridDashboard.Children.Add(AddButtonRechts(y1 + 130, "Afschrijving wijzigen"));
-                        GridDashboard.Children.Add(AddButtonRechts(y1 + 170, "Afschrijving annuleren"));
+                        GridDashboard.Children.Add(AddButtonLinks(y2 + 130, "Afschrijving wijzigen"));
+                        GridDashboard.Children.Add(AddButtonLinks(y2 + 170, "Afschrijving annuleren"));
 
-                        y1 = y1 + 300;
+                        y2 = y2 + 300;
                     }
 
 
