@@ -25,7 +25,7 @@ namespace WpfApp13
         public AddBoat()
         {
             InitializeComponent();
-
+           
 
         }
 

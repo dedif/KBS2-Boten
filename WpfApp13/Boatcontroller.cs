@@ -10,13 +10,13 @@ namespace ConsoleApp1
     public class Boatcontroller
     {
         private string notification;
-        //public void EmptyDatabase()
-        //{
-        //    using (Database context = new Database())
-        //    {
-        //        context.Database.Delete();
-        //    }
-        //}
+        public void EmptyDatabase()
+        {
+            using (Database context = new Database())
+            {
+                context.Database.Delete();
+            }
+        }
 
         public string Notification()
         {
