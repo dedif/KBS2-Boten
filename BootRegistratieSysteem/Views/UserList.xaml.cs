@@ -53,7 +53,7 @@ namespace BootRegistratieSysteem.Views
 
         private void RegisterUserButton(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new UserList());
+            Switcher.Switch(new Register());
         }
     }
 }

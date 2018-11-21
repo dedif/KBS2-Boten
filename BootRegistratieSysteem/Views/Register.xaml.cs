@@ -72,6 +72,12 @@ namespace BootRegistratieSysteem
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        private void ZipcodeValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
 
         // ISwitchable utilizes this
         public void UtilizeState(object state)

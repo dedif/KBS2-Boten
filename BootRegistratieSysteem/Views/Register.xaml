@@ -25,9 +25,9 @@
         <Label Content="Email" HorizontalAlignment="Left" Margin="43,316,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="Lastname" HorizontalAlignment="Left" Height="23" Margin="584,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="Address" HorizontalAlignment="Left" Height="23" Margin="144,204,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="Zipcode" HorizontalAlignment="Left" Height="23" Margin="421,201,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" MaxLength="7"/>
+        <TextBox PreviewTextInput="ZipcodeValidationTextBox" x:Name="Zipcode" HorizontalAlignment="Left" Height="23" Margin="421,201,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" MaxLength="7"/>
         <TextBox  x:Name="City" HorizontalAlignment="Left" Height="23" Margin="584,201,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.044,0.54"/>
-        <TextBox x:Name="Phonenumber" HorizontalAlignment="Left" Height="23" MaxLength="14" Margin="146,260,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Phonenumber" HorizontalAlignment="Left" Height="23" MaxLength="14" Margin="146,260,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="Email" HorizontalAlignment="Left" Height="23" Margin="144,319,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="Login" Content="Login" HorizontalAlignment="Left" Margin="584,443,0,0" VerticalAlignment="Top" Width="75"  Click="Login_OnClick" Height="19"/>
         <Label Content="Bevestig wachtwoord&#xD;&#xA;" HorizontalAlignment="Left" Margin="293,372,0,0" VerticalAlignment="Top"/>
