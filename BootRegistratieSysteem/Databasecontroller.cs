@@ -25,7 +25,7 @@ namespace BootRegistratieSysteem
 
 
 
-                var user = new User
+                var user = new Model.User
                 {
                     Password = password,
                     Firstname = firstname,
@@ -93,7 +93,7 @@ namespace BootRegistratieSysteem
                 // Display all courses from the database
                 var users = (from s in context.Users
                              orderby s.PersonID
-                             select s).ToList<User>();
+                             select s).ToList<Model.User>();
 
 
                 foreach (var boat in users)
