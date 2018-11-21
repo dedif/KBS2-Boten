@@ -16,92 +16,60 @@ namespace WpfApp13
 
         int y1 = 50;
         int y2 = 50;
-        int j = 1;
+        int i = 0;
         public Dashboard()
         {
             InitializeComponent();
 
             using (Database context = new Database())
             {
-                Boat b = new Boat("help", Boat.BoatType.Board, 4, 21, true);
-                Reservation reservering = new Reservation(b, new Member(), DateTime.Now, DateTime.Now);
-          
-                context.Reservations.Add(reservering);
-                context.SaveChanges();
-               
-
+         
 
 
                 GridDashboard.Margin = new Thickness(0, 0, 0, 20);
                 GridDashboard.HorizontalAlignment = HorizontalAlignment.Left;
-                
-                
 
-                for (int i = 1; i < context.Reservations.Count() + 1; i++)
-                {
+
+                foreach(Reservation r in context.Reservations) { 
+               
                     if (i % 2 == 0)
                     {
-                        var ReservationBoatID =(
-                            from r in context.Reservations
-                            where r.ReservationID == i
-                            select r.Boat.BoatID).Single();
 
-                    
-                        var Name =
-                            (from boat in context.Boats
-                             where boat.BoatID == ReservationBoatID
-                             select boat.Name).Single();
-
-
-
+                       //Dit is voor de label aan de linkerkant van de twee rijen
                         Label l = new Label();
-                        l.Content = "Naam :" + Name;
-                        l.Content += "\nTijd: ";
-                        l.Content += "\nDatum: ";
+                        l.Content = ReservationContent(r);
                         l.Margin = new Thickness(500, y1, 50, 50);
                         l.FontSize = 16;
                         l.VerticalAlignment = VerticalAlignment.Top;
-                    //    l.HorizontalAlignment = HorizontalAlignment.Left;
+                  
+                        //Dit voegt de label en knoppen toe aan het scherm
                         GridDashboard.Children.Add(l);
-                        GridDashboard.Children.Add(AddButtonRechts(y1 + 130, "Afschrijving wijzigen"));
-                        GridDashboard.Children.Add(AddButtonRechts(y1 + 170, "Afschrijving annuleren"));
-                        
+                        GridDashboard.Children.Add(AddDeleteButton(500, y1 + 130));
+                        GridDashboard.Children.Add(AddChangeButton(500, y1 + 170));
+
 
                         y1 = y1 + 300;
                     }
                     else if (i % 2 != 0)
                     {
-
-                        var ReservationBoatID = (
-                           from r in context.Reservations
-                           where r.ReservationID == i
-                           select r.Boat.BoatID).Single();
-
-
-                        var Name =
-                            (from boat in context.Boats
-                             where boat.BoatID == ReservationBoatID
-                             select boat.Name).Single();
-
-
+                        //Hiermee maak je een label
                         Label l2 = new Label();
-                        l2.Content = "Naam : " + Name;
-                        l2.Content += "\nTijd: ";
-                        l2.Content += "\nDatum: ";
+                        l2.Content = ReservationContent(r);
                         l2.Margin = new Thickness(20, y2, 50, 50);
                         l2.FontSize = 16;
                         l2.VerticalAlignment = VerticalAlignment.Top;
-                      //  l2.HorizontalAlignment = HorizontalAlignment.Left;
+                        //  l2.HorizontalAlignment = HorizontalAlignment.Left;
 
+                        //Dit voegt de label en knoppen toe aan de linkerkant
                         GridDashboard.Children.Add(l2);
-                        GridDashboard.Children.Add(AddButtonLinks(y2 + 130, "Afschrijving wijzigen"));
-                        GridDashboard.Children.Add(AddButtonLinks(y2 + 170, "Afschrijving annuleren"));
+                        GridDashboard.Children.Add(AddDeleteButton(20, y2 + 130));
+                        GridDashboard.Children.Add(AddChangeButton(20, y2 + 170));
 
                         y2 = y2 + 300;
                     }
 
 
-
+                    i++;
                 }
 
 
@@ -109,53 +77,107 @@ namespace WpfApp13
 
         }
 
-        private Button AddButtonLinks(int y, string omschrijving)
+        public string ReservationContent(Reservation reservation)
+        {
+            using (Database context = new Database())
+            {
+                var ReservationBoatID = (
+                    from r in context.Reservations
+                    where r.ReservationID == reservation.ReservationID
+                    select r.Boat.BoatID).Single();
+
+
+                var Name =
+                    (from boat in context.Boats
+                     where boat.BoatID == ReservationBoatID
+                     select boat.Name).Single();
+
+                var Date =
+                  (from r in context.Reservations
+                   where r.ReservationID == reservation.ReservationID
+                   select r.Start).Single();
+
+             
+                string content;
+                content = "Naam : " + Name;
+                content += "\nTijd: " + Date.Hour + ":" + Date.Minute;
+                content += "\nDatum: " + Date.Month + "/" + Date.Day + "/" + Date.Year;
+
+                return content;
+            }
+        }
+
+         public void DeleteReservation(int id )
+        {
+            using (Database context = new Database())
+            {
+                var Delete =(
+                    from r in context.Reservations
+                    where r.ReservationID == id
+                    select r).Single();
+
+                context.Reservations.Remove(Delete);
+                context.SaveChanges();
+            }
+
+           UpdateLayout();
+        }
+
+        private Button AddChangeButton(int x, int y)
         {
            
-                Button Links = new Button();
-                Links.Content = omschrijving;
-                Links.HorizontalAlignment = HorizontalAlignment.Left;
-                Links.VerticalAlignment = VerticalAlignment.Top;
-                Links.Margin = new Thickness(20, y, 0, 0);
-                Links.Height = 30;
-                Links.Width = 160;
-                Links.FontSize = 16;
-                Links.HorizontalContentAlignment = HorizontalAlignment.Left;
+                Button Left = new Button();
+                Left.Content = "Afschrijving wijzigen";
+                Left.HorizontalAlignment = HorizontalAlignment.Left;
+                Left.VerticalAlignment = VerticalAlignment.Top;
+                Left.Margin = new Thickness(x, y, 0, 0);
+                Left.Height = 30;
+                Left.Width = 160;
+                Left.FontSize = 16;
+                Left.HorizontalContentAlignment = HorizontalAlignment.Left;
+       
 
-                Links.Click += Button2_Click;
+                Left.Click += Change_Click;
 
-                return Links;
+                return Left;
             }
 
 
-        private Button AddButtonRechts(int y, string omschrijving)
-            {
-              
-                    Button Rechts = new Button();
-                    Rechts.Content = omschrijving;
-                    Rechts.HorizontalAlignment = HorizontalAlignment.Left;
-                    Rechts.VerticalAlignment = VerticalAlignment.Top;
-                    Rechts.Margin = new Thickness(500, y, 0, 0);
-                    Rechts.Height = 30;
-                    Rechts.Width = 160;
-                    Rechts.FontSize = 16;
-                    Rechts.HorizontalContentAlignment = HorizontalAlignment.Left;
-
-                    Rechts.Click += Button_Click;
-
-                    return Rechts;
-                }
-
-   
-       
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private Button AddDeleteButton(int x, int y)
         {
-            this.Close();
+
+            Button Right = new Button()
+            {
+                Content = "Afschrijving annuleren",
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(x, y, 0, 0),
+                Height = 30,
+                Width = 160,
+                FontSize = 16,
+               
+                HorizontalContentAlignment = HorizontalAlignment.Left
+                
+            };
+            
+            Right.Click += DeleteButton_Click;
+        
+
+            return Right;
         }
 
-        private void Button2_Click(object sender, RoutedEventArgs e)
+
+
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+         
+        }
+
+        private void Change_Click(object sender, RoutedEventArgs e)
+        {
+
+
             this.Close();
         }
 
