@@ -23,13 +23,15 @@ namespace BootRegistratieSysteem.Views
     public partial class UserList : UserControl, ISwitchable
     {
         public static DataGrid DataGrid;
+     
         private BootDataBase context = new BootDataBase();
+      
         public UserList()
         {
             InitializeComponent();
 
             Load();
-
+          
 
         }
 
@@ -38,10 +40,7 @@ namespace BootRegistratieSysteem.Views
             throw new NotImplementedException();
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+     
 
         private void Load()
         {
@@ -49,11 +48,23 @@ namespace BootRegistratieSysteem.Views
             DataUserList.ItemsSource = context.Users.ToList();
             DataGrid = DataUserList;
 
+
         }
 
         private void RegisterUserButton(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new Register());
+
         }
+
+
+
+        void ButtonEdit(object sender, RoutedEventArgs e)
+        {
+            Button b = (Button)sender;
+            Switcher.Switch(new EditUser((int)b.Tag));
+        }
+
+
+
     }
 }

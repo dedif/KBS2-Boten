@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -44,6 +45,82 @@ namespace BootRegistratieSysteem
 
                 context.SaveChanges();
 
+
+
+
+
+            }
+
+        }
+
+        public void Update_User(int personID,string password, string firstname, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
+        {
+            using (BootDataBase context = new BootDataBase())
+            {
+
+               Model.User dep = context.Users.Where(d => d.PersonID == personID).First();
+
+            
+                if (dep != null)
+                {
+
+
+
+                    dep.Password = password;
+                    dep.Firstname = firstname;
+                    dep.Lastname = lastname;
+                    dep.Address = address;
+                    dep.Zipcode = zipcode;
+                    dep.City = city;
+                    dep.Phonenumber = phonenumber;
+                    dep.Email = email;
+                    dep.GenderID = genderID;
+                    dep.Birthday = birthday;
+                  
+
+
+
+                    
+                    context.SaveChanges();
+                }
+
+
+
+
+            }
+
+        }
+
+        public void Update_User(int personID,  string firstname, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
+        {
+            using (BootDataBase context = new BootDataBase())
+            {
+
+                Model.User dep = context.Users.Where(d => d.PersonID == personID).First();
+
+
+                if (dep != null)
+                {
+
+
+
+                   
+                    dep.Firstname = firstname;
+                    dep.Lastname = lastname;
+                    dep.Address = address;
+                    dep.Zipcode = zipcode;
+                    dep.City = city;
+                    dep.Phonenumber = phonenumber;
+                    dep.Email = email;
+                    dep.GenderID = genderID;
+                    dep.Birthday = birthday;
+
+
+
+
+
+                    context.SaveChanges();
+                }
 
 
 

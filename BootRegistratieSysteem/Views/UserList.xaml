@@ -10,38 +10,40 @@
         <CollectionViewSource x:Key="UserViewSource"></CollectionViewSource>
     </UserControl.Resources>
     <Grid>
-        <DataGrid x:Name="DataUserList" x:FieldModifier="public" DataContext="{StaticResource UserViewSource}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="469" Margin="87,80,0,0" VerticalAlignment="Top" Width="895">
+        <DataGrid x:Name="DataUserList"  CanUserAddRows="false" x:FieldModifier="public" DataContext="{StaticResource UserViewSource}" AutoGenerateColumns="false" HorizontalAlignment="Left" Height="469" Margin="87,80,0,0" VerticalAlignment="Top" Width="895">
+            
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding PersonID}" Header="Lidnummer"/>
-                <DataGridTextColumn Binding="{Binding Firstname}" Header="Voornaam"/>
-                <DataGridTextColumn Binding="{Binding Lastname}" Header="Achternaam"/>
-                <DataGridTextColumn Binding="{Binding GenderID}" Header="Geslacht"/>
-                <DataGridTextColumn Binding="{Binding Birthday}" Header="Geboortedatum"/>
-                <DataGridTextColumn Binding="{Binding City}" Header="Woonplaats"/>
-                <DataGridTextColumn Binding="{Binding Address}" Header="Adres"/>
-                <DataGridTextColumn Binding="{Binding Zipcode}" Header="Postcode"/>
-                <DataGridTextColumn Binding="{Binding Phonenumber}" Header="Telefoonnummer"/>
-                <DataGridTextColumn Binding="{Binding Email}" Header="Email"/>
+                <DataGridTextColumn x:Name="PersonID" Width="auto"    Binding="{Binding PersonID}" Header="Lidnummer" IsReadOnly="true" />
+                <DataGridTextColumn x:Name="Firstname" Width="*"   Binding="{Binding Firstname}" Header="Voornaam" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Lastname"  Binding="{Binding Lastname}" Header="Achternaam" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Gender" Binding="{Binding GenderID}" Header="Geslacht" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Birthday"  Binding="{Binding Birthday}" Header="Geboortedatum" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="City"  Binding="{Binding City}" Header="Woonplaats" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Address"  Binding="{Binding Address}" Header="Adres" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Zipcode"  Binding="{Binding Zipcode}" Header="Postcode" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Phonenumber"  Binding="{Binding Phonenumber}" Header="Telefoonnummer" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Email"  Binding="{Binding Email}" Header="Email" IsReadOnly="true"/>
 
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.HeaderTemplate>
 
                         <DataTemplate>
-                            <TextBlock Text="Action"></TextBlock>
+                            <TextBlock Text="Action" ></TextBlock>
                         </DataTemplate>
                     </DataGridTemplateColumn.HeaderTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button x:Name="EditButton" Content="Bewerk" />
-                                <Button x:Name="DeleteButton"  Content="Delete" />
+                                <Button x:Name="EditButton" Tag="{Binding PersonID}"  Click="ButtonEdit" Content="Bewerk"/>
+                                <Button x:Name="DeleteButton"   Tag="{Binding PersonID}" Content="Delete" />
                             </StackPanel>
                         </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Nieuw lid" Click="RegisterUserButton" HorizontalAlignment="Left" Margin="839,40,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
+    
 </UserControl>
