@@ -23,8 +23,12 @@ namespace WpfApp13
 
             using (Database context = new Database())
             {
-         
+                Member m = new Member();
+                Boat b = new Boat("pizza1", Boat.BoatType.Board, 2, 22, true);
+                Reservation r = new Reservation(b, m, DateTime.Now, DateTime.Now);
 
+                context.Reservations.Add(r);
+                context.SaveChanges();
 
                 GridDashboard.Margin = new Thickness(0, 0, 0, 20);
                 GridDashboard.HorizontalAlignment = HorizontalAlignment.Left;
@@ -44,7 +48,7 @@ namespace WpfApp13
                   
                         //Dit voegt de label en knoppen toe aan het scherm
                         GridDashboard.Children.Add(l);
-                        GridDashboard.Children.Add(AddDeleteButton(500, y1 + 130));
+                        GridDashboard.Children.Add(AddDeleteButton(500, y1 + 130, r.ReservationID));
                         GridDashboard.Children.Add(AddChangeButton(500, y1 + 170));
 
 
@@ -62,7 +66,7 @@ namespace WpfApp13
 
                         //Dit voegt de label en knoppen toe aan de linkerkant
                         GridDashboard.Children.Add(l2);
-                        GridDashboard.Children.Add(AddDeleteButton(20, y2 + 130));
+                        GridDashboard.Children.Add(AddDeleteButton(20, y2 + 130, r.ReservationID));
                         GridDashboard.Children.Add(AddChangeButton(20, y2 + 170));
 
                         y2 = y2 + 300;
@@ -143,7 +147,7 @@ namespace WpfApp13
             }
 
 
-        private Button AddDeleteButton(int x, int y)
+        private Button AddDeleteButton(int x, int y, int id)
         {
 
             Button Right = new Button()
@@ -155,7 +159,7 @@ namespace WpfApp13
                 Height = 30,
                 Width = 160,
                 FontSize = 16,
-               
+                Tag = id,
                 HorizontalContentAlignment = HorizontalAlignment.Left
                 
             };
@@ -171,7 +175,8 @@ namespace WpfApp13
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-         
+            Button b = (Button)sender;
+            DeleteReservation((int) b.Tag);
         }
 
         private void Change_Click(object sender, RoutedEventArgs e)
