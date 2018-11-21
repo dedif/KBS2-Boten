@@ -105,7 +105,7 @@ namespace WpfApp6
             {
                 char[] MyChar = { '0', '1', ':' };
                 string newTime = oldTime.TrimStart(MyChar);
-                timeEnd = int.Parse((newTime) + 60);
+                timeEnd = int.Parse(newTime + 60);
 
             }
 
