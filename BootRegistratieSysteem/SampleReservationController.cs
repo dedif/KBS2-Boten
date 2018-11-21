@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Models;
+using System;
 using System.Collections.Generic;
 using WpfApp13;
 
-namespace WpfApp6
+namespace WpfApp13
 {
     public class SampleReservationController
     {

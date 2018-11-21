@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
-using ConsoleApp1;
+using WpfApp13;
 using Assert = NUnit.Framework.Assert;
 
 namespace UnitTest

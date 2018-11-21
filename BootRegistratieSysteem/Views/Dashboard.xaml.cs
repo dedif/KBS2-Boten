@@ -1,12 +1,12 @@
-﻿using ConsoleApp1;
+﻿using WpfApp13;
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using WpfApp6;
 using System.Linq;
 using System.Collections.Generic;
+using Models;
 
-namespace WpfApp13
+namespace Views
 {
     /// <summary>
     /// Interaction logic for Window1.xaml
@@ -14,31 +14,22 @@ namespace WpfApp13
     public partial class Dashboard : Window
     {
 
-        int y1 = 50;
-        int y2 = 50;
-        int i = 0;
+        int YLeft = 50;
+        int YRight = 50;
+        int Count = 0;
         //Deze lijsten, bevatten alle buttens en labels
-        List<Label> labelList = new List<Label>();
-        List<Button> buttonList = new List<Button>();
+        List<Label> LabelList = new List<Label>();
+        List<Button> ButtonList = new List<Button>();
         public Dashboard()
         {
             InitializeComponent();
 
-            using (Database context = new Database())
-            {
-                Member m = new Member();
-                Boat b = new Boat("bootje", Boat.BoatType.Board, 4, 77, true);
-                Reservation re = new Reservation(b, m, DateTime.Now, DateTime.Now);
-
-                context.Reservations.Add(re);
-                context.SaveChanges();
-
-                GridDashboard.Margin = new Thickness(0, 0, 0, 20);
-                GridDashboard.HorizontalAlignment = HorizontalAlignment.Left;
+                 GridDashboard.Margin = new Thickness(0, 0, 0, 20);
+                 GridDashboard.HorizontalAlignment = HorizontalAlignment.Left;
                 //De reservaties van de gebruiker worden met deze methode getoond op het scherm
                 ShowReservations();
             }
-        }
+        
         public void ShowReservations()
         {
             using (Database context = new Database())
@@ -48,26 +39,32 @@ namespace WpfApp13
                 {
                     NoReservationLabel.Visibility = Visibility.Visible;
                 }
-                if (context.Reservations.Count() == 2)
+                if (context.Reservations.Count() >= 2)
                 {
                     MaxReservations.Visibility = Visibility.Visible;
+                     AddReservationButton.IsEnabled = false;
+                }
+                else
+                {
+                    MaxReservations.Visibility = Visibility.Hidden;
+                    AddReservationButton.IsEnabled = true;
                 }
                 foreach (Reservation r in context.Reservations)
                 {
-                    if (i % 2 == 0)
+                    if (Count % 2 == 0)
                     {
 
                         //Dit is voor de label aan de linkerkant van de twee rijen
                         Label l = new Label();
                         l.Content = ReservationContent(r);
-                        l.Margin = new Thickness(20, y1, 50, 50);
+                        l.Margin = new Thickness(20, YLeft, 50, 50);
                         l.FontSize = 16;
                         l.VerticalAlignment = VerticalAlignment.Top;
-                        labelList.Add(l);
-                        Button deleteButton = AddDeleteButton(20, y1 + 130, r.ReservationID);
-                        Button changeButton = AddChangeButton(20, y1 + 170);
-                        buttonList.Add(deleteButton);
-                        buttonList.Add(changeButton);
+                        LabelList.Add(l);
+                        Button deleteButton = AddDeleteButton(20, YLeft + 130, r.ReservationID);
+                        Button changeButton = AddChangeButton(20, YLeft + 170);
+                        ButtonList.Add(deleteButton);
+                        ButtonList.Add(changeButton);
 
                         //Dit voegt de label en knoppen toe aan het scherm
                         GridDashboard.Children.Add(l);
@@ -75,32 +72,32 @@ namespace WpfApp13
 
 
 
-                        y1 = y1 + 300;
+                        YLeft = YLeft + 300;
                     }
-                    else if (i % 2 != 0)
+                    else if (Count % 2 != 0)
                     {
                         //Hiermee maak je een label
                         Label l2 = new Label();
                         l2.Content = ReservationContent(r);
-                        l2.Margin = new Thickness(500, y2, 50, 50);
+                        l2.Margin = new Thickness(500, YRight, 50, 50);
                         l2.FontSize = 16;
                         l2.VerticalAlignment = VerticalAlignment.Top;
-                        labelList.Add(l2);
-                        Button deleteButton = AddDeleteButton(500, y2 + 130, r.ReservationID);
-                        Button changeButton = AddChangeButton(500, y2 + 170);
-                        buttonList.Add(deleteButton);
-                        buttonList.Add(changeButton);
+                        LabelList.Add(l2);
+                        Button deleteButton = AddDeleteButton(500, YRight + 130, r.ReservationID);
+                        Button changeButton = AddChangeButton(500, YRight + 170);
+                        ButtonList.Add(deleteButton);
+                        ButtonList.Add(changeButton);
 
                         //Dit voegt de label en knoppen toe aan het scherm
                         GridDashboard.Children.Add(l2);
                         GridDashboard.Children.Add(deleteButton);
 
 
-                        y2 = y2 + 300;
+                        YRight = YRight + 300;
                     }
 
 
-                    i++;
+                    Count++;
                 }
             }
         }
@@ -127,10 +124,15 @@ namespace WpfApp13
                    where r.ReservationID == reservation.ReservationID
                    select r.Start).Single();
 
+                string minuten = Date.Minute.ToString();
+                if (Date.Minute < 10)
+                {
+                    minuten = "0" + minuten;
+                }
 
                 string content;
                 content = "Naam : " + Name;
-                content += "\nTijd: " + Date.Hour + ":" + Date.Minute;
+                content += "\nTijd: " + Date.Hour + ":" + minuten;
                 content += "\nDatum: " + Date.Month + "/" + Date.Day + "/" + Date.Year;
 
                 return content;
@@ -161,8 +163,9 @@ namespace WpfApp13
                     context.SaveChanges();
                     //Alle oude knoppen en labels worden verwijderd van het scherm.
                     this.DeleteAllControls();
-                    y1 = 50;
-                    y2 = 50;
+                    YLeft = 50;
+                    YRight = 50;
+                    Count = 0;
                     //De nieuwe reserveringen worden op het scherm getoond. 
                     ShowReservations();
                 }
@@ -172,13 +175,13 @@ namespace WpfApp13
         //Deze methode verwijderd alle controls
         public void DeleteAllControls()
         {
-            for (int i = 0; i < labelList.Count; i++)
+            for (int i = 0; i < LabelList.Count; i++)
             {
-                GridDashboard.Children.Remove(labelList[i]);
+                GridDashboard.Children.Remove(LabelList[i]);
             }
-            for (int i = 0; i < buttonList.Count; i++)
+            for (int i = 0; i < ButtonList.Count; i++)
             {
-                GridDashboard.Children.Remove(buttonList[i]);
+                GridDashboard.Children.Remove(ButtonList[i]);
             }
         }
         private Button AddChangeButton(int x, int y)
@@ -241,6 +244,15 @@ namespace WpfApp13
 
         private void AddReservationButton_Click(object sender, RoutedEventArgs e)
         {
+            using (Database context = new Database())
+            {
+                Member m = new Member();
+                Boat b = new Boat("bootje", Boat.BoatType.Board, 4, 77, true);
+                Reservation re = new Reservation(b, m, DateTime.Now, DateTime.Now);
+
+                context.Reservations.Add(re);
+                context.SaveChanges();
+            }
 
         }
     }

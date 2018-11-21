@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using ConsoleApp1;
+using WpfApp13;
 
-namespace WpfApp6
+namespace Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

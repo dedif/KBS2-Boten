@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Models;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using ConsoleApp1;
+using WpfApp13;
 
-namespace WpfApp6
+namespace WpfApp13
 {
     public class BoatTypeTabItem : TabItem
     {

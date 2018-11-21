@@ -1,8 +1,9 @@
-﻿using ConsoleApp1;
+﻿using WpfApp13;
 using System.Collections.Generic;
 using System.Windows.Documents;
+using Models;
 
-namespace WpfApp6
+namespace WpfApp13
 {
     public class SampleBoatController
     {
