@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ConsoleApp1;
+using WpfApp6;
 
-namespace WpfApp6
+namespace WpfApp13
 {
-    public class SampleReservationController
+    class ReservationController
     {
         public List<Reservation> GetReservations()
         {
-            var sampleBoats = new SampleBoatController().GetBoats();
+            var Boats = new Boatcontroller().BoatList();
             return new List<Reservation>
             {
-                new Reservation(sampleBoats[0],
+                new Reservation(Boats[0],
                     new Member(),
                     new DateTime(2018,
                         11,

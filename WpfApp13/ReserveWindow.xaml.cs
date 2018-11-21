@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using ConsoleApp1;
+using WpfApp13;
 
 namespace WpfApp6
 {
@@ -14,8 +15,8 @@ namespace WpfApp6
         public ReserveWindow()
         {
             InitializeComponent();
-            var boats = new SampleBoatController().GetBoats();
-            var reservations = new SampleReservationController().GetReservations();
+            var boats = new Boatcontroller().BoatList();
+            var reservations = new ReservationController().GetReservations();
             AddBoatTypeTabs(boats, reservations);
         }
 
@@ -30,5 +31,6 @@ namespace WpfApp6
 
         private IEnumerable<Boat> GetBoatsForBoatType(List<Boat> allBoats, Boat.BoatType boatType) =>
             allBoats.Where(boat => boat.Type == boatType);
+
     }
 }

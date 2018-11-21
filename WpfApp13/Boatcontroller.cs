@@ -41,7 +41,6 @@ namespace ConsoleApp1
         //Deze methode returnd true als gewicht is ingeverd als cijfers (anders false)
         public Boolean WeightCheck(string weight)
         {
-     
             try
             {
                 double Weight = double.Parse(weight);
@@ -49,7 +48,6 @@ namespace ConsoleApp1
             }
             catch
             {
-
                 MessageBoxResult WeightIncorrect = MessageBox.Show(
                     "Het gewicht moet een getal zijn",
                     "Melding",
@@ -94,8 +92,6 @@ namespace ConsoleApp1
                     var boot1 = new Boat (name, MyType, rowers, weight, steeringwheel);
 
                     context.Boats.Add(boot1);
-
-
                     context.SaveChanges();
                 }
       
@@ -103,20 +99,20 @@ namespace ConsoleApp1
 
             }
 
-        
 
-        //public List<Boat> BoatList()
-        //{
-        //    using (Database context = new Database())
-        //    {
 
-        //        var boats = (from s in context.Boats
-        //                     orderby s.BoatID
-        //                     select s).ToList<Boat>();
+        public List<Boat> BoatList()
+        {
+            using (Database context = new Database())
+            {
 
-        //        return boats;
-        //    }
-        //}
+                var boats = (from s in context.Boats
+                             orderby s.BoatID
+                             select s).ToList<Boat>();
+
+                return boats;
+            }
+        }
 
         //public void Print()
         //{
@@ -131,7 +127,7 @@ namespace ConsoleApp1
         //        Console.ReadKey();
         //    }
         //}
-      
+
 
     }
 }
