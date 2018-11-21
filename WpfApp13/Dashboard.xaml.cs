@@ -26,6 +26,12 @@ namespace WpfApp13
 
             using (Database context = new Database())
             {
+                Member m = new Member();
+                Boat b = new Boat("bootje", Boat.BoatType.Board, 4, 77, true);
+                Reservation re = new Reservation(b, m, DateTime.Now, DateTime.Now);
+
+                context.Reservations.Add(re);
+                context.SaveChanges();
 
                 GridDashboard.Margin = new Thickness(0, 0, 0, 20);
                 GridDashboard.HorizontalAlignment = HorizontalAlignment.Left;
@@ -42,7 +48,10 @@ namespace WpfApp13
                 {
                     NoReservationLabel.Visibility = Visibility.Visible;
                 }
-               
+                if (context.Reservations.Count() == 2)
+                {
+                    MaxReservations.Visibility = Visibility.Visible;
+                }
                 foreach (Reservation r in context.Reservations)
                 {
                     if (i % 2 == 0)
