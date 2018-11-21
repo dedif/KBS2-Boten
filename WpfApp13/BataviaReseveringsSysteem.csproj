@@ -73,6 +73,7 @@
     </Compile>
     <Compile Include="SampleBoatController.cs" />
     <Compile Include="SampleReservationController.cs" />
+    <Compile Include="BoatView.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

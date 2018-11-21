@@ -69,16 +69,17 @@ namespace WpfApp6
                 Children.Add(lastUnavailableSlotTile);
         }
 		
-		public void Populate(List<Boat> boats)
+		public void Populate(List<Reservation> reservationsForThisBoatAndThisDay)
         {
-            foreach (var boat in boats)
+            foreach (var reservation in reservationsForThisBoatAndThisDay)
             {
-                var earliestSlot = GetEarliestSlotForBoat(boat);
+                
             }
         }
 		
 		private DateTime GetEarliestSlotForBoat(Boat boat)
 		{
+            // Samplecode, moet nog worden bijgewerkt
 		    return DateTime.Now;
 		}
 

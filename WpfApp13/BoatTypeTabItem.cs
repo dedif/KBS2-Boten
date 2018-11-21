@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
 using ConsoleApp1;
 
 namespace WpfApp6
@@ -13,14 +11,41 @@ namespace WpfApp6
         public Grid Grid { get; set; }
         public Calendar Calendar { get; set; }
         public PlannerGrid PlannerGrid { get; set; }
+        public ComboBox BoatNameComboBox { get; set; }
         public List<Reservation> Reservations { get; set; }
+        public BoatView BoatView { get; set; }
 
-        public BoatTypeTabItem(Boat.BoatType type, List<Reservation> reservations)
+        public BoatTypeTabItem(List<Boat> boats, Boat.BoatType type, List<Reservation> reservations)
         {
+            Header = type.ToString();
             Reservations = reservations;
             Grid = new Grid();
             Calendar = MakeCalendar();
             Grid.Children.Add(Calendar);
+            Grid.Children.Add(new Label
+            {
+                Content = "Boot:",
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(10, 180, 0, 0)
+            });
+            BoatNameComboBox = new ComboBox
+            {
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top,
+                Width = 100,
+                Margin = new Thickness(10, 210, 0, 0)
+            };
+            foreach (var boat in boats) BoatNameComboBox.Items.Add(boat.Name);
+            Grid.Children.Add(BoatNameComboBox);
+            Grid.Children.Add(new Label
+            {
+                Content = "Eigenschappen boot:",
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(120, 180, 0, 0)
+            });
+            Grid.Children.Add(new BoatView());
             var sunriseAndSunsetTimes = GetSunriseAndSunsetTimes(DateTime.Now);
             PlannerGrid = new PlannerGrid();
             PlannerGrid.Populate(sunriseAndSunsetTimes);
@@ -30,7 +55,7 @@ namespace WpfApp6
 
         private Calendar MakeCalendar()
         {
-            Calendar calendar = new Calendar()
+            var calendar = new Calendar
             {
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top
@@ -41,10 +66,10 @@ namespace WpfApp6
 
         private DateTime[] GetSunriseAndSunsetTimes(DateTime selectedDate)
         {
-            bool isSunrise = false;
-            bool isSunset = false;
-            DateTime sunrise = DateTime.Now;
-            DateTime sunset = DateTime.Now;
+            var isSunrise = false;
+            var isSunset = false;
+            var sunrise = DateTime.Now;
+            var sunset = DateTime.Now;
             SunTimes.Instance.CalculateSunRiseSetTimes(
                 new SunTimes.LatitudeCoords(
                     52,
