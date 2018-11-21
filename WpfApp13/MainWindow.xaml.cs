@@ -37,7 +37,7 @@ namespace WpfApp13
         {
             ReserveWindow sw = new ReserveWindow();
             sw.Show();
-            this.Hide();
+
         }
     }
 }
