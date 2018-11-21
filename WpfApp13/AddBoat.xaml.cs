@@ -77,7 +77,7 @@ namespace WpfApp13
                     }
 
                 }
-                //idiallle gewicht 70,  gewicht klasse ipv gewicht
+                 //idiallle gewicht 70,  gewicht klasse ipv gewicht
 
             }
             
