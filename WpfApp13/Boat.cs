@@ -32,10 +32,6 @@ namespace ConsoleApp1
 
         }
 
-        public override string ToString()
-        {
-            return "name " + Name;
-        }
 
 
 

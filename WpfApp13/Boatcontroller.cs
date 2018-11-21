@@ -10,13 +10,13 @@ namespace ConsoleApp1
     public class Boatcontroller
     {
         private string notification;
-        public void EmptyDatabase()
-        {
-            using (Database context = new Database())
-            {
-                context.Database.Delete();
-            }
-        }
+        //public void EmptyDatabase()
+        //{
+        //    using (Database context = new Database())
+        //    {
+        //        context.Database.Delete();
+        //    }
+        //}
 
         public string Notification()
         {
@@ -79,7 +79,7 @@ namespace ConsoleApp1
                 }
             }
         }
-
+//Deze methode voegt een boot toe aan de database
         public void AddBoat(string name, string type, int rowers, double weight, bool steeringwheel)
         {
             notification = "";

@@ -17,7 +17,7 @@ namespace WpfApp13
         int y1 = 50;
         int y2 = 50;
         int i = 0;
-
+        //Deze lijsten, bevatten alle buttens en labels
         List<Label> labelList = new List<Label>();
         List<Button> buttonList = new List<Button>();
         public Dashboard()
@@ -26,16 +26,10 @@ namespace WpfApp13
 
             using (Database context = new Database())
             {
-               Member m = new Member();
-               Boat b1 = new Boat("bootl", Boat.BoatType.Board, 2, 2, false);
-                Reservation res = new Reservation(b1, m, DateTime.Now, DateTime.Now);
-               
-                context.Reservations.Add(res);
-               context.SaveChanges();
 
                 GridDashboard.Margin = new Thickness(0, 0, 0, 20);
                 GridDashboard.HorizontalAlignment = HorizontalAlignment.Left;
-
+                //De reservaties van de gebruiker worden met deze methode getoond op het scherm
                 ShowReservations();
             }
         }
@@ -43,9 +37,14 @@ namespace WpfApp13
         {
             using (Database context = new Database())
             {
-                
+                //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
+                if(context.Reservations.Count() == 0)
+                {
+                    NoReservationLabel.Visibility = Visibility.Visible;
+                }
+               
                 foreach (Reservation r in context.Reservations)
-                { 
+                {
                     if (i % 2 == 0)
                     {
 
@@ -64,7 +63,7 @@ namespace WpfApp13
                         //Dit voegt de label en knoppen toe aan het scherm
                         GridDashboard.Children.Add(l);
                         GridDashboard.Children.Add(deleteButton);
-                        GridDashboard.Children.Add(changeButton);
+
 
 
                         y1 = y1 + 300;
@@ -86,7 +85,7 @@ namespace WpfApp13
                         //Dit voegt de label en knoppen toe aan het scherm
                         GridDashboard.Children.Add(l2);
                         GridDashboard.Children.Add(deleteButton);
-                        GridDashboard.Children.Add(changeButton);
+
 
                         y2 = y2 + 300;
                     }
@@ -102,6 +101,7 @@ namespace WpfApp13
         {
             using (Database context = new Database())
             {
+
                 var ReservationBoatID = (
                     from r in context.Reservations
                     where r.ReservationID == reservation.ReservationID
@@ -127,7 +127,7 @@ namespace WpfApp13
                 return content;
             }
         }
-
+        //Deze methode verwijderd de bijbehorende reservatie
         public void DeleteReservation(int id)
         {
             using (Database context = new Database())
@@ -136,34 +136,34 @@ namespace WpfApp13
                     from r in context.Reservations
                     where r.ReservationID == id
                     select r).Single();
-                
-                MessageBoxResult Annuleren = MessageBox.Show(
+                //De gebruiker krijgt een controle melding.
+                MessageBoxResult confirm = MessageBox.Show(
                                 "Weet u zeker dat u de volgende afschrijving wilt verwijderen:\n"
                                 + ReservationContent(Delete),
                                 "Melding",
                                 MessageBoxButton.YesNo,
                                 MessageBoxImage.Information);
 
-                switch (Annuleren)
+                //Als de gebruiker de reservering wilt verwijderen.
+                if (confirm == MessageBoxResult.Yes)
                 {
-                    case MessageBoxResult.Yes:
-                        context.Reservations.Remove(Delete);
-                        context.SaveChanges();
-                        this.DeleteAllControls();
-
-                        y1 = 50;
-                        y2 = 50;
-                        ShowReservations();
-                        break;
-                    case MessageBoxResult.No:
-                        this.Close();
-                        break;
+                    //De reservering wordt uit de database verwijderd. 
+                    context.Reservations.Remove(Delete);
+                    context.SaveChanges();
+                    //Alle oude knoppen en labels worden verwijderd van het scherm.
+                    this.DeleteAllControls();
+                    y1 = 50;
+                    y2 = 50;
+                    //De nieuwe reserveringen worden op het scherm getoond. 
+                    ShowReservations();
                 }
+
             }
         }
+        //Deze methode verwijderd alle controls
         public void DeleteAllControls()
         {
-            for(int i = 0; i < labelList.Count; i++)
+            for (int i = 0; i < labelList.Count; i++)
             {
                 GridDashboard.Children.Remove(labelList[i]);
             }
@@ -174,18 +174,19 @@ namespace WpfApp13
         }
         private Button AddChangeButton(int x, int y)
         {
-
-            Button Left = new Button();
-            Left.Content = "Afschrijving wijzigen";
-            Left.HorizontalAlignment = HorizontalAlignment.Left;
-            Left.VerticalAlignment = VerticalAlignment.Top;
-            Left.Margin = new Thickness(x, y, 0, 0);
-            Left.Height = 30;
-            Left.Width = 160;
-            Left.FontSize = 16;
-            Left.HorizontalContentAlignment = HorizontalAlignment.Left;
-
-
+            //Er wordt een button aangemaakt. 
+            Button Left = new Button()
+            {
+                Content = "Afschrijving wijzigen",
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(x, y, 0, 0),
+                Height = 30,
+                Width = 160,
+                FontSize = 16,
+                HorizontalContentAlignment = HorizontalAlignment.Left
+            };
+            //De button krijgt een click event
             Left.Click += Change_Click;
 
             return Left;
@@ -197,6 +198,7 @@ namespace WpfApp13
 
             Button Right = new Button()
             {
+                //Er wordt een button aangemaakt. 
                 Content = "Afschrijving annuleren",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
@@ -206,9 +208,8 @@ namespace WpfApp13
                 FontSize = 16,
                 Tag = id,
                 HorizontalContentAlignment = HorizontalAlignment.Left
-
             };
-
+            //De button krijgt een click event
             Right.Click += DeleteButton_Click;
 
 
