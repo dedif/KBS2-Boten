@@ -15,7 +15,7 @@ namespace WpfApp6
         {
             HorizontalAlignment = HorizontalAlignment.Left;
             VerticalAlignment = VerticalAlignment.Top;
-            Margin = new Thickness(120,210,0,0);
+            Margin = new Thickness(150,210,0,0);
             NameLabel = new Label();
             WeightLabel = new Label();
             AmountOfRowersLabel = new Label();

@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-<<<<<<< HEAD
-=======
 using System.Linq;
->>>>>>> 69a64be08805f12b8121bfd2785e29fe94a8cd2a
 using ConsoleApp1;
 using WpfApp13;
 
@@ -16,7 +13,6 @@ namespace WpfApp6
         public Grid Grid { get; set; }
         public Calendar Calendar { get; set; }
         public PlannerGrid PlannerGrid { get; set; }
-        public ComboBox BoatNameComboBox { get; set; }
         public List<Reservation> Reservations { get; set; }
         public BoatView BoatView { get; set; }
         public List<Boat> Boats { get; set; }
@@ -38,21 +34,12 @@ namespace WpfApp6
                 VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(10, 180, 0, 0)
             });
-            BoatNameComboBox = new ComboBox
-            {
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Width = 100,
-                Margin = new Thickness(10, 210, 0, 0)
-            };
-            foreach (var boat in boats) BoatNameComboBox.Items.Add(boat.Name);
-            Grid.Children.Add(BoatNameComboBox);
             Grid.Children.Add(new Label
             {
                 Content = "Eigenschappen boot:",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(120, 180, 0, 0)
+                Margin = new Thickness(150, 180, 0, 0)
             });
             Grid.Children.Add(new BoatView());
             var sunriseAndSunsetTimes = GetSunriseAndSunsetTimes(DateTime.Now);
@@ -71,7 +58,7 @@ namespace WpfApp6
             cbTimes.Width = 120;
             cbTimes.Height = 25;
             cbTimes.HorizontalAlignment = HorizontalAlignment.Left;
-            cbTimes.Margin = new Thickness((90 + cbTimes.Width), 123, 0, 0);
+            cbTimes.Margin = new Thickness(10, 120, 0, 0);
             cbTimes.SelectedIndex = 0;
             cbTimes.Items.Add("00:15");
             cbTimes.Items.Add("00:30");
@@ -94,7 +81,7 @@ namespace WpfApp6
             okBtn.Height = 25;
             okBtn.Click += OkBtn_Click;
             okBtn.HorizontalAlignment = HorizontalAlignment.Left;
-            okBtn.Margin = new Thickness((225 + okBtn.Width), 123, 0, 0);
+            okBtn.Margin = new Thickness(150, 120, 0, 0);
             Grid.Children.Add(okBtn);
         }
 
@@ -177,7 +164,7 @@ namespace WpfApp6
             cbNames.Width = 120;
             cbNames.Height = 25;
             cbNames.HorizontalAlignment = HorizontalAlignment.Left;
-            cbNames.Margin = new Thickness(45, 123, 0, 0);
+            cbNames.Margin = new Thickness(10, 0, 0, 0);
             cbNames.SelectedIndex = 0;
             Grid.Children.Add(cbNames);
 
