@@ -15,7 +15,8 @@ namespace Views
         public AddBoat()
         {
             InitializeComponent();
-           
+            this.HorizontalAlignment = HorizontalAlignment.Center;
+            this.VerticalAlignment = VerticalAlignment.Center;
 
         }
 

@@ -12,6 +12,7 @@ namespace Models
         public DateTime End { get; set; }
         public Boat Boat { get; set; }
         public Member Member { get; set; }
+        public Boolean Deleted { get; set; } = false;
 
         public Reservation(Boat boat, Member member, DateTime start, DateTime end)
         {
@@ -19,10 +20,13 @@ namespace Models
             Boat = boat;
             Start = start;
             End = end;
+ 
         }
         public Reservation()
         {
 
         }
+
+       
     }
 }

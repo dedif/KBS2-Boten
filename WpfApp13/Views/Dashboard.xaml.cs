@@ -25,7 +25,7 @@ namespace Views
             InitializeComponent();
 
                  GridDashboard.Margin = new Thickness(0, 0, 0, 20);
-                 GridDashboard.HorizontalAlignment = HorizontalAlignment.Left;
+        
                 //De reservaties van de gebruiker worden met deze methode getoond op het scherm
                 ShowReservations();
             }
@@ -35,7 +35,7 @@ namespace Views
             using (Database context = new Database())
             {
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
-                if(context.Reservations.Count() == 0)
+                if(context.Reservations.Where(i => i.Deleted == false).Count() == 0)
                 {
                     NoReservationLabel.Visibility = Visibility.Visible;
                 }
@@ -43,7 +43,8 @@ namespace Views
                 {
                     NoReservationLabel.Visibility = Visibility.Hidden;
                 }
-                if (context.Reservations.Count() >= 2)
+
+                if (context.Reservations.Where(i => i.Deleted == false).Count() >= 2)
                 {
                     MaxReservations.Visibility = Visibility.Visible;
                      AddReservationButton.IsEnabled = false;
@@ -53,7 +54,7 @@ namespace Views
                     MaxReservations.Visibility = Visibility.Hidden;
                     AddReservationButton.IsEnabled = true;
                 }
-                foreach (Reservation r in context.Reservations)
+                foreach (Reservation r in context.Reservations.Where(i => i.Deleted == false))
                 {
                     if (Count % 2 == 0)
                     {
@@ -153,8 +154,8 @@ namespace Views
                     select r).Single();
                 //De gebruiker krijgt een controle melding.
                 MessageBoxResult confirm = MessageBox.Show(
-                                "Weet u zeker dat u de volgende afschrijving wilt verwijderen:\n"
-                                + ReservationContent(Delete),
+                                "Weet u zeker dat u de volgende afschrijving wilt verwijderen:\n",
+                               // + ReservationContent(Delete),
                                 "Melding",
                                 MessageBoxButton.YesNo,
                                 MessageBoxImage.Information);
@@ -163,7 +164,9 @@ namespace Views
                 if (confirm == MessageBoxResult.Yes)
                 {
                     //De reservering wordt uit de database verwijderd. 
-                    context.Reservations.Remove(Delete);
+                    //context.Reservations.Remove(Delete);
+
+                    Delete.Deleted = true;
                     context.SaveChanges();
                     //Alle oude knoppen en labels worden verwijderd van het scherm.
                     this.DeleteAllControls();
@@ -264,6 +267,11 @@ namespace Views
                 ShowReservations();
             }
 
+        }
+
+        private void SignOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new MainWindow());
         }
     }
 }
