@@ -154,8 +154,8 @@ namespace Views
                     select r).Single();
                 //De gebruiker krijgt een controle melding.
                 MessageBoxResult confirm = MessageBox.Show(
-                                "Weet u zeker dat u de volgende afschrijving wilt verwijderen:\n",
-                               // + ReservationContent(Delete),
+                                "Weet u zeker dat u de volgende afschrijving wilt verwijderen:\n"
+                                + ReservationContent(Delete),
                                 "Melding",
                                 MessageBoxButton.YesNo,
                                 MessageBoxImage.Information);
