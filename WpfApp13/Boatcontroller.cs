@@ -1,5 +1,6 @@
 ﻿using Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace WpfApp13
@@ -96,35 +97,21 @@ namespace WpfApp13
 
             }
 
-        
 
-        //public List<Boat> BoatList()
-        //{
-        //    using (Database context = new Database())
-        //    {
 
-        //        var boats = (from s in context.Boats
-        //                     orderby s.BoatID
-        //                     select s).ToList<Boat>();
+        public List<Boat> BoatList()
+        {
+            using (Database context = new Database())
+            {
 
-        //        return boats;
-        //    }
-        //}
+                var boats = (from s in context.Boats
+                             orderby s.BoatID
+                             select s).ToList<Boat>();
 
-        //public void Print()
-        //{
-        //    using (Database context = new Database())
-        //    {
+                return boats;
+            }
+        }
 
-        //        foreach (var boat in BoatList())
-        //        {
-
-        //            Console.WriteLine($"ID: {boat.BoatID}, Name: {boat.Name}, BoatType : {boat.Type}, Roeiers: {boat.NumberOfRowers}, gewicht: {boat.Weight}, Stuur {boat.Steering}");
-        //        }
-        //        Console.ReadKey();
-        //    }
-        //}
-      
 
     }
 }

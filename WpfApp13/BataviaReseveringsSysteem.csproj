@@ -67,6 +67,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\BoatView.cs" />
+    <Compile Include="ReservationController.cs" />
     <Compile Include="Switcher.cs" />
     <Compile Include="Views\AddBoat.xaml.cs">
       <DependentUpon>AddBoat.xaml</DependentUpon>

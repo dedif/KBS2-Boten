@@ -16,7 +16,7 @@
         <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="23" Margin="212,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="16"/>
         <Label x:Name="TypeLabel" Content="Type:" Margin="160,80,587,113.252" FontSize="16" RenderTransformOrigin="0.985,0.426"/>
         <Label x:Name="RowersLabel" Content="Aantal roeiers:" HorizontalAlignment="Left" Margin="97,118,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label x:Name="WeightLabel" Content="Gewicht:" HorizontalAlignment="Left" Margin="136,164,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.858,0.188"/>
+        <Label x:Name="WeightLabel" Content="Gewicht (kg):" HorizontalAlignment="Left" Margin="104,164,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.858,0.188"/>
         <TextBox x:Name="WeightBox" HorizontalAlignment="Left" Height="23" Margin="212,172,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" FontSize="16"/>
         <CheckBox x:Name="SteeringWheelCheckbox" Content="Stuur" HorizontalAlignment="Left" Margin="137,205,0,0" VerticalAlignment="Top" FontSize="16" Height="29" Width="70" RenderTransformOrigin="0.703,1.145" Grid.RowSpan="2"/>
         <Button x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Left" Margin="345,47.748,0,0" VerticalAlignment="Top" Width="75" FontSize="16" Click="SaveButton_Click" RenderTransformOrigin="0.986,0.422" Grid.Row="1"/>
