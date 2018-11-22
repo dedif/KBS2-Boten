@@ -107,7 +107,7 @@ namespace Views
             }
         }
 
-
+        //Deze methode vult de labels van de huidige reservaties
         public string ReservationContent(Reservation reservation)
         {
             using (Database context = new Database())
