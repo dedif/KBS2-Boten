@@ -1,11 +1,13 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using WpfApp13;
 
 namespace Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : UserControl
     {
         public MainWindow()
         {
@@ -15,23 +17,17 @@ namespace Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            AddBoat addBoat = new AddBoat();
-            addBoat.Show();
-
-
-
+            Switcher.Switch(new AddBoat());
         }
 
         private void DashBoardButton_Click(object sender, RoutedEventArgs e)
         {
-            Dashboard b = new Dashboard();
-            b.Show();
+            Switcher.Switch(new Dashboard());
         }
 
         private void ReservationButton_Click(object sender, RoutedEventArgs e)
         {
-            ReserveWindow r = new ReserveWindow();
-            r.Show();
+            Switcher.Switch(new ReserveWindow());
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using WpfApp13;
 
 namespace Views
@@ -9,7 +10,7 @@ namespace Views
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class ReserveWindow : Window
+    public partial class ReserveWindow : UserControl
     {
         public ReserveWindow()
         {

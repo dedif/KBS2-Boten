@@ -11,7 +11,7 @@ namespace Views
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Dashboard : Window
+    public partial class Dashboard : UserControl
     {
 
         int YLeft = 50;
@@ -38,6 +38,10 @@ namespace Views
                 if(context.Reservations.Count() == 0)
                 {
                     NoReservationLabel.Visibility = Visibility.Visible;
+                }
+                else 
+                {
+                    NoReservationLabel.Visibility = Visibility.Hidden;
                 }
                 if (context.Reservations.Count() >= 2)
                 {
@@ -239,7 +243,7 @@ namespace Views
 
         private void Change_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Switcher.Switch(new MainWindow());
         }
 
         private void AddReservationButton_Click(object sender, RoutedEventArgs e)
@@ -252,6 +256,12 @@ namespace Views
 
                 context.Reservations.Add(re);
                 context.SaveChanges();
+                this.DeleteAllControls();
+                YLeft = 50;
+                YRight = 50;
+                Count = 0;
+                //De nieuwe reserveringen worden op het scherm getoond. 
+                ShowReservations();
             }
 
         }
