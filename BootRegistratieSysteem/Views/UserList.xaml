@@ -26,15 +26,32 @@
 
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.HeaderTemplate>
-
+                        
                         <DataTemplate>
-                            <TextBlock Text="Action" ></TextBlock>
+                            <TextBlock Text="Bewerken" ></TextBlock>
+                            
                         </DataTemplate>
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <Button x:Name="EditButton" Tag="{Binding PersonID}"  Click="ButtonEdit" Content="Bewerk"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+
+                            <TextBlock Text="Verwijderen" ></TextBlock>
+                        </DataTemplate>
+                       
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
                                 <Button x:Name="DeleteButton"   Tag="{Binding PersonID}" Content="Delete" />
                             </StackPanel>
                         </DataTemplate>
@@ -42,8 +59,8 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Nieuw lid" Click="RegisterUserButton" HorizontalAlignment="Left" Margin="87,37,0,0" VerticalAlignment="Top" Width="75"/>
-        <TextBox x:Name="search" KeyUp="Search_KeyUp" HorizontalAlignment="Left" Height="23" Margin="766,42,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Nieuw lid" Click="RegisterUserButton" HorizontalAlignment="Left" Margin="87,38,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox HorizontalAlignment="Left" x:Name="Search" TextChanged="Search_TextChanged" Height="23" Margin="856,38,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
     

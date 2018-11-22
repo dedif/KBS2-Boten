@@ -1,6 +1,7 @@
 ﻿
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,21 +30,13 @@ namespace BootRegistratieSysteem.Views
         public UserList()
         {
             InitializeComponent();
-
+            
             Load();
           
 
         }
 
-        private void Search_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            DataUserList.ItemsSource = from x in context.Users
-                        where x.Firstname == search.Text || x.Lastname == search.Text || x.City == search.Text || x.Address == search.Text || x.Zipcode == search.Text || x.Phonenumber == search.Text || x.Email == search.Text
-                        select x;
-
-
-            DataGrid = DataUserList;
-        }
+      
         public void UtilizeState(object state)
         {
             throw new NotImplementedException();
@@ -56,7 +49,6 @@ namespace BootRegistratieSysteem.Views
 
             DataUserList.ItemsSource = context.Users.ToList();
             DataGrid = DataUserList;
-
 
         }
 
@@ -73,6 +65,15 @@ namespace BootRegistratieSysteem.Views
             Switcher.Switch(new EditUser((int)b.Tag));
         }
 
-      
+        private void Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+       
+            DataUserList.ItemsSource = (from x in context.Users
+                                        where x.PersonID.ToString() == Search.Text || x.Firstname.Contains(Search.Text) || x.Lastname.Contains(Search.Text) || x.City.Contains(Search.Text) || x.Address.Contains(Search.Text) || x.City.Contains(Search.Text) || x.Zipcode.Contains(Search.Text) || x.Email.Contains(Search.Text) || x.Phonenumber.Contains(Search.Text) || x.Birthday.Day.ToString() == Search.Text || x.Birthday.Month.ToString() == Search.Text || x.Birthday.Year.ToString() == Search.Text
+                                        select x).ToList();
+
+
+            DataGrid = DataUserList;
+        }
     }
 }
