@@ -1,10 +1,6 @@
 ﻿using Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace WpfApp13
 {
@@ -23,7 +19,7 @@ namespace WpfApp13
         {
             return notification;
         }
-        //Deze methode returnd true als naam en gewicht zijn ingevoerd (anders false)
+        //Deze methode returnt true als naam en gewicht zijn ingevoerd (anders false)
         
         public Boolean WhiteCheck(string name, string weight)
         {

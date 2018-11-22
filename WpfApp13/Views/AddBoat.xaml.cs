@@ -1,7 +1,7 @@
-﻿using WpfApp13;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using WpfApp13;
 
 namespace Views
 {
