@@ -252,6 +252,15 @@ namespace Views
 
                 context.Reservations.Add(re);
                 context.SaveChanges();
+
+             
+                //Alle oude knoppen en labels worden verwijderd van het scherm.
+                this.DeleteAllControls();
+                YLeft = 50;
+                YRight = 50;
+                Count = 0;
+                //De nieuwe reserveringen worden op het scherm getoond. 
+                ShowReservations();
             }
 
         }
