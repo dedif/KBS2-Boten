@@ -66,8 +66,8 @@
     <Compile Include="Controller\EditController.cs" />
     <Compile Include="Controller\LoginController.cs" />
     <Compile Include="Controller\RegisterController.cs" />
-    <Compile Include="Model\Gender.cs" />
     <Compile Include="ISwitchable.cs" />
+    <Compile Include="Model\Gender.cs" />
     <Compile Include="Views\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>

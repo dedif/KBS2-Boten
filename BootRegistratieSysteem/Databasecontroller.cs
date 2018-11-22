@@ -11,14 +11,7 @@ namespace BootRegistratieSysteem
     class DataBaseController
     {
 
-        //public void EmptyDatabase()
-        //{
-        //    using (BootDataBase context = new BootDataBase())
-        //    {
-        //        context.Database.Delete();
-        //    }
-        //}
-
+        
         public void Add_User(string password, string firstname, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID,DateTime birthday)
         {
             using (BootDataBase context = new BootDataBase())
