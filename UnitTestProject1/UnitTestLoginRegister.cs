@@ -1,20 +1,23 @@
 ﻿using System;
+using System.Threading;
 using System.Windows.Controls;
 using BootRegistratieSysteem.Controller;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
-namespace UnitTestLoginRegister
-{
-   
+ [assembly: Apartment(ApartmentState.STA)]
+namespace UnitTestLoginRegister 
+{ 
 
     [TestFixture]
+    [Apartment(ApartmentState.STA)]
     public class UnitTestLoginRegister
     {
 
-        [STAThread]
-        [TestCase("10", "Omar", true)]
+        [Test]
+        [Apartment(ApartmentState.STA)]
         [TestCase("1", "Omar", false)]
+        [TestCase("1", "unittest", true)]
 
         public void Login_Login_ReturnTrue(string username, string password, bool answer)
         {
@@ -29,10 +32,10 @@ namespace UnitTestLoginRegister
         }
 
 
-        [STAThread]
-        [TestCase("", "", "", "", "", "", "", "",0,0,0, "", "", "", false)]
-        public void Register_Register_ReturnTrue(
-                                     string Firstname,
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        [TestCase("Omar", "Omar", "Omar", "Omar", "Omar", "Omar", "5555", "Omar","45","12","2458", "0", "Omar", "Omar", false)]
+        public void Register_Register_ReturnTrue(string Firstname,
                                      string Middlename,
                                      string Lastname,
                                      string City,
@@ -40,9 +43,9 @@ namespace UnitTestLoginRegister
                                      string Address,
                                      string Phonenumber,
                                      string Email,
-                                     int Day,
-                                     int Month,
-                                     int Year,
+                                     string Day,
+                                     string Month,
+                                     string Year,
                                      string Gender,
                                      string Password,
                                      string ConfirmPassword,
@@ -57,10 +60,14 @@ namespace UnitTestLoginRegister
             TextBox A = new TextBox() { Text = Address };
             TextBox P = new TextBox() { Text = Phonenumber };
             TextBox E = new TextBox() { Text = Email };
-            TextBox D = new TextBox() { Text = Day.ToString() };
-            TextBox Mo = new TextBox() { Text = Month.ToString() };
-            TextBox Y = new TextBox() { Text = Year.ToString() };
-            ComboBox G = new ComboBox() { Text = Gender };
+            TextBox D = new TextBox() { Text = Day };
+            TextBox Mo = new TextBox() { Text = Month };
+            TextBox Y = new TextBox() { Text = Year };
+
+            ComboBox G = new ComboBox() { Name = "Gender",
+                                          Text = Gender,
+                                          SelectedItem = 0,
+                                          SelectedValue = Gender};
             PasswordBox Pa = new PasswordBox() { Password = Password };
             PasswordBox Co = new PasswordBox() { Password = ConfirmPassword };
 
