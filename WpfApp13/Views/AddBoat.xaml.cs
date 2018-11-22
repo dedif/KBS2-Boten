@@ -1,13 +1,14 @@
 ﻿using WpfApp13;
 using System;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Views
 {
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class AddBoat : Window
+    public partial class AddBoat : UserControl
     {
         Boatcontroller b = new Boatcontroller();
 
@@ -20,9 +21,7 @@ namespace Views
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow m = new MainWindow();
-            m.Show();
-            this.Close();
+            Switcher.Switch(new MainWindow());
         }
         //Deze methode checkt op whitespace in de textvelden, de uniekheid van de Naam die is ingevoerd en dat gewicht juist is ingevoerd
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -59,15 +58,13 @@ namespace Views
                         switch (Succes)
                         {
                             case MessageBoxResult.OK:
-                               this.Close();
+                                Switcher.Switch(new MainWindow());
                                 break;
 
                         }
                     }
 
                 }
-                 //idiallle gewicht 70,  gewicht klasse ipv gewicht
-
             }
             
             NotificationLabel.Content = b.Notification();
