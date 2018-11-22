@@ -169,7 +169,7 @@ namespace BootRegistratieSysteem.Controller
 
         }
 
-        public static Boolean Edit(TextBox Firstname,
+        public static Boolean EditWithoutPassword(TextBox Firstname,
                                     TextBox Middlename,
                                     TextBox Lastname,
                                     TextBox City,

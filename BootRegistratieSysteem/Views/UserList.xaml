@@ -14,7 +14,7 @@
             
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="PersonID" Width="auto"    Binding="{Binding PersonID}" Header="Lidnummer" IsReadOnly="true" />
-                <DataGridTextColumn x:Name="Firstname" Width="*"   Binding="{Binding Firstname}" Header="Voornaam" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Firstname"    Binding="{Binding Firstname}" Header="Voornaam" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Lastname"  Binding="{Binding Lastname}" Header="Achternaam" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Gender" Binding="{Binding GenderID}" Header="Geslacht" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Birthday"  Binding="{Binding Birthday}" Header="Geboortedatum" IsReadOnly="true"/>
@@ -42,7 +42,8 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Nieuw lid" Click="RegisterUserButton" HorizontalAlignment="Left" Margin="839,40,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Nieuw lid" Click="RegisterUserButton" HorizontalAlignment="Left" Margin="87,37,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox x:Name="search" KeyUp="Search_KeyUp" HorizontalAlignment="Left" Height="23" Margin="766,42,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
     

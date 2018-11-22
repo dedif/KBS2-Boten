@@ -34,7 +34,7 @@
         <Label Content="Tussenvoegsel&#xD;&#xA;" HorizontalAlignment="Left" Margin="293,112,0,0" VerticalAlignment="Top"/>
         <TextBox  x:Name="Middlename" HorizontalAlignment="Left" Height="23" Margin="421,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53"/>
         <Label Content="Geslacht" HorizontalAlignment="Left" Margin="43,156,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="Gender" HorizontalAlignment="Left" Margin="146,159,0,0" VerticalAlignment="Top" Width="120"   IsEditable="True" IsReadOnly="True" Text="Selecteer uw geslacht"  SelectedIndex="0">
+        <ComboBox x:Name="Gender" HorizontalAlignment="Left" Margin="146,159,0,0" VerticalAlignment="Top" Width="120"   IsEditable="True" IsReadOnly="True" Text="Selecteer uw geslacht"  >
 
             <ComboBoxItem x:Name="Men" Tag="1" >Man</ComboBoxItem>
             <ComboBoxItem x:Name="Woman" Tag="2">Vrouw</ComboBoxItem>
@@ -48,7 +48,8 @@
         <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Year" MaxLength="4"  HorizontalAlignment="Left" Height="23" Margin="584,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" RenderTransformOrigin="-0.552,0.438"/>
         <Label Content="" Foreground="Red"  x:Name="RegisterError" HorizontalAlignment="Left" Margin="293,41,0,0" VerticalAlignment="Top"/>
         <Label x:Name="test"  Content="" HorizontalAlignment="Left" Margin="226,41,0,0" VerticalAlignment="Top"/>
-        <Label Content="Vul een nieuw password in wanneer nodig&#xD;&#xA;" HorizontalAlignment="Left" Margin="43,347,0,0" VerticalAlignment="Top"/>
+        <Label Content="Vul een nieuw password in wanneer nodig&#xD;&#xA;" HorizontalAlignment="Left" Margin="43,347,0,0" VerticalAlignment="Top" Height="25"/>
+        <Button Content="Annuleren"  x:Name="CancelButton"  HorizontalAlignment="Left" Margin="43,443,0,0" VerticalAlignment="Top" Width="75" Click="ButtonCancel"/>
 
     </Grid>
 </UserControl>

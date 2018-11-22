@@ -42,6 +42,10 @@ namespace BootRegistratieSysteem.Views
                 Zipcode.Text = user.Zipcode;
                 Email.Text = user.Email;
                 Phonenumber.Text = user.Phonenumber;
+                Gender.SelectedIndex = user.GenderID-1;
+               
+              
+            
                 
 
 
@@ -94,7 +98,7 @@ namespace BootRegistratieSysteem.Views
         {
             if (Password.Password == "" && ConfirmPassword.Password == "")
             {
-                if (Controller.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, test))
+                if (Controller.EditController.EditWithoutPassword(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, test))
                 {
                     Switcher.Switch(new UserList());
                 }
@@ -116,6 +120,11 @@ namespace BootRegistratieSysteem.Views
                     RegisterError.UpdateLayout();
                 }
             }
+        }
+
+        private void ButtonCancel(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new UserList());
         }
     }
 }

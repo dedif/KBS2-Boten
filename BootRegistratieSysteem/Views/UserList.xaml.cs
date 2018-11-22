@@ -35,6 +35,15 @@ namespace BootRegistratieSysteem.Views
 
         }
 
+        private void Search_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            DataUserList.ItemsSource = from x in context.Users
+                        where x.Firstname == search.Text || x.Lastname == search.Text || x.City == search.Text || x.Address == search.Text || x.Zipcode == search.Text || x.Phonenumber == search.Text || x.Email == search.Text
+                        select x;
+
+
+            DataGrid = DataUserList;
+        }
         public void UtilizeState(object state)
         {
             throw new NotImplementedException();
@@ -64,7 +73,6 @@ namespace BootRegistratieSysteem.Views
             Switcher.Switch(new EditUser((int)b.Tag));
         }
 
-
-
+      
     }
 }
