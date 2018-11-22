@@ -31,53 +31,55 @@ namespace UnitTestLoginRegister
             Assert.AreEqual(answer, result);
         }
 
-        //Werkt nog niet helemaal goed, combobox is nog even irritant
-        //[Test]
-        //[Apartment(ApartmentState.STA)]
-        //[TestCase("Omar", "Omar", "Omar", "Omar", "Omar", "Omar", "5555", "Omar","45","12","2458", 0, "Omar", "Omar", false)]
-        //public void Register_Register_ReturnTrue(string Firstname,
-        //                             string Middlename,
-        //                             string Lastname,
-        //                             string City,
-        //                             string Zipcode,
-        //                             string Address,
-        //                             string Phonenumber,
-        //                             string Email,
-        //                             string Day,
-        //                             string Month,
-        //                             string Year,
-        //                             int Gender,
-        //                             string Password,
-        //                             string ConfirmPassword,
-        //                             bool answer)
-        //{
-        //    //Arrage
-        //    TextBox F = new TextBox() { Text = Firstname };
-        //    TextBox M = new TextBox() { Text = Middlename };
-        //    TextBox L = new TextBox() { Text = Lastname };
-        //    TextBox C = new TextBox() { Text = City };
-        //    TextBox Z = new TextBox() { Text = Zipcode };
-        //    TextBox A = new TextBox() { Text = Address };
-        //    TextBox P = new TextBox() { Text = Phonenumber };
-        //    TextBox E = new TextBox() { Text = Email };
-        //    TextBox D = new TextBox() { Text = Day };
-        //    TextBox Mo = new TextBox() { Text = Month };
-        //    TextBox Y = new TextBox() { Text = Year };
+       
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        [TestCase("Omar", "Omar", "Omar", "Omar", "Omar", "Omar", "5555", "Omar", "45", "12", "2458", 0, "Omar", "Omar", false)]
+        [TestCase("","","","","","","","","00","00","0000",0,"","", false)]
+        [TestCase("Omar","A", "Mazher", "Zwolle", "8023XW", "Westeinde22","1234567890", "tester@live.nl", "05", "12", "1995",0, "omar", "omar", true)]
+        public void Register_Register_ReturnTrue(string Firstname,
+                                     string Middlename,
+                                     string Lastname,
+                                     string City,
+                                     string Zipcode,
+                                     string Address,
+                                     string Phonenumber,
+                                     string Email,
+                                     string Day,
+                                     string Month,
+                                     string Year,
+                                     int Gender,
+                                     string Password,
+                                     string ConfirmPassword,
+                                     bool answer)
+        {
+            //Arrage
+            TextBox F = new TextBox() { Text = Firstname };
+            TextBox M = new TextBox() { Text = Middlename };
+            TextBox L = new TextBox() { Text = Lastname };
+            TextBox C = new TextBox() { Text = City };
+            TextBox Z = new TextBox() { Text = Zipcode };
+            TextBox A = new TextBox() { Text = Address };
+            TextBox P = new TextBox() { Text = Phonenumber };
+            TextBox E = new TextBox() { Text = Email };
+            TextBox D = new TextBox() { Text = Day };
+            TextBox Mo = new TextBox() { Text = Month };
+            TextBox Y = new TextBox() { Text = Year };
 
-        //    ComboBox G = new ComboBox() {Name = "",SelectedIndex = 0,SelectedValue= 0 };
-        //    G.Items.Add("");
-        //    G.SelectedItem = 0;
+            ComboBox G = new ComboBox() { Name = "", SelectedIndex = 0, SelectedValue = 0 };
+            G.Items.Add(new ComboBoxItem() { Content = "" ,Tag = 0});
+            G.SelectedItem = 0;
+           
 
-            
-        //    PasswordBox Pa = new PasswordBox() { Password = Password };
-        //    PasswordBox Co = new PasswordBox() { Password = ConfirmPassword };
+            PasswordBox Pa = new PasswordBox() { Password = Password };
+            PasswordBox Co = new PasswordBox() { Password = ConfirmPassword };
 
-        //    //Act
-        //    bool result = RegisterController.Registreren(F, M, L, C, Z, A, P, E, D, Mo, Y, G, Pa, Co);
+            //Act
+            bool result = RegisterController.Registreren(F, M, L, C, Z, A, P, E, D, Mo, Y, G, Pa, Co);
 
-        //    //Assert
-        //    Assert.AreEqual(answer, result);
-        //}
+            //Assert
+            Assert.AreEqual(answer, result);
+        }
 
 
         [Test]

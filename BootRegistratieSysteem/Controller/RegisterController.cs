@@ -161,7 +161,7 @@ namespace BootRegistratieSysteem.Controller
 
                 MessageBoxResult result = MessageBox.Show("UW ACCOUNT IS AANGEMAAKT!!!!");
                 u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
-                Switcher.Switch(new DashboardView());
+                
                 return true;
             }
             else
