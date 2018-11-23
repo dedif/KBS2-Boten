@@ -39,6 +39,7 @@ namespace BootRegistratieSysteem.Views
             {
                 Firstname.Text = user.Firstname;
                 Lastname.Text = user.Lastname;
+                Middlename.Text = user.Middlename;
                 City.Text = user.City;
                 Address.Text = user.Address;
                 Zipcode.Text = user.Zipcode;
