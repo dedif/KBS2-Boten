@@ -28,5 +28,9 @@ namespace WpfApp6
             Start = start;
             End = end;
         }
+        public Reservation()
+        {
+
+        }
     }
 }
