@@ -22,7 +22,6 @@ namespace WpfApp6
         private ComboBox _reservationStartComboBox;
         private Button OkButton;
         private const int AmountOfAvailableQuarters = 8;
-
         public BoatTypeTabItem(List<Boat> boats, Boat.BoatType type, List<Reservation> reservations)
         {
             BoatType = type;
@@ -37,7 +36,21 @@ namespace WpfApp6
                 Content = "Boot:",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(10, 180, 0, 0)
+                Margin = new Thickness(5, 200, 0, 0)
+            });
+            Grid.Children.Add(new Label
+            {
+                Content = "Start:",
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(5, 260, 0, 0)
+            });
+            Grid.Children.Add(new Label
+            {
+                Content = "Tijdsduur:",
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(5, 320, 0, 0)
             });
             Grid.Children.Add(new Label
             {
@@ -235,8 +248,6 @@ namespace WpfApp6
             ReservationDurationComboBox.Items.Add("02:00");
             Grid.Children.Add(ReservationDurationComboBox);
 
-        }
-
         public void MakeRegisterBtnVisibleAfterChoice()
         {
             OkButton = new Button { Name = "okBtn", Content = "Afschrijven", Width = 120, Height = 25, IsEnabled = false };
@@ -246,13 +257,13 @@ namespace WpfApp6
             Grid.Children.Add(OkButton);
         }
 
+        // This method will take the length of the reserve period from the selected comboboxItem
         public int CalculateQuarterFromComboBox()
         {
             int timeEnd;
             var oldTime = ReservationDurationComboBox.Text;
 
             // if hours is < 1
-
             if (oldTime == "00:15" || oldTime == "00:30" || oldTime == "00:45")
             {
                 char[] myChar = { '0', '0', ':' };
@@ -261,7 +272,6 @@ namespace WpfApp6
             }
 
             // if hours is >= 1 && < 2
-
             else if (oldTime == "01:00" || oldTime == "01:15" || oldTime == "01:30" || oldTime == "01:45")
             {
                 char[] myChar = { '0', '1', ':' };
@@ -271,12 +281,13 @@ namespace WpfApp6
             }
 
             // if hours is >= 2
-
             else timeEnd = 120;
 
             return timeEnd;
         }
 
+
+        // When the button is clicked, boats will be reserved after messagebox dialog comfirmation
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
             var Succes = MessageBox.Show(
@@ -300,9 +311,9 @@ namespace WpfApp6
                     "Melding",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
-
             }
         }
+
         public void FillComboNames()
         {
             BoatNamesComboBox.Name = "ComboBoatName";

@@ -6,8 +6,9 @@ using WpfApp6;
 
 namespace WpfApp13
 {
-    class ReservationController
+    public class ReservationController
     {
+
         public List<Reservation> GetReservations()
         {
             using (var context = new Database()) return context.Reservations.ToList();
