@@ -29,6 +29,7 @@ namespace WpfApp6
             Reservations = reservations;
             Grid = new Grid();
             MakeRegisterBtnVisibleAfterChoice();
+            FillComboNames();
             Calendar = MakeCalendar();
             Grid.Children.Add(Calendar);
             Grid.Children.Add(new Label
@@ -71,7 +72,7 @@ namespace WpfApp6
             PlannerGrid = new PlannerGrid();
             var earliestSlot = GetEarliestSlot(sunriseAndSunsetTimes[0]);
             var latestSlot = GetLatestSlot(sunriseAndSunsetTimes[1]);
-            var claimedSlotsForThisDay = GetClaimedSlotsForThisDay(DateTime.Now);
+            var claimedSlotsForThisDay = GetClaimedSlotsForThisDayAndBoat(DateTime.Now, (string)BoatNamesComboBox.SelectedValue);
             PlannerGrid.Populate(earliestSlot, latestSlot, claimedSlotsForThisDay);
             Grid.Children.Add(PlannerGrid);
             Grid.Children.Add(new Label
@@ -92,7 +93,6 @@ namespace WpfApp6
             PopulateStartTimeComboBox(DateTime.Now, earliestSlot, latestSlot, claimedSlotsForThisDay);
             Grid.Children.Add(_reservationStartComboBox);
             Content = Grid;
-            FillComboNames();
             FillComboTimes();
             OnStartComboBoxClick(null, null);
             ReservationDurationComboBox.DropDownClosed += OnDurationComboBoxClick;
@@ -106,7 +106,7 @@ namespace WpfApp6
             var sunriseAndSunsetTimes = GetSunriseAndSunsetTimes(selectedDateValue);
             var earliestSlot = GetEarliestSlot(sunriseAndSunsetTimes[0]);
             var latestSlot = GetLatestSlot(sunriseAndSunsetTimes[1]);
-            var claimedSlots = GetClaimedSlotsForThisDay(selectedDateValue);
+            var claimedSlots = GetClaimedSlotsForThisDayAndBoat(selectedDateValue, (string)BoatNamesComboBox.SelectedValue);
             var amountOfClaimableSlots = GetAmountOfClaimableSlots(claimedSlots, latestSlot);
             var amountOfSlotsWantingToBeClaimed = GetAmountOfSlotsWantingToBeClaimed();
             var amountOfSlotsToBeClaimed = new[] { amountOfClaimableSlots, amountOfSlotsWantingToBeClaimed }.Min();
@@ -122,7 +122,7 @@ namespace WpfApp6
             var sunriseAndSunsetTimes = GetSunriseAndSunsetTimes(selectedDateValue);
             var earliestSlot = GetEarliestSlot(sunriseAndSunsetTimes[0]);
             var latestSlot = GetLatestSlot(sunriseAndSunsetTimes[1]);
-            var claimedSlots = GetClaimedSlotsForThisDay(selectedDateValue);
+            var claimedSlots = GetClaimedSlotsForThisDayAndBoat(selectedDateValue, (string)BoatNamesComboBox.SelectedValue);
             var amountOfClaimableSlots = GetAmountOfClaimableSlots(claimedSlots, latestSlot);
             var amountOfSlotsWantingToBeClaimed = GetAmountOfSlotsWantingToBeClaimed();
             var amountOfSlotsToBeClaimed = new[] { amountOfClaimableSlots, amountOfSlotsWantingToBeClaimed }.Min();
@@ -134,9 +134,7 @@ namespace WpfApp6
         private int GetAmountOfSlotsWantingToBeClaimed()
         {
             var startSlot = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
-            var endSlot = startSlot
-                .AddHours(int.Parse(ReservationDurationComboBox.SelectedValue.ToString()[1].ToString()))
-                .AddMinutes(int.Parse(ReservationDurationComboBox.SelectedValue.ToString().Substring(3)));
+            var endSlot = GenerateEndTime(startSlot);
             var startSlotDayQuarter = DateTimeToDayQuarter(startSlot);
             var endSlotDayQuarter = DateTimeToDayQuarter(endSlot);
             return endSlotDayQuarter - startSlotDayQuarter;
@@ -169,7 +167,6 @@ namespace WpfApp6
             var amountOfItems = itemsInComboBox.Count;
             var highestSelectableIndex = amountOfItems - 1;
             ReservationDurationComboBox.SelectedIndex = new[] { oldSelectedIndex, highestSelectableIndex }.Min();
-            Console.WriteLine(ReservationDurationComboBox.SelectedValue);
         }
 
         private List<string> GenerateClaimableDurationStrings(int amountOfSlotsToBeClaimed)
@@ -191,11 +188,6 @@ namespace WpfApp6
             var startSlot = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
             var startSlotDayQuarter = DateTimeToDayQuarter(startSlot);
             var endSlotDayQuarter = startSlotDayQuarter + amountOfSlotsToBeClaimed;
-            //            var endSlot = startSlot
-            //                .AddHours(int.Parse(ReservationDurationComboBox.SelectedValue.ToString()[1].ToString()))
-            //                .AddMinutes(int.Parse(ReservationDurationComboBox.SelectedValue.ToString().Substring(3)));
-            //            var startSlotDayQuarter = DateTimeToDayQuarter(startSlot);
-            //            var endSlotDayQuarter = DateTimeToDayQuarter(endSlot);
             for (var i = startSlotDayQuarter; i < endSlotDayQuarter; i++)
                 aboutToBeClaimedSlots.Add(DayQuarterToDateTime(displayedDate, i));
 
@@ -247,6 +239,7 @@ namespace WpfApp6
             ReservationDurationComboBox.Items.Add("01:45");
             ReservationDurationComboBox.Items.Add("02:00");
             Grid.Children.Add(ReservationDurationComboBox);
+        }
 
         public void MakeRegisterBtnVisibleAfterChoice()
         {
@@ -258,59 +251,52 @@ namespace WpfApp6
         }
 
         // This method will take the length of the reserve period from the selected comboboxItem
-        public int CalculateQuarterFromComboBox()
-        {
-            int timeEnd;
-            var oldTime = ReservationDurationComboBox.Text;
-
-            // if hours is < 1
-            if (oldTime == "00:15" || oldTime == "00:30" || oldTime == "00:45")
-            {
-                char[] myChar = { '0', '0', ':' };
-                var newTime = oldTime.TrimStart(myChar);
-                timeEnd = int.Parse(newTime);
-            }
-
-            // if hours is >= 1 && < 2
-            else if (oldTime == "01:00" || oldTime == "01:15" || oldTime == "01:30" || oldTime == "01:45")
-            {
-                char[] myChar = { '0', '1', ':' };
-                var newTime = oldTime.TrimStart(myChar);
-                timeEnd = int.Parse(newTime + 60);
-
-            }
-
-            // if hours is >= 2
-            else timeEnd = 120;
-
-            return timeEnd;
-        }
+        public DateTime GenerateEndTime(DateTime startTime) => startTime
+            .AddHours(int.Parse(ReservationDurationComboBox.SelectedValue.ToString()[1].ToString()))
+            .AddMinutes(int.Parse(ReservationDurationComboBox.SelectedValue.ToString().Substring(3)));
 
 
         // When the button is clicked, boats will be reserved after messagebox dialog comfirmation
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
-            var Succes = MessageBox.Show(
-                            "Wilt u uw afschrijving definitief maken?",
-                            "Afschrijving bevestigen",
-                            MessageBoxButton.YesNo,
-                            MessageBoxImage.Question);
-            if (Succes != MessageBoxResult.Yes) return;
+            if (MessageBox.Show("Wilt u uw afschrijving definitief maken?",
+                    "Afschrijving bevestigen",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) !=
+                MessageBoxResult.Yes)
+                return;
             using (var context = new Database())
             {
                 var boat = (from db in context.Boats
-                    where db.Name.Equals((string) BoatNamesComboBox.SelectedValue)
-                    select db).First();
+                            where db.Name.Equals((string)BoatNamesComboBox.SelectedValue)
+                            select db).First();
                 var startTime = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
-                var rs1 = new Reservation(boat, new Member(), startTime,
-                    startTime.AddMinutes(CalculateQuarterFromComboBox()));
+                var endTime = GenerateEndTime(startTime);
+                var rs1 = new Reservation(boat, new Member(), startTime, endTime);
                 context.Reservations.Add(rs1);
                 context.SaveChanges();
-                MessageBox.Show(
-                    "De boot is succesvol afgeschreven",
-                    "Melding",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
+                if (MessageBox.Show("De boot is succesvol afgeschreven",
+                        "Melding",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information) !=
+                    MessageBoxResult.OK)
+                    return;
+                var selectedDate = Calendar.SelectedDate;
+                if (!selectedDate.HasValue) return;
+                var selectedDateValue = selectedDate.Value;
+                var sunriseAndSunsetTimes = GetSunriseAndSunsetTimes(selectedDateValue);
+                var earliestSlot = GetEarliestSlot(sunriseAndSunsetTimes[0]);
+                var latestSlot = GetLatestSlot(sunriseAndSunsetTimes[1]);
+                var selectedBoat = (string)BoatNamesComboBox.SelectedValue;
+                var claimedSlotsForThisDayAndBoat = GetClaimedSlotsForThisDayAndBoat(selectedDateValue, selectedBoat);
+                PopulateStartTimeComboBox(selectedDateValue, earliestSlot, latestSlot, claimedSlotsForThisDayAndBoat);
+                var amountOfClaimableSlots = GetAmountOfClaimableSlots(claimedSlotsForThisDayAndBoat, latestSlot);
+                var amountOfSlotsWantingToBeClaimed = GetAmountOfSlotsWantingToBeClaimed();
+                var amountOfSlotsToBeClaimed =
+                    GetAmountOfSlotsToBeClaimed(amountOfClaimableSlots, amountOfSlotsWantingToBeClaimed);
+                var aboutToBeClaimedSlots = GetAboutToBeClaimedSlots(selectedDateValue, amountOfSlotsToBeClaimed);
+                PopulateDurationTimeComboBox(amountOfClaimableSlots);
+                PlannerGrid.Populate(earliestSlot, latestSlot, claimedSlotsForThisDayAndBoat, aboutToBeClaimedSlots);
             }
         }
 
@@ -323,11 +309,31 @@ namespace WpfApp6
             BoatNamesComboBox.HorizontalAlignment = HorizontalAlignment.Left;
             BoatNamesComboBox.Margin = new Thickness(10, 0, 0, 0);
             BoatNamesComboBox.SelectedIndex = 0;
+            BoatNamesComboBox.DropDownClosed += OnBoatNamesComboBoxClicked;
             Grid.Children.Add(BoatNamesComboBox);
-
             using (var context = new Database())
                 foreach (var item in from db in context.Boats where db.Type == BoatType select db.Name)
                     BoatNamesComboBox.Items.Add(item);
+        }
+
+        private void OnBoatNamesComboBoxClicked(object sender, EventArgs e)
+        {
+            var selectedDate = Calendar.SelectedDate;
+            if (!selectedDate.HasValue) return;
+            var selectedDateValue = selectedDate.Value;
+            var sunriseAndSunsetTimes = GetSunriseAndSunsetTimes(selectedDateValue);
+            var earliestSlot = GetEarliestSlot(sunriseAndSunsetTimes[0]);
+            var latestSlot = GetLatestSlot(sunriseAndSunsetTimes[1]);
+            var selectedBoat = (string)BoatNamesComboBox.SelectedValue;
+            var claimedSlotsForThisDayAndBoat = GetClaimedSlotsForThisDayAndBoat(selectedDateValue, selectedBoat);
+            PopulateStartTimeComboBox(selectedDateValue, earliestSlot, latestSlot, claimedSlotsForThisDayAndBoat);
+            var amountOfClaimableSlots = GetAmountOfClaimableSlots(claimedSlotsForThisDayAndBoat, latestSlot);
+            var amountOfSlotsWantingToBeClaimed = GetAmountOfSlotsWantingToBeClaimed();
+            var amountOfSlotsToBeClaimed =
+                GetAmountOfSlotsToBeClaimed(amountOfClaimableSlots, amountOfSlotsWantingToBeClaimed);
+            var aboutToBeClaimedSlots = GetAboutToBeClaimedSlots(selectedDateValue, amountOfSlotsToBeClaimed);
+            PopulateDurationTimeComboBox(amountOfClaimableSlots);
+            PlannerGrid.Populate(earliestSlot, latestSlot, claimedSlotsForThisDayAndBoat, aboutToBeClaimedSlots);
         }
 
         private Calendar MakeCalendar()
@@ -376,15 +382,26 @@ namespace WpfApp6
             var sunriseAndSunsetTimes = GetSunriseAndSunsetTimes(selectedDateValue);
             var earliestSlot = GetEarliestSlot(sunriseAndSunsetTimes[0]);
             var latestSlot = GetLatestSlot(sunriseAndSunsetTimes[1]);
-            PlannerGrid.Populate(earliestSlot, latestSlot, GetClaimedSlotsForThisDay(selectedDateValue));
-
-            PopulateStartTimeComboBox(selectedDateValue, earliestSlot, latestSlot, GetClaimedSlotsForThisDay(selectedDateValue));
+            var selectedBoat = (string)BoatNamesComboBox.SelectedValue;
+            var claimedSlotsForThisDayAndBoat = GetClaimedSlotsForThisDayAndBoat(selectedDateValue, selectedBoat);
+            PopulateStartTimeComboBox(selectedDateValue, earliestSlot, latestSlot, claimedSlotsForThisDayAndBoat);
+            var amountOfClaimableSlots = GetAmountOfClaimableSlots(claimedSlotsForThisDayAndBoat, latestSlot);
+            var amountOfSlotsWantingToBeClaimed = GetAmountOfSlotsWantingToBeClaimed();
+            var amountOfSlotsToBeClaimed =
+                GetAmountOfSlotsToBeClaimed(amountOfClaimableSlots, amountOfSlotsWantingToBeClaimed);
+            var aboutToBeClaimedSlots = GetAboutToBeClaimedSlots(selectedDateValue, amountOfSlotsToBeClaimed);
+            PopulateDurationTimeComboBox(amountOfClaimableSlots);
+            PlannerGrid.Populate(earliestSlot, latestSlot, claimedSlotsForThisDayAndBoat, aboutToBeClaimedSlots);
         }
 
-        private List<DateTime> GetClaimedSlotsForThisDay(DateTime selectedDate)
+        private int GetAmountOfSlotsToBeClaimed(int amountOfClaimableSlots, int amountOfSlotsWantingToBeClaimed) =>
+            new[] { amountOfClaimableSlots, amountOfSlotsWantingToBeClaimed }.Min();
+
+        private List<DateTime> GetClaimedSlotsForThisDayAndBoat(DateTime selectedDate, string selectedBoatString)
         {
             var claimedSlots = new List<DateTime>();
-            var reservations = new ReservationController().GetReservationsForDay(selectedDate);
+            var selectedBoat = new Boatcontroller().GetBoatWithName(selectedBoatString);
+            var reservations = new ReservationController().GetReservationsForDayAndBoat(selectedDate, selectedBoat);
             reservations.ForEach(reservation =>
             {
                 var endQuarter = DateTimeToDayQuarter(reservation.End);

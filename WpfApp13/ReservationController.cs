@@ -22,5 +22,17 @@ namespace WpfApp13
                     reservation.Start.Month == day.Month &&
                     reservation.Start.Year == day.Year).ToList();
         }
+
+        public List<Reservation> GetReservationsForDayAndBoat(DateTime day, Boat boat)
+        {
+            using (var context = new Database())
+            {
+                return context.Reservations.Where(reservation =>
+                    reservation.Start.Day == day.Day &&
+                    reservation.Start.Month == day.Month &&
+                    reservation.Start.Year == day.Year &&
+                    reservation.Boat.BoatID == boat.BoatID).ToList();
+            }
+        }
     }
 }
