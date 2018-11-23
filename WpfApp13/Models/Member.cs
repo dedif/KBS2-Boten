@@ -2,7 +2,7 @@
 
 namespace Models
 {
-    public class Member
+    public  class Member
     {
         [Key]
         public int MemberID { get; set; }
@@ -12,4 +12,5 @@ namespace Models
 
         }
     }
+ 
 }

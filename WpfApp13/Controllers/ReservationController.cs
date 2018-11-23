@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace WpfApp13
+namespace Controllers
 {
     class ReservationController
     {

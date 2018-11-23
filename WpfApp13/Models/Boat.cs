@@ -1,9 +1,12 @@
-﻿namespace Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Models
 {
     public class Boat
     {
         public enum BoatType {Scull, Skiff, Board}
 
+        [Key]
         public int BoatID { get; set; }
         public string Name { get; set; }
         public BoatType Type { get; set; }

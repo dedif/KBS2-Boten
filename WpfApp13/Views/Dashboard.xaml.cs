@@ -76,7 +76,6 @@ namespace Views
                         GridDashboard.Children.Add(deleteButton);
 
 
-
                         YLeft = YLeft + 300;
                     }
                     else if (Count % 2 != 0)
@@ -246,32 +245,28 @@ namespace Views
 
         private void Change_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new MainWindow());
+           Switcher.Switch(new Dashboard());
         }
 
         private void AddReservationButton_Click(object sender, RoutedEventArgs e)
         {
-            using (Database context = new Database())
-            {
-                Member m = new Member();
-                Boat b = new Boat("bootje", Boat.BoatType.Board, 4, 77, true);
-                Reservation re = new Reservation(b, m, DateTime.Now, DateTime.Now);
-
-                context.Reservations.Add(re);
-                context.SaveChanges();
-                this.DeleteAllControls();
-                YLeft = 50;
-                YRight = 50;
-                Count = 0;
-                //De nieuwe reserveringen worden op het scherm getoond. 
-                ShowReservations();
-            }
+            Switcher.Switch(new ReserveWindow());
 
         }
 
         private void SignOutButton_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new MainWindow());
+           Switcher.Switch(new Dashboard());
+        }
+
+        private void UserListButton_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new UserList());
+        }
+
+        private void AddBoatButton_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new AddBoat());
         }
     }
 }

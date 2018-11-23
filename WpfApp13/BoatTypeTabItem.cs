@@ -131,17 +131,15 @@ namespace WpfApp13
                             MessageBoxImage.Question);
             switch (Succes)
             {
+
                 case MessageBoxResult.Yes:
 
-                    //Boat b1 = new Boat();
-                    using (Database context = new Database())
+                  using (Database context = new Database())
                     {
                         var boat = (from db in context.Boats
                                     where db.Name.Equals((string)cbNames.SelectedValue)
                                     select db).First();
-                        //var x = BoatTypeTabControl.SelectedItem;
-                        //BoatTypeTabItem y = (BoatTypeTabItem)x;
-                        Reservation rs1 = new Reservation(boat, new Member(), /*y.Calendar.SelectedDate.Value*/DateTime.Now, DateTime.Now.AddMinutes(CalculateQuarterFromComboBox()));
+                        Reservation rs1 = new Reservation(boat, new Member(), DateTime.Now, DateTime.Now.AddMinutes(CalculateQuarterFromComboBox()));
                         context.Reservations.Add(rs1);
                         context.SaveChanges();
 
@@ -151,7 +149,7 @@ namespace WpfApp13
                             MessageBoxButton.OK,
                             MessageBoxImage.Information);
 
-                        Switcher.Switch(new MainWindow());
+                        Switcher.Switch(new Dashboard());
 
 
                     }

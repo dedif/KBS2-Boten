@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Controllers;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using WpfApp13;
@@ -22,7 +23,7 @@ namespace Views
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new MainWindow());
+            Switcher.Switch(new Dashboard());
         }
         //Deze methode checkt op whitespace in de textvelden, de uniekheid van de Naam die is ingevoerd en dat gewicht juist is ingevoerd
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -59,7 +60,7 @@ namespace Views
                         switch (Succes)
                         {
                             case MessageBoxResult.OK:
-                                Switcher.Switch(new MainWindow());
+                                Switcher.Switch(new Dashboard());
                                 break;
 
                         }

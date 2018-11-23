@@ -24,7 +24,7 @@ namespace WpfApp13
         {
             InitializeComponent();
             Switcher.pageSwitcher = this;
-            Switcher.Switch(new MainWindow());
+            Switcher.Switch(new LoginView());
         }
 
         public void Navigate(UserControl nextPage)

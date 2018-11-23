@@ -2,8 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WpfApp13;
 
-namespace WpfApp13
+namespace Controllers
 {
     public class Boatcontroller
     {
