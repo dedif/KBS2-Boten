@@ -15,7 +15,7 @@ using System.Text.RegularExpressions;
 using BootRegistratieSysteem.Views;
 using System.Globalization;
 using System.Net.Mail;
-using BootRegistratieSysteem.Controller;
+using BootRegistratieSysteem.Controllers;
 
 namespace BootRegistratieSysteem
 {

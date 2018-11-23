@@ -1,35 +1,33 @@
-﻿using BootRegistratieSysteem.Views;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace BootRegistratieSysteem.Controller
+namespace BootRegistratieSysteem.Controllers
 {
-   public class RegisterController
+    public class EditController
     {
-        //Register member of user
-        public static Boolean Registreren(TextBox Firstname, 
-                                     TextBox Middlename, 
-                                     TextBox Lastname, 
-                                     TextBox City,
-                                     TextBox Zipcode,
-                                     TextBox Address,
-                                     TextBox Phonenumber,
-                                     TextBox Email,
-                                     TextBox Day,
-                                     TextBox Month,
-                                     TextBox Year,
-                                     ComboBox Gender,
-                                     PasswordBox Password,
-                                     PasswordBox ConfirmPassword)
+        public static Boolean Edit(TextBox Firstname,
+                                    TextBox Middlename,
+                                    TextBox Lastname,
+                                    TextBox City,
+                                    TextBox Zipcode,
+                                    TextBox Address,
+                                    TextBox Phonenumber,
+                                    TextBox Email,
+                                    TextBox Day,
+                                    TextBox Month,
+                                    TextBox Year,
+                                    ComboBox Gender,
+                                    PasswordBox Password,
+                                    PasswordBox ConfirmPassword,
+                                    Label editID)
         {
             bool validate = true;
             bool valDate = true;
@@ -111,7 +109,7 @@ namespace BootRegistratieSysteem.Controller
                 }
 
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
                 Day.BorderBrush = Brushes.Red;
                 Day.BorderThickness = new Thickness(2);
@@ -125,8 +123,6 @@ namespace BootRegistratieSysteem.Controller
 
                 valDate = false;
             }
-
-           
 
 
             int GenderID = int.Parse(((ComboBoxItem)Gender.SelectedItem).Tag.ToString());
@@ -179,17 +175,135 @@ namespace BootRegistratieSysteem.Controller
             if (validate && valDate)
             {
 
-                MessageBoxResult result = MessageBox.Show("UW ACCOUNT IS AANGEMAAKT!!!!");
-                u.Add_User(savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
-                
+                MessageBoxResult result = MessageBox.Show("UW ACCOUNT IS bewerkt!!!!");
+                u.Update_User((int)editID.Content,savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+                Switcher.Switch(new Views.UserList());
                 return true;
             }
             else
             {
                 return false;
             }
-           
+
         }
+
+        public static Boolean EditWithoutPassword(TextBox Firstname,
+                                    TextBox Middlename,
+                                    TextBox Lastname,
+                                    TextBox City,
+                                    TextBox Zipcode,
+                                    TextBox Address,
+                                    TextBox Phonenumber,
+                                    TextBox Email,
+                                    TextBox Day,
+                                    TextBox Month,
+                                    TextBox Year,
+                                    ComboBox Gender, 
+                                    Label editID)
+        {
+            bool validate = true;
+            bool valDate = true;
+            DateTime dt = new DateTime();
+            TextBox[] controls = { Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year };
+
+            foreach (var item in controls)
+            {
+
+                item.BorderBrush = Brushes.Gray;
+                item.BorderThickness = new Thickness(1);
+
+
+                if (item.Text == "" && item.Name != "Middlename")
+                {
+                    item.BorderBrush = Brushes.Red;
+                    item.BorderThickness = new Thickness(2);
+                    validate = false;
+                    if (item.Name == "Day" || item.Name == "Month" || item.Name == "Year")
+                    {
+                        valDate = false;
+                    }
+                }
+                if (item.Name == "Firstname" || item.Name == "Lastname" || item.Name == "Middlename" || item.Name == "City")
+                {
+                    if (!IsAllLetters(item.Text))
+                    {
+                        item.BorderBrush = Brushes.Red;
+                        item.BorderThickness = new Thickness(2);
+                        item.UpdateLayout();
+                        validate = false;
+                    }
+                }
+            }
+            // update password layout 
+          
+
+            DataBaseController u = new DataBaseController(); // Get database
+
+       
+            string BirthdayText = $"{Day.Text}-{Month.Text}-{Year.Text}";
+
+            //localtime
+            DateTime DateTimeToday = DateTime.UtcNow.Date;
+            string DateToday = DateTimeToday.ToString("dd-MM-yyyy");
+
+            // validate date
+            if (valDate && ((int.Parse(Day.Text) > 31) || (int.Parse(Month.Text) > 12) || (int.Parse(Year.Text) > int.Parse(DateTime.Today.Year.ToString()))))
+            {
+                Day.BorderBrush = Brushes.Red;
+                Day.BorderThickness = new Thickness(2);
+                Day.UpdateLayout();
+                Month.BorderBrush = Brushes.Red;
+                Month.BorderThickness = new Thickness(2);
+                Month.UpdateLayout();
+                Year.BorderBrush = Brushes.Red;
+                Year.BorderThickness = new Thickness(2);
+                Year.UpdateLayout();
+
+                valDate = false;
+            }
+
+
+            int GenderID = int.Parse(((ComboBoxItem)Gender.SelectedItem).Tag.ToString());
+
+            // email validation
+            if (Email.Text != "" && !IsEmailValid(Email.Text))
+            {
+                validate = false;
+                Email.BorderBrush = Brushes.Red;
+                Email.BorderThickness = new Thickness(2);
+                Email.UpdateLayout();
+            }
+
+
+            if (valDate && validate)
+            {
+                dt = DateTime.ParseExact(BirthdayText, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            }
+
+
+            // validate passwords
+
+            
+
+            // add user to database
+           
+
+                if (validate && valDate)
+                {
+
+                    MessageBoxResult result = MessageBox.Show("UW ACCOUNT IS bewerkt!!!! ZONDER WW");
+                    u.Update_User((int)editID.Content, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+                    Switcher.Switch(new Views.UserList());
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            
+
+        }
+
         // check if there are no numbers in inputbox
         public static bool IsAllLetters(string s)
         {
@@ -203,7 +317,7 @@ namespace BootRegistratieSysteem.Controller
             return true;
 
         }
-        
+
 
         public static bool IsEmailValid(string emailaddress)
         {

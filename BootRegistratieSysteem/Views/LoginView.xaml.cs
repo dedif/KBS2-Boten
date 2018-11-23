@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using BootRegistratieSysteem.Views;
-using BootRegistratieSysteem.Controller;
+using BootRegistratieSysteem.Controllers;
 
 namespace BootRegistratieSysteem
 {

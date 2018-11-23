@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace BootRegistratieSysteem.Controller
+namespace BootRegistratieSysteem.Controllers
 {
     public class LoginController
     {

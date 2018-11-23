@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Controls;
-using BootRegistratieSysteem.Controller;
+using BootRegistratieSysteem.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;

@@ -62,14 +62,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controller\DashboardController.cs" />
-    <Compile Include="Controller\EditController.cs" />
-    <Compile Include="Controller\LoginController.cs" />
-    <Compile Include="Controller\RegisterController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\EditController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="ISwitchable.cs" />
-    <Compile Include="Model\Gender.cs" />
-    <Compile Include="Model\MemberRole.cs" />
-    <Compile Include="Model\Role.cs" />
+    <Compile Include="Models\Gender.cs" />
+    <Compile Include="Models\MemberRole.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Views\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
@@ -83,7 +83,7 @@
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>
     <Compile Include="Switcher.cs" />
-    <Compile Include="Model\User.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Views\UserList.xaml.cs">
       <DependentUpon>UserList.xaml</DependentUpon>
     </Compile>

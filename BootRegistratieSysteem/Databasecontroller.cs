@@ -20,7 +20,7 @@ namespace BootRegistratieSysteem
                
 
 
-                var role = new Model.Role
+                var role = new Models.Role
                 {
                     RoleName = roleName,
                     Created_at = DateTime.Now,
@@ -48,7 +48,7 @@ namespace BootRegistratieSysteem
 
 
 
-                var MemberRole = new Model.MemberRole
+                var MemberRole = new Models.MemberRole
                 {
                     RoleID = roleID,
                     PersonID = personID,
@@ -77,7 +77,7 @@ namespace BootRegistratieSysteem
                DateTime time = DateTime.Parse(mySqlTimestamp);
 
 
-                var user = new Model.User
+                var user = new Models.User
                 {
 
                     Password = password,
@@ -118,7 +118,7 @@ namespace BootRegistratieSysteem
             using (BootDataBase context = new BootDataBase())
             {
 
-               Model.User delUser = context.Users.Where(d => d.PersonID == personID).First();
+               Models.User delUser = context.Users.Where(d => d.PersonID == personID).First();
 
             
                 if (delUser != null)
@@ -140,7 +140,7 @@ namespace BootRegistratieSysteem
             using (BootDataBase context = new BootDataBase())
             {
 
-                Model.User dep = context.Users.Where(d => d.PersonID == personID).First();
+                Models.User dep = context.Users.Where(d => d.PersonID == personID).First();
 
 
                 if (dep != null)
@@ -184,7 +184,7 @@ namespace BootRegistratieSysteem
             using (BootDataBase context = new BootDataBase())
             {
 
-                Model.User dep = context.Users.Where(d => d.PersonID == personID).First();
+                Models.User dep = context.Users.Where(d => d.PersonID == personID).First();
 
 
                 if (dep != null)
@@ -259,7 +259,7 @@ namespace BootRegistratieSysteem
                 // Display all courses from the database
                 var users = (from s in context.Users
                              orderby s.PersonID
-                             select s).ToList<Model.User>();
+                             select s).ToList<Models.User>();
 
 
                 foreach (var boat in users)

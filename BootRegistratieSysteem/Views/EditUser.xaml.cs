@@ -100,7 +100,7 @@ namespace BootRegistratieSysteem.Views
         {
             if (Password.Password == "" && ConfirmPassword.Password == "")
             {
-                if (Controller.EditController.EditWithoutPassword(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, EditID))
+                if (Controllers.EditController.EditWithoutPassword(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, EditID))
                 {
                    
                     Switcher.Switch(new UserList());
@@ -113,7 +113,7 @@ namespace BootRegistratieSysteem.Views
             }
             else
             {
-                if (Controller.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, EditID))
+                if (Controllers.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, EditID))
                 {
                     Switcher.Switch(new UserList());
                 }
