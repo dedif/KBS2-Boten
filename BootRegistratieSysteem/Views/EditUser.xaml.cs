@@ -23,10 +23,12 @@ namespace BootRegistratieSysteem.Views
     public partial class EditUser : UserControl, ISwitchable
     {
         private BootDataBase context = new BootDataBase();
+        private DataBaseController dbc = new DataBaseController();
+        
         public EditUser(int id)
         {
             InitializeComponent();
-            test.Content = id;
+            EditID.Content = id;
 
          
             var users = from x in context.Users
@@ -98,8 +100,9 @@ namespace BootRegistratieSysteem.Views
         {
             if (Password.Password == "" && ConfirmPassword.Password == "")
             {
-                if (Controller.EditController.EditWithoutPassword(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, test))
+                if (Controller.EditController.EditWithoutPassword(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, EditID))
                 {
+                   
                     Switcher.Switch(new UserList());
                 }
                 else
@@ -110,7 +113,7 @@ namespace BootRegistratieSysteem.Views
             }
             else
             {
-                if (Controller.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, test))
+                if (Controller.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, EditID))
                 {
                     Switcher.Switch(new UserList());
                 }

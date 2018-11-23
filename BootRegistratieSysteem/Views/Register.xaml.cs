@@ -41,7 +41,7 @@ namespace BootRegistratieSysteem
         {
             if (RegisterController.Registreren(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword))
             {
-                Switcher.Switch(new DashboardView());
+                Switcher.Switch(new UserList());
             }
             else
             {

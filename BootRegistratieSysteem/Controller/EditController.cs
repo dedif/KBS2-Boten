@@ -27,7 +27,7 @@ namespace BootRegistratieSysteem.Controller
                                     ComboBox Gender,
                                     PasswordBox Password,
                                     PasswordBox ConfirmPassword,
-                                    Label test)
+                                    Label editID)
         {
             bool validate = true;
             bool valDate = true;
@@ -91,7 +91,25 @@ namespace BootRegistratieSysteem.Controller
             string DateToday = DateTimeToday.ToString("dd-MM-yyyy");
 
             // validate date
-            if (valDate && ((int.Parse(Day.Text) > 31) || (int.Parse(Month.Text) > 12) || (int.Parse(Year.Text) > int.Parse(DateTime.Today.Year.ToString()))))
+            try
+            {
+                if (valDate && ((int.Parse(Day.Text) > 31) || (int.Parse(Month.Text) > 12) || (int.Parse(Year.Text) > int.Parse(DateTime.Today.Year.ToString()))))
+                {
+                    Day.BorderBrush = Brushes.Red;
+                    Day.BorderThickness = new Thickness(2);
+                    Day.UpdateLayout();
+                    Month.BorderBrush = Brushes.Red;
+                    Month.BorderThickness = new Thickness(2);
+                    Month.UpdateLayout();
+                    Year.BorderBrush = Brushes.Red;
+                    Year.BorderThickness = new Thickness(2);
+                    Year.UpdateLayout();
+
+                    valDate = false;
+                }
+
+            }
+            catch (FormatException e)
             {
                 Day.BorderBrush = Brushes.Red;
                 Day.BorderThickness = new Thickness(2);
@@ -158,7 +176,7 @@ namespace BootRegistratieSysteem.Controller
             {
 
                 MessageBoxResult result = MessageBox.Show("UW ACCOUNT IS bewerkt!!!!");
-                u.Update_User((int)test.Content,savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+                u.Update_User((int)editID.Content,savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
                 Switcher.Switch(new Views.UserList());
                 return true;
             }
@@ -181,7 +199,7 @@ namespace BootRegistratieSysteem.Controller
                                     TextBox Month,
                                     TextBox Year,
                                     ComboBox Gender, 
-                                    Label test)
+                                    Label editID)
         {
             bool validate = true;
             bool valDate = true;
@@ -274,7 +292,7 @@ namespace BootRegistratieSysteem.Controller
                 {
 
                     MessageBoxResult result = MessageBox.Show("UW ACCOUNT IS bewerkt!!!! ZONDER WW");
-                    u.Update_User((int)test.Content, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+                    u.Update_User((int)editID.Content, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
                     Switcher.Switch(new Views.UserList());
                     return true;
                 }

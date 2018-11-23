@@ -37,7 +37,7 @@ namespace BootRegistratieSysteem.Controller
                         LoginError.UpdateLayout();
                         Username.UpdateLayout();
                         Password.UpdateLayout();
-
+                    
                         if (Username.Text != "")
                         {
                             if (results.PersonID.Equals(int.Parse(Username.Text)))

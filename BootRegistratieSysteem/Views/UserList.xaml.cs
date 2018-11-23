@@ -26,6 +26,7 @@ namespace BootRegistratieSysteem.Views
         public static DataGrid DataGrid;
      
         private BootDataBase context = new BootDataBase();
+        private DataBaseController dbc = new DataBaseController();
       
         public UserList()
         {
@@ -47,17 +48,25 @@ namespace BootRegistratieSysteem.Views
         private void Load()
         {
 
-            DataUserList.ItemsSource = context.Users.ToList();
+            //DataUserList.ItemsSource = context.Users.ToList();
+            DataUserList.ItemsSource = (from x in context.Users
+                                        where  x.Deleted_at == null
+                                        select x).ToList();
             DataGrid = DataUserList;
 
         }
 
         private void RegisterUserButton(object sender, RoutedEventArgs e)
         {
-
+            Switcher.Switch(new Register());
         }
 
-
+        void ButtonDelete(object sender, RoutedEventArgs e)
+        {
+            Button b = (Button)sender;
+            dbc.Delete_User((int)b.Tag);
+            Switcher.Switch(new UserList());
+        }
 
         void ButtonEdit(object sender, RoutedEventArgs e)
         {
@@ -69,7 +78,7 @@ namespace BootRegistratieSysteem.Views
         {
        
             DataUserList.ItemsSource = (from x in context.Users
-                                        where x.PersonID.ToString() == Search.Text || x.Firstname.Contains(Search.Text) || x.Lastname.Contains(Search.Text) || x.City.Contains(Search.Text) || x.Address.Contains(Search.Text) || x.City.Contains(Search.Text) || x.Zipcode.Contains(Search.Text) || x.Email.Contains(Search.Text) || x.Phonenumber.Contains(Search.Text) || x.Birthday.Day.ToString() == Search.Text || x.Birthday.Month.ToString() == Search.Text || x.Birthday.Year.ToString() == Search.Text
+                                        where x.PersonID.ToString() == Search.Text || x.Firstname.Contains(Search.Text) || x.Lastname.Contains(Search.Text) || x.City.Contains(Search.Text) || x.Address.Contains(Search.Text) || x.City.Contains(Search.Text) || x.Zipcode.Contains(Search.Text) || x.Email.Contains(Search.Text) || x.Phonenumber.Contains(Search.Text) || x.Birthday.Day.ToString() == Search.Text || x.Birthday.Month.ToString() == Search.Text || x.Birthday.Year.ToString() == Search.Text && x.Deleted_at == null
                                         select x).ToList();
 
 

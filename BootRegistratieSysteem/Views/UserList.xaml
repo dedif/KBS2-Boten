@@ -10,7 +10,7 @@
         <CollectionViewSource x:Key="UserViewSource"></CollectionViewSource>
     </UserControl.Resources>
     <Grid>
-        <DataGrid x:Name="DataUserList"  CanUserAddRows="false" x:FieldModifier="public" DataContext="{StaticResource UserViewSource}" AutoGenerateColumns="false" HorizontalAlignment="Left" Height="469" Margin="87,80,0,0" VerticalAlignment="Top" Width="895">
+        <DataGrid x:Name="DataUserList"  CanUserAddRows="false"  x:FieldModifier="public" DataContext="{StaticResource UserViewSource}" AutoGenerateColumns="false" HorizontalAlignment="Left" Height="469" Margin="87,80,0,0" VerticalAlignment="Top" Width="895">
             
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="PersonID" Width="auto"    Binding="{Binding PersonID}" Header="Lidnummer" IsReadOnly="true" />
@@ -52,7 +52,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button x:Name="DeleteButton"   Tag="{Binding PersonID}" Content="Delete" />
+                                <Button x:Name="DeleteButton"  Click="ButtonDelete" Tag="{Binding PersonID}" Content="Delete" />
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

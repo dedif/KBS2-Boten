@@ -32,6 +32,7 @@ namespace BootRegistratieSysteem
         {
             if (LoginController.Login(Username, Password, LoginError))
             {
+               
                 Switcher.Switch(new UserList());
             }
             

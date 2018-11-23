@@ -93,7 +93,25 @@ namespace BootRegistratieSysteem.Controller
             string DateToday = DateTimeToday.ToString("dd-MM-yyyy");
 
             // validate date
-            if (valDate && ((int.Parse(Day.Text) > 31) || (int.Parse(Month.Text) > 12) || (int.Parse(Year.Text) > int.Parse(DateTime.Today.Year.ToString()))))
+            try
+            {
+                if (valDate && ((int.Parse(Day.Text) > 31) || (int.Parse(Month.Text) > 12) || (int.Parse(Year.Text) > int.Parse(DateTime.Today.Year.ToString()))))
+                {
+                    Day.BorderBrush = Brushes.Red;
+                    Day.BorderThickness = new Thickness(2);
+                    Day.UpdateLayout();
+                    Month.BorderBrush = Brushes.Red;
+                    Month.BorderThickness = new Thickness(2);
+                    Month.UpdateLayout();
+                    Year.BorderBrush = Brushes.Red;
+                    Year.BorderThickness = new Thickness(2);
+                    Year.UpdateLayout();
+
+                    valDate = false;
+                }
+
+            }
+            catch (FormatException e)
             {
                 Day.BorderBrush = Brushes.Red;
                 Day.BorderThickness = new Thickness(2);
@@ -107,6 +125,8 @@ namespace BootRegistratieSysteem.Controller
 
                 valDate = false;
             }
+
+           
 
 
             int GenderID = int.Parse(((ComboBoxItem)Gender.SelectedItem).Tag.ToString());
@@ -160,7 +180,7 @@ namespace BootRegistratieSysteem.Controller
             {
 
                 MessageBoxResult result = MessageBox.Show("UW ACCOUNT IS AANGEMAAKT!!!!");
-                u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+                u.Add_User(savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
                 
                 return true;
             }
