@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Controllers;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -89,7 +90,7 @@ namespace Views
         {
             if (Password.Password == "" && ConfirmPassword.Password == "")
             {
-                if (Controller.EditController.EditWithoutPassword(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, test))
+                if (Controllers.EditController.EditWithoutPassword(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, test))
                 {
                     Switcher.Switch(new UserList());
                 }
@@ -101,7 +102,7 @@ namespace Views
             }
             else
             {
-                if (Controller.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, test))
+                if (EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, test))
                 {
                     Switcher.Switch(new UserList());
                 }

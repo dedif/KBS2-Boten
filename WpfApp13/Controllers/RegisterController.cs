@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Controllers;
 
-namespace Controller
+namespace Controllers
 {
     public class RegisterController
     {

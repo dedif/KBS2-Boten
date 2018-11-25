@@ -18,6 +18,9 @@ namespace Views
             InitializeComponent();
             this.HorizontalAlignment = HorizontalAlignment.Center;
             this.VerticalAlignment = VerticalAlignment.Center;
+            TypCombo.SelectedIndex = 1;
+
+
 
         }
 
@@ -72,6 +75,24 @@ namespace Views
             NotificationLabel.Content = b.Notification();
         }
 
+        private void TypCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           
+            if (TypCombo.SelectedIndex == 1)
+                {
+                RowersCombo.SelectedIndex = 0;
+                RowersCombo.IsEnabled = false;
+
+                }
+            else 
+            {
+           
+                RowersCombo.IsEnabled = true;
+            }
+
+        }
+
+      
     }
 }
 

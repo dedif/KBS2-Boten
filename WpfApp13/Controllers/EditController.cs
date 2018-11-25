@@ -1,17 +1,13 @@
-﻿using Controllers;
+﻿using Views;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using WpfApp13;
 
-namespace Views.Controller
+namespace Controllers
 {
     public class EditController
     {

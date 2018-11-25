@@ -256,7 +256,7 @@ namespace Views
 
         private void SignOutButton_Click(object sender, RoutedEventArgs e)
         {
-           Switcher.Switch(new Dashboard());
+           Switcher.Switch(new LoginView());
         }
 
         private void UserListButton_Click(object sender, RoutedEventArgs e)

@@ -6,7 +6,7 @@ using System.Windows.Media;
 using Controllers;
 using WpfApp13;
 
-namespace Views.Controller
+namespace Controllers
 {
     public class LoginController
     {
