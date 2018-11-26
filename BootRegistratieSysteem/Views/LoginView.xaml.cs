@@ -49,5 +49,10 @@ namespace BootRegistratieSysteem
                 Regex regex = new Regex("[^0-9]+");
                 e.Handled = regex.IsMatch(e.Text);
             }
-}
+
+        private void RegisterButton(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new Register());
+        }
+    }
 }

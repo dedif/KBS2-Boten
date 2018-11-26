@@ -64,7 +64,32 @@ namespace BootRegistratieSysteem
 
         }
 
+        public void Delete_MemberRole(int personID, int rolID)
+        {
+            using (BootDataBase context = new BootDataBase())
+            {
 
+                //Models.MemberRole delMemberRole = context.MemberRoles.Where(d => d.PersonID == personID).First();
+
+                var delMemberRole = (from x in context.MemberRoles
+                                     where x.PersonID == personID && x.Deleted_at == null && x.RoleID == rolID
+                                     select x).ToList();
+
+
+                if (delMemberRole != null)
+                {
+                    delMemberRole.ForEach(x => x.Deleted_at = DateTime.Now);
+                }
+
+                // if (delMemberRole != null)
+                // {
+                //   delMemberRole.Deleted_at = DateTime.Now;
+
+                context.SaveChanges();
+               // }
+            }
+
+        }
 
         public void Add_User(string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID,DateTime birthday)
         {
