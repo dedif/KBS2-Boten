@@ -24,7 +24,7 @@ namespace Views
         public Dashboard()
         {
             InitializeComponent();
-
+            this.HorizontalAlignment = HorizontalAlignment.Center;
                  GridDashboard.Margin = new Thickness(0, 0, 0, 20);
         
                 //De reservaties van de gebruiker worden met deze methode getoond op het scherm

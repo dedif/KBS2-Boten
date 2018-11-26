@@ -17,6 +17,7 @@ namespace Views
         public LoginView()
         {
             InitializeComponent();
+            this.HorizontalAlignment = HorizontalAlignment.Center;
         }
 
         private void LoginButton(object sender, RoutedEventArgs e)

@@ -19,6 +19,7 @@ namespace Views
         public UserList()
         {
             InitializeComponent();
+            this.HorizontalAlignment = HorizontalAlignment.Center;
             
             Load();
           

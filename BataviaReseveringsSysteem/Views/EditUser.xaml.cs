@@ -18,6 +18,7 @@ namespace Views
         public EditUser(int id)
         {
             InitializeComponent();
+            this.HorizontalAlignment = HorizontalAlignment.Center;
             test.Content = id;
 
          
