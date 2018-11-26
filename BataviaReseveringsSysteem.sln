@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BataviaReseveringsSysteem", "WpfApp13\BataviaReseveringsSysteem.csproj", "{19C7D19A-ED7E-461E-AA17-F1BAB358D3F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BataviaReseveringsSysteem", "BataviaReseveringsSysteem\BataviaReseveringsSysteem.csproj", "{19C7D19A-ED7E-461E-AA17-F1BAB358D3F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTestProject2\UnitTest.csproj", "{F6CDA49A-FFB0-4680-9812-2A144F68BA18}"
 EndProject
