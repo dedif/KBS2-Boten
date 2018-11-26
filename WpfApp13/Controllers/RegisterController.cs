@@ -88,7 +88,24 @@ namespace Controllers
             string DateToday = DateTimeToday.ToString("dd-MM-yyyy");
 
             // validate date
-            if (valDate && ((int.Parse(Day.Text) > 31) || (int.Parse(Month.Text) > 12) || (int.Parse(Year.Text) > int.Parse(DateTime.Today.Year.ToString()))))
+            try
+            {
+                if (valDate && ((int.Parse(Day.Text) > 31) || (int.Parse(Month.Text) > 12) || (int.Parse(Year.Text) < 1900) || (int.Parse(Year.Text) > int.Parse(DateTime.Today.Year.ToString()))))
+                {
+                    Day.BorderBrush = Brushes.Red;
+                    Day.BorderThickness = new Thickness(2);
+                    Day.UpdateLayout();
+                    Month.BorderBrush = Brushes.Red;
+                    Month.BorderThickness = new Thickness(2);
+                    Month.UpdateLayout();
+                    Year.BorderBrush = Brushes.Red;
+                    Year.BorderThickness = new Thickness(2);
+                    Year.UpdateLayout();
+
+                    valDate = false;
+                }
+            }
+            catch (FormatException)
             {
                 Day.BorderBrush = Brushes.Red;
                 Day.BorderThickness = new Thickness(2);
@@ -102,7 +119,6 @@ namespace Controllers
 
                 valDate = false;
             }
-
 
             int GenderID = int.Parse(((ComboBoxItem)Gender.SelectedItem).Tag.ToString());
 
@@ -193,6 +209,19 @@ namespace Controllers
             {
                 return false;
             }
+        }
+        public static string ConvertDate(string x)
+        {
+
+
+            if (x.Length < 2)
+            {
+                string z = "0";
+                z += x;
+                return z;
+            }
+
+            return x;
         }
     }
 }
