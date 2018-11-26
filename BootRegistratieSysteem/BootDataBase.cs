@@ -14,6 +14,7 @@ namespace BootRegistratieSysteem
             public virtual DbSet<Models.User> Users { get; set; }
             public virtual DbSet<Models.Role> Roles { get; set; }
             public virtual DbSet<Models.MemberRole> MemberRoles { get; set; }
+           // public virtual DbSet<Models.MemberRole> Genders { get; set; }
 
         //public virtual DbSet<Models.Gender> Genders { get; set; }
 

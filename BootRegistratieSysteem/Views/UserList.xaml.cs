@@ -2,6 +2,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,9 +50,14 @@ namespace BootRegistratieSysteem.Views
         {
 
             //DataUserList.ItemsSource = context.Users.ToList();
-            DataUserList.ItemsSource = (from x in context.Users
+            var user = (from x in context.Users
                                         where  x.Deleted_at == null
                                         select x).ToList();
+
+
+            DataUserList.ItemsSource = user;
+
+            
             DataGrid = DataUserList;
 
         }

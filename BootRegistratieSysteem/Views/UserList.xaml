@@ -10,14 +10,14 @@
         <CollectionViewSource x:Key="UserViewSource"></CollectionViewSource>
     </UserControl.Resources>
     <Grid>
-        <DataGrid x:Name="DataUserList"  CanUserAddRows="false"  x:FieldModifier="public" DataContext="{StaticResource UserViewSource}" AutoGenerateColumns="false" HorizontalAlignment="Left" Height="469" Margin="87,80,0,0" VerticalAlignment="Top" Width="895">
+        <DataGrid x:Name="DataUserList"   CanUserAddRows="false"  x:FieldModifier="public" DataContext="{StaticResource UserViewSource}" AutoGenerateColumns="false" HorizontalAlignment="Left" Height="469" Margin="87,80,0,0" VerticalAlignment="Top" Width="895">
             
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="PersonID" Width="auto"    Binding="{Binding PersonID}" Header="Lidnummer" IsReadOnly="true" />
                 <DataGridTextColumn x:Name="Firstname"    Binding="{Binding Firstname}" Header="Voornaam" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Lastname"  Binding="{Binding Lastname}" Header="Achternaam" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Gender" Binding="{Binding GenderID}" Header="Geslacht" IsReadOnly="true"/>
-                <DataGridTextColumn x:Name="Birthday"  Binding="{Binding Birthday}" Header="Geboortedatum" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Birthday"  Binding="{Binding Birthday , StringFormat=\{0:dd-MM-yyyy\}}" Header="Geboortedatum" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="City"  Binding="{Binding City}" Header="Woonplaats" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Address"  Binding="{Binding Address}" Header="Adres" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Zipcode"  Binding="{Binding Zipcode}" Header="Postcode" IsReadOnly="true"/>
