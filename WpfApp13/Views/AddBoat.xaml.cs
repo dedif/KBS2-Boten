@@ -82,12 +82,15 @@ namespace Views
                 {
                 RowersCombo.SelectedIndex = 0;
                 RowersCombo.IsEnabled = false;
+                SteeringWheelCheckbox.IsChecked = false;
 
                 }
             else 
             {
            
                 RowersCombo.IsEnabled = true;
+                SteeringWheelCheckbox.IsChecked = true;
+
             }
 
         }
