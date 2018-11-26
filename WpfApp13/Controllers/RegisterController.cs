@@ -81,7 +81,7 @@ namespace Controllers
             UserController u = new UserController(); // Get database
 
             string savedPasswordHash = u.PasswordHash(Password.Password); // Hash password
-            string BirthdayText = $"{Day.Text}-{Month.Text}-{Year.Text}";
+            string BirthdayText = $"{ConvertDate(Day.Text)}-{ConvertDate(Month.Text)}-{Year.Text}";
 
             //localtime
             DateTime DateTimeToday = DateTime.UtcNow.Date;
