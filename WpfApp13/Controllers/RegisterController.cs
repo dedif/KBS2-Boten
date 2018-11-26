@@ -40,8 +40,7 @@ namespace Controllers
 
                 if (item.Text == "" && item.Name != "Middlename")
                 {
-                    item.BorderBrush = Brushes.Red;
-                    item.BorderThickness = new Thickness(2);
+                    ErrorAlert(item);
                     validate = false;
                     if (item.Name == "Day" || item.Name == "Month" || item.Name == "Year")
                     {
@@ -52,9 +51,7 @@ namespace Controllers
                 {
                     if (!IsAllLetters(item.Text))
                     {
-                        item.BorderBrush = Brushes.Red;
-                        item.BorderThickness = new Thickness(2);
-                        item.UpdateLayout();
+                        ErrorAlert(item);
                         validate = false;
                     }
                 }
@@ -67,14 +64,12 @@ namespace Controllers
             // check if passwords are filled 
             if (Password.Password == "")
             {
-                Password.BorderBrush = Brushes.Red;
-                Password.BorderThickness = new Thickness(2);
+                ErrorAlertPassword(Password);
                 validate = false;
             }
             if (ConfirmPassword.Password == "")
             {
-                ConfirmPassword.BorderBrush = Brushes.Red;
-                ConfirmPassword.BorderThickness = new Thickness(2);
+                ErrorAlertPassword(ConfirmPassword);
                 validate = false;
             }
 
@@ -92,31 +87,17 @@ namespace Controllers
             {
                 if (valDate && ((int.Parse(Day.Text) > 31) || (int.Parse(Month.Text) > 12) || (int.Parse(Year.Text) < 1900) || (int.Parse(Year.Text) > int.Parse(DateTime.Today.Year.ToString()))))
                 {
-                    Day.BorderBrush = Brushes.Red;
-                    Day.BorderThickness = new Thickness(2);
-                    Day.UpdateLayout();
-                    Month.BorderBrush = Brushes.Red;
-                    Month.BorderThickness = new Thickness(2);
-                    Month.UpdateLayout();
-                    Year.BorderBrush = Brushes.Red;
-                    Year.BorderThickness = new Thickness(2);
-                    Year.UpdateLayout();
-
+                    ErrorAlert(Day);
+                    ErrorAlert(Month);
+                    ErrorAlert(Year);
                     valDate = false;
                 }
             }
             catch (FormatException)
             {
-                Day.BorderBrush = Brushes.Red;
-                Day.BorderThickness = new Thickness(2);
-                Day.UpdateLayout();
-                Month.BorderBrush = Brushes.Red;
-                Month.BorderThickness = new Thickness(2);
-                Month.UpdateLayout();
-                Year.BorderBrush = Brushes.Red;
-                Year.BorderThickness = new Thickness(2);
-                Year.UpdateLayout();
-
+                ErrorAlert(Day);
+                ErrorAlert(Month);
+                ErrorAlert(Year);
                 valDate = false;
             }
 
@@ -124,11 +105,10 @@ namespace Controllers
 
             // email validation
             if (Email.Text != "" && !IsEmailValid(Email.Text))
-            {
+            { 
+                ErrorAlert(Email);
                 validate = false;
-                Email.BorderBrush = Brushes.Red;
-                Email.BorderThickness = new Thickness(2);
-                Email.UpdateLayout();
+                
             }
 
 
@@ -141,28 +121,20 @@ namespace Controllers
             // validate passwords
             if (Password.Password == "")
             {
-                Password.BorderBrush = Brushes.Red;
-                Password.BorderThickness = new Thickness(2);
-                Password.UpdateLayout();
+                ErrorAlertPassword(Password);
                 validate = false;
             }
 
             if (ConfirmPassword.Password == "")
             {
-                ConfirmPassword.BorderBrush = Brushes.Red;
-                ConfirmPassword.BorderThickness = new Thickness(2);
-                ConfirmPassword.UpdateLayout();
+                ErrorAlertPassword(ConfirmPassword);
                 validate = false;
             }
 
             if (!Password.Password.Equals(ConfirmPassword.Password))
             {
-                Password.BorderBrush = Brushes.Red;
-                Password.BorderThickness = new Thickness(2);
-                ConfirmPassword.BorderBrush = Brushes.Red;
-                ConfirmPassword.BorderThickness = new Thickness(2);
-                Password.UpdateLayout();
-                ConfirmPassword.UpdateLayout();
+                ErrorAlertPassword(Password);
+                ErrorAlertPassword(ConfirmPassword);
                 validate = false;
             }
 
@@ -222,6 +194,19 @@ namespace Controllers
             }
 
             return x;
+        }
+
+        public static void ErrorAlert(TextBox T)
+        {
+            T.BorderBrush = Brushes.Red;
+            T.BorderThickness = new Thickness(2);
+            T.UpdateLayout();
+        }
+        public static void ErrorAlertPassword(PasswordBox P)
+        {
+            P.BorderBrush = Brushes.Red;
+            P.BorderThickness = new Thickness(2);
+            P.UpdateLayout();
         }
     }
 }
