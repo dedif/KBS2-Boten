@@ -37,6 +37,10 @@ namespace BootRegistratieSysteem
             }
             
         }
+        private void RegistrerenButton(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new Register());
+        }
 
     public void UtilizeState(object state)
         {
