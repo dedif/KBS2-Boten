@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Models;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using ConsoleApp1;
 
-namespace WpfApp6
+namespace WpfApp13
 {
     public class PlannerGrid : Canvas
     {
@@ -61,27 +61,27 @@ namespace WpfApp6
             foreach (var plannerGridColumnDivider in MakePlannerGridColumnDividers(
                 amountOfHoursOnDisplay * PlannerGridRowHeight))
                 Children.Add(plannerGridColumnDivider);
-			foreach (var firstUnavailableSlotTile in GetFirstUnavailableSlotTiles(earliestSlot,
+            foreach (var firstUnavailableSlotTile in GetFirstUnavailableSlotTiles(earliestSlot,
                 earliestHourOnPlanningGrid))
                 Children.Add(firstUnavailableSlotTile);
             foreach (var lastUnavailableSlotTile in GetLastUnavailableSlotTiles(latestSlot,
                 earliestHourOnPlanningGrid))
                 Children.Add(lastUnavailableSlotTile);
         }
-		
-		public void Populate(List<Reservation> reservationsForThisBoatAndThisDay)
+
+        public void Populate(List<Reservation> reservationsForThisBoatAndThisDay)
         {
             foreach (var reservation in reservationsForThisBoatAndThisDay)
             {
-                
+
             }
         }
-		
-		private DateTime GetEarliestSlotForBoat(Boat boat)
-		{
+
+        private DateTime GetEarliestSlotForBoat(Boat boat)
+        {
             // Samplecode, moet nog worden bijgewerkt
-		    return DateTime.Now;
-		}
+            return DateTime.Now;
+        }
 
         private int GeneratePlannerGridHeight(int amountOfHoursOnDisplay) =>
             amountOfHoursOnDisplay * PlannerGridRowHeight;
@@ -146,8 +146,8 @@ namespace WpfApp6
         private int GetEarliestHourOnPlanningGrid(DateTime earliestSlot) => earliestSlot.Hour;
 
         private DateTime GetEarliestSlot(DateTime sunrise) => sunrise.AddMinutes(15 - sunrise.Minute % 15);
-		
-		private List<Rectangle> GetLastUnavailableSlotTiles(DateTime latestSlot, int firstHour)
+
+        private List<Rectangle> GetLastUnavailableSlotTiles(DateTime latestSlot, int firstHour)
         {
             Console.WriteLine(latestSlot);
             Console.WriteLine(firstHour);

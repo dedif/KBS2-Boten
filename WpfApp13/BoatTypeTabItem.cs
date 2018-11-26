@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Linq;
-using ConsoleApp1;
-using WpfApp13;
+using Models;
+using Views;
 
-namespace WpfApp6
+namespace WpfApp13
 {
     public class BoatTypeTabItem : TabItem
     {
@@ -19,7 +19,7 @@ namespace WpfApp6
         public Boat.BoatType BoatType { get; set; }
         public ComboBox cbTimes = new ComboBox();
         public ComboBox cbNames = new ComboBox();
-		public BoatTypeTabItem(List<Boat> boats, Boat.BoatType type, List<Reservation> reservations)
+        public BoatTypeTabItem(List<Boat> boats, Boat.BoatType type, List<Reservation> reservations)
         {
             BoatType = type;
             Header = type.ToString();
@@ -50,6 +50,12 @@ namespace WpfApp6
             FillComboNames();
             FillComboTimes();
             MakeRegisterBtnVisibleAfterChoice();
+        }
+
+        public BoatTypeTabItem(Boat.BoatType boatType, List<Reservation> reservations)
+        {
+            BoatType = boatType;
+            Reservations = reservations;
         }
 
         public void FillComboTimes()
@@ -125,17 +131,15 @@ namespace WpfApp6
                             MessageBoxImage.Question);
             switch (Succes)
             {
+
                 case MessageBoxResult.Yes:
 
-                    //Boat b1 = new Boat();
-                    using (Database context = new Database())
+                  using (Database context = new Database())
                     {
                         var boat = (from db in context.Boats
-                                      where db.Name.Equals((string) cbNames.SelectedValue)
-                                      select db).First();
-                        //var x = BoatTypeTabControl.SelectedItem;
-                        //BoatTypeTabItem y = (BoatTypeTabItem)x;
-                        Reservation rs1 = new Reservation(boat, new Member(), /*y.Calendar.SelectedDate.Value*/DateTime.Now, DateTime.Now.AddMinutes(CalculateQuarterFromComboBox()));
+                                    where db.Name.Equals((string)cbNames.SelectedValue)
+                                    select db).First();
+                        Reservation rs1 = new Reservation(boat, new Member(), DateTime.Now, DateTime.Now.AddMinutes(CalculateQuarterFromComboBox()));
                         context.Reservations.Add(rs1);
                         context.SaveChanges();
 
@@ -144,6 +148,8 @@ namespace WpfApp6
                             "Melding",
                             MessageBoxButton.OK,
                             MessageBoxImage.Information);
+
+                        Switcher.Switch(new Dashboard());
 
 
                     }
@@ -160,7 +166,7 @@ namespace WpfApp6
         public void FillComboNames()
         {
             cbNames.Name = "ComboBoatName";
-            cbNames.Tag = 
+            cbNames.Tag =
             cbNames.Width = 120;
             cbNames.Height = 25;
             cbNames.HorizontalAlignment = HorizontalAlignment.Left;
