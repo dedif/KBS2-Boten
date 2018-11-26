@@ -24,7 +24,7 @@ namespace ScreenSwitcher
         {
             InitializeComponent();
             Switcher.pageSwitcher = this;
-            Switcher.Switch(new LoginView());
+            Switcher.Switch(new Register());
         }
 
         public void Navigate(UserControl nextPage)

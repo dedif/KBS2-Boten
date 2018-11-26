@@ -16,6 +16,7 @@ namespace Views
         public Register()
         {
             this.InitializeComponent();
+            this.HorizontalAlignment = HorizontalAlignment.Center;
 
         }
 
