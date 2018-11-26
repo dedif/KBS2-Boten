@@ -45,6 +45,11 @@ namespace Views
         {
             Switcher.Switch(new Register());
         }
+        private void BackButton(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new Dashboard());
+        }
+
 
 
 

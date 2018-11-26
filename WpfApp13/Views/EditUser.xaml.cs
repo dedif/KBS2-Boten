@@ -35,12 +35,7 @@ namespace Views
                 Email.Text = user.Email;
                 Phonenumber.Text = user.Phonenumber;
                 Gender.SelectedIndex = user.GenderID-1;
-               
-              
-            
-                
-
-
+    
                 string myString = user.Birthday.ToString("dd-MM-yyyy"); // From Database
                 Console.WriteLine(myString);
                 var split = myString.Split('-');
@@ -90,7 +85,7 @@ namespace Views
         {
             if (Password.Password == "" && ConfirmPassword.Password == "")
             {
-                if (Controllers.EditController.EditWithoutPassword(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, test))
+                if (EditController.EditWithoutPassword(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, test))
                 {
                     Switcher.Switch(new UserList());
                 }
@@ -118,5 +113,7 @@ namespace Views
         {
             Switcher.Switch(new UserList());
         }
+
+        
     }
 }
