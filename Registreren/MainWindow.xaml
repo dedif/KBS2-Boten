@@ -1,0 +1,21 @@
+﻿<Window x:Class="Registreren.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Registreren"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="89*"/>
+        </Grid.ColumnDefinitions>
+<<<<<<< HEAD:WpfApp13/MainWindow.xaml
+        <Button Content="Inbrengen boot" HorizontalAlignment="Left" Margin="57,45,0,0" VerticalAlignment="Top" Width="93" Height="23" Click="Button_Click"/>
+        <Button x:Name="AfschrijvenBtn" Content="Afschrijven boot" HorizontalAlignment="Left" Margin="57,84,0,0" VerticalAlignment="Top" Width="93" Height="23" Click="AfschrijvenBtn_Click"/>
+=======
+>>>>>>> a2873246d9362392a79cd2cc4b3d9907c67e7d4d:Registreren/MainWindow.xaml
+
+    </Grid>
+</Window>
