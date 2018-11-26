@@ -6,12 +6,10 @@ namespace WpfApp13
 {
     public class BoatView : Grid
     {
-        private const int LabelMarginTop = 15;
-
         private Label NameLabel { get; set; }
         private Label WeightLabel { get; set; }
         private Label AmountOfRowersLabel { get; set; }
-        private Label SteermanLabel { get; set; }
+        public Label SteermanLabel { get; set; }
 
         public BoatView()
         {
@@ -29,7 +27,7 @@ namespace WpfApp13
                 label.VerticalAlignment = VerticalAlignment.Top;
                 label.Margin = new Thickness(10, marginTop, 10, 10);
                 Children.Add(label);
-                marginTop += LabelMarginTop;
+                marginTop += 10;
             }
             NoBoatSelected();
         }
@@ -45,7 +43,7 @@ namespace WpfApp13
             NameLabel.Content = $"Naam: {boat.Name}";
             WeightLabel.Content = $"Gewicht: {boat.Weight}";
             AmountOfRowersLabel.Content = $"Aantal roeiers: {boat.NumberOfRowers}";
-            SteermanLabel.Content = "Stuurman? ";
+            SteermanLabel.Content = "Stuurman?";
             SteermanLabel.Content += boat.Steering ? "Ja" : "Nee";
         }
     }

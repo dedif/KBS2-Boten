@@ -1,17 +1,13 @@
-﻿using Controllers;
+﻿using Views;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using WpfApp13;
 
-namespace Views.Controller
+namespace Controllers
 {
     public class EditController
     {
@@ -86,14 +82,31 @@ namespace Views.Controller
             UserController u = new UserController(); // Get database
 
             string savedPasswordHash = u.PasswordHash(Password.Password); // Hash password
-            string BirthdayText = $"{Day.Text}-{Month.Text}-{Year.Text}";
+            string BirthdayText = $"{ConvertDate(Day.Text)}-{ConvertDate(Month.Text)}-{Year.Text}";
 
             //localtime
             DateTime DateTimeToday = DateTime.UtcNow.Date;
             string DateToday = DateTimeToday.ToString("dd-MM-yyyy");
 
             // validate date
-            if (valDate && ((int.Parse(Day.Text) > 31) || (int.Parse(Month.Text) > 12) || (int.Parse(Year.Text) > int.Parse(DateTime.Today.Year.ToString()))))
+            try
+            {
+                if (valDate && ((int.Parse(Day.Text) > 31) || (int.Parse(Month.Text) > 12) || (int.Parse(Year.Text) < 1900) || (int.Parse(Year.Text) > int.Parse(DateTime.Today.Year.ToString()))))
+                {
+                    Day.BorderBrush = Brushes.Red;
+                    Day.BorderThickness = new Thickness(2);
+                    Day.UpdateLayout();
+                    Month.BorderBrush = Brushes.Red;
+                    Month.BorderThickness = new Thickness(2);
+                    Month.UpdateLayout();
+                    Year.BorderBrush = Brushes.Red;
+                    Year.BorderThickness = new Thickness(2);
+                    Year.UpdateLayout();
+
+                    valDate = false;
+                }
+            }
+            catch (FormatException)
             {
                 Day.BorderBrush = Brushes.Red;
                 Day.BorderThickness = new Thickness(2);
@@ -107,7 +120,6 @@ namespace Views.Controller
 
                 valDate = false;
             }
-
 
             int GenderID = int.Parse(((ComboBoxItem)Gender.SelectedItem).Tag.ToString());
 
@@ -224,14 +236,30 @@ namespace Views.Controller
             UserController u = new UserController(); // Get database
 
        
-            string BirthdayText = $"{Day.Text}-{Month.Text}-{Year.Text}";
+            string BirthdayText = $"{ConvertDate(Day.Text)}-{ConvertDate(Month.Text)}-{Year.Text}";
 
             //localtime
             DateTime DateTimeToday = DateTime.UtcNow.Date;
             string DateToday = DateTimeToday.ToString("dd-MM-yyyy");
 
             // validate date
-            if (valDate && ((int.Parse(Day.Text) > 31) || (int.Parse(Month.Text) > 12) || (int.Parse(Year.Text) > int.Parse(DateTime.Today.Year.ToString()))))
+            try
+            {
+                if (valDate && ((int.Parse(Day.Text) > 31) || (int.Parse(Month.Text) > 12) || (int.Parse(Year.Text) < 1900) || (int.Parse(Year.Text) > int.Parse(DateTime.Today.Year.ToString()))))
+                {
+                    Day.BorderBrush = Brushes.Red;
+                    Day.BorderThickness = new Thickness(2);
+                    Day.UpdateLayout();
+                    Month.BorderBrush = Brushes.Red;
+                    Month.BorderThickness = new Thickness(2);
+                    Month.UpdateLayout();
+                    Year.BorderBrush = Brushes.Red;
+                    Year.BorderThickness = new Thickness(2);
+                    Year.UpdateLayout();
+
+                    valDate = false;
+                }
+            } catch (FormatException)
             {
                 Day.BorderBrush = Brushes.Red;
                 Day.BorderThickness = new Thickness(2);
@@ -245,7 +273,6 @@ namespace Views.Controller
 
                 valDate = false;
             }
-
 
             int GenderID = int.Parse(((ComboBoxItem)Gender.SelectedItem).Tag.ToString());
 
@@ -316,6 +343,20 @@ namespace Views.Controller
             {
                 return false;
             }
+        }
+
+        public static string ConvertDate(string x)
+        {
+            
+
+            if (x.Length < 2)
+            {
+                string z = "0";
+                z += x;
+                return z;
+            }
+
+            return x;
         }
     }
 }

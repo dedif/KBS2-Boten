@@ -4,8 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Text.RegularExpressions;
 using WpfApp13;
-using Views.Controller;
-using Controller;
+using Controllers;
 
 namespace Views
 {

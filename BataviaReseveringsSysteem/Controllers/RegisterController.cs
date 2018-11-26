@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Controllers;
 
-namespace Controller
+namespace Controllers
 {
     public class RegisterController
     {
@@ -40,8 +40,7 @@ namespace Controller
 
                 if (item.Text == "" && item.Name != "Middlename")
                 {
-                    item.BorderBrush = Brushes.Red;
-                    item.BorderThickness = new Thickness(2);
+                    ErrorAlert(item);
                     validate = false;
                     if (item.Name == "Day" || item.Name == "Month" || item.Name == "Year")
                     {
@@ -52,9 +51,7 @@ namespace Controller
                 {
                     if (!IsAllLetters(item.Text))
                     {
-                        item.BorderBrush = Brushes.Red;
-                        item.BorderThickness = new Thickness(2);
-                        item.UpdateLayout();
+                        ErrorAlert(item);
                         validate = false;
                     }
                 }
@@ -67,52 +64,51 @@ namespace Controller
             // check if passwords are filled 
             if (Password.Password == "")
             {
-                Password.BorderBrush = Brushes.Red;
-                Password.BorderThickness = new Thickness(2);
+                ErrorAlertPassword(Password);
                 validate = false;
             }
             if (ConfirmPassword.Password == "")
             {
-                ConfirmPassword.BorderBrush = Brushes.Red;
-                ConfirmPassword.BorderThickness = new Thickness(2);
+                ErrorAlertPassword(ConfirmPassword);
                 validate = false;
             }
 
             UserController u = new UserController(); // Get database
 
             string savedPasswordHash = u.PasswordHash(Password.Password); // Hash password
-            string BirthdayText = $"{Day.Text}-{Month.Text}-{Year.Text}";
+            string BirthdayText = $"{ConvertDate(Day.Text)}-{ConvertDate(Month.Text)}-{Year.Text}";
 
             //localtime
             DateTime DateTimeToday = DateTime.UtcNow.Date;
             string DateToday = DateTimeToday.ToString("dd-MM-yyyy");
 
             // validate date
-            if (valDate && ((int.Parse(Day.Text) > 31) || (int.Parse(Month.Text) > 12) || (int.Parse(Year.Text) > int.Parse(DateTime.Today.Year.ToString()))))
+            try
             {
-                Day.BorderBrush = Brushes.Red;
-                Day.BorderThickness = new Thickness(2);
-                Day.UpdateLayout();
-                Month.BorderBrush = Brushes.Red;
-                Month.BorderThickness = new Thickness(2);
-                Month.UpdateLayout();
-                Year.BorderBrush = Brushes.Red;
-                Year.BorderThickness = new Thickness(2);
-                Year.UpdateLayout();
-
+                if (valDate && ((int.Parse(Day.Text) > 31) || (int.Parse(Month.Text) > 12) || (int.Parse(Year.Text) < 1900) || (int.Parse(Year.Text) > int.Parse(DateTime.Today.Year.ToString()))))
+                {
+                    ErrorAlert(Day);
+                    ErrorAlert(Month);
+                    ErrorAlert(Year);
+                    valDate = false;
+                }
+            }
+            catch (FormatException)
+            {
+                ErrorAlert(Day);
+                ErrorAlert(Month);
+                ErrorAlert(Year);
                 valDate = false;
             }
-
 
             int GenderID = int.Parse(((ComboBoxItem)Gender.SelectedItem).Tag.ToString());
 
             // email validation
             if (Email.Text != "" && !IsEmailValid(Email.Text))
-            {
+            { 
+                ErrorAlert(Email);
                 validate = false;
-                Email.BorderBrush = Brushes.Red;
-                Email.BorderThickness = new Thickness(2);
-                Email.UpdateLayout();
+                
             }
 
 
@@ -125,38 +121,31 @@ namespace Controller
             // validate passwords
             if (Password.Password == "")
             {
-                Password.BorderBrush = Brushes.Red;
-                Password.BorderThickness = new Thickness(2);
-                Password.UpdateLayout();
+                ErrorAlertPassword(Password);
                 validate = false;
             }
 
             if (ConfirmPassword.Password == "")
             {
-                ConfirmPassword.BorderBrush = Brushes.Red;
-                ConfirmPassword.BorderThickness = new Thickness(2);
-                ConfirmPassword.UpdateLayout();
+                ErrorAlertPassword(ConfirmPassword);
                 validate = false;
             }
 
             if (!Password.Password.Equals(ConfirmPassword.Password))
             {
-                Password.BorderBrush = Brushes.Red;
-                Password.BorderThickness = new Thickness(2);
-                ConfirmPassword.BorderBrush = Brushes.Red;
-                ConfirmPassword.BorderThickness = new Thickness(2);
-                Password.UpdateLayout();
-                ConfirmPassword.UpdateLayout();
+                ErrorAlertPassword(Password);
+                ErrorAlertPassword(ConfirmPassword);
                 validate = false;
             }
 
             // add user to database
             if (validate && valDate)
             {
-
-                MessageBoxResult result = MessageBox.Show("UW ACCOUNT IS AANGEMAAKT!!!!");
-                u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
                 
+                u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+
+
+                MessageBoxResult result = MessageBox.Show("Het account is aangemaakt, het lidnummer is " + u.GetID());
                 return true;
             }
             else
@@ -193,6 +182,32 @@ namespace Controller
             {
                 return false;
             }
+        }
+        public static string ConvertDate(string x)
+        {
+
+
+            if (x.Length < 2)
+            {
+                string z = "0";
+                z += x;
+                return z;
+            }
+
+            return x;
+        }
+
+        public static void ErrorAlert(TextBox T)
+        {
+            T.BorderBrush = Brushes.Red;
+            T.BorderThickness = new Thickness(2);
+            T.UpdateLayout();
+        }
+        public static void ErrorAlertPassword(PasswordBox P)
+        {
+            P.BorderBrush = Brushes.Red;
+            P.BorderThickness = new Thickness(2);
+            P.UpdateLayout();
         }
     }
 }

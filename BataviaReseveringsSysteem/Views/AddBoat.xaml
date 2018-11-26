@@ -15,26 +15,26 @@
         <Label x:Name="NameLabel" Content="Bootnaam:" HorizontalAlignment="Left" Margin="121,36,0,0" VerticalAlignment="Top" FontSize="16"/>
         <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="23" Margin="212,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="16"/>
         <Label x:Name="TypeLabel" Content="Type:" Margin="160,80,587,113.252" FontSize="16" RenderTransformOrigin="0.985,0.426"/>
-        <Label x:Name="RowersLabel" Content="Aantal roeiers:" HorizontalAlignment="Left" Margin="97,118,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label x:Name="WeightLabel" Content="Gewicht (kg):" HorizontalAlignment="Left" Margin="104,164,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.858,0.188"/>
-        <TextBox x:Name="WeightBox" HorizontalAlignment="Left" Height="23" Margin="212,172,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" FontSize="16"/>
-        <CheckBox x:Name="SteeringWheelCheckbox" Content="Stuur" HorizontalAlignment="Left" Margin="137,205,0,0" VerticalAlignment="Top" FontSize="16" Height="29" Width="70" RenderTransformOrigin="0.703,1.145" Grid.RowSpan="2"/>
-        <Button x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Left" Margin="345,47.748,0,0" VerticalAlignment="Top" Width="75" FontSize="16" Click="SaveButton_Click" RenderTransformOrigin="0.986,0.422" Grid.Row="1"/>
-        <Button x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Left" Margin="23,41.748,0,0" VerticalAlignment="Top" Width="75" FontSize="16" RenderTransformOrigin="0.432,0.234" Click="CancelButton_Click" Grid.Row="1"/>
-        <ComboBox x:Name="TypCombo" HorizontalAlignment="Left" Margin="212,80,0,0" VerticalAlignment="Top" Width="120">
+        <ComboBox x:Name="TypCombo" HorizontalAlignment="Left" Margin="212,80,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="TypCombo_SelectionChanged">
             <ComboBoxItem Content="Scull" Height="23" Width="127"/>
-            <ComboBoxItem IsSelected="True" Content="Skiff" Height="22" Width="127"/>
+            <ComboBoxItem  Content="Skiff" Height="22" Width="127"/>
             <ComboBoxItem Content="Board" Height="22" Width="127"/>
-
         </ComboBox>
+        <Label x:Name="RowersLabel" Content="Aantal roeiers:" HorizontalAlignment="Left" Margin="97,118,0,0" VerticalAlignment="Top" FontSize="16"/>
         <ComboBox x:Name="RowersCombo" HorizontalAlignment="Left" Margin="212,128,0,0" VerticalAlignment="Top" Width="120">
             <ComboBoxItem IsSelected="True" Content="1" Height="22" Margin="0,0,42.4,0"/>
             <ComboBoxItem Content="2" Height="22" Margin="0,0,42.4,0"/>
             <ComboBoxItem Content="4" Height="22" Margin="0,0,42.4,0"/>
             <ComboBoxItem Content="8" Height="22" Margin="0,0,42.4,0"/>
-
         </ComboBox>
-        <Label x:Name="NotificationLabel" Content="" HorizontalAlignment="Left" Margin="137,10.748,0,0" VerticalAlignment="Top" Width="290" Foreground="#FFFF0909" Grid.Row="1"/>
+        <Label x:Name="WeightLabel" Content="Gewicht (kg):" HorizontalAlignment="Left" Margin="104,164,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.858,0.188"/>
+        <TextBox x:Name="WeightBox" HorizontalAlignment="Left" Height="23" Margin="212,172,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" FontSize="16"/>
+        <CheckBox x:Name="SteeringWheelCheckbox" Content="Stuur" HorizontalAlignment="Left" Margin="137,205,0,0" VerticalAlignment="Top" FontSize="16" Height="29" Width="70" RenderTransformOrigin="0.703,1.145" Grid.RowSpan="2"/>
+        <Button x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Left" Margin="345,47.748,0,0" VerticalAlignment="Top" Width="75" FontSize="16" Click="SaveButton_Click" RenderTransformOrigin="0.986,0.422" Grid.Row="1"/>
+        <Button x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Left" Margin="23,41.748,0,0" VerticalAlignment="Top" Width="75" FontSize="16" RenderTransformOrigin="0.432,0.234" Click="CancelButton_Click" Grid.Row="1"/>
+            
+        <Label x:Name="NotificationLabel" Visibility="Hidden" Content="" HorizontalAlignment="Left" Margin="137,10.748,0,0" VerticalAlignment="Top" Width="290" Foreground="#FFFF0909" Grid.Row="1"/>
+        <Label x:Name="SkiffLabel" Content="Een skiff boot heeft altijd één roeier en geen stuur" Visibility="Hidden" HorizontalAlignment="Left" Height="31" Margin="356,80,0,0" VerticalAlignment="Top" Width="231"/>
 
     </Grid>
 </UserControl>

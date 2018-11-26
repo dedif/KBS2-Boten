@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Controllers;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -34,12 +35,7 @@ namespace Views
                 Email.Text = user.Email;
                 Phonenumber.Text = user.Phonenumber;
                 Gender.SelectedIndex = user.GenderID-1;
-               
-              
-            
-                
-
-
+    
                 string myString = user.Birthday.ToString("dd-MM-yyyy"); // From Database
                 Console.WriteLine(myString);
                 var split = myString.Split('-');
@@ -89,7 +85,7 @@ namespace Views
         {
             if (Password.Password == "" && ConfirmPassword.Password == "")
             {
-                if (Controller.EditController.EditWithoutPassword(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, test))
+                if (EditController.EditWithoutPassword(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, test))
                 {
                     Switcher.Switch(new UserList());
                 }
@@ -101,7 +97,7 @@ namespace Views
             }
             else
             {
-                if (Controller.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, test))
+                if (EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, test))
                 {
                     Switcher.Switch(new UserList());
                 }
@@ -117,5 +113,7 @@ namespace Views
         {
             Switcher.Switch(new UserList());
         }
+
+        
     }
 }

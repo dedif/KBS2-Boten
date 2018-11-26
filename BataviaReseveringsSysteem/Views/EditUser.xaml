@@ -40,7 +40,7 @@
             <ComboBoxItem x:Name="Something" Tag="3">Apache helicopter</ComboBoxItem>
         </ComboBox>
         <Label Content="Geboortedatum&#xD;&#xA;" HorizontalAlignment="Left" Margin="293,159,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.792,0.399"/>
-        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Day" MaxLength="2" HorizontalAlignment="Left" Height="23" Margin="421,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" />
+        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Day" MaxLength="2" HorizontalAlignment="Left" Height="23" Margin="421,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53"  />
         <Label Content="/" HorizontalAlignment="Left" Margin="479,163,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.941,0.565"/>
         <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Month" MaxLength="2" HorizontalAlignment="Left" Height="23" Margin="506,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" RenderTransformOrigin="-0.352,0.358"/>
         <Label Content="/"  HorizontalAlignment="Left" Margin="564,163,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.538,0.493"/>
