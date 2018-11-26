@@ -12,7 +12,7 @@ namespace BootRegistratieSysteem
 {
     class DataBaseController
     {
-     
+        public int PersonID;
         public void Add_Role(string roleName)
         {
             
@@ -128,7 +128,7 @@ namespace BootRegistratieSysteem
 
 
                 };
-
+                int PersonID = user.PersonID;
                 context.Users.Add(user);
 
 

@@ -24,6 +24,7 @@ namespace BootRegistratieSysteem
     /// </summary>
     public partial class Register : UserControl, ISwitchable
     {
+        DataBaseController dbc = new DataBaseController();
         public Register()
         {
             this.InitializeComponent();
@@ -41,7 +42,31 @@ namespace BootRegistratieSysteem
         {
             if (RegisterController.Registreren(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword))
             {
-                Switcher.Switch(new UserList());
+                using (BootDataBase context = new BootDataBase()) {
+
+
+                    foreach (CheckBox c in RegisterLayout.Children.OfType<CheckBox>())
+                    {
+                        if (c.IsChecked == true)
+                        {
+                            int roleID = int.Parse(c.Tag.ToString());
+                            //int.Parse(c.Tag.ToString());
+
+
+                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null);
+
+                            var LastUserID = context.Users.Select(x => x.PersonID).ToList().Last();
+                            var max = context.Users.OrderByDescending(p => p.PersonID).FirstOrDefault().PersonID;
+
+                            dbc.Add_MemberRole(roleID, max);
+                           
+
+
+
+                        }
+                    }
+                }
+                    Switcher.Switch(new UserList());
             }
             else
             {

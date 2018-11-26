@@ -142,7 +142,7 @@ namespace BootRegistratieSysteem.Views
                             //int.Parse(c.Tag.ToString());
 
 
-                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null);
+                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null && x.PersonID == (int)EditID.Content);
 
                             if (MemberRoles)
                             {
@@ -159,7 +159,7 @@ namespace BootRegistratieSysteem.Views
 
                             int roleID = int.Parse(c.Tag.ToString());
 
-                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null);
+                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null && x.PersonID == (int)EditID.Content);
 
                             if (MemberRoles)
                             {
@@ -195,7 +195,7 @@ namespace BootRegistratieSysteem.Views
                             //int.Parse(c.Tag.ToString());
 
 
-                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null);
+                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null && x.PersonID == (int)EditID.Content);
 
                             if (MemberRoles)
                             {
@@ -214,7 +214,7 @@ namespace BootRegistratieSysteem.Views
 
                             int roleID = int.Parse(c.Tag.ToString());
 
-                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null);
+                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null && x.PersonID == (int)EditID.Content);
 
                             if (MemberRoles)
                             {
