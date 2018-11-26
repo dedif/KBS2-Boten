@@ -128,54 +128,52 @@ namespace BootRegistratieSysteem.Views
             {
                 if (Controllers.EditController.EditWithoutPassword(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, EditID))
                 {
-                    if ((bool)Reparateur.IsChecked || (bool)Coach.IsChecked || (bool)Commissaris.IsChecked || (bool)Examinator.IsChecked || (bool)Administrator.IsChecked) {
 
-                       
 
-                        List<int> checkBoxesTicked = new List<int>();
 
-                        foreach (CheckBox c in RegisterLayout.Children.OfType<CheckBox>())
+
+                    List<int> checkBoxesTicked = new List<int>();
+
+                    foreach (CheckBox c in RegisterLayout.Children.OfType<CheckBox>())
+                    {
+                        if (c.IsChecked == true)
                         {
-                            if (c.IsChecked == true)
-                            {
-                                int roleID = int.Parse(c.Tag.ToString());
-                                //int.Parse(c.Tag.ToString());
-                                var MemberRoles = (from x in context.MemberRoles
-                                                   where x.PersonID == (int)EditID.Content && x.RoleID == roleID && x.Deleted_at == null
-                                                   select x.RoleID).ToList();
+                            int roleID = int.Parse(c.Tag.ToString());
+                            //int.Parse(c.Tag.ToString());
 
-                                var MemberRoless = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null);
 
-                                if (MemberRoless)
-                                    {
+                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null);
 
-                                    } else
-                                    {
-                                        dbc.Add_MemberRole(int.Parse(c.Tag.ToString()), (int)EditID.Content);
-                                    }
-                                
-                                
-                               
-                            } else if(c.IsChecked == false)
+                            if (MemberRoles)
                             {
 
-                                int roleID = int.Parse(c.Tag.ToString());
-                            
-                                var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null);
+                            } else
+                            {
+                                dbc.Add_MemberRole(roleID, (int)EditID.Content);
+                            }
 
-                                if (MemberRoles)
-                                {
-                                    dbc.Delete_MemberRole((int)EditID.Content, (int.Parse(c.Tag.ToString())));
-                                }
-                                else
-                                {
 
-                                }
+
+                        } else if (c.IsChecked == false)
+                        {
+
+                            int roleID = int.Parse(c.Tag.ToString());
+
+                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null);
+
+                            if (MemberRoles)
+                            {
+                                dbc.Delete_MemberRole((int)EditID.Content, roleID);
+                            }
+                            else
+                            {
+
                             }
                         }
-
                     }
-                    
+
+
+
                     Switcher.Switch(new UserList());
                 }
                 else
@@ -188,15 +186,56 @@ namespace BootRegistratieSysteem.Views
             {
                 if (Controllers.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, EditID))
                 {
-                    Switcher.Switch(new UserList());
+
+                    foreach (CheckBox c in RegisterLayout.Children.OfType<CheckBox>())
+                    {
+                        if (c.IsChecked == true)
+                        {
+                            int roleID = int.Parse(c.Tag.ToString());
+                            //int.Parse(c.Tag.ToString());
+
+
+                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null);
+
+                            if (MemberRoles)
+                            {
+
+                            }
+                            else
+                            {
+                                dbc.Add_MemberRole(roleID, (int)EditID.Content);
+                            }
+
+
+
+                        }
+                        else if (c.IsChecked == false)
+                        {
+
+                            int roleID = int.Parse(c.Tag.ToString());
+
+                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null);
+
+                            if (MemberRoles)
+                            {
+                                dbc.Delete_MemberRole((int)EditID.Content, roleID);
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                        Switcher.Switch(new UserList());
+                    }
                 }
                 else
                 {
                     RegisterError.Content = "Controleer uw gegevens!";
                     RegisterError.UpdateLayout();
                 }
+                }
             }
-        }
+        
 
         private void ButtonCancel(object sender, RoutedEventArgs e)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Globalization;
 using System.Linq;
@@ -76,14 +77,17 @@ namespace BootRegistratieSysteem
                                      select x).ToList();
 
 
-                if (delMemberRole != null)
-                {
-                    delMemberRole.ForEach(x => x.Deleted_at = DateTime.Now);
-                }
+                //if (delMemberRole != null)
+                //{
+                //    delMemberRole.ForEach(x => x.Deleted_at = DateTime.Now);
+            
+                //}
 
                 // if (delMemberRole != null)
                 // {
                 //   delMemberRole.Deleted_at = DateTime.Now;
+
+                context.MemberRoles.RemoveRange(delMemberRole);
 
                 context.SaveChanges();
                // }
