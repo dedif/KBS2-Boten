@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using ConsoleApp1;
 using WpfApp13;
 
@@ -31,6 +29,5 @@ namespace WpfApp6
 
         private IEnumerable<Boat> GetBoatsForBoatType(IEnumerable<Boat> allBoats, Boat.BoatType boatType) =>
             allBoats.Where(boat => boat.Type == boatType);
-
     }
 }

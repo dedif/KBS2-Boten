@@ -24,6 +24,7 @@ namespace WpfApp6
         private const int AmountOfAvailableQuarters = 8;
         public BoatTypeTabItem(List<Boat> boats, Boat.BoatType type, List<Reservation> reservations)
         {
+            BoatView = new BoatView();
             BoatType = type;
             Header = type.ToString();
             Reservations = reservations;
@@ -41,26 +42,12 @@ namespace WpfApp6
             });
             Grid.Children.Add(new Label
             {
-                Content = "Start:",
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(5, 260, 0, 0)
-            });
-            Grid.Children.Add(new Label
-            {
-                Content = "Tijdsduur:",
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(5, 320, 0, 0)
-            });
-            Grid.Children.Add(new Label
-            {
                 Content = "Eigenschappen boot:",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(150, 180, 0, 0)
             });
-            Grid.Children.Add(new BoatView());
+            Grid.Children.Add(BoatView);
             Grid.Children.Add(new Label
             {
                 Content = "Duur reservering:",
@@ -172,7 +159,7 @@ namespace WpfApp6
         private List<string> GenerateClaimableDurationStrings(int amountOfSlotsToBeClaimed)
         {
             var claimableDurationStrings = new List<string>();
-            for (int i = 1; i <= amountOfSlotsToBeClaimed; i++)
+            for (var i = 1; i <= amountOfSlotsToBeClaimed; i++)
             {
                 var slotString = $"0{i / 4}:{i % 4 * 15}";
                 if (i % 4 == 0) slotString += "0";
@@ -324,8 +311,10 @@ namespace WpfApp6
             var sunriseAndSunsetTimes = GetSunriseAndSunsetTimes(selectedDateValue);
             var earliestSlot = GetEarliestSlot(sunriseAndSunsetTimes[0]);
             var latestSlot = GetLatestSlot(sunriseAndSunsetTimes[1]);
-            var selectedBoat = (string)BoatNamesComboBox.SelectedValue;
-            var claimedSlotsForThisDayAndBoat = GetClaimedSlotsForThisDayAndBoat(selectedDateValue, selectedBoat);
+            var selectedBoatString = (string)BoatNamesComboBox.SelectedValue;
+            var selectedBoat = new Boatcontroller().GetBoatWithName(selectedBoatString);
+            BoatView.UpdateView(selectedBoat);
+            var claimedSlotsForThisDayAndBoat = GetClaimedSlotsForThisDayAndBoat(selectedDateValue, selectedBoatString);
             PopulateStartTimeComboBox(selectedDateValue, earliestSlot, latestSlot, claimedSlotsForThisDayAndBoat);
             var amountOfClaimableSlots = GetAmountOfClaimableSlots(claimedSlotsForThisDayAndBoat, latestSlot);
             var amountOfSlotsWantingToBeClaimed = GetAmountOfSlotsWantingToBeClaimed();
