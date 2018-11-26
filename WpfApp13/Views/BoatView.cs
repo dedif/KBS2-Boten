@@ -44,7 +44,7 @@ namespace WpfApp13
         {
             NameLabel.Content = $"Naam: {boat.Name}";
             WeightLabel.Content = $"Gewicht: {boat.Weight}";
-            AmountOfRowersLabel.Content = $"Aantal roeiers: {boat.AmountOfRowers}";
+            AmountOfRowersLabel.Content = $"Aantal roeiers: {boat.NumberOfRowers}";
             SteermanLabel.Content = "Stuurman? ";
             SteermanLabel.Content += boat.Steering ? "Ja" : "Nee";
         }

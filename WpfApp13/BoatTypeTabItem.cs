@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Linq;
 using Models;
 using Views;
+using Controllers;
 
 namespace WpfApp13
 {
@@ -31,6 +32,7 @@ namespace WpfApp13
             Reservations = reservations;
             Grid = new Grid();
             MakeRegisterBtnVisibleAfterChoice();
+            FillComboNames();
             Calendar = MakeCalendar();
             Grid.Children.Add(Calendar);
             Grid.Children.Add(new Label
@@ -60,7 +62,9 @@ namespace WpfApp13
             PlannerGrid = new PlannerGrid();
             var earliestSlot = GetEarliestSlot(sunriseAndSunsetTimes[0]);
             var latestSlot = GetLatestSlot(sunriseAndSunsetTimes[1]);
-            var claimedSlotsForThisDay = GetClaimedSlotsForThisDayAndBoat(DateTime.Now, (string)BoatNamesComboBox.SelectedValue)
+            var selectedBoatString = (string)BoatNamesComboBox.SelectedValue;
+            var claimedSlotsForThisDay = GetClaimedSlotsForThisDayAndBoat(DateTime.Now, selectedBoatString);
+            BoatView.UpdateView(new Boatcontroller().GetBoatWithName(selectedBoatString));
             PlannerGrid.Populate(earliestSlot, latestSlot, claimedSlotsForThisDay);
             Grid.Children.Add(PlannerGrid);
             Grid.Children.Add(new Label

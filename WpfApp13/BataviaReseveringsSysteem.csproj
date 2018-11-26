@@ -74,6 +74,7 @@
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Views\BoatView.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Switcher.cs" />
