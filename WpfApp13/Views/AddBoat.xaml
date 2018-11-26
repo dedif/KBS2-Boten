@@ -34,7 +34,7 @@
         <Button x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Left" Margin="23,41.748,0,0" VerticalAlignment="Top" Width="75" FontSize="16" RenderTransformOrigin="0.432,0.234" Click="CancelButton_Click" Grid.Row="1"/>
             
         <Label x:Name="NotificationLabel" Visibility="Hidden" Content="" HorizontalAlignment="Left" Margin="137,10.748,0,0" VerticalAlignment="Top" Width="290" Foreground="#FFFF0909" Grid.Row="1"/>
-        <Label x:Name="SkiffLabel" Content="Een skiff boot heeft altijd één roeier" Visibility="Hidden" HorizontalAlignment="Left" Height="31" Margin="356,80,0,0" VerticalAlignment="Top" Width="231"/>
+        <Label x:Name="SkiffLabel" Content="Een skiff boot heeft altijd één roeier en geen stuur" Visibility="Hidden" HorizontalAlignment="Left" Height="31" Margin="356,80,0,0" VerticalAlignment="Top" Width="231"/>
 
     </Grid>
 </UserControl>

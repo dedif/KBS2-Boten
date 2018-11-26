@@ -4,7 +4,7 @@ using System.Windows.Input;
 using System.Text.RegularExpressions;
 using WpfApp13;
 using Controllers;
-
+using System.Linq;
 namespace Views
 {
     /// <summary>
@@ -12,6 +12,8 @@ namespace Views
     /// </summary>
     public partial class LoginView : UserControl
     {
+
+        public static int UserId;
         public LoginView()
         {
             InitializeComponent();
@@ -21,6 +23,17 @@ namespace Views
         {
             if (LoginController.Login(Username, Password, LoginError))
             {
+                int username = int.Parse(Username.Text);
+                using (Database context = new Database())
+                {
+                    var id = (
+                        from data in context.Users
+                        where data.PersonID == username
+                        select data.PersonID).Single();
+
+                    UserId = id;
+                }
+
                 Switcher.Switch(new Dashboard());
             }
             

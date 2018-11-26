@@ -155,6 +155,22 @@ namespace Controllers
 
         }
 
+        public int GetID()
+        {
+            using (Database context = new Database())
+            {
+
+                var Id =(
+                        from data in context.Users
+                         orderby data.PersonID descending
+                        select data.PersonID).First();
+                return Id;
+            }
+          
+
+        }
+
+
         public void Print()
         {
             using (Database context = new Database())

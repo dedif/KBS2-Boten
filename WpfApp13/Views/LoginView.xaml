@@ -8,7 +8,7 @@
         d:DesignWidth="640" d:DesignHeight="480" Width="800" Height="600">
     <Grid x:Name="loginLayout" Background="White">
         <Label Content="" HorizontalAlignment="Left" Margin="82,43,0,0" VerticalAlignment="Top"/>
-        <Label Content="Gebruikersnaam" HorizontalAlignment="Left" Height="31" Margin="139,106,0,0" VerticalAlignment="Top" Width="112"/>
+        <Label Content="Lidnummer" HorizontalAlignment="Left" Height="31" Margin="139,106,0,0" VerticalAlignment="Top" Width="112"/>
         <Label Content="Wachtwoord" HorizontalAlignment="Left" Height="23" Margin="139,153,0,0" VerticalAlignment="Top" Width="95"/>
         <TextBox x:Name="Username" HorizontalAlignment="Left" Height="23" Margin="282,106,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="125" PreviewTextInput="NumberValidationTextBox"  />
         <PasswordBox x:Name="Password" PasswordChar="*" HorizontalAlignment="Left" Height="23" Margin="282,153,0,0"  VerticalAlignment="Top" Width="125"/>

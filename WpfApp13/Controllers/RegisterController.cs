@@ -141,10 +141,11 @@ namespace Controllers
             // add user to database
             if (validate && valDate)
             {
-
-                MessageBoxResult result = MessageBox.Show("UW ACCOUNT IS AANGEMAAKT!!!!");
-                u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
                 
+                u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+
+
+                MessageBoxResult result = MessageBox.Show("Het account is aangemaakt, het lidnummer is " + u.GetID());
                 return true;
             }
             else
