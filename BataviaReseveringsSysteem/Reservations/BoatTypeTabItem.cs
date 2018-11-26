@@ -6,8 +6,10 @@ using System.Linq;
 using Models;
 using Views;
 using Controllers;
+using ScreenSwitcher;
+using BataviaReseveringsSysteemDatabase;
 
-namespace WpfApp13
+namespace Reserve
 {
     public class BoatTypeTabItem : TabItem
     {

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace WpfApp13
+namespace ScreenSwitcher
 {
     public static class Switcher
     {

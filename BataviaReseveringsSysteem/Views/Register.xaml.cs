@@ -3,8 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Text.RegularExpressions;
-using WpfApp13;
 using Controllers;
+using ScreenSwitcher;
 
 namespace Views
 {
