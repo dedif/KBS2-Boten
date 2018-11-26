@@ -16,23 +16,7 @@ namespace UnitTestLoginRegister
     public class UnitTestLoginRegister
     {
 
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        [TestCase("1", "Omar", false)]
-        [TestCase("1", "unittest", true)]
-
-        public void Login_Login_ReturnTrue(string username, string password, bool answer)
-        {
-            //Arrage
-            TextBox T = new TextBox() { Text = username };
-            PasswordBox P = new PasswordBox() { Password = password };
-            LoginController login = new LoginController();
-            //Act
-            bool result = LoginController.Login(T, P, new Label());
-            //Assert
-            Assert.AreEqual(answer, result);
-        }
-
+        
        
         [Test]
         [Apartment(ApartmentState.STA)]
@@ -79,6 +63,23 @@ namespace UnitTestLoginRegister
             //Act
             bool result = RegisterController.Registreren(F, M, L, C, Z, A, P, E, D, Mo, Y, G, Pa, Co);
 
+            //Assert
+            Assert.AreEqual(answer, result);
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        [TestCase("2", "Omar", false)]
+        [TestCase("1", "omar", true)]
+
+        public void Login_Login_ReturnTrue(string username, string password, bool answer)
+        {
+            //Arrage
+            TextBox T = new TextBox() { Text = username };
+            PasswordBox P = new PasswordBox() { Password = password };
+            LoginController login = new LoginController();
+            //Act
+            bool result = LoginController.Login(T, P, new Label());
             //Assert
             Assert.AreEqual(answer, result);
         }
