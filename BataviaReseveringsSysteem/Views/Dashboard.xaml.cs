@@ -1,11 +1,10 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Linq;
 using System.Collections.Generic;
 using Models;
-using Controllers;
-using WpfApp13;
+using BataviaReseveringsSysteemDatabase;
+using ScreenSwitcher;
 
 namespace Views
 {

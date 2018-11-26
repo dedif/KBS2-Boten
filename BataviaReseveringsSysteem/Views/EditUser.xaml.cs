@@ -1,11 +1,12 @@
-﻿using Controllers;
+﻿using BataviaReseveringsSysteemDatabase;
+using Controllers;
+using ScreenSwitcher;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using WpfApp13;
 
 namespace Views
 {
@@ -43,8 +44,8 @@ namespace Views
                  Year.Text = split[2];
                  Month.Text = split[1];
                  Day.Text =  split[0];
-
             }
+
 
 
 

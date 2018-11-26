@@ -81,8 +81,8 @@
     <Compile Include="Views\AddBoat.xaml.cs">
       <DependentUpon>AddBoat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BoatTypeTabItem.cs" />
-    <Compile Include="CalcSunTimes.cs" />
+    <Compile Include="Reservations\BoatTypeTabItem.cs" />
+    <Compile Include="Reservations\CalcSunTimes.cs" />
     <Compile Include="Views\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
     </Compile>
@@ -146,7 +146,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PlannerGrid.cs" />
+    <Compile Include="Reservations\PlannerGrid.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -176,6 +176,7 @@
   <ItemGroup>
     <Resource Include="Images\User.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
