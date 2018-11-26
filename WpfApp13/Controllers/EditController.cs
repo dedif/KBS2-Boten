@@ -82,7 +82,7 @@ namespace Controllers
             UserController u = new UserController(); // Get database
 
             string savedPasswordHash = u.PasswordHash(Password.Password); // Hash password
-            string BirthdayText = $"{Day.Text}-{Month.Text}-{Year.Text}";
+            string BirthdayText = $"{ConvertDate(Day.Text,true)}-{ConvertDate(Month.Text, true)}-{Year.Text}";
 
             //localtime
             DateTime DateTimeToday = DateTime.UtcNow.Date;
@@ -220,7 +220,7 @@ namespace Controllers
             UserController u = new UserController(); // Get database
 
        
-            string BirthdayText = $"{Day.Text}-{Month.Text}-{Year.Text}";
+            string BirthdayText = $"{ConvertDate(Day.Text, true)}-{ConvertDate(Month.Text, true)}-{Year.Text}";
 
             //localtime
             DateTime DateTimeToday = DateTime.UtcNow.Date;
@@ -327,6 +327,27 @@ namespace Controllers
             {
                 return false;
             }
+        }
+
+        public static string ConvertDate(string x, bool y)
+        {
+            string C = "";
+
+            if (x.Length < 2 && y)
+            {
+                string z = "0";
+                z += x;
+                return z;
+            }
+           
+            if (x.Length < 4 &&  !y)
+            {
+                string z = "0";
+                z += x;
+                return z;
+            }
+
+            return C;
         }
     }
 }
