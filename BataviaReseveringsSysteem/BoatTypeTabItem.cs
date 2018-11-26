@@ -58,6 +58,17 @@ namespace WpfApp13
                 VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(10, 250, 0, 0)
             });
+            var annulerenButton = new Button
+            {
+                Content = "Annuleren",
+                Width = 120,
+                Height = 25,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(290, 284, 0, 0),
+            };
+            annulerenButton.Click += (sender, e) => Switcher.Switch(new Dashboard());
+            Grid.Children.Add(annulerenButton);
             var sunriseAndSunsetTimes = GetSunriseAndSunsetTimes(DateTime.Now);
             PlannerGrid = new PlannerGrid();
             var earliestSlot = GetEarliestSlot(sunriseAndSunsetTimes[0]);

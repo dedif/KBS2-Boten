@@ -93,8 +93,6 @@ namespace Controllers
         {
             using (var context = new Database())
             {
-                Console.WriteLine(context.Boats.Count());
-                Console.WriteLine(name);
                 return (from boat in context.Boats where boat.Name.Equals(name) select boat).First();
             }
         }
