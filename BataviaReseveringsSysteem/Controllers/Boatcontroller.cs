@@ -105,7 +105,14 @@ namespace Controllers
                 return boats;
             }
         }
-
+		
+		public Boat GetBoatWithName(string name)
+        {
+            using (var context = new Database())
+            {
+                return (from boat in context.Boats where boat.Name.Equals(name) select boat).First();
+            }
+        }
 
     }
 }

@@ -1,31 +1,38 @@
 ﻿using Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using WpfApp13;
 
 namespace Controllers
 {
-    class ReservationController
+    public class ReservationController
     {
+
         public List<Reservation> GetReservations()
         {
-            var Boats = new Boatcontroller().BoatList();
-            return new List<Reservation>
+            using (var context = new Database()) return context.Reservations.ToList();
+        }
+
+        public List<Reservation> GetReservationsForDay(DateTime day)
+        {
+            using (var context = new Database())
+                return context.Reservations.Where(reservation =>
+                    reservation.Start.Day == day.Day &&
+                    reservation.Start.Month == day.Month &&
+                    reservation.Start.Year == day.Year).ToList();
+        }
+
+        public List<Reservation> GetReservationsForDayAndBoat(DateTime day, Boat boat)
+        {
+            using (var context = new Database())
             {
-                new Reservation(Boats[0],
-                    new Member(),
-                    new DateTime(2018,
-                        11,
-                        15,
-                        12,
-                        30,
-                        00),
-                    new DateTime(2018,
-                        11,
-                        15,
-                        13,
-                        00,
-                        00)),
-            };
+                return context.Reservations.Where(reservation =>
+                    reservation.Start.Day == day.Day &&
+                    reservation.Start.Month == day.Month &&
+                    reservation.Start.Year == day.Year &&
+                    reservation.Boat.BoatID == boat.BoatID).ToList();
+            }
         }
     }
 }
