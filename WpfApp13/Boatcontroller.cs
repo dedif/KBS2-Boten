@@ -91,16 +91,7 @@ namespace ConsoleApp1
             {
               
                     Enum.TryParse(type, out Boat.BoatType MyType);
-                    var boot1 = new Boat
-                    {
-                        Name = name,
-                        Type = MyType,
-                        NumberOfRowers = rowers,
-                        Weight = weight,
-                        Steering = steeringwheel
-
-
-                    };
+                    var boot1 = new Boat (name, MyType, rowers, weight, steeringwheel);
 
                     context.Boats.Add(boot1);
 

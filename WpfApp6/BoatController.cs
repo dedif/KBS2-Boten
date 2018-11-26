@@ -8,5 +8,9 @@ namespace WpfApp6
 {
     class BoatController
     {
+
+
+
     }
+        
 }

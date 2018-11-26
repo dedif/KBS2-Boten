@@ -31,5 +31,10 @@ namespace WpfApp13
             addBoat.Show();
             this.Hide();
         }
+
+        private void AfschrijvenBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
