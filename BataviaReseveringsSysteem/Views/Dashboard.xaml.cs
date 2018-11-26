@@ -61,11 +61,14 @@ namespace Views
                     {
 
                         //Dit is voor de label aan de linkerkant van de twee rijen
-                        Label l = new Label();
-                        l.Content = ReservationContent(r);
-                        l.Margin = new Thickness(20, YLeft, 50, 50);
-                        l.FontSize = 16;
-                        l.VerticalAlignment = VerticalAlignment.Top;
+                        Label l = new Label()
+                        {
+                            Content = ReservationContent(r),
+                            Margin = new Thickness(20, YLeft, 50, 50),
+                            FontSize = 16,
+                            HorizontalAlignment = HorizontalAlignment.Left,
+                            VerticalAlignment = VerticalAlignment.Top,
+                        };
                         LabelList.Add(l);
                         Button deleteButton = AddDeleteButton(20, YLeft + 130, r.ReservationID);
                         Button changeButton = AddChangeButton(20, YLeft + 170);
@@ -82,11 +85,14 @@ namespace Views
                     else if (Count % 2 != 0)
                     {
                         //Hiermee maak je een label
-                        Label l2 = new Label();
-                        l2.Content = ReservationContent(r);
-                        l2.Margin = new Thickness(500, YRight, 50, 50);
-                        l2.FontSize = 16;
-                        l2.VerticalAlignment = VerticalAlignment.Top;
+                        Label l2 = new Label()
+                        {
+                            Content = ReservationContent(r),
+                            Margin = new Thickness(500, YRight, 50, 50),
+                            FontSize = 16,
+                            HorizontalAlignment = HorizontalAlignment.Left,
+                            VerticalAlignment = VerticalAlignment.Top,
+                        };
                         LabelList.Add(l2);
                         Button deleteButton = AddDeleteButton(500, YRight + 130, r.ReservationID);
                         Button changeButton = AddChangeButton(500, YRight + 170);
@@ -117,7 +123,6 @@ namespace Views
                     from r in context.Reservations
                     where r.ReservationID == reservation.ReservationID
                     select r.Boat.BoatID).Single();
-
 
                 var Name =
                     (from boat in context.Boats
