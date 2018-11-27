@@ -15,6 +15,6 @@
         <Button Content="Login" IsDefault="True"  HorizontalAlignment="Left" Margin="280,205,0,0" VerticalAlignment="Top" Width="125" Click="LoginButton" Height="25"/>
         <Label x:Name="Test" Content="" HorizontalAlignment="Left" Height="42" Margin="332,275,0,0" VerticalAlignment="Top" Width="113"/>
         <Label Content="" x:Name="LoginError" HorizontalAlignment="Left" Margin="332,43,0,0" Foreground="Red" VerticalAlignment="Top"/>
-        <Button  Content="Registreren" Visibility ="Hidden" HorizontalAlignment="Left" Margin="282,245,0,0" VerticalAlignment="Top" Width="123" Click="RegistrerenButton" Height="25"/>
+        <Button  Content="Registreren"  HorizontalAlignment="Left" Margin="282,245,0,0" VerticalAlignment="Top" Width="123" Click="RegistrerenButton" Height="25"/>
     </Grid>
 </UserControl>

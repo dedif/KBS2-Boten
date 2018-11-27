@@ -53,5 +53,7 @@ namespace Views
         {
             Switcher.Switch(new Register());
         }
+
+       
     }
 }
