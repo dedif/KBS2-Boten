@@ -4,6 +4,8 @@ using System.Windows.Controls;
 
 namespace WpfApp13
 {
+
+    //test
     public class BoatView : Grid
     {
         private Label NameLabel { get; set; }
