@@ -71,8 +71,6 @@
     <Compile Include="Controllers\EditController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
-    <Compile Include="Models\Gender.cs" />
-    <Compile Include="Models\Member.cs" />
     <Compile Include="Databasecontroller.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\Member.cs" />

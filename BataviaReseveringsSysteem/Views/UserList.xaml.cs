@@ -14,14 +14,18 @@ namespace Views
     public partial class UserList : UserControl
     {
         public static DataGrid DataGrid;
-		private DataBase context = new DataBase();
+
+        private DataBase context = new DataBase();
         private DataBaseController dbc = new DataBaseController();
 
         public UserList()
         {
             InitializeComponent();
             this.HorizontalAlignment = HorizontalAlignment.Center;
+
             Load();
+
+
         }
 
 
@@ -59,11 +63,6 @@ namespace Views
             dbc.Delete_User((int)b.Tag);
             Switcher.Switch(new UserList());
         }
-        private void BackButton(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new Dashboard());
-        }
-
 
 
 

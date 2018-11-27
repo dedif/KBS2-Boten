@@ -5,15 +5,15 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
+
 namespace Controllers
 {
     class UserController
     {
-
-
+        
         public void Add_User(string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
         {
-            using (Database context = new Database())
+            using (DataBase context = new DataBase())
             {
 
                 // Use current timeDateTime dt = 
@@ -38,20 +38,12 @@ namespace Controllers
                     Updated_at = null,
                     Deleted_at = null
 
-
-
-
                 };
                 int PersonID = user.PersonID;
                 context.Users.Add(user);
 
 
                 context.SaveChanges();
-
-
-
-
-
             }
 
         }
@@ -64,9 +56,6 @@ namespace Controllers
                 Models.User dep = context.Users.Where(d => d.PersonID == personID).First();
                 if (dep != null)
                 {
-
-
-
                     dep.Password = password;
                     dep.Firstname = firstname;
                     dep.Lastname = lastname;
@@ -80,19 +69,9 @@ namespace Controllers
                     dep.Middlename = middlename;
                     dep.Updated_at = DateTime.Now;
                     dep.Deleted_at = null;
-
-
-
-
-
-
-
+                    
                     context.SaveChanges();
                 }
-
-
-
-
             }
 
         }
@@ -106,10 +85,6 @@ namespace Controllers
                 Models.User dep = context.Users.Where(d => d.PersonID == personID).First();
                 if (dep != null)
                 {
-
-
-
-
                     dep.Firstname = firstname;
                     dep.Lastname = lastname;
                     dep.Address = address;
@@ -123,16 +98,9 @@ namespace Controllers
                     dep.Updated_at = DateTime.Now;
                     dep.Deleted_at = null;
 
-
-
                     context.SaveChanges();
                 }
-
-
-
-
             }
-
         }
 
 

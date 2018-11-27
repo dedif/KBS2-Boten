@@ -13,14 +13,11 @@ namespace BataviaReseveringsSysteem
 {
     class DataBaseController
     {
-        public int PersonID;
         public void Add_Role(string roleName)
         {
             
             using (DataBase context = new DataBase())
             {
-               
-
 
                 var role = new Models.Role
                 {
@@ -31,13 +28,8 @@ namespace BataviaReseveringsSysteem
 
                 context.Roles.Add(role);
 
-
                 context.SaveChanges();
-
-
-
-
-
+                
             }
 
         }
@@ -47,8 +39,6 @@ namespace BataviaReseveringsSysteem
 
             using (DataBase context = new DataBase())
             {
-
-
 
                 var MemberRole = new Models.MemberRole
                 {
@@ -124,21 +114,13 @@ namespace BataviaReseveringsSysteem
                     Created_at = DateTime.Now,
                     Updated_at = null,
                     Deleted_at = null
-
-
-
-
+                    
                 };
                 int PersonID = user.PersonID;
                 context.Users.Add(user);
 
 
                 context.SaveChanges();
-
-
-
-
-
             }
 
         }
@@ -149,7 +131,6 @@ namespace BataviaReseveringsSysteem
             {
 
                Models.User delUser = context.Users.Where(d => d.PersonID == personID).First();
-
             
                 if (delUser != null)
                 {
@@ -158,10 +139,6 @@ namespace BataviaReseveringsSysteem
                    
                     context.SaveChanges();
                 }
-
-
-
-
             }
 
         }
@@ -175,9 +152,6 @@ namespace BataviaReseveringsSysteem
 
                 if (dep != null)
                 {
-
-
-
                     dep.Password = password;
                     dep.Firstname = firstname;
                     dep.Lastname = lastname;
@@ -192,18 +166,9 @@ namespace BataviaReseveringsSysteem
                     dep.Updated_at = DateTime.Now;
                     dep.Deleted_at = null;
 
-
-
-
-
-
-
                     context.SaveChanges();
                 }
-
-
-
-
+                
             }
 
         }
@@ -219,10 +184,7 @@ namespace BataviaReseveringsSysteem
 
                 if (dep != null)
                 {
-
-
-
-                   
+                    
                     dep.Firstname = firstname;
                     dep.Lastname = lastname;
                     dep.Address = address;
@@ -235,13 +197,10 @@ namespace BataviaReseveringsSysteem
                     dep.Middlename = middlename;
                     dep.Updated_at = DateTime.Now;
                     dep.Deleted_at = null;
-
-
+                    
 
                     context.SaveChanges();
                 }
-
-
 
 
             }
