@@ -3,12 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BataviaReseveringsSysteem"
         mc:Ignorable="d">
     <Grid Name="GridDashboard" Width="1271" Height="268">
         <Button x:Name="AddReservationButton" Content="+ Afschrijving toevoegen" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" Width="184" Click="AddReservationButton_Click" FontSize="16"/>
         <Button x:Name="SettingsButton" Visibility="Hidden" Content="Instellingen" HorizontalAlignment="right" Margin="0,81,22,0" VerticalAlignment="Top" Width="111" RenderTransformOrigin="0.524,1.334" FontSize="16"/>
-        <Button x:Name="UserListButton" Content="Inzien gebruikers" HorizontalAlignment="right" Margin="0,105,2,0" VerticalAlignment="Top" Width="131" RenderTransformOrigin="0.163,0.676" FontSize="16" Click="UserListButton_Click" />
-        <Button x:Name="AddBoatButton" Content="Aanmaken boten" HorizontalAlignment="right" Margin="0,137,2,0" VerticalAlignment="Top" Width="131" RenderTransformOrigin="0.163,0.676" FontSize="16" Click="AddBoatButton_Click"/>
+        <Button x:Name="UserListButton" Visibility="Hidden" Content="Inzien gebruikers" HorizontalAlignment="right" Margin="0,105,2,0" VerticalAlignment="Top" Width="131" RenderTransformOrigin="0.163,0.676" FontSize="16" Click="UserListButton_Click" />
+        <Button x:Name="AddBoatButton" Content="Aanmaken boten" Visibility="Hidden" HorizontalAlignment="right" Margin="0,137,2,0" VerticalAlignment="Top" Width="131" RenderTransformOrigin="0.163,0.676" FontSize="16" Click="AddBoatButton_Click"/>
         <Button x:Name="SignOutButton" Content="Uitloggen" HorizontalAlignment="right" Margin="0,75,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.163,0.676" FontSize="16" Click="SignOutButton_Click"/>
         <Image Source="..\Images\User.png" HorizontalAlignment="Right" Height="70" VerticalAlignment="Top" Width="58" RenderTransformOrigin="0.475,0.311"/>
         <Label x:Name="NoReservationLabel"  Content="U heeft nog geen afschrijvingen"  Visibility="Hidden" FontSize="30" HorizontalAlignment="Left" Margin="63,70,0,0" VerticalAlignment="Top" Height="86" Width="518"/>

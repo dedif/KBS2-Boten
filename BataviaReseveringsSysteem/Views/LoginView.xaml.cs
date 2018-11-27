@@ -4,7 +4,7 @@ using System.Windows.Input;
 using System.Text.RegularExpressions;
 using Controllers;
 using System.Linq;
-using BataviaReseveringsSysteemDatabase;
+using BataviaReseveringsSysteem.Database;
 using ScreenSwitcher;
 
 namespace Views
@@ -27,7 +27,7 @@ namespace Views
             if (LoginController.Login(Username, Password, LoginError))
             {
                 int username = int.Parse(Username.Text);
-                using (Database context = new Database())
+                using (DataBase context = new DataBase())
                 {
                     var id = (
                         from data in context.Users
@@ -41,12 +41,12 @@ namespace Views
             }
             
         }
-
-        
-    private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+		
+		private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
             {
                 Regex regex = new Regex("[^0-9]+");
                 e.Handled = regex.IsMatch(e.Text);
-            }
-}
+			{
+	}
+
 }
