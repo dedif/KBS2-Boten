@@ -73,7 +73,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WpfApp13\BataviaReseveringsSysteem.csproj">
+    <ProjectReference Include="..\BataviaReseveringsSysteem\BataviaReseveringsSysteem.csproj">
       <Project>{19c7d19a-ed7e-461e-aa17-f1bab358d3f0}</Project>
       <Name>BataviaReseveringsSysteem</Name>
     </ProjectReference>
