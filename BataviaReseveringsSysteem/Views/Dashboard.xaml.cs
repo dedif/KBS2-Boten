@@ -17,17 +17,16 @@ namespace Views
         int YLeft = 50;
         int YRight = 50;
         int Count = 0;
+        int MaxReservationUser = 2;
         //Deze lijsten, bevatten alle buttens en labels
         List<Label> LabelList = new List<Label>();
         List<Button> ButtonList = new List<Button>();
         public Dashboard()
         {
             InitializeComponent();
-            this.HorizontalAlignment = HorizontalAlignment.Center;
-            GridDashboard.Margin = new Thickness(0, 0, 0, 20);
+    
+            GridDashboard.Margin = new Thickness(50, 0, 50, 20);
 
-            //De reservaties van de gebruiker worden met deze methode getoond op het scherm
-            ShowReservations();
             using (DataBase context = new DataBase())
             {
                 var rol = (from data in context.MemberRoles
@@ -36,9 +35,30 @@ namespace Views
 
                 if (rol.Contains(6))
                 {
+                    MaxReservationUser = 2;
                     AddBoatButton.Visibility = Visibility.Visible;
                     UserListButton.Visibility = Visibility.Visible;
                 }
+
+                if (rol.Contains(3))
+                {
+                    MaxReservationUser = 8;
+                }
+          
+                if (rol.Contains(4))
+                {
+                    MaxReservationUser = int.MaxValue;
+                }
+
+                if (rol.Contains(5))
+                {
+                    MaxReservationUser = int.MaxValue;
+                }
+
+
+                //De reservaties van de gebruiker worden met deze methode getoond op het scherm
+                ShowReservations();
+
             }
         }
 
@@ -56,7 +76,7 @@ namespace Views
                     NoReservationLabel.Visibility = Visibility.Hidden;
                 }
 
-                if (context.Reservations.Where(i => i.Deleted == false).Count() >= 2)
+                if (context.Reservations.Where(i => i.Deleted == false).Count() >= MaxReservationUser)
                 {
                     MaxReservations.Visibility = Visibility.Visible;
                     AddReservationButton.IsEnabled = false;
@@ -159,6 +179,7 @@ namespace Views
                 return content;
             }
         }
+
         //Deze methode verwijderd de bijbehorende reservatie
         public void DeleteReservation(int id)
         {
