@@ -1,12 +1,11 @@
-﻿using System;
+﻿using BataviaReseveringsSysteemDatabase;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Controllers;
-using WpfApp13;
 
-namespace Views.Controller
+namespace Controllers
 {
     public class LoginController
     {

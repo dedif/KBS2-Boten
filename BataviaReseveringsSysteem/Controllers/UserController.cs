@@ -1,9 +1,9 @@
-﻿using Models;
+﻿using BataviaReseveringsSysteemDatabase;
+using Models;
 using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using WpfApp13;
 
 namespace Controllers
 {
@@ -154,6 +154,22 @@ namespace Controllers
             }
 
         }
+
+        public int GetID()
+        {
+            using (Database context = new Database())
+            {
+
+                var Id =(
+                        from data in context.Users
+                         orderby data.PersonID descending
+                        select data.PersonID).First();
+                return Id;
+            }
+          
+
+        }
+
 
         public void Print()
         {

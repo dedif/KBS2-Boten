@@ -1,9 +1,9 @@
-﻿
+﻿using BataviaReseveringsSysteemDatabase;
 using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using WpfApp13;
+using ScreenSwitcher;
 
 namespace Views
 {
@@ -45,6 +45,11 @@ namespace Views
         {
             Switcher.Switch(new Register());
         }
+        private void BackButton(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new Dashboard());
+        }
+
 
 
 

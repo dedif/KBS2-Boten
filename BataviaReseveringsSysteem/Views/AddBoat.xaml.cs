@@ -1,8 +1,8 @@
 ﻿using Controllers;
+using ScreenSwitcher;
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using WpfApp13;
 
 namespace Views
 {
@@ -18,7 +18,7 @@ namespace Views
             InitializeComponent();
             this.HorizontalAlignment = HorizontalAlignment.Center;
             this.VerticalAlignment = VerticalAlignment.Center;
-
+            TypCombo.SelectedIndex = 1;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -68,10 +68,31 @@ namespace Views
 
                 }
             }
-            
             NotificationLabel.Content = b.Notification();
         }
 
+        private void TypCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           
+            if (TypCombo.SelectedIndex == 1)
+                {
+                RowersCombo.SelectedIndex = 0;
+                RowersCombo.IsEnabled = false;
+                SteeringWheelCheckbox.IsChecked = false;
+                SteeringWheelCheckbox.IsEnabled = false;
+                SkiffLabel.Visibility = Visibility.Visible;
+                }
+            else 
+            {
+           
+                RowersCombo.IsEnabled = true;
+                SteeringWheelCheckbox.IsChecked = true;
+                SteeringWheelCheckbox.IsEnabled = true;
+                SkiffLabel.Visibility = Visibility.Hidden;
+            }
+        }
+
+      
     }
 }
 

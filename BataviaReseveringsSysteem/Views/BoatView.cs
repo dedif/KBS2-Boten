@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace WpfApp13
+namespace Views
 {
     public class BoatView : Grid
     {

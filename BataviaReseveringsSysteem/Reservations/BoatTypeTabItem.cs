@@ -6,8 +6,10 @@ using System.Linq;
 using Models;
 using Views;
 using Controllers;
+using ScreenSwitcher;
+using BataviaReseveringsSysteemDatabase;
 
-namespace WpfApp13
+namespace Reserve
 {
     public class BoatTypeTabItem : TabItem
     {
@@ -318,6 +320,7 @@ namespace WpfApp13
                 var aboutToBeClaimedSlots = GetAboutToBeClaimedSlots(selectedDateValue, amountOfSlotsToBeClaimed);
                 PopulateDurationTimeComboBox(amountOfClaimableSlots);
                 PlannerGrid.Populate(earliestSlot, latestSlot, claimedSlotsForThisDayAndBoat, aboutToBeClaimedSlots);
+                Switcher.Switch(new Dashboard());
             }
         }
 

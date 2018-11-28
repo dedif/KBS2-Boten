@@ -1,10 +1,12 @@
-﻿using System;
+﻿using BataviaReseveringsSysteemDatabase;
+using Controllers;
+using ScreenSwitcher;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using WpfApp13;
 
 namespace Views
 {
@@ -34,12 +36,7 @@ namespace Views
                 Email.Text = user.Email;
                 Phonenumber.Text = user.Phonenumber;
                 Gender.SelectedIndex = user.GenderID-1;
-               
-              
-            
-                
-
-
+    
                 string myString = user.Birthday.ToString("dd-MM-yyyy"); // From Database
                 Console.WriteLine(myString);
                 var split = myString.Split('-');
@@ -47,8 +44,8 @@ namespace Views
                  Year.Text = split[2];
                  Month.Text = split[1];
                  Day.Text =  split[0];
-
             }
+
 
 
 
@@ -89,7 +86,7 @@ namespace Views
         {
             if (Password.Password == "" && ConfirmPassword.Password == "")
             {
-                if (Controller.EditController.EditWithoutPassword(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, test))
+                if (EditController.EditWithoutPassword(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, test))
                 {
                     Switcher.Switch(new UserList());
                 }
@@ -101,7 +98,7 @@ namespace Views
             }
             else
             {
-                if (Controller.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, test))
+                if (EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, test))
                 {
                     Switcher.Switch(new UserList());
                 }
@@ -117,5 +114,7 @@ namespace Views
         {
             Switcher.Switch(new UserList());
         }
+
+        
     }
 }
