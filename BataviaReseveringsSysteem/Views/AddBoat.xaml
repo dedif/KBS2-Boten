@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp13"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Height="507.91"
         >
     <Grid>
         <Grid.RowDefinitions>
@@ -30,11 +30,28 @@
         <Label x:Name="WeightLabel" Content="Gewicht (kg):" HorizontalAlignment="Left" Margin="104,164,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.858,0.188"/>
         <TextBox x:Name="WeightBox" HorizontalAlignment="Left" Height="23" Margin="212,172,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" FontSize="16"/>
         <CheckBox x:Name="SteeringWheelCheckbox" Content="Stuur" HorizontalAlignment="Left" Margin="137,205,0,0" VerticalAlignment="Top" FontSize="16" Height="29" Width="70" RenderTransformOrigin="0.703,1.145" Grid.RowSpan="2"/>
-        <Button x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Left" Margin="345,47.748,0,0" VerticalAlignment="Top" Width="75" FontSize="16" Click="SaveButton_Click" RenderTransformOrigin="0.986,0.422" Grid.Row="1"/>
-        <Button x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Left" Margin="23,41.748,0,0" VerticalAlignment="Top" Width="75" FontSize="16" RenderTransformOrigin="0.432,0.234" Click="CancelButton_Click" Grid.Row="1"/>
-            
+        <Button x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Left" Margin="344,177.2,0,0" VerticalAlignment="Top" Width="75" FontSize="16" Click="SaveButton_Click" RenderTransformOrigin="0.986,0.422" Grid.Row="1"/>
+        <Button x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Left" Margin="25,177.2,0,0" VerticalAlignment="Top" Width="75" FontSize="16" RenderTransformOrigin="0.432,0.234" Click="CancelButton_Click" Grid.Row="1"/>
+
         <Label x:Name="NotificationLabel" Visibility="Hidden" Content="" HorizontalAlignment="Left" Margin="137,10.748,0,0" VerticalAlignment="Top" Width="290" Foreground="#FFFF0909" Grid.Row="1"/>
         <Label x:Name="SkiffLabel" Content="Een skiff boot heeft altijd één roeier en geen stuur" Visibility="Hidden" HorizontalAlignment="Left" Height="31" Margin="356,80,0,0" VerticalAlignment="Top" Width="331"/>
+        <Label Content="Diploma:" HorizontalAlignment="Left" Margin="131,240,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <CheckBox x:Name="S1CheckBox" Tag="1" HorizontalAlignment="Left" Margin="212,249,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="S1" HorizontalAlignment="Left" Margin="232,238,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <CheckBox x:Name="S2CheckBox" Tag="2" HorizontalAlignment="Left" Margin="212,270,0,0" Grid.RowSpan="2" VerticalAlignment="Top" FontSize="16" />
+        <Label Content="S2" HorizontalAlignment="Left" Margin="232,260,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.081,-0.007" Grid.RowSpan="2"/>
+        <CheckBox x:Name="S3CheckBox"  Tag="3" HorizontalAlignment="Left" Margin="212,10.2,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" />
+        <Label Content="S3" HorizontalAlignment="Left" Margin="233,3.2,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16"/>
+        <CheckBox x:Name="B1CheckBox" Tag="4" HorizontalAlignment="Left" Margin="298,249,0,16.8" FontSize="16"/>
+        <Label Content="B1" HorizontalAlignment="Left" Margin="318,238,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <CheckBox x:Name="B2CheckBox" Tag="5" HorizontalAlignment="Left" Margin="298,269,0,0" VerticalAlignment="Top" Grid.RowSpan="2" FontSize="16" />
+        <Label Content="B2" HorizontalAlignment="Left" Margin="318,260,0,0" VerticalAlignment="Top" FontSize="16" Grid.RowSpan="2"/>
+        <CheckBox x:Name="P1CheckBox" Tag="7" HorizontalAlignment="Left" Margin="391,248,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.382,-0.542"/>
+        <Label Content="P1" HorizontalAlignment="Left" Margin="411,239,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <CheckBox x:Name="P2CheckBox" Tag="8" HorizontalAlignment="Left" Margin="391,269,0,0" VerticalAlignment="Top" FontSize="16" Grid.RowSpan="2"/>
+        <Label Content="P2" HorizontalAlignment="Left" Margin="411,262,0,0" Grid.RowSpan="2" VerticalAlignment="Top" FontSize="16"/>
+        <CheckBox x:Name="B3CheckBox" Tag="6" HorizontalAlignment="Left" Margin="298,9.2,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="B3" HorizontalAlignment="Left" Margin="318,279,0,0" VerticalAlignment="Top" FontSize="16" Grid.RowSpan="2"/>
 
     </Grid>
 </UserControl>

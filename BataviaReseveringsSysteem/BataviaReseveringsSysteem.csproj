@@ -72,6 +72,8 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Databasecontroller.cs" />
+    <Compile Include="Models\Boat_Diploma.cs" />
+    <Compile Include="Models\Diploma.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\MemberRole.cs" />
