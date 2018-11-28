@@ -6,6 +6,7 @@ using Controllers;
 using System.Linq;
 using BataviaReseveringsSysteem.Database;
 using ScreenSwitcher;
+using BataviaReseveringsSysteem;
 
 namespace Views
 {
@@ -35,6 +36,10 @@ namespace Views
                         select data.PersonID).Single();
 
                     UserId = id;
+
+                    
+
+
                 }
 
                 Switcher.Switch(new Dashboard());

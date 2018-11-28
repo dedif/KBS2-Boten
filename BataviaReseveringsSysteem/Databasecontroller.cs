@@ -11,7 +11,7 @@ using System.Text;
 
 namespace BataviaReseveringsSysteem
 {
-    class DataBaseController
+   public class DataBaseController
     {
         public void Add_Role(string roleName)
         {

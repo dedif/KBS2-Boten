@@ -32,9 +32,9 @@ namespace Views
             {
                 var rol = (from data in context.MemberRoles
                            where data.PersonID == LoginView.UserId
-                           select data.RoleID).Single();
+                           select data.RoleID).ToList();
 
-                if (rol == 6)
+                if (rol.Contains(6))
                 {
                     AddBoatButton.Visibility = Visibility.Visible;
                     UserListButton.Visibility = Visibility.Visible;
