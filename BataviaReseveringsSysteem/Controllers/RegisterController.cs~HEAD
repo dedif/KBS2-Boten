@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Net.Mail;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -147,8 +142,9 @@ namespace Controllers
             if (validate && valDate)
             {
                 
-                
-                u.Add_User(savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+                u.Add_User(savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+
+
                 MessageBoxResult result = MessageBox.Show("Het account is aangemaakt, het lidnummer is " + u.GetID());
                 return true;
             }

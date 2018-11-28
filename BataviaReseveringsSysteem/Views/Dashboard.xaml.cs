@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Linq;
 using System.Collections.Generic;
 using Models;
-using BataviaReseveringsSysteemDatabase;
+using BataviaReseveringsSysteem.Database;
 using ScreenSwitcher;
 
 namespace Views
@@ -23,23 +23,35 @@ namespace Views
         public Dashboard()
         {
             InitializeComponent();
+            this.HorizontalAlignment = HorizontalAlignment.Center;
+            GridDashboard.Margin = new Thickness(0, 0, 0, 20);
 
-                 GridDashboard.Margin = new Thickness(0, 0, 0, 20);
-        
-                //De reservaties van de gebruiker worden met deze methode getoond op het scherm
-                ShowReservations();
+            //De reservaties van de gebruiker worden met deze methode getoond op het scherm
+            ShowReservations();
+            using (DataBase context = new DataBase())
+            {
+                var rol = (from data in context.MemberRoles
+                           where data.PersonID == LoginView.UserId
+                           select data.RoleID).Single();
+
+                if (rol == 6)
+                {
+                    AddBoatButton.Visibility = Visibility.Visible;
+                    UserListButton.Visibility = Visibility.Visible;
+                }
             }
-        
+        }
+
         public void ShowReservations()
         {
-            using (Database context = new Database())
+            using (DataBase context = new DataBase())
             {
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
-                if(context.Reservations.Where(i => i.Deleted == false).Count() == 0)
+                if (context.Reservations.Where(i => i.Deleted == false).Count() == 0)
                 {
                     NoReservationLabel.Visibility = Visibility.Visible;
                 }
-                else 
+                else
                 {
                     NoReservationLabel.Visibility = Visibility.Hidden;
                 }
@@ -47,7 +59,7 @@ namespace Views
                 if (context.Reservations.Where(i => i.Deleted == false).Count() >= 2)
                 {
                     MaxReservations.Visibility = Visibility.Visible;
-                     AddReservationButton.IsEnabled = false;
+                    AddReservationButton.IsEnabled = false;
                 }
                 else
                 {
@@ -115,7 +127,7 @@ namespace Views
         //Deze methode vult de labels van de huidige reservaties
         public string ReservationContent(Reservation reservation)
         {
-            using (Database context = new Database())
+            using (DataBase context = new DataBase())
             {
 
                 var ReservationBoatID = (
@@ -150,7 +162,7 @@ namespace Views
         //Deze methode verwijderd de bijbehorende reservatie
         public void DeleteReservation(int id)
         {
-            using (Database context = new Database())
+            using (DataBase context = new DataBase())
             {
                 var Delete = (
                     from r in context.Reservations
@@ -250,7 +262,7 @@ namespace Views
 
         private void Change_Click(object sender, RoutedEventArgs e)
         {
-           Switcher.Switch(new Dashboard());
+            Switcher.Switch(new Dashboard());
         }
 
         private void AddReservationButton_Click(object sender, RoutedEventArgs e)
@@ -261,7 +273,7 @@ namespace Views
 
         private void SignOutButton_Click(object sender, RoutedEventArgs e)
         {
-           Switcher.Switch(new LoginView());
+            Switcher.Switch(new LoginView());
         }
 
         private void UserListButton_Click(object sender, RoutedEventArgs e)

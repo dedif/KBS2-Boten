@@ -1,4 +1,4 @@
-﻿using BataviaReseveringsSysteemDatabase;
+﻿using BataviaReseveringsSysteem.Database;
 using System;
 using System.Linq;
 using System.Windows;
@@ -14,7 +14,7 @@ namespace Controllers
 
             UserController u = new UserController();
 
-            using (Database context = new Database())
+            using (DataBase context = new DataBase())
             {
                 var Result = context.Users.ToList();
                
@@ -52,7 +52,9 @@ namespace Controllers
                                         Password.BorderBrush = Brushes.Red;
                                         Password.BorderThickness = new Thickness(2);
 
-                                        LoginError.Content = "Het wachtwoord komt niet met deze gebruiker overeen.";
+                                        LoginError.Content = "De gegevens komen niet overeen.";
+                                        Username.BorderBrush = Brushes.Red;
+                                        Username.BorderThickness = new Thickness(2);
                                         LoginError.UpdateLayout();
                                         Password.UpdateLayout();
                                         return false;
@@ -62,7 +64,7 @@ namespace Controllers
                                 {
                                     Password.BorderBrush = Brushes.Red;
                                     Password.BorderThickness = new Thickness(2);
-                                    LoginError.Content = "Vul een wachtwoord in!";
+                                    LoginError.Content = "Vul een wachtwoord in";
                                     LoginError.UpdateLayout();
                                     Password.UpdateLayout();
                                     return false;
@@ -70,12 +72,15 @@ namespace Controllers
                             }
                             else
                             {
+                                Password.BorderBrush = Brushes.Red;
+                                Password.BorderThickness = new Thickness(2);
+
                                 Username.BorderBrush = Brushes.Red;
                                 Username.BorderThickness = new Thickness(2);
 
-                                LoginError.Content = "Deze gebruikersnaam bestaat niet";
+                                LoginError.Content = "De gegevens komen niet overeen.";
                                 LoginError.UpdateLayout();
-                                Username.UpdateLayout();
+                                Password.UpdateLayout();
                              
                             }
 
@@ -84,7 +89,7 @@ namespace Controllers
                 }
                 else
                 {
-                    MessageBox.Show("Lijst is leeg");
+                    MessageBox.Show("De gegevens komen niet overeen.");
                     return false;
                 }
 

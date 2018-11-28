@@ -7,7 +7,7 @@ using Models;
 using Views;
 using Controllers;
 using ScreenSwitcher;
-using BataviaReseveringsSysteemDatabase;
+using BataviaReseveringsSysteem.Database;
 
 namespace Reserve
 {
@@ -287,7 +287,8 @@ namespace Reserve
                     MessageBoxImage.Question) !=
                 MessageBoxResult.Yes)
                 return;
-            using (var context = new Database())
+
+            using (var context = new DataBase())
             {
                 var boat = (from db in context.Boats
                             where db.Name.Equals((string)BoatNamesComboBox.SelectedValue)
@@ -335,7 +336,8 @@ namespace Reserve
             BoatNamesComboBox.SelectedIndex = 0;
             BoatNamesComboBox.DropDownClosed += OnBoatNamesComboBoxClicked;
             Grid.Children.Add(BoatNamesComboBox);
-            using (var context = new Database())
+
+            using (var context = new DataBase())
                 foreach (var item in from db in context.Boats where db.Type == BoatType select db.Name)
                     BoatNamesComboBox.Items.Add(item);
 

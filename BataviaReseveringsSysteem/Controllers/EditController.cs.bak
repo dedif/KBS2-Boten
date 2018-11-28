@@ -5,6 +5,7 @@ using System.Net.Mail;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using WpfApp13;
 using ScreenSwitcher;
 
 namespace Controllers
@@ -25,7 +26,7 @@ namespace Controllers
                                     ComboBox Gender,
                                     PasswordBox Password,
                                     PasswordBox ConfirmPassword,
-                                    Label editID)
+                                    Label test)
         {
             bool validate = true;
             bool valDate = true;
@@ -171,9 +172,9 @@ namespace Controllers
             if (validate && valDate)
             {
 
-                MessageBoxResult result = MessageBox.Show("Het account is bijgewerkt.");
-                u.Update_User((int)editID.Content, savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
-                Switcher.Switch(new Views.UserList());
+                MessageBoxResult result = MessageBox.Show("UW ACCOUNT IS bewerkt!!!!");
+                u.Update_User((int)test.Content,savedPasswordHash, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+                Switcher.Switch(new UserList());
                 return true;
             }
             else
@@ -195,7 +196,7 @@ namespace Controllers
                                     TextBox Month,
                                     TextBox Year,
                                     ComboBox Gender, 
-                                    Label editID)
+                                    Label test)
         {
             bool validate = true;
             bool valDate = true;
@@ -302,9 +303,8 @@ namespace Controllers
                 if (validate && valDate)
                 {
 
-                    MessageBoxResult result = MessageBox.Show("Het account is bijgewerkt.");
-
-                    u.Update_User((int)editID.Content, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+                    MessageBoxResult result = MessageBox.Show("UW ACCOUNT IS bewerkt!!!! ZONDER WW");
+                    u.Update_User((int)test.Content, Firstname.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
                     Switcher.Switch(new Views.UserList());
                     return true;
                 }
