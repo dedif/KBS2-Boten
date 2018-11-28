@@ -34,7 +34,7 @@ namespace Views
                            where data.PersonID == LoginView.UserId
                            select data.RoleID).ToList();
 
-                if (rol.Contains(6))
+                if (rol.Contains(5))
                 {
                     AddBoatButton.Visibility = Visibility.Visible;
                     UserListButton.Visibility = Visibility.Visible;

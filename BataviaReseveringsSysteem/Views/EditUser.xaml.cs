@@ -51,8 +51,42 @@ namespace Views
                 Day.Text = split[0];
             }
 
+            var Roles = context.Roles.ToList();
 
-            var MemberRoles = from x in context.MemberRoles
+            foreach (var role in Roles)
+            {
+                if ("Reparateur" == role.RoleName)
+                {
+                    Reparateur.Content = role.RoleName;
+                    Reparateur.Tag = role.RoleID;
+                }
+                if ("Coach" == role.RoleName)
+                {
+                    Coach.Content = role.RoleName;
+                    Coach.Tag = role.RoleID;
+
+                }
+                if ("Wedstrijd Commissaris" == role.RoleName)
+                {
+                    Commissaris.Content = role.RoleName;
+                    Commissaris.Tag = role.RoleID;
+
+                }
+                if ("Examinator" == role.RoleName)
+                {
+                    Examinator.Content = role.RoleName;
+                    Examinator.Tag = role.RoleID;
+
+                }
+                if ("Bestuur" == role.RoleName)
+                {
+                    Administrator.Content = role.RoleName;
+                    Administrator.Tag = role.RoleID;
+
+                }
+            }
+
+                var MemberRoles = from x in context.MemberRoles
                               where x.PersonID == id && x.Deleted_at == null
                               select x;
 
