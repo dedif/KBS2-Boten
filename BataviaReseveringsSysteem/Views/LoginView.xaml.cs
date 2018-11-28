@@ -25,8 +25,14 @@ namespace Views
                 var ReservationInfo = (from data in context.Reservations
                                        where data.Deleted == false
                                        select data).ToList();
-               
+
+                var BoatInfo = (from data in context.Reservations
+                                       where data.Deleted == false
+                                       select data.Boat).ToList();
+
                 DataReservations.ItemsSource = ReservationInfo;
+
+                BoatName.Binding = BoatInfo;
             }
         }
 
