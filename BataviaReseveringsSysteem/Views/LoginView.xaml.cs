@@ -20,6 +20,14 @@ namespace Views
         {
             InitializeComponent();
             this.HorizontalAlignment = HorizontalAlignment.Center;
+            using (DataBase context = new DataBase())
+            {
+                var ReservationInfo = (from data in context.Reservations
+                                       where data.Deleted == false
+                                       select data).ToList();
+               
+                DataReservations.ItemsSource = ReservationInfo;
+            }
         }
 
         private void LoginButton(object sender, RoutedEventArgs e)
@@ -53,5 +61,7 @@ namespace Views
         {
             Switcher.Switch(new Register());
         }
+
+
     }
 }
