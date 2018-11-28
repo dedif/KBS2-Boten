@@ -20,6 +20,7 @@ namespace Models
             Boat = boat;
             Start = start;
             End = end;
+            
  
         }
         public Reservation()

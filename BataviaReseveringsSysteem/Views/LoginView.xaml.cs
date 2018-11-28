@@ -32,7 +32,7 @@ namespace Views
 
                 DataReservations.ItemsSource = ReservationInfo;
 
-                BoatName.Binding = BoatInfo;
+             //   BoatName.Binding = BoatInfo;
             }
         }
 
