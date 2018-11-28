@@ -220,7 +220,25 @@ namespace WpfApp13
             return claimableSlots;
         }
 
-        private DateTime GetEarliestSlot(DateTime sunrise) => sunrise.AddMinutes(15 - sunrise.Minute % 15);
+        private DateTime GetEarliestSlot(DateTime sunrise)
+        {
+            var now = DateTime.Now;
+            if (sunrise.Date.Equals(now.Date))
+            {
+                var theSlotThatIsAtThisTime = TopRoundTimeToSlot(now);
+                var theSlotThatIsTheFirstSunriseSlot = TopRoundTimeToSlot(sunrise);
+                return new[] {theSlotThatIsAtThisTime, theSlotThatIsTheFirstSunriseSlot}.Max();
+            }
+
+            if (sunrise.Date > now.Date)
+            {
+                return TopRoundTimeToSlot(sunrise);
+            }
+
+            return sunrise.AddHours(23 - sunrise.Hour).AddMinutes(60 - sunrise.Minute);
+        }
+
+        private DateTime TopRoundTimeToSlot(DateTime time) => time.AddMinutes(15 - time.Minute % 15);
 
         private DateTime GetLatestSlot(DateTime sunset) => sunset.AddMinutes(-(sunset.Minute % 15));
 
@@ -274,6 +292,7 @@ namespace WpfApp13
                             select db).First();
                 var startTime = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
                 var endTime = GenerateEndTime(startTime);
+                // TODO: new Member() veranderen naar member die deze afschrijving maakt.
                 var rs1 = new Reservation(boat, new Member(), startTime, endTime);
                 context.Reservations.Add(rs1);
                 context.SaveChanges();
