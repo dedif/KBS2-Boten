@@ -72,9 +72,11 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Databasecontroller.cs" />
+    <Compile Include="Models\Diploma.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\MemberRole.cs" />
+    <Compile Include="Models\Member_Diploma.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />
@@ -86,10 +88,16 @@
     </Compile>
     <Compile Include="Reservations\BoatTypeTabItem.cs" />
     <Compile Include="Reservations\CalcSunTimes.cs" />
+    <Compile Include="Views\DiplomaList.xaml.cs">
+      <DependentUpon>DiplomaList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Reservation.cs" />
+    <Compile Include="Views\EditDiplomaView.xaml.cs">
+      <DependentUpon>EditDiplomaView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditUser.xaml.cs">
       <DependentUpon>EditUser.xaml</DependentUpon>
     </Compile>
@@ -108,6 +116,14 @@
     <Compile Include="Views\UserList.xaml.cs">
       <DependentUpon>UserList.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\DiplomaList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditDiplomaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EditUser.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

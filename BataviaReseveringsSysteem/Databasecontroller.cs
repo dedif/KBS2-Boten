@@ -34,6 +34,35 @@ namespace BataviaReseveringsSysteem
 
         }
 
+        public void Add_Diploma(string diplomaName)
+        {
+            using (DataBase context = new DataBase())
+            {
+                var diploma = new Models.Diploma
+                {
+                    DiplomaName = diplomaName,
+                };
+                context.Diplomas.Add(diploma);
+                context.SaveChanges();
+            }
+        }
+
+        public void Add_MemberDiploma(int diplomaID, int personID)
+        {
+            using (DataBase context = new DataBase())
+            {
+                var memberDiploma = new Models.Member_Diploma
+                {
+                    DiplomaID = diplomaID,
+                    PersonID = personID,
+                    Created_at = DateTime.Now,
+                    
+                };
+                context.MemberDiplomas.Add(memberDiploma);
+                context.SaveChanges();
+            }
+        }
+
         public void Add_MemberRole(int roleID,int personID)
         {
 
@@ -61,27 +90,33 @@ namespace BataviaReseveringsSysteem
             using (DataBase context = new DataBase())
             {
 
-                //Models.MemberRole delMemberRole = context.MemberRoles.Where(d => d.PersonID == personID).First();
-
                 var delMemberRole = (from x in context.MemberRoles
                                      where x.PersonID == personID && x.Deleted_at == null && x.RoleID == rolID
                                      select x).ToList();
 
 
-                //if (delMemberRole != null)
-                //{
-                //    delMemberRole.ForEach(x => x.Deleted_at = DateTime.Now);
-            
-                //}
-
-                // if (delMemberRole != null)
-                // {
-                //   delMemberRole.Deleted_at = DateTime.Now;
-
                 context.MemberRoles.RemoveRange(delMemberRole);
 
                 context.SaveChanges();
-               // }
+               
+            }
+
+        }
+
+        public void Delete_MemberDiploma(int personID, int diplomaID)
+        {
+            using (DataBase context = new DataBase())
+            {
+
+                var delMemberDiploma = (from x in context.MemberDiplomas
+                                     where x.PersonID == personID && x.Deleted_at == null && x.DiplomaID == diplomaID
+                                     select x).ToList();
+
+
+                context.MemberDiplomas.RemoveRange(delMemberDiploma);
+
+                context.SaveChanges();
+                
             }
 
         }

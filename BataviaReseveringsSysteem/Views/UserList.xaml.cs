@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using ScreenSwitcher;
 using BataviaReseveringsSysteem;
+using BataviaReseveringsSysteem.Views;
 
 namespace Views
 {
@@ -87,6 +88,12 @@ namespace Views
         private void BackButton(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new Dashboard());
+        }
+
+        private void Diploma(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new DiplomaList());
+
         }
     }
 }

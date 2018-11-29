@@ -23,9 +23,21 @@ namespace Views
             this.HorizontalAlignment = HorizontalAlignment.Center;
             using (DataBase context = new DataBase())
             {
+                // als er nog geen diploma's in de database staan maak dan deze diploma's aan.
+                if (!context.Diplomas.Any(z => z.DiplomaName == "S1" || z.DiplomaName == "S2" || z.DiplomaName == "S3" || z.DiplomaName == "P1" || z.DiplomaName == "P2" || z.DiplomaName == "B1" || z.DiplomaName == "B2" || z.DiplomaName == "B3"))
+                {
+                    dbc.Add_Diploma("S1");
+                    dbc.Add_Diploma("S2");
+                    dbc.Add_Diploma("S3");
+                    dbc.Add_Diploma("P1");
+                    dbc.Add_Diploma("P2");
+                    dbc.Add_Diploma("B1");
+                    dbc.Add_Diploma("B2");
+                    dbc.Add_Diploma("B3");
+                }
 
-                DataBaseController dbc = new DataBaseController();
 
+                // als er nog geen rollen in de database staan maak dan deze rollen aan
                 if (!context.Roles.Any(z => z.RoleName == "Reparateur" || z.RoleName == "Coach" || z.RoleName == "Wedstrijd Commissaris" || z.RoleName == "Examinator" || z.RoleName == "Bestuur"))
                 {
                     dbc.Add_Role("Reparateur");
