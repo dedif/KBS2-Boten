@@ -6,6 +6,7 @@ using Controllers;
 using System.Linq;
 using BataviaReseveringsSysteem.Database;
 using ScreenSwitcher;
+using Models;
 
 namespace Views
 {
@@ -15,7 +16,7 @@ namespace Views
     public partial class LoginView : UserControl
     {
 
-        public static int UserId;
+        public static User LoggedUser;
         public LoginView()
         {
             InitializeComponent();
@@ -23,14 +24,19 @@ namespace Views
             using (DataBase context = new DataBase())
             {
                 var ReservationInfo = (from data in context.Reservations
-                                       where data.Deleted == false
+                                       where data.Deleted == null
+                                       orderby data.Start
                                        select data).ToList();
 
                 var BoatInfo = (from data in context.Reservations
-                                       where data.Deleted == false
+                                       where data.Deleted == null
                                        select data.Boat).ToList();
-
+                if (ReservationInfo.Count > 0)
+                {
+                    DataReservations.Visibility = Visibility.Visible;
+                }
                 DataReservations.ItemsSource = ReservationInfo;
+                
 
              //   BoatName.Binding = BoatInfo;
             }
@@ -43,12 +49,12 @@ namespace Views
                 int username = int.Parse(Username.Text);
                 using (DataBase context = new DataBase())
                 {
-                    var id = (
+                    var User = (
                         from data in context.Users
                         where data.PersonID == username
-                        select data.PersonID).Single();
+                        select data).Single();
 
-                    UserId = id;
+                    LoggedUser = User;
                 }
 
                 Switcher.Switch(new Dashboard());

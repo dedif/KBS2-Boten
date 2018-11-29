@@ -275,9 +275,11 @@ namespace Reserve
                 var boat = (from db in context.Boats
                             where db.Name.Equals((string)BoatNamesComboBox.SelectedValue)
                             select db).First();
+                var startdatum = Calendar.SelectedDate.Value.Date;
                 var startTime = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
-                var endTime = GenerateEndTime(startTime);
-                var rs1 = new Reservation(boat, new Member(), startTime, endTime);
+                var startDateTime = startdatum.AddHours(startTime.Hour).AddMinutes(startTime.Minute);
+                var endTime = GenerateEndTime(startDateTime);
+                var rs1 = new Reservation(boat, new Member(), startDateTime, endTime);
                 context.Reservations.Add(rs1);
                 context.SaveChanges();
                 if (MessageBox.Show("De boot is succesvol afgeschreven",

@@ -29,6 +29,7 @@ namespace Controllers
             using (var context = new DataBase())
             {
                 return context.Reservations.Where(reservation =>
+                    reservation.Deleted == null &&
                     reservation.Start.Day == day.Day &&
                     reservation.Start.Month == day.Month &&
                     reservation.Start.Year == day.Year &&

@@ -17,14 +17,14 @@
         <Label Content="" x:Name="LoginError" HorizontalAlignment="Left" Margin="332,43,0,0" Foreground="Red" VerticalAlignment="Top"/>
         <Button  Content="Registreren" Visibility ="Hidden" HorizontalAlignment="Left" Margin="282,245,0,0" VerticalAlignment="Top" Width="123" Click="RegistrerenButton" Height="25"/>
 
-        <DataGrid x:Name="DataReservations"  CanUserAddRows="false" x:FieldModifier="public"  AutoGenerateColumns="false" HorizontalAlignment="Left"  Margin="41,74,0,0" VerticalAlignment="Top" >
+        <DataGrid x:Name="DataReservations" Visibility=" Hidden" CanUserAddRows="false" x:FieldModifier="public"  AutoGenerateColumns="false" HorizontalAlignment="Left"  Margin="41,74,0,0" VerticalAlignment="Top" >
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="BoatName" Width="auto"  Binding="{Binding Boat.Name}"    Header="Bootnaam" IsReadOnly="true" />
                 <DataGridTextColumn x:Name="BoatType" Binding="{Binding Boat.Type}" Header="Type" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="NumberOfRowers"  Binding="{Binding Boat.NumberOfRowers}" Header="Aantal roeiers" IsReadOnly="true"/>
-                <DataGridTextColumn x:Name="Date"  Binding="{Binding Start.Date}" Header="Datum" IsReadOnly="true"/>
-                <DataGridTextColumn x:Name="DateStart" Width="auto"    Binding="{Binding Start}" Header="Starttijd" IsReadOnly="true" />
-                <DataGridTextColumn x:Name="DateEnd"    Binding="{Binding End}" Header="Eindtijd" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Date"  Binding="{Binding Start,StringFormat='{}{0:MM/dd/yyyy}'}" Header="Datum" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="DateStart" Width="auto"    Binding="{Binding Start,StringFormat='hh:mm'}" Header="Starttijd" IsReadOnly="true" />
+                <DataGridTextColumn x:Name="DateEnd"    Binding="{Binding End,StringFormat='hh:mm'}" Header="Eindtijd" IsReadOnly="true"/>
             </DataGrid.Columns>
         </DataGrid>
 

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BataviaReseveringsSysteem"
         mc:Ignorable="d"
         Title="Boot reserverings Systeem" Height="450" Width="800" WindowState="Maximized">
-    <Grid>
-        
+    <Grid x:Name="test">
+      
     </Grid>
 </Window>

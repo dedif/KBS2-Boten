@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Models;
 using BataviaReseveringsSysteem.Database;
 using ScreenSwitcher;
+using System;
 
 namespace Views
 {
@@ -21,16 +22,16 @@ namespace Views
         //Deze lijsten, bevatten alle buttens en labels
         List<Label> LabelList = new List<Label>();
         List<Button> ButtonList = new List<Button>();
+        DataBase context = new DataBase();
         public Dashboard()
         {
             InitializeComponent();
     
             GridDashboard.Margin = new Thickness(50, 0, 50, 20);
-
-            using (DataBase context = new DataBase())
-            {
+            NameLabel.Content = "Naam: " + LoginView.LoggedUser.Firstname;
+           
                 var rol = (from data in context.MemberRoles
-                           where data.PersonID == LoginView.UserId
+                           where data.PersonID == LoginView.LoggedUser.PersonID
                            select data.RoleID).ToList();
 
                 if (rol.Contains(6))
@@ -59,7 +60,7 @@ namespace Views
                 //De reservaties van de gebruiker worden met deze methode getoond op het scherm
                 ShowReservations();
 
-            }
+            
         }
 
         public void ShowReservations()
@@ -67,7 +68,7 @@ namespace Views
             using (DataBase context = new DataBase())
             {
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
-                if (context.Reservations.Where(i => i.Deleted == false).Count() == 0)
+                if (context.Reservations.Where(i => i.Deleted == null).Count() == 0)
                 {
                     NoReservationLabel.Visibility = Visibility.Visible;
                 }
@@ -76,7 +77,7 @@ namespace Views
                     NoReservationLabel.Visibility = Visibility.Hidden;
                 }
 
-                if (context.Reservations.Where(i => i.Deleted == false).Count() >= MaxReservationUser)
+                if (context.Reservations.Where(i => i.Deleted == null).Count() >= MaxReservationUser)
                 {
                     MaxReservations.Visibility = Visibility.Visible;
                     AddReservationButton.IsEnabled = false;
@@ -86,7 +87,13 @@ namespace Views
                     MaxReservations.Visibility = Visibility.Hidden;
                     AddReservationButton.IsEnabled = true;
                 }
-                foreach (Reservation r in context.Reservations.Where(i => i.Deleted == false))
+
+                var OrderedReservations = (from data in context.Reservations
+                                           where data.Deleted == null
+                                           orderby data.Start
+                                           select data).ToList();
+
+                foreach (Reservation r in OrderedReservations)
                 {
                     if (Count % 2 == 0)
                     {
@@ -160,21 +167,29 @@ namespace Views
                      where boat.BoatID == ReservationBoatID
                      select boat.Name).Single();
 
-                var Date =
+                var StartDate =
                   (from r in context.Reservations
                    where r.ReservationID == reservation.ReservationID
                    select r.Start).Single();
 
-                string minuten = Date.Minute.ToString();
-                if (Date.Minute < 10)
+                var EndDate =
+             (from r in context.Reservations
+              where r.ReservationID == reservation.ReservationID
+              select r.End).Single();
+
+                var Duration = EndDate - StartDate;
+
+                string Minutes = StartDate.Minute.ToString();
+                if (StartDate.Minute < 10)
                 {
-                    minuten = "0" + minuten;
+                    Minutes = "0" + Minutes;
                 }
 
                 string content;
                 content = "Naam : " + Name;
-                content += "\nTijd: " + Date.Hour + ":" + minuten;
-                content += "\nDatum: " + Date.Month + "/" + Date.Day + "/" + Date.Year;
+                content += "\nBegintijd: " + StartDate.Hour + ":" + Minutes;
+                content += "\nDuur: " + Duration.Hours + ":" + Duration.Minutes;
+                content += "\nDatum: " + StartDate.Month + "/" + StartDate.Day + "/" + StartDate.Year;
 
                 return content;
             }
@@ -203,7 +218,7 @@ namespace Views
                     //De reservering wordt uit de database verwijderd. 
                     //context.Reservations.Remove(Delete);
 
-                    Delete.Deleted = true;
+                    Delete.Deleted = DateTime.Now;
                     context.SaveChanges();
                     //Alle oude knoppen en labels worden verwijderd van het scherm.
                     this.DeleteAllControls();

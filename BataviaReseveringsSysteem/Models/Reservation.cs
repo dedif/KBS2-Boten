@@ -12,7 +12,7 @@ namespace Models
         public DateTime End { get; set; }
         public Boat Boat { get; set; }
         public Member Member { get; set; }
-        public Boolean Deleted { get; set; } = false;
+        public DateTime? Deleted { get; set; } = null;
 
         public Reservation(Boat boat, Member member, DateTime start, DateTime end)
         {

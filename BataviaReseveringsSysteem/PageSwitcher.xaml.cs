@@ -51,12 +51,16 @@ namespace ScreenSwitcher
 
             //    context.SaveChanges();
             //}
-
+      
+      
         }
+
 
         public void Navigate(UserControl nextPage)
         {
             this.Content = nextPage;
+
+
         }
     }
 }
