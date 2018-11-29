@@ -321,5 +321,10 @@ namespace Views
         {
             Switcher.Switch(new AddBoat());
         }
+
+        private void DamageButton_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new BoatDamage());
+        }
     }
 }

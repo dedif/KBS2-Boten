@@ -28,7 +28,7 @@ namespace ScreenSwitcher
             Switcher.pageSwitcher = this;
             Switcher.Switch(new LoginView());
 
-            //toevoegen diploma's
+            // toevoegen diploma's
             //using (DataBase context = new DataBase())
             //{
             //    Diploma s1 = new Diploma(1, "s1");
@@ -51,8 +51,8 @@ namespace ScreenSwitcher
 
             //    context.SaveChanges();
             //}
-      
-      
+
+
         }
 
 

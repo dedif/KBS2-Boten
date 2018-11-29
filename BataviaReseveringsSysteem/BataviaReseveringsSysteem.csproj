@@ -73,6 +73,7 @@
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Databasecontroller.cs" />
     <Compile Include="Models\Boat_Diploma.cs" />
+    <Compile Include="Models\Damage.cs" />
     <Compile Include="Models\Diploma.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\Member.cs" />
@@ -80,6 +81,9 @@
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Views\BoatDamage.xaml.cs">
+      <DependentUpon>BoatDamage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BoatView.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Switcher.cs" />
@@ -110,6 +114,10 @@
     <Compile Include="Views\UserList.xaml.cs">
       <DependentUpon>UserList.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\BoatDamage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EditUser.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
