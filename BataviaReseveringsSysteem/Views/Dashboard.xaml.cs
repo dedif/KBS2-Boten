@@ -26,9 +26,9 @@ namespace Views
         public Dashboard()
         {
             InitializeComponent();
-    
+            GridDashboard.VerticalAlignment = VerticalAlignment.Top;
             GridDashboard.Margin = new Thickness(50, 0, 50, 20);
-            NameLabel.Content = "Naam: " + LoginView.LoggedUser.Firstname;
+            NameLabel.Content = LoginView.LoggedUser.Firstname + " " + LoginView.LoggedUser.Lastname;
            
                 var rol = (from data in context.MemberRoles
                            where data.PersonID == LoginView.LoggedUser.PersonID
