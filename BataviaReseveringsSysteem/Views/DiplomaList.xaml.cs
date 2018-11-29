@@ -36,101 +36,76 @@ namespace BataviaReseveringsSysteem.Views
             Load();
         }
 
-        //public static IEnumerable getQueryTable()
-        //{
-        //    using (DataBase cont = new DataBase())
-        //    {
-        //        var dataList = (from d in cont.MemberDiplomas
-        //                        join c in cont.Users
-        //                        on d.PersonID equals c.PersonID
-        //                        select new { c.PersonID, Firstname = c.Firstname, Middlename = c.Middlename, Lastname = c.Lastname, S1 = d.DiplomaID.Equals(1), S2 = d.DiplomaID.Equals(2), S3 = d.DiplomaID.Equals(3), P1 = d.DiplomaID.Equals(4), P2 = d.DiplomaID.Equals(5) });
-
-        //        return dataList;
-        //    }
-        //} 
+ 
 
         private void Load()
         {
 
-            //DataUserList.ItemsSource = context.Users.ToList();
-            //var user = (from x in context.Users
-            //            join
-            //            b in context.MemberDiplomas on x.PersonID equals b.PersonID into cuc
-            //            from z in cuc
-            //            where x.Deleted_at == null 
-            //        select new { PersonID = z.PersonID, Firstname = x.Firstname, Middlename = x.Middlename, Lastname = x.Lastname, S1 = z.DiplomaID.Equals(1), S2= z.DiplomaID.Equals(2), S3 = z.DiplomaID.Equals(3), P1 = z.DiplomaID.Equals(4), P2 = z.DiplomaID.Equals(5) }).ToList();
-
-            //var query = from u in context.Users
-            //            join p in context.MemberDiplomas on u.PersonID equals p.PersonID 
-
-            //            select new
-            //            {
-            //                PersonID = u.PersonID,
-            //                Firstname = u.Firstname,
-            //                Middlename = u.Middlename,
-            //                Lastname = u.Lastname,
-            //                S1 = p.DiplomaID.Equals(1),
-            //                S2 = p.DiplomaID.Equals(2),
-            //                S3 = p.DiplomaID.Equals(3),
-            //                P1 = p.DiplomaID.Equals(4),
-            //                P2 = p.DiplomaID.Equals(5)
-            //            };
-
-            //var Join = (from u in context.Users
-            //           join b in context.MemberRoles
-            //           on u.PersonID equals b.PersonID
-            //           where u.PersonID == b.PersonID 
-            //           select new { PersonID = u.PersonID, Firstname = u.Firstname, Middlename = u.Middlename, Lastname = u.Lastname }).ToList();
-
-
+           
 
             using (DataBase cont = new DataBase())
             {
-                var omar = (from b in context.MemberDiplomas
-                            join c in context.Users
-                            on b.PersonID equals c.PersonID
-                            into userArticles
-                            where b.Deleted_at == null select userArticles).ToList();
+               
 
-                var userArticless = (from b in context.MemberDiplomas
-                                   join c in context.Users
-                                   on b.PersonID equals c.PersonID
-                                   into userArticles
-                                   where b.Deleted_at == null
-                                   from ua in userArticles.DefaultIfEmpty()
-                                   select new { ua.PersonID, Firstname = ua.Firstname, Middlename = ua.Middlename, Lastname = ua.Lastname, S1 = b.DiplomaID.Equals(1), S2 = b.DiplomaID.Equals(2), S3 = b.DiplomaID.Equals(3), P1 = b.DiplomaID.Equals(4), P2 = b.DiplomaID.Equals(5) }).ToList();
-                Console.WriteLine(omar);
+                var users = (from u in context.Users
+                             select u).ToList();
 
-                var users = (from u in context.Users select u).ToList();
-                var MemberDiplomas = (from u in context.MemberDiplomas select u).ToList();
+                foreach (User u in users)
+                {
+                    bool s1 = false;
+                    bool s2 = false;
+                    bool s3 = false;
+                    bool p1 = false;
+                    bool p2 = false;
+                    bool b1 = false;
+                    bool b2 = false;
+                    bool b3 = false;
 
-                
-                foreach (User u in users) {
-                    var DiplomaPerUser = (
-                        from d in context.MemberDiplomas
-                        where d.PersonID == u.PersonID
-                        select d.MemberDiplomaID).ToList();
-                    DataUserList.ItemsSource = DiplomaPerUser;
+                    var User1Diploma = (from d in context.MemberDiplomas
+                                        where d.PersonID == u.PersonID
+                                        select d.DiplomaID).ToList();
+
+                    if (User1Diploma.Contains(1))
+                    {
+                        s1 = true;
+                    }
+
+                    if (User1Diploma.Contains(2))
+                    {
+                        s2 = true;
+                    }
+                    if (User1Diploma.Contains(3))
+                    {
+                        s3 = true;
+                    }
+                    if (User1Diploma.Contains(4))
+                    {
+                        p1 = true;
+                    }
+                    if (User1Diploma.Contains(5))
+                    {
+                        p2 = true;
+                    }
+                    if (User1Diploma.Contains(6))
+                    {
+                        b1 = true;
+                    }
+                    if (User1Diploma.Contains(7))
+                    {
+                        b2 = true;
+                    }
+                    if (User1Diploma.Contains(8))
+                    {
+                        b3 = true;
+                    }
+
+
+
+                    DataUserList.Items.Add(new { u.PersonID, Firstname = u.Firstname, Middlename = u.Middlename, Lastname = u.Lastname, S1 = s1, S2 = s2,  S3 = s3, P1 = p1, P2 = p2, B1 = b1, B2 = b2, B3 = b3 });
                 }
-      
 
 
-
-                //var Join = (from u in context.Users.Join(b in context.MemberDiplomas on u.PersonID equals b.PersonID).Where(u.p)
-
-
-                //var dl = (from d in cont.MemberDiplomas
-                //                join c in cont.Users
-                //                on d.PersonID equals c.PersonID where d.Deleted_at == null
-                //                select new { c.PersonID, Firstname = c.Firstname, Middlename = c.Middlename, Lastname = c.Lastname, S1 = d.DiplomaID.Equals(1), S2 = d.DiplomaID.Equals(2), S3 = d.DiplomaID.Equals(3), P1 = d.DiplomaID.Equals(4), P2 = d.DiplomaID.Equals(5) }).ToList();
-
-
-
-
-                //DataUserList.ItemsSource = DiplomaPerUser;
-           
-
-            DataGrid = DataUserList;
+                DataGrid = DataUserList;
             }
             //DataView.DataBind();
         }
