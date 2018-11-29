@@ -43,9 +43,9 @@ namespace Views
                 Gender.SelectedIndex = user.GenderID - 1;
 
                 string myString = user.Birthday.ToString("dd-MM-yyyy"); // From Database
-                Console.WriteLine(myString);
+           
                 var split = myString.Split('-');
-                Console.WriteLine(split);
+                
                 Year.Text = split[2];
                 Month.Text = split[1];
                 Day.Text = split[0];
@@ -55,35 +55,30 @@ namespace Views
 
             foreach (var role in Roles)
             {
-                if ("Reparateur" == role.RoleName)
+                switch (role.RoleName)
                 {
-                    Reparateur.Content = role.RoleName;
-                    Reparateur.Tag = role.RoleID;
+                    case "Reparateur":
+                        Reparateur.Content = role.RoleName;
+                        Reparateur.Tag = role.RoleID;
+                        break;
+                    case "Coach":
+                        Coach.Content = role.RoleName;
+                        Coach.Tag = role.RoleID;
+                        break;
+                    case "Wedstrijd Commissaris":
+                        Commissaris.Content = role.RoleName;
+                        Commissaris.Tag = role.RoleID;
+                        break;
+                    case "Examinator":
+                        Examinator.Content = role.RoleName;
+                        Examinator.Tag = role.RoleID;
+                        break;
+                    case "Bestuur":
+                        Administrator.Content = role.RoleName;
+                        Administrator.Tag = role.RoleID;
+                        break;
                 }
-                if ("Coach" == role.RoleName)
-                {
-                    Coach.Content = role.RoleName;
-                    Coach.Tag = role.RoleID;
-
-                }
-                if ("Wedstrijd Commissaris" == role.RoleName)
-                {
-                    Commissaris.Content = role.RoleName;
-                    Commissaris.Tag = role.RoleID;
-
-                }
-                if ("Examinator" == role.RoleName)
-                {
-                    Examinator.Content = role.RoleName;
-                    Examinator.Tag = role.RoleID;
-
-                }
-                if ("Bestuur" == role.RoleName)
-                {
-                    Administrator.Content = role.RoleName;
-                    Administrator.Tag = role.RoleID;
-
-                }
+                
             }
 
                 var MemberRoles = from x in context.MemberRoles
@@ -150,66 +145,7 @@ namespace Views
 
         private void ButtonEdit(object sender, RoutedEventArgs e)
         {
-            if (Password.Password == "" && ConfirmPassword.Password == "")
-            {
-                if (Controllers.EditController.EditWithoutPassword(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, EditID))
-                {
-
-
-
-
-                    List<int> checkBoxesTicked = new List<int>();
-
-                    foreach (CheckBox c in RegisterLayout.Children.OfType<CheckBox>())
-                    {
-                        if (c.IsChecked == true)
-                        {
-                            int roleID = int.Parse(c.Tag.ToString());
-                            //int.Parse(c.Tag.ToString());
-
-
-                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null && x.PersonID == (int)EditID.Content);
-
-                            if (MemberRoles)
-                            {
-
-                            } else
-                            {
-                                dbc.Add_MemberRole(roleID, (int)EditID.Content);
-                            }
-
-
-
-                        } else if (c.IsChecked == false)
-                        {
-
-                            int roleID = int.Parse(c.Tag.ToString());
-
-                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null && x.PersonID == (int)EditID.Content);
-
-                            if (MemberRoles)
-                            {
-                                dbc.Delete_MemberRole((int)EditID.Content, roleID);
-                            }
-                            else
-                            {
-
-                            }
-                        }
-                    }
-
-
-
-                    Switcher.Switch(new UserList());
-                }
-                else
-                {
-                    RegisterError.Content = "Controleer uw gegevens!";
-                    RegisterError.UpdateLayout();
-                }
-            }
-            else
-            {
+            
                 if (Controllers.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, EditID))
                 {
 
@@ -223,14 +159,11 @@ namespace Views
 
                             var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null && x.PersonID == (int)EditID.Content);
 
-                            if (MemberRoles)
+                            if (!MemberRoles)
                             {
-
+                            dbc.Add_MemberRole(roleID, (int)EditID.Content);
                             }
-                            else
-                            {
-                                dbc.Add_MemberRole(roleID, (int)EditID.Content);
-                            }
+                           
 
 
 
@@ -259,7 +192,7 @@ namespace Views
                     RegisterError.Content = "Controleer uw gegevens!";
                     RegisterError.UpdateLayout();
                 }
-            }
+            
         }
     
 
