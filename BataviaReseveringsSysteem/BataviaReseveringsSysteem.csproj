@@ -80,7 +80,6 @@
     <Compile Include="Models\MemberRole.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Views\BoatDamage.xaml.cs">
       <DependentUpon>BoatDamage.xaml</DependentUpon>
     </Compile>

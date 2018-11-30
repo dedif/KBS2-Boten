@@ -13,7 +13,7 @@ namespace Models
         public int NumberOfRowers { get; set;}
         public double Weight { get; set; }
         public bool Steering { get; set; }
-        public string Status { get; set; }
+        public bool Broken { get; set; } = false;
 
         public Boat(string name, BoatType type, int numberOfRowers, double weight, bool steering)
         {

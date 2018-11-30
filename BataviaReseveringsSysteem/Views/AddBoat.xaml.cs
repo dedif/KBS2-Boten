@@ -1,11 +1,8 @@
-﻿using BataviaReseveringsSysteem.Database;
-using Controllers;
-using Models;
+﻿using Controllers;
 using ScreenSwitcher;
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Linq;
 using System.Collections.Generic;
 
 namespace Views

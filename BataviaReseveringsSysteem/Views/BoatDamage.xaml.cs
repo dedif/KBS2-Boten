@@ -24,6 +24,8 @@ namespace Views
                 NameboatCombo.Items.Add(name);
            }
             NameboatCombo.SelectedIndex = 0;
+
+            LightDamageRadioButton.IsChecked = true;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -46,21 +48,22 @@ namespace Views
                   
          
 
-            var BoatID = (from data in context.Boats
+            var Boat = (from data in context.Boats
                           where data.Name == NameboatCombo.Text
-                          select data.BoatID).Single();
+                          select data).Single();
 
             string status = null;
             if (LightDamageRadioButton.IsChecked == true)
             {
-                status = "lichte schade";
+                status = "Lichte schade";
             }
             else if (HeavyDamageRadioButton.IsChecked == true)
             {
-                status = "zwaare schade";
+                status = "Zware schade";
+                        Boat.Broken = true;
             }
 
-            Damage damage = new Damage(LoginView.LoggedUser.PersonID, BoatID, DescribtionBox.Text, status);
+            Damage damage = new Damage(LoginView.LoggedUser.PersonID, Boat.BoatID, DescribtionBox.Text, status);
 
                     context.Damages.Add(damage);
                     context.SaveChanges();
@@ -73,5 +76,14 @@ namespace Views
 
         }
 
+        private void HeavyDamageRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            NotificationLabel.Visibility = Visibility.Visible;
+        }
+
+        private void LightDamageRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            NotificationLabel.Visibility = Visibility.Hidden;
+        }
     }
 }

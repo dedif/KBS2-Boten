@@ -1,9 +1,7 @@
-﻿using NUnit.Framework;
+﻿using Controllers;
+using NUnit.Framework;
 using System.Threading;
 using System.Windows.Controls;
-using BootRegistratieSysteem.Controllers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 namespace UnitTestLoginRegister
 {
