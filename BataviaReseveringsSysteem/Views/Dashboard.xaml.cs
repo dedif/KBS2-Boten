@@ -37,8 +37,8 @@ namespace Views
                 if (rol.Contains(6))
                 {
                     MaxReservationUser = 2;
-                    //AddBoatButton.Visibility = Visibility.Visible;
-                    //UserListButton.Visibility = Visibility.Visible;
+                    AddBoatButton.Visibility = Visibility.Visible;
+                    UserListButton.Visibility = Visibility.Visible;
                 }
 
                 if (rol.Contains(3))
@@ -80,12 +80,12 @@ namespace Views
                 if (context.Reservations.Where(i => i.Deleted == null).Count() >= MaxReservationUser)
                 {
                     MaxReservations.Visibility = Visibility.Visible;
-                    AddReservationButton.IsEnabled = false;
+                    //AddReservationButton.IsEnabled = false;
                 }
                 else
                 {
                     MaxReservations.Visibility = Visibility.Hidden;
-                    AddReservationButton.IsEnabled = true;
+                    //AddReservationButton.IsEnabled = true;
                 }
 
                 var OrderedReservations = (from data in context.Reservations
