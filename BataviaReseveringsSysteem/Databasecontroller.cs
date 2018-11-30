@@ -78,11 +78,28 @@ namespace BataviaReseveringsSysteem
                     Deleted_at = null
 
                 };
-
-                context.MemberRoles.Add(MemberRole);
-                context.SaveChanges();
+              
+                    context.MemberRoles.Add(MemberRole);
+                    context.SaveChanges();
+                
+                
             }
 
+        }
+        public bool Get_MemberRole(int roleID, int personID)
+        {
+            try
+            {
+                using (DataBase context = new DataBase())
+                {
+                    bool hasMemberRole = context.MemberRoles.Any(cus => cus.PersonID == personID && cus.RoleID == roleID);
+                    return hasMemberRole;
+                }
+               
+            }
+            catch(NullReferenceException)
+            { return false; }
+            
         }
 
         public void Delete_MemberRole(int personID, int rolID)
