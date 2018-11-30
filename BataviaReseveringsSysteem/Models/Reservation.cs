@@ -11,12 +11,12 @@ namespace Models
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public Boat Boat { get; set; }
-        public Member Member { get; set; }
+        public User User { get; set; }
         public Boolean Deleted { get; set; } = false;
 
-        public Reservation(Boat boat, Member member, DateTime start, DateTime end)
+        public Reservation(Boat boat, User user, DateTime start, DateTime end)
         {
-            Member = member;
+            User = user;
             Boat = boat;
             Start = start;
             End = end;

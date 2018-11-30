@@ -1,10 +1,10 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Text.RegularExpressions;
 using Controllers;
 using System.Linq;
 using BataviaReseveringsSysteem.Database;
+using Models;
 using ScreenSwitcher;
 
 namespace Views
@@ -12,14 +12,15 @@ namespace Views
     /// <summary>
     /// Interaction logic for LoginView.xaml
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class LoginView
     {
 
         public static int UserId;
+        public static User User;
         public LoginView()
         {
             InitializeComponent();
-            this.HorizontalAlignment = HorizontalAlignment.Center;
+            HorizontalAlignment = HorizontalAlignment.Center;
         }
 
         private void LoginButton(object sender, RoutedEventArgs e)

@@ -5,7 +5,6 @@ namespace BataviaReseveringsSysteem.Database
 {
     public class DataBase : DbContext
     {
-
         public DataBase() : base("name = DataBase") { }
         public virtual DbSet<Boat> Boats { get; set; }
 		public virtual DbSet<Reservation> Reservations { get; set; }

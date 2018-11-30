@@ -10,21 +10,22 @@ namespace Controllers
     public class LoginController
     {
 
-        public static Boolean Login(TextBox Username,PasswordBox Password,Label LoginError){
+        public static bool Login(TextBox Username, PasswordBox Password, Label LoginError)
+        {
 
-            UserController u = new UserController();
+            var u = new UserController();
 
-            using (DataBase context = new DataBase())
+            using (var context = new DataBase())
             {
-                var Result = context.Users.ToList();
-               
-                
-                if (Result.Count > 0)
+                var result = context.Users.ToList();
+
+
+                if (result.Count > 0)
                 {
-                    foreach (var results in Result)
+                    foreach (var results in result)
                     {
-                        
-                        string hashedPassword = u.PasswordHash(Password.Password);
+
+                        var hashedPassword = u.PasswordHash(Password.Password);
 
                         Username.BorderBrush = Brushes.Gray;
                         Password.BorderBrush = Brushes.Gray;
@@ -43,7 +44,7 @@ namespace Controllers
                                 {
                                     if (results.Password.Equals(hashedPassword))
                                     {
-                                       return true;
+                                        return true;
                                     }
 
                                     else
@@ -81,7 +82,7 @@ namespace Controllers
                                 LoginError.Content = "De gegevens komen niet overeen.";
                                 LoginError.UpdateLayout();
                                 Password.UpdateLayout();
-                             
+
                             }
 
                         }
