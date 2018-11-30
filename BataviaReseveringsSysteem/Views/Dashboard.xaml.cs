@@ -37,8 +37,8 @@ namespace Views
                 if (rol.Contains(6))
                 {
                     MaxReservationUser = 2;
-                    AddBoatButton.Visibility = Visibility.Visible;
-                    UserListButton.Visibility = Visibility.Visible;
+                    //AddBoatButton.Visibility = Visibility.Visible;
+                    //UserListButton.Visibility = Visibility.Visible;
                 }
 
                 if (rol.Contains(3))
@@ -89,7 +89,7 @@ namespace Views
                 }
 
                 var OrderedReservations = (from data in context.Reservations
-                                           where data.Deleted == null && data.Boat.Broken == false
+                                           where data.Deleted == null 
                                            orderby data.Start
                                            select data).ToList();
 

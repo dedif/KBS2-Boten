@@ -24,7 +24,7 @@ namespace Views
             using (DataBase context = new DataBase())
             {
                 var ReservationInfo = (from data in context.Reservations
-                                       where data.Deleted == null && data.Boat.Broken == false
+                                       where data.Deleted == null 
                                        orderby data.Start
                                        select data).ToList();
 
