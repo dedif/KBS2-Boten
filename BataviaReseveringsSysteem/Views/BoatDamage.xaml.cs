@@ -35,45 +35,47 @@ namespace Views
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-
-            MessageBoxResult Melding = MessageBox.Show(
-                        "Weet u zeker dat u deze schade wilt melden?",
-                        "Melding",
-                        MessageBoxButton.YesNo,
-                        MessageBoxImage.Question);
-
-            switch (Melding)
+            if (IsEmpty(DescriptionBox.Text)) { }
+            else
             {
-                case MessageBoxResult.Yes:
-                  
-         
+                MessageBoxResult Melding = MessageBox.Show(
+                            "Weet u zeker dat u deze schade wilt melden?",
+                            "Melding",
+                            MessageBoxButton.YesNo,
+                            MessageBoxImage.Question);
 
-            var Boat = (from data in context.Boats
-                          where data.Name == NameboatCombo.Text
-                          select data).Single();
+                switch (Melding)
+                {
+                    case MessageBoxResult.Yes:
 
-            string status = null;
-            if (LightDamageRadioButton.IsChecked == true)
-            {
-                status = "Lichte schade";
+                        var Boat = (from data in context.Boats
+                                    where data.Name == NameboatCombo.Text
+                                    select data).Single();
+
+                        string status = null;
+                        if (LightDamageRadioButton.IsChecked == true)
+                        {
+                            status = "Lichte schade";
+                        }
+                        else if (HeavyDamageRadioButton.IsChecked == true)
+                        {
+                            status = "Zware schade";
+                            Boat.Broken = true;
+                        }
+
+                        Damage damage = new Damage(LoginView.LoggedUser.PersonID, Boat.BoatID, DescriptionBox.Text, status);
+
+                        context.Damages.Add(damage);
+                        context.SaveChanges();
+
+                        Switcher.Switch(new Dashboard());
+                        break;
+
+                    case MessageBoxResult.No:
+                        break;
+
+                }
             }
-            else if (HeavyDamageRadioButton.IsChecked == true)
-            {
-                status = "Zware schade";
-                        Boat.Broken = true;
-            }
-
-            Damage damage = new Damage(LoginView.LoggedUser.PersonID, Boat.BoatID, DescribtionBox.Text, status);
-
-                    context.Damages.Add(damage);
-                    context.SaveChanges();
-
-            Switcher.Switch(new Dashboard());
-                    break;
-                case MessageBoxResult.No:
-                    break;
-            }
-
         }
 
         private void HeavyDamageRadioButton_Checked(object sender, RoutedEventArgs e)
@@ -84,6 +86,19 @@ namespace Views
         private void LightDamageRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             NotificationLabel.Visibility = Visibility.Hidden;
+        }
+
+        public bool IsEmpty(string beschrijving)
+        {
+            if (string.IsNullOrWhiteSpace(beschrijving))
+            {
+                MessageLabel.Visibility = Visibility.Visible;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
