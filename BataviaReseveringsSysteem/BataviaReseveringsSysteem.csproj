@@ -81,6 +81,9 @@
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Views\BoatList.xaml.cs">
+      <DependentUpon>BoatList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BoatView.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Switcher.cs" />
@@ -117,6 +120,10 @@
     <Compile Include="Views\UserList.xaml.cs">
       <DependentUpon>UserList.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\BoatList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DiplomaList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -138,7 +145,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Boat.cs" />
-    <Compile Include="Controllers\Boatcontroller.cs" />
+    <Compile Include="Controllers\BoatController.cs" />
     <Compile Include="Database.cs" />
     <Page Include="Views\AddBoat.xaml">
       <SubType>Designer</SubType>

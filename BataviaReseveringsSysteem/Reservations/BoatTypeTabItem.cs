@@ -77,7 +77,7 @@ namespace Reserve
             var latestSlot = GetLatestSlot(sunriseAndSunsetTimes[1]);
             var selectedBoatString = (string)BoatNamesComboBox.SelectedValue;
             var claimedSlotsForThisDay = GetClaimedSlotsForThisDayAndBoat(DateTime.Now, selectedBoatString);
-            BoatView.UpdateView(new Boatcontroller().GetBoatWithName(selectedBoatString));
+            BoatView.UpdateView(new BoatController().GetBoatWithName(selectedBoatString));
             PlannerGrid.Populate(earliestSlot, latestSlot, claimedSlotsForThisDay);
             Grid.Children.Add(PlannerGrid);
             Grid.Children.Add(new Label
@@ -333,7 +333,7 @@ namespace Reserve
             var earliestSlot = GetEarliestSlot(sunriseAndSunsetTimes[0]);
             var latestSlot = GetLatestSlot(sunriseAndSunsetTimes[1]);
             var selectedBoatString = (string)BoatNamesComboBox.SelectedValue;
-            var selectedBoat = new Boatcontroller().GetBoatWithName(selectedBoatString);
+            var selectedBoat = new BoatController().GetBoatWithName(selectedBoatString);
             BoatView.UpdateView(selectedBoat);
             var claimedSlotsForThisDayAndBoat = GetClaimedSlotsForThisDayAndBoat(selectedDateValue, selectedBoatString);
             PopulateStartTimeComboBox(selectedDateValue, earliestSlot, latestSlot, claimedSlotsForThisDayAndBoat);
@@ -410,7 +410,7 @@ namespace Reserve
         private List<DateTime> GetClaimedSlotsForThisDayAndBoat(DateTime selectedDate, string selectedBoatString)
         {
             var claimedSlots = new List<DateTime>();
-            var selectedBoat = new Boatcontroller().GetBoatWithName(selectedBoatString);
+            var selectedBoat = new BoatController().GetBoatWithName(selectedBoatString);
             var reservations = new ReservationController().GetReservationsForDayAndBoat(selectedDate, selectedBoat);
             reservations.ForEach(reservation =>
             {

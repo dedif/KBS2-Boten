@@ -10,7 +10,7 @@
         <CollectionViewSource x:Key="UserViewSource"></CollectionViewSource>
     </UserControl.Resources>
     <Grid>
-        <DataGrid x:Name="DataUserList"  CanUserAddRows="false" x:FieldModifier="public" DataContext="{StaticResource UserViewSource}" AutoGenerateColumns="false" HorizontalAlignment="Left" Height="469" Margin="87,80,0,0" VerticalAlignment="Top" Width="895" SelectionChanged="DataUserList_SelectionChanged">
+        <DataGrid x:Name="DataUserList"  CanUserAddRows="false"   ItemsSource="{Binding Users}" x:FieldModifier="public" DataContext="{StaticResource UserViewSource}" AutoGenerateColumns="false" HorizontalAlignment="Left" Height="469" Margin="87,80,0,0" VerticalAlignment="Top" Width="895" >
 
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="PersonID" Width="auto"    Binding="{Binding PersonID}" Header="Lidnummer" IsReadOnly="true" />
@@ -109,6 +109,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
+
         </DataGrid>
         <TextBox HorizontalAlignment="Left" x:Name="Search" TextChanged="Search_TextChanged" Height="23" Margin="856,38,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
 

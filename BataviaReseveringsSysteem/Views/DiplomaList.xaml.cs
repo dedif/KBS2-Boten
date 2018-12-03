@@ -114,15 +114,13 @@ namespace BataviaReseveringsSysteem.Views
                     DataUserList.Items.Add(dataUserListItems);
                 }
 
-                foreach (var item in DataUserList.Items)
-                {
-                    Console.WriteLine(item);
-                }
-                DataGrid = DataUserList;
+                
+               
                 //DataGrid.Items.Refresh();
 
             }
             //DataView.DataBind();
+            DataGrid = DataUserList;
         }
 
         private void ButtonEdit(object sender, RoutedEventArgs e)
@@ -133,21 +131,91 @@ namespace BataviaReseveringsSysteem.Views
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
+            using (DataBase cont = new DataBase())
+            {
 
 
-            DataUserList.ItemsSource = (from x in context.Users
-                                        where x.PersonID.ToString() == Search.Text || x.Firstname.Contains(Search.Text) || x.Lastname.Contains(Search.Text) || x.City.Contains(Search.Text) || x.Address.Contains(Search.Text) || x.City.Contains(Search.Text) || x.Zipcode.Contains(Search.Text) || x.Email.Contains(Search.Text) || x.Phonenumber.Contains(Search.Text) || x.Birthday.Day.ToString() == Search.Text || x.Birthday.Month.ToString() == Search.Text || x.Birthday.Year.ToString() == Search.Text && x.Deleted_at == null
-                                        select x).ToList();
+                var users = (from u in context.Users where u.PersonID.ToString() == Search.Text || u.Firstname.Contains(Search.Text) || u.Lastname.Contains(Search.Text) || u.Middlename.Contains(Search.Text)
+                             select u).ToList();
+
+                foreach (User u in users)
+                {
+                    string s1 = "X";
+                    string s2 = "X";
+                    string s3 = "X";
+                    string p1 = "X";
+                    string p2 = "X";
+                    string b1 = "X";
+                    string b2 = "X";
+                    string b3 = "X";
+
+                    var User1Diploma = (from d in context.MemberDiplomas
+                                        where d.PersonID == u.PersonID
+                                        select d.DiplomaID).ToList();
+
+                    if (User1Diploma.Contains(1))
+                    {
+                        s1 = "\u221A";
+                    }
+
+
+                    if (User1Diploma.Contains(2))
+                    {
+                        s2 = "\u221A";
+                    }
+
+                    if (User1Diploma.Contains(3))
+                    {
+                        s3 = "\u221A";
+                    }
+
+                    if (User1Diploma.Contains(4))
+                    {
+                        p1 = "\u221A";
+                    }
+
+                    if (User1Diploma.Contains(5))
+                    {
+                        p2 = "\u221A";
+                    }
+
+                    if (User1Diploma.Contains(6))
+                    {
+                        b1 = "\u221A";
+                    }
+
+                    if (User1Diploma.Contains(7))
+                    {
+                        b2 = "\u221A";
+                    }
+
+                    if (User1Diploma.Contains(8))
+                    {
+                        b3 = "\u221A";
+
+                    }
+                    IEnumerable<User> dataUserListItems = new List<User>();
+                   
+                    
+                    DataUserList.ItemsSource = dataUserListItems;
+                }
+                
+
+
+                //DataGrid.Items.Refresh();
+
+            }
+
+
+
 
             // DataGrid.Items.Refresh();
             DataGrid = DataUserList;
-        }
-
-       
-
-        private void DataUserList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
            
         }
+
+      
+
+        
     }
 }

@@ -61,7 +61,8 @@
         <Button Content="Nieuw lid" Click="RegisterUserButton" HorizontalAlignment="Left" Margin="170,38,0,0" VerticalAlignment="Top" Width="75"/>
         <TextBox HorizontalAlignment="Left" x:Name="Search" TextChanged="Search_TextChanged" Height="23" Margin="856,38,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Button Content="Terug" Click="BackButton" HorizontalAlignment="Left" Margin="87,38,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Button" Click="Diploma" HorizontalAlignment="Left" Margin="833,34,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Diploma" Click="Diploma" HorizontalAlignment="Left" Margin="643,38,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Boot" Click="Boat" HorizontalAlignment="Left" Margin="509,38,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
     

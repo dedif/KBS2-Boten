@@ -95,5 +95,11 @@ namespace Views
             Switcher.Switch(new DiplomaList());
 
         }
+
+        private void Boat(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new BoatList());
+
+        }
     }
 }
