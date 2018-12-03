@@ -1,4 +1,5 @@
 ﻿using BataviaReseveringsSysteem.Database;
+using Controllers;
 using Models;
 using ScreenSwitcher;
 using System;
@@ -77,8 +78,8 @@ namespace Views
                             }
 
                             Damage damage = new Damage(LoginView.LoggedUserID, Boat.BoatID, DescriptionBox.Text, status);
-                            
-                            context.Damages.Add(damage);
+
+                        context.Damages.Add(damage);
                             context.SaveChanges();
 
                             Switcher.Switch(new Dashboard());

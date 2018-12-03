@@ -27,11 +27,15 @@ namespace Controllers
                                       where data.TimeOfClaim == a.Deleted
                                       where a.Deleted != null
                                       where data.TimeOfFix == null
+                                      where data.Status == "Zware schade"
                                       select data).ToList();
-                
 
 
+            var User = (from data in context.Users
+                        where data.PersonID == LoginView.LoggedUserID
+                        select data).Single();
 
+           
             if (DamagedBoatsOfUser.Count > 1 ) {
                 MessageBoxResult Notification = MessageBox.Show(
                                "Uw reserveringen zijn gewijzigd omdat de boot uit de vaart is genomen",
@@ -48,11 +52,16 @@ namespace Controllers
                                MessageBoxButton.OK,
                                MessageBoxImage.Information);
             }
+            User.LastLoggedIn = DateTime.Now;
+            context.SaveChanges();
+
+
+
 
         }
 
-       
-        
+
+
 
         //Deze methode vult de labels van de huidige reservaties
         public string ReservationContent(Reservation reservation)
