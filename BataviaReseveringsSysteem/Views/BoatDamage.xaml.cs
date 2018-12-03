@@ -39,10 +39,13 @@ namespace Views
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            //kijkt of beschrijving is ingevuld
             if (!IsEmpty(DescriptionBox.Text)) { 
+                //kijkt of reservering al is gereserveerd
                 AlreadyReserved(NameboatCombo.Text);
                 MessageBoxResult Melding = MessageBox.Show(
                             "Weet u zeker dat u deze schade wilt melden?" +
+                            // "Boot is gereserveerd in de toekomst" als boot is gereserveerd. Anders null
                             reserved,
                             "Melding",
                             MessageBoxButton.YesNo,
@@ -71,17 +74,17 @@ namespace Views
                             {
                                 status = "Zware schade";
                                 Boat.Broken = true;
-                            foreach (Reservation r in Reservations)
-                            {
-                            r.Deleted = DateTime.Now;
+                            //voor elke reservering met zware schade wordt deleted vadaag
+                                foreach (Reservation r in Reservations)
+                                {
+                                 r.Deleted = DateTime.Now;
+                                }
                             }
-                            }
-
+                            
                             Damage damage = new Damage(LoginView.LoggedUserID, Boat.BoatID, DescriptionBox.Text, status);
-
-                        context.Damages.Add(damage);
+                        
+                           context.Damages.Add(damage);
                             context.SaveChanges();
-
                             Switcher.Switch(new Dashboard());
                             break;
 

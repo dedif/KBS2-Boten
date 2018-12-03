@@ -62,6 +62,7 @@ namespace Views
 
                     Dashboard s = new Dashboard();
                     Switcher.Switch(s);
+                    //de lastLoggedIn wordt veranderd als je inlogt
                     User.LastLoggedIn = DateTime.Now;
                     context.SaveChanges();
                         }

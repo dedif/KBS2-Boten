@@ -18,6 +18,7 @@ namespace Controllers
         {
             Dashboard = dashboard;
         }
+        //deze methode kijkt of wanneer je het laatst bent ingelogd en geeft een melding wanneer je reserveringen zijn veranderd
            public void Notification(DateTime lastLogged)
         {
             var DamagedBoatsOfUser = (from data in context.Damages
@@ -29,14 +30,14 @@ namespace Controllers
                                       where data.TimeOfFix == null
                                       where data.Status == "Zware schade"
                                       select data).ToList();
-
-
+            
             var User = (from data in context.Users
                         where data.PersonID == LoginView.LoggedUserID
                         select data).Single();
 
-           
+          
             if (DamagedBoatsOfUser.Count > 1 ) {
+                //melding met meerdere veranderingen
                 MessageBoxResult Notification = MessageBox.Show(
                                "Uw reserveringen zijn gewijzigd omdat de boot uit de vaart is genomen",
                                "Melding",
@@ -47,11 +48,13 @@ namespace Controllers
             if (DamagedBoatsOfUser.Count == 1)
             {
                 MessageBoxResult Notification = MessageBox.Show(
+                    //melding met 1 verandering
                                "Uw reservering is gewijzigd omdat de boot uit de vaart is genomen",
                                "Melding",
                                MessageBoxButton.OK,
                                MessageBoxImage.Information);
             }
+            //last login wordt geupdate na het melden van schade
             User.LastLoggedIn = DateTime.Now;
             context.SaveChanges();
 
