@@ -34,32 +34,33 @@ namespace BataviaReseveringsSysteem.Views
             this.HorizontalAlignment = HorizontalAlignment.Center;
 
             Load();
+
         }
 
- 
+      
 
         private void Load()
         {
 
-           
+
 
             using (DataBase cont = new DataBase())
             {
-               
+
 
                 var users = (from u in context.Users
                              select u).ToList();
 
                 foreach (User u in users)
                 {
-                    bool s1 = false;
-                    bool s2 = false;
-                    bool s3 = false;
-                    bool p1 = false;
-                    bool p2 = false;
-                    bool b1 = false;
-                    bool b2 = false;
-                    bool b3 = false;
+                    string s1 = "X";
+                    string s2 = "X";
+                    string s3 = "X";
+                    string p1 = "X";
+                    string p2 = "X";
+                    string b1 = "X";
+                    string b2 = "X";
+                    string b3 = "X";
 
                     var User1Diploma = (from d in context.MemberDiplomas
                                         where d.PersonID == u.PersonID
@@ -67,45 +68,59 @@ namespace BataviaReseveringsSysteem.Views
 
                     if (User1Diploma.Contains(1))
                     {
-                        s1 = true;
+                        s1 = "\u221A";
                     }
+
 
                     if (User1Diploma.Contains(2))
                     {
-                        s2 = true;
+                        s2 = "\u221A";
                     }
+
                     if (User1Diploma.Contains(3))
                     {
-                        s3 = true;
+                        s3 = "\u221A";
                     }
+
                     if (User1Diploma.Contains(4))
                     {
-                        p1 = true;
+                        p1 = "\u221A";
                     }
+
                     if (User1Diploma.Contains(5))
                     {
-                        p2 = true;
+                        p2 = "\u221A";
                     }
+
                     if (User1Diploma.Contains(6))
                     {
-                        b1 = true;
+                        b1 = "\u221A";
                     }
+
                     if (User1Diploma.Contains(7))
                     {
-                        b2 = true;
+                        b2 = "\u221A";
                     }
+
                     if (User1Diploma.Contains(8))
                     {
-                        b3 = true;
+                        b3 = "\u221A";
+
                     }
 
 
 
-                    DataUserList.Items.Add(new { u.PersonID, Firstname = u.Firstname, Middlename = u.Middlename, Lastname = u.Lastname, S1 = s1, S2 = s2,  S3 = s3, P1 = p1, P2 = p2, B1 = b1, B2 = b2, B3 = b3 });
+                    var dataUserListItems = new { u.PersonID, Firstname = u.Firstname, Middlename = u.Middlename, Lastname = u.Lastname, S1 = s1, S2 = s2, S3 = s3, P1 = p1, P2 = p2, B1 = b1, B2 = b2, B3 = b3 };
+                    DataUserList.Items.Add(dataUserListItems);
                 }
 
-
+                foreach (var item in DataUserList.Items)
+                {
+                    Console.WriteLine(item);
+                }
                 DataGrid = DataUserList;
+                //DataGrid.Items.Refresh();
+
             }
             //DataView.DataBind();
         }
@@ -119,12 +134,20 @@ namespace BataviaReseveringsSysteem.Views
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+
             DataUserList.ItemsSource = (from x in context.Users
                                         where x.PersonID.ToString() == Search.Text || x.Firstname.Contains(Search.Text) || x.Lastname.Contains(Search.Text) || x.City.Contains(Search.Text) || x.Address.Contains(Search.Text) || x.City.Contains(Search.Text) || x.Zipcode.Contains(Search.Text) || x.Email.Contains(Search.Text) || x.Phonenumber.Contains(Search.Text) || x.Birthday.Day.ToString() == Search.Text || x.Birthday.Month.ToString() == Search.Text || x.Birthday.Year.ToString() == Search.Text && x.Deleted_at == null
                                         select x).ToList();
 
-
+            // DataGrid.Items.Refresh();
             DataGrid = DataUserList;
+        }
+
+       
+
+        private void DataUserList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           
         }
     }
 }

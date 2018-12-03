@@ -98,7 +98,7 @@ namespace Views
         //Register member of user
         private void ButtonRegister(object sender, RoutedEventArgs e)
         {
-            if (RegisterController.Registreren(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword))
+            if (RegisterController.Register(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword))
             {
                 using (DataBase context = new DataBase()) {
 

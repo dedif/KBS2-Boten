@@ -57,7 +57,7 @@ namespace UnitTestLoginRegister
             PasswordBox Co = new PasswordBox() { Password = ConfirmPassword };
 
             //Act
-            bool result = RegisterController.Registreren(F, M, L, C, Z, A, P, E, D, Mo, Y, G, Pa, Co);
+            bool result = RegisterController.Register(F, M, L, C, Z, A, P, E, D, Mo, Y, G, Pa, Co);
 
             //Assert
             Assert.AreEqual(answer, result);
@@ -75,7 +75,7 @@ namespace UnitTestLoginRegister
             PasswordBox P = new PasswordBox() { Password = password };
             LoginController login = new LoginController();
             //Act
-            bool result = LoginController.Login(T, P, new Label());
+            bool result = LoginController.IsLoginDataValid(T, P, new Label());
             //Assert
             Assert.AreEqual(answer, result);
         }
@@ -91,7 +91,7 @@ namespace UnitTestLoginRegister
             //Arrage
 
             //Act
-            bool result = RegisterController.IsAllLetters(x);
+            bool result = RegisterController.DoesletterOnlyTextboxContainNumber(x);
             //Assert
             Assert.AreEqual(answer, result);
 

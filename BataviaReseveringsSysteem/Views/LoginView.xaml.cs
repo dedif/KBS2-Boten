@@ -25,7 +25,7 @@ namespace Views
 
         private void LoginButton(object sender, RoutedEventArgs e)
         {
-            if (LoginController.Login(Username, Password, LoginError))
+            if (LoginController.IsLoginDataValid(Username, Password, LoginError))
             {
                 int username = int.Parse(Username.Text);
                 using (DataBase context = new DataBase())
