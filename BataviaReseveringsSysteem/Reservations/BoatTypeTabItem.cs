@@ -153,7 +153,7 @@ namespace BataviaReseveringsSysteem.Reservations
                     latestSlot);
 
             // Weergeef de eigenschappen van de geselecteerde boot (wederom de eerste in de botencombobox)
-            BoatView.UpdateView(new Boatcontroller().GetBoatWithName(selectedBoatString));
+            BoatView.UpdateView(new BoatController().GetBoatWithName(selectedBoatString));
 
             // Vul de PlannerGrid met de slots voor deze dag.
             // Alles vòòr de eerste en na de laatste slot wordt donkerblauw.

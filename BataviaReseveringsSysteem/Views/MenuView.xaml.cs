@@ -29,5 +29,15 @@ namespace BataviaReseveringsSysteem.Views
         {
             Switcher.Switch(new Dashboard());
         }
+
+        private void BotenBekijken_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new BoatList());
+        }
+
+        private void BotenToevoegen_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new AddBoat());
+        }
     }
 }
