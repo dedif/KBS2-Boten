@@ -3,7 +3,6 @@ using Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Models;
 using NUnit.Framework;
-using WpfApp13;
 using static Models.Boat;
 using Assert = NUnit.Framework.Assert;
 

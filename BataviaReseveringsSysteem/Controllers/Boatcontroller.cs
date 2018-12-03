@@ -1,4 +1,4 @@
-﻿using BataviaReseveringsSysteemDatabase;
+﻿using BataviaReseveringsSysteem.Database;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -52,7 +52,9 @@ namespace Controllers
         //Deze methode returnd true als naam niet voor komt (anders false)
         public Boolean NameCheck(string name)
         {
-            using (Database context = new Database())
+
+            using (DataBase context = new DataBase())
+
             {
                 var CountNames = (from b in context.Boats
                                   where b.Name == name
@@ -75,7 +77,9 @@ namespace Controllers
         public void AddBoat(string name, string type, int rowers, double weight, bool steeringwheel)
         {
             notification = "";
-            using (Database context = new Database())
+
+            using (DataBase context = new DataBase())
+
             {
               
                     Enum.TryParse(type, out Boat.BoatType MyType);
@@ -95,7 +99,8 @@ namespace Controllers
 
         public List<Boat> BoatList()
         {
-            using (Database context = new Database())
+
+            using (DataBase context = new DataBase())
             {
 
                 var boats = (from s in context.Boats
@@ -108,7 +113,8 @@ namespace Controllers
 		
 		public Boat GetBoatWithName(string name)
         {
-            using (var context = new Database())
+
+            using (var context = new DataBase())
             {
                 return (from boat in context.Boats where boat.Name.Equals(name) select boat).First();
             }

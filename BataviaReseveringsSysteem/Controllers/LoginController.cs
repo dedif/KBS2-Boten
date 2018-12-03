@@ -1,5 +1,4 @@
-﻿using BataviaReseveringsSysteemDatabase;
-using System;
+﻿using BataviaReseveringsSysteem.Database;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,21 +9,22 @@ namespace Controllers
     public class LoginController
     {
 
-        public static Boolean Login(TextBox Username,PasswordBox Password,Label LoginError){
+        public static bool Login(TextBox Username, PasswordBox Password, Label LoginError)
+        {
 
-            UserController u = new UserController();
+            var u = new UserController();
 
-            using (Database context = new Database())
+            using (var context = new DataBase())
             {
-                var Result = context.Users.ToList();
-               
-                
-                if (Result.Count > 0)
+                var result = context.Users.ToList();
+
+
+                if (result.Count > 0)
                 {
-                    foreach (var results in Result)
+                    foreach (var results in result)
                     {
-                        
-                        string hashedPassword = u.PasswordHash(Password.Password);
+
+                        var hashedPassword = u.PasswordHash(Password.Password);
 
                         Username.BorderBrush = Brushes.Gray;
                         Password.BorderBrush = Brushes.Gray;
@@ -43,7 +43,7 @@ namespace Controllers
                                 {
                                     if (results.Password.Equals(hashedPassword))
                                     {
-                                       return true;
+                                        return true;
                                     }
 
                                     else
@@ -52,7 +52,9 @@ namespace Controllers
                                         Password.BorderBrush = Brushes.Red;
                                         Password.BorderThickness = new Thickness(2);
 
-                                        LoginError.Content = "Het wachtwoord komt niet met deze gebruiker overeen.";
+                                        LoginError.Content = "De gegevens komen niet overeen.";
+                                        Username.BorderBrush = Brushes.Red;
+                                        Username.BorderThickness = new Thickness(2);
                                         LoginError.UpdateLayout();
                                         Password.UpdateLayout();
                                         return false;
@@ -62,7 +64,7 @@ namespace Controllers
                                 {
                                     Password.BorderBrush = Brushes.Red;
                                     Password.BorderThickness = new Thickness(2);
-                                    LoginError.Content = "Vul een wachtwoord in!";
+                                    LoginError.Content = "Vul een wachtwoord in";
                                     LoginError.UpdateLayout();
                                     Password.UpdateLayout();
                                     return false;
@@ -70,13 +72,16 @@ namespace Controllers
                             }
                             else
                             {
+                                Password.BorderBrush = Brushes.Red;
+                                Password.BorderThickness = new Thickness(2);
+
                                 Username.BorderBrush = Brushes.Red;
                                 Username.BorderThickness = new Thickness(2);
 
-                                LoginError.Content = "Deze gebruikersnaam bestaat niet";
+                                LoginError.Content = "De gegevens komen niet overeen.";
                                 LoginError.UpdateLayout();
-                                Username.UpdateLayout();
-                             
+                                Password.UpdateLayout();
+
                             }
 
                         }
@@ -84,7 +89,7 @@ namespace Controllers
                 }
                 else
                 {
-                    MessageBox.Show("Lijst is leeg");
+                    MessageBox.Show("De gegevens komen niet overeen.");
                     return false;
                 }
 

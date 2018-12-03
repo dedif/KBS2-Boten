@@ -1,25 +1,102 @@
-using BataviaReseveringsSysteem.Database;
-using Models;
+﻿using BataviaReseveringsSysteem.Database;
 using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
 
-namespace Controllers
+namespace BataviaReseveringsSysteem
 {
-    class UserController
+    class DataBaseController
     {
-        
-        public void Add_User(string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
+        public void Add_Role(string roleName)
+        {
+            
+            using (DataBase context = new DataBase())
+            {
+
+                var role = new Models.Role
+                {
+                    RoleName = roleName,
+                    Created_at = DateTime.Now,
+
+                };
+
+                context.Roles.Add(role);
+
+                context.SaveChanges();
+                
+            }
+
+        }
+
+        public void Add_MemberRole(int roleID,int personID)
+        {
+
+            using (DataBase context = new DataBase())
+            {
+
+                var MemberRole = new Models.MemberRole
+                {
+                    RoleID = roleID,
+                    PersonID = personID,
+                    Created_at = DateTime.Now,
+                    Updated_at = null,
+                    Deleted_at = null
+
+                };
+
+                context.MemberRoles.Add(MemberRole);
+                context.SaveChanges();
+            }
+
+        }
+
+        public void Delete_MemberRole(int personID, int rolID)
+        {
+            using (DataBase context = new DataBase())
+            {
+
+                //Models.MemberRole delMemberRole = context.MemberRoles.Where(d => d.PersonID == personID).First();
+
+                var delMemberRole = (from x in context.MemberRoles
+                                     where x.PersonID == personID && x.Deleted_at == null && x.RoleID == rolID
+                                     select x).ToList();
+
+
+                //if (delMemberRole != null)
+                //{
+                //    delMemberRole.ForEach(x => x.Deleted_at = DateTime.Now);
+            
+                //}
+
+                // if (delMemberRole != null)
+                // {
+                //   delMemberRole.Deleted_at = DateTime.Now;
+
+                context.MemberRoles.RemoveRange(delMemberRole);
+
+                context.SaveChanges();
+               // }
+            }
+
+        }
+
+        public void Add_User(string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID,DateTime birthday)
         {
             using (DataBase context = new DataBase())
             {
 
                 // Use current timeDateTime dt = 
-
+             
                 string mySqlTimestamp = "01-01-1900 00:00:00";
-                DateTime time = DateTime.Parse(mySqlTimestamp);
+               DateTime time = DateTime.Parse(mySqlTimestamp);
+
+
                 var user = new Models.User
                 {
 
@@ -37,7 +114,7 @@ namespace Controllers
                     Created_at = DateTime.Now,
                     Updated_at = null,
                     Deleted_at = null
-
+                    
                 };
                 int PersonID = user.PersonID;
                 context.Users.Add(user);
@@ -48,12 +125,31 @@ namespace Controllers
 
         }
 
+        public void Delete_User(int personID)
+        {
+            using (DataBase context = new DataBase())
+            {
+
+               Models.User delUser = context.Users.Where(d => d.PersonID == personID).First();
+            
+                if (delUser != null)
+                {
+
+                    delUser.Deleted_at = DateTime.Now;
+                   
+                    context.SaveChanges();
+                }
+            }
+
+        }
         public void Update_User(int personID, string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
         {
             using (DataBase context = new DataBase())
             {
 
                 Models.User dep = context.Users.Where(d => d.PersonID == personID).First();
+
+
                 if (dep != null)
                 {
                     dep.Password = password;
@@ -69,22 +165,26 @@ namespace Controllers
                     dep.Middlename = middlename;
                     dep.Updated_at = DateTime.Now;
                     dep.Deleted_at = null;
-                    
+
                     context.SaveChanges();
                 }
+                
             }
 
         }
 
 
-        public void Update_User(int personID, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
+        public void Update_User(int personID,  string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
         {
             using (DataBase context = new DataBase())
             {
 
                 Models.User dep = context.Users.Where(d => d.PersonID == personID).First();
+
+
                 if (dep != null)
                 {
+                    
                     dep.Firstname = firstname;
                     dep.Lastname = lastname;
                     dep.Address = address;
@@ -97,10 +197,14 @@ namespace Controllers
                     dep.Middlename = middlename;
                     dep.Updated_at = DateTime.Now;
                     dep.Deleted_at = null;
+                    
 
                     context.SaveChanges();
                 }
+
+
             }
+
         }
 
 
@@ -137,22 +241,6 @@ namespace Controllers
 
         }
 
-        public int GetID()
-        {
-            using (DataBase context = new DataBase())
-            {
-
-                var Id =(
-                        from data in context.Users
-                         orderby data.PersonID descending
-                        select data.PersonID).First();
-                return Id;
-            }
-          
-
-        }
-
-
         public void Print()
         {
             using (DataBase context = new DataBase())
@@ -160,7 +248,7 @@ namespace Controllers
                 // Display all courses from the database
                 var users = (from s in context.Users
                              orderby s.PersonID
-                             select s).ToList<User>();
+                             select s).ToList<Models.User>();
 
 
                 foreach (var boat in users)
