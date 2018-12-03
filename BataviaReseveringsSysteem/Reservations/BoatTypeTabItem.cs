@@ -196,9 +196,6 @@ namespace BataviaReseveringsSysteem.Reservations
             // Weergeef de grid
             Content = Grid;
 
-            // Initialiseer de afschrijvingsduur-combobox met acht opties (één tot acht kwartier na de starttijd)
-            FillComboTimes();
-
             // Kijk of je wel acht kwartier mag afschrijven of dat er afschrijving binnen die acht kwartier geclaimd is.
             OnStartComboBoxClick(null, null);
 
@@ -220,12 +217,12 @@ namespace BataviaReseveringsSysteem.Reservations
             BoatNamesComboBox.FontSize = 26;
             BoatNamesComboBox.DropDownClosed += OnBoatNamesComboBoxClicked;
             Grid.Children.Add(BoatNamesComboBox);
-            using (var context = new Database())
+            using (var context = new DataBase())
                 foreach (var item in from db in context.Boats where db.Type == BoatType select db.Name)
                     BoatNamesComboBox.Items.Add(item);
         }
 
-        // Deze methode vult de combobox met tijden van 15 min tot 2 uur
+        // Initialiseer de afschrijvingsduur-combobox met acht opties (één tot acht kwartier na de starttijd)
         public void FillComboTimes()
         {
             ReservationDurationComboBox.Name = "ComboTimes";
@@ -476,25 +473,6 @@ namespace BataviaReseveringsSysteem.Reservations
 
         private DateTime BottomRoundTimeToSlot(DateTime time) => time.AddMinutes(-(time.Minute % 15));
 
-        public void FillComboTimes()
-        {
-            ReservationDurationComboBox.Name = "ComboTimes";
-            ReservationDurationComboBox.Width = 120;
-            ReservationDurationComboBox.Height = 25;
-            ReservationDurationComboBox.HorizontalAlignment = HorizontalAlignment.Left;
-            ReservationDurationComboBox.Margin = new Thickness(10, 120, 0, 0);
-            ReservationDurationComboBox.SelectedIndex = 0;
-            ReservationDurationComboBox.Items.Add("00:15");
-            ReservationDurationComboBox.Items.Add("00:30");
-            ReservationDurationComboBox.Items.Add("00:45");
-            ReservationDurationComboBox.Items.Add("01:00");
-            ReservationDurationComboBox.Items.Add("01:15");
-            ReservationDurationComboBox.Items.Add("01:30");
-            ReservationDurationComboBox.Items.Add("01:45");
-            ReservationDurationComboBox.Items.Add("02:00");
-            Grid.Children.Add(ReservationDurationComboBox);
-        }
-
         public void MakeRegisterBtn()
         {
             _okButton = new Button { Name = "okBtn", Content = "Afschrijven", Width = 120, Height = 25, IsEnabled = false };
@@ -525,11 +503,11 @@ namespace BataviaReseveringsSysteem.Reservations
                 var boat = (from db in context.Boats
                             where db.Name.Equals((string)BoatNamesComboBox.SelectedValue)
                             select db).First();
-                User = LoginView.LoggedMember;
+                User = LoginView.UserId;
                 var startTime = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
                 var endTime = GenerateEndTime(startTime);
                 // TODO: new Member() veranderen naar member die deze afschrijving maakt.
-                var rs1 = new Reservation(boat, LoginView.User, startTime, endTime);
+                var rs1 = new Reservation(boat, startTime, endTime);
                 context.Reservations.Add(rs1);
                 context.SaveChanges();
             }
@@ -540,22 +518,6 @@ namespace BataviaReseveringsSysteem.Reservations
                 MessageBoxResult.OK)
                 return;
             Switcher.Switch(new Dashboard());
-        }
-
-        public void FillComboNames()
-        {
-            BoatNamesComboBox.Name = "ComboBoatName";
-            BoatNamesComboBox.Tag =
-            BoatNamesComboBox.Width = 120;
-            BoatNamesComboBox.Height = 25;
-            BoatNamesComboBox.HorizontalAlignment = HorizontalAlignment.Left;
-            BoatNamesComboBox.Margin = new Thickness(10, 0, 0, 0);
-            BoatNamesComboBox.SelectedIndex = 0;
-            BoatNamesComboBox.DropDownClosed += OnBoatNamesComboBoxClicked;
-            Grid.Children.Add(BoatNamesComboBox);
-            using (var context = new DataBase())
-                foreach (var item in from db in context.Boats where db.Type == BoatType select db.Name)
-                    BoatNamesComboBox.Items.Add(item);
         }
 
         // Deze methode zorgt voor de afhandeling van boot keuze in combobox

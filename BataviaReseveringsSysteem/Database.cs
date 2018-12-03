@@ -1,5 +1,4 @@
-﻿using BataviaReseveringsSysteem.Models;
-using Models;
+﻿using Models;
 using System.Data.Entity;
 
 namespace BataviaReseveringsSysteem.Database
