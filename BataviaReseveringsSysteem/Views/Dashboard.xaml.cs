@@ -63,6 +63,29 @@ namespace Views
             
         }
 
+       public void Notification(DateTime lastLogged)
+        {
+            var DamagedBoatsOfUser = (from data in context.Damages
+                                      join a in context.Reservations
+                                      on data.BoatID equals a.Boat.BoatID
+                                      where data.TimeOfClaim >= lastLogged
+                                      where a.Deleted != null
+                                      where data.TimeOfFix == null
+                                      select data).ToList();
+                
+
+
+
+            if (DamagedBoatsOfUser.Count > 0) {
+                MessageBoxResult Notification = MessageBox.Show(
+                               "Uw reservering is gecanceld omdat de boot uit de vaart is genomen",
+                               "Melding",
+                               MessageBoxButton.OK,
+                               MessageBoxImage.Information);
+            }
+           
+        }
+
         public void ShowReservations()
         {
             using (DataBase context = new DataBase())

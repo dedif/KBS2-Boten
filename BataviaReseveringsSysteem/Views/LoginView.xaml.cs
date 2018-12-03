@@ -7,6 +7,7 @@ using System.Linq;
 using BataviaReseveringsSysteem.Database;
 using ScreenSwitcher;
 using Models;
+using System;
 
 namespace Views
 {
@@ -57,9 +58,15 @@ namespace Views
                         select data).Single();
 
                     LoggedUser = User;
-                }
 
-                Switcher.Switch(new Dashboard());
+
+                    Dashboard s = new Dashboard();
+                    Switcher.Switch(s);
+                    DateTime test = LoggedUser.LastLogedIn;
+                    s.Notification(test);
+                    LoggedUser.LastLogedIn = DateTime.Now;
+                    context.SaveChanges();
+                        }
             }
             
         }
