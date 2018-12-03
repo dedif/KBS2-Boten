@@ -103,12 +103,13 @@ namespace Controllers
             using (DataBase context = new DataBase())
             {
                 var Reservations = (from data in context.Reservations
-                                   where data.End <= DateTime.Now
+                                   where data.End < DateTime.Now
                                    select data).ToList();
 
                 foreach (var r in Reservations)
                 {
                       r.Deleted = DateTime.Now;
+                    context.SaveChanges();
                 }
             }
         }
