@@ -5,15 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Views"
         mc:Ignorable="d"
-        d:DesignWidth="640" d:DesignHeight="480" Width="800" Height="600">
-    <Grid x:Name="loginLayout" Background="White">
-        <Label Content="" HorizontalAlignment="Left" Margin="82,43,0,0" VerticalAlignment="Top"/>
-        <Label Content="Lidnummer" HorizontalAlignment="Left" Height="31" Margin="139,105,0,0" VerticalAlignment="Top" Width="112"/>
-        <Label Content="Wachtwoord" HorizontalAlignment="Left" Height="23" Margin="139,155,0,0" VerticalAlignment="Top" Width="95"/>
-        <TextBox x:Name="Username" HorizontalAlignment="Left" Height="23" Margin="280,105,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="125" PreviewTextInput="NumberValidationTextBox"  />
-        <PasswordBox x:Name="Password" PasswordChar="*" HorizontalAlignment="Left" Height="23" Margin="280,155,0,0"  VerticalAlignment="Top" Width="125"/>
-        <Button Content="Login" IsDefault="True"  HorizontalAlignment="Left" Margin="280,205,0,0" VerticalAlignment="Top" Width="125" Click="LoginButton" Height="25"/>
+        d:DesignWidth="1920" d:DesignHeight="1080" Width="1920" Height="1080">
+
+    <Grid x:Name="loginLayout" Background="White" Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+        <Label Content="" HorizontalAlignment="Left" Margin="82,43,0,0" VerticalAlignment="Top" Height="26" Width="10"/>
+        <Label Content="Lidnummer" HorizontalAlignment="Left" Height="38" Margin="645,351,0,0" VerticalAlignment="Top" Width="145" FontSize="26"/>
+        <Label Content="Wachtwoord" HorizontalAlignment="Left" Height="38" Margin="626,412,0,0" VerticalAlignment="Top" Width="164" FontSize="26"/>
+        <TextBox x:Name="Username" HorizontalAlignment="Left" Height="45" Margin="819,355,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="245" PreviewTextInput="NumberValidationTextBox" FontSize="26"  />
+        <PasswordBox x:Name="Password" PasswordChar="*" HorizontalAlignment="Left" Height="45" Margin="819,415,0,0"  VerticalAlignment="Top" Width="245" FontSize="26"/>
+        <Button Content="Login" IsDefault="True"  HorizontalAlignment="Left" Margin="819,475,0,0" VerticalAlignment="Top" Width="245" Click="LoginButton" Height="45" FontSize="26"/>
         <Label x:Name="Test" Content="" HorizontalAlignment="Left" Height="42" Margin="332,275,0,0" VerticalAlignment="Top" Width="113"/>
-        <Label Content="" x:Name="LoginError" HorizontalAlignment="Left" Margin="332,43,0,0" Foreground="Red" VerticalAlignment="Top"/>
+        <Label Content="" x:Name="LoginError" HorizontalAlignment="Left" Margin="332,43,0,0" Foreground="Red" VerticalAlignment="Top" Height="26" Width="10"/>
+        <Button Content="Registreren" IsDefault="True"  HorizontalAlignment="Left" Margin="819,535,0,0" VerticalAlignment="Top" Width="245" Height="45" Click="Button_Click" FontSize="26"/>
+
     </Grid>
 </UserControl>

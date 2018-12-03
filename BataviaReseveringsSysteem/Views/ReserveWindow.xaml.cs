@@ -20,6 +20,7 @@ namespace Views
             AddBoatTypeTabs(boats, reservations);
         }
 
+        // deze methode zorgt voor de tabbladen met de types boten bovenaan in het scherm
         private void AddBoatTypeTabs(IReadOnlyCollection<Boat> boats, List<Reservation> reservations)
         {
             foreach (var boatType in GetDifferentBoatTypes(boats))

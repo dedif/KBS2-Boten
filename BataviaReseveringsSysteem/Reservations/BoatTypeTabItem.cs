@@ -18,6 +18,7 @@ namespace Reserve
         public PlannerGrid PlannerGrid { get; set; }
         public List<Reservation> Reservations { get; set; }
         public BoatView BoatView { get; set; }
+        public int User { get; set; }
         public List<Boat> Boats { get; set; }
         public Boat.BoatType BoatType { get; set; }
         public ComboBox ReservationDurationComboBox = new ComboBox();
@@ -42,14 +43,16 @@ namespace Reserve
                 Content = "Boot:",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(5, 200, 0, 0)
+                Margin = new Thickness(300, 450, 0, 0),
+                FontSize = 26
             });
             Grid.Children.Add(new Label
             {
                 Content = "Eigenschappen boot:",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(150, 180, 0, 0)
+                Margin = new Thickness(300, 150, 0, 0),
+                FontSize = 26
             });
 
             Grid.Children.Add(BoatView);
@@ -58,7 +61,8 @@ namespace Reserve
                 Content = "Duur reservering:",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(10, 250, 0, 0)
+                Margin = new Thickness(580, 340, 0, 0),
+                FontSize = 26
             });
             var annulerenButton = new Button
             {
@@ -67,7 +71,7 @@ namespace Reserve
                 Height = 25,
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(290, 284, 0, 0),
+                Margin = new Thickness(290, 784, 0, 0),
             };
             annulerenButton.Click += (sender, e) => Switcher.Switch(new Dashboard());
             Grid.Children.Add(annulerenButton);
@@ -85,14 +89,18 @@ namespace Reserve
                 Content = "Starttijd:",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(10, 310, 0, 0)
+                Margin = new Thickness(300, 340, 0, 0),
+                FontSize = 26
             });
             _reservationStartComboBox = new ComboBox
             {
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(10, 340, 0, 0),
-                SelectedIndex = 0
+                Width = 245,
+                Margin = new Thickness(310, 380, 0, 0),
+                SelectedIndex = 0,
+                FontSize = 26
+                
             };
             _reservationStartComboBox.DropDownClosed += OnStartComboBoxClick;
             PopulateStartTimeComboBox(DateTime.Now, earliestSlot, latestSlot, claimedSlotsForThisDay);
@@ -103,6 +111,48 @@ namespace Reserve
             ReservationDurationComboBox.DropDownClosed += OnDurationComboBoxClick;
         }
 
+        // Deze methode vult combobox met bootnamen
+        public void FillComboNames()
+        {
+            BoatNamesComboBox.Name = "ComboBoatName";
+            BoatNamesComboBox.Tag =
+            BoatNamesComboBox.Width = 245;
+            BoatNamesComboBox.Height = 45;
+            BoatNamesComboBox.HorizontalAlignment = HorizontalAlignment.Left;
+            BoatNamesComboBox.Margin = new Thickness(310, 270, 0, 0);
+            BoatNamesComboBox.SelectedIndex = 0;
+            BoatNamesComboBox.FontSize = 26;
+            BoatNamesComboBox.DropDownClosed += OnBoatNamesComboBoxClicked;
+            Grid.Children.Add(BoatNamesComboBox);
+            using (var context = new Database())
+                foreach (var item in from db in context.Boats where db.Type == BoatType select db.Name)
+                    BoatNamesComboBox.Items.Add(item);
+        }
+
+        // Deze methode vult de combobox met tijden van 15 min tot 2 uur
+        public void FillComboTimes()
+        {
+            ReservationDurationComboBox.Name = "ComboTimes";
+            ReservationDurationComboBox.Width = 120;
+            ReservationDurationComboBox.Height = 25;
+            ReservationDurationComboBox.Width = 245;
+            ReservationDurationComboBox.Height = 45;
+            ReservationDurationComboBox.FontSize = 26;
+            ReservationDurationComboBox.HorizontalAlignment = HorizontalAlignment.Left;
+            ReservationDurationComboBox.Margin = new Thickness(600, 37, 0, 0);
+            ReservationDurationComboBox.SelectedIndex = 0;
+            ReservationDurationComboBox.Items.Add("00:15");
+            ReservationDurationComboBox.Items.Add("00:30");
+            ReservationDurationComboBox.Items.Add("00:45");
+            ReservationDurationComboBox.Items.Add("01:00");
+            ReservationDurationComboBox.Items.Add("01:15");
+            ReservationDurationComboBox.Items.Add("01:30");
+            ReservationDurationComboBox.Items.Add("01:45");
+            ReservationDurationComboBox.Items.Add("02:00");
+            Grid.Children.Add(ReservationDurationComboBox);
+        }
+
+        // De methode wanneer je een tijdsduur voor afschrijving kiest
         private void OnDurationComboBoxClick(object sender, EventArgs e)
         {
             var selectedDate = Calendar.SelectedDate;
@@ -119,6 +169,7 @@ namespace Reserve
             PlannerGrid.Populate(earliestSlot, latestSlot, claimedSlots, aboutToBeClaimedSlots);
         }
 
+        // De methode voor wanneer je een starttijd kiest
         private void OnStartComboBoxClick(object sender, EventArgs eventArgs)
         {
             var selectedDate = Calendar.SelectedDate;
@@ -145,6 +196,7 @@ namespace Reserve
             return endSlotDayQuarter - startSlotDayQuarter;
         }
 
+        // Deze methode
         private int GetAmountOfClaimableSlots(IEnumerable<DateTime> claimedSlots, DateTime latestSlot)
         {
             var startSlotDayQuarter = DateTimeToDayQuarter(DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString()));
@@ -159,6 +211,7 @@ namespace Reserve
 
             return endSlotDayQuarter - startSlotDayQuarter;
         }
+
 
         private void PopulateDurationTimeComboBox(int amountOfSlotsToNextUnclaimableSlot)
         {
@@ -226,41 +279,23 @@ namespace Reserve
 
         private DateTime GetLatestSlot(DateTime sunset) => sunset.AddMinutes(-(sunset.Minute % 15));
 
-        public void FillComboTimes()
-        {
-            ReservationDurationComboBox.Name = "ComboTimes";
-            ReservationDurationComboBox.Width = 120;
-            ReservationDurationComboBox.Height = 25;
-            ReservationDurationComboBox.HorizontalAlignment = HorizontalAlignment.Left;
-            ReservationDurationComboBox.Margin = new Thickness(10, 120, 0, 0);
-            ReservationDurationComboBox.SelectedIndex = 0;
-            ReservationDurationComboBox.Items.Add("00:15");
-            ReservationDurationComboBox.Items.Add("00:30");
-            ReservationDurationComboBox.Items.Add("00:45");
-            ReservationDurationComboBox.Items.Add("01:00");
-            ReservationDurationComboBox.Items.Add("01:15");
-            ReservationDurationComboBox.Items.Add("01:30");
-            ReservationDurationComboBox.Items.Add("01:45");
-            ReservationDurationComboBox.Items.Add("02:00");
-            Grid.Children.Add(ReservationDurationComboBox);
-        }
-
+        // Deze methode maakt de "afschrijven" button klikbaar 
         public void MakeRegisterBtnVisibleAfterChoice()
         {
-            OkButton = new Button { Name = "okBtn", Content = "Afschrijven", Width = 120, Height = 25, IsEnabled = false };
+            OkButton = new Button { Name = "okBtn", FontSize = 26, Content = "Afschrijven", Width = 245, Height = 45, IsEnabled = false };
             OkButton.Click += OkBtn_Click;
             OkButton.HorizontalAlignment = HorizontalAlignment.Left;
-            OkButton.Margin = new Thickness(150, 120, 0, 0);
+            OkButton.Margin = new Thickness(150, 620, 0, 0);
             Grid.Children.Add(OkButton);
         }
 
-        // This method will take the length of the reserve period from the selected comboboxItem
+        // Deze methode zal de lengte van afschrijfperiode nemen die gekozen is in de combobox
         public DateTime GenerateEndTime(DateTime startTime) => startTime
             .AddHours(int.Parse(ReservationDurationComboBox.SelectedValue.ToString()[1].ToString()))
             .AddMinutes(int.Parse(ReservationDurationComboBox.SelectedValue.ToString().Substring(3)));
 
 
-        // When the button is clicked, boats will be reserved after messagebox dialog comfirmation
+        // Zodra de OkBtn is aangeklikt zal de boot worden afgeschreven na messagebox dialoog bevestiging
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Wilt u uw afschrijving definitief maken?",
@@ -274,11 +309,12 @@ namespace Reserve
                 var boat = (from db in context.Boats
                             where db.Name.Equals((string)BoatNamesComboBox.SelectedValue)
                             select db).First();
+                User = LoginView.LoggedMember;
                 var startTime = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
-                var endTime = GenerateEndTime(startTime);
-                var rs1 = new Reservation(boat, new Member(), startTime, endTime);
-                context.Reservations.Add(rs1);
-                context.SaveChanges();
+                var startDate = Calendar.SelectedDate.Value.Date;
+                var startDateTime = startDate.AddHours(startTime.Hour).AddMinutes(startTime.Minute);
+                var endTime = GenerateEndTime(startDateTime);
+                var newReservation = new Reservation(boat, User, startDateTime, endTime);
                 if (MessageBox.Show("De boot is succesvol afgeschreven",
                         "Melding",
                         MessageBoxButton.OK,
@@ -301,27 +337,14 @@ namespace Reserve
                 var aboutToBeClaimedSlots = GetAboutToBeClaimedSlots(selectedDateValue, amountOfSlotsToBeClaimed);
                 PopulateDurationTimeComboBox(amountOfClaimableSlots);
                 PlannerGrid.Populate(earliestSlot, latestSlot, claimedSlotsForThisDayAndBoat, aboutToBeClaimedSlots);
+                context.Reservations.Add(newReservation);
+                context.SaveChanges();
                 Switcher.Switch(new Dashboard());
             }
         }
 
-        public void FillComboNames()
-        {
-            BoatNamesComboBox.Name = "ComboBoatName";
-            BoatNamesComboBox.Tag =
-            BoatNamesComboBox.Width = 120;
-            BoatNamesComboBox.Height = 25;
-            BoatNamesComboBox.HorizontalAlignment = HorizontalAlignment.Left;
-            BoatNamesComboBox.Margin = new Thickness(10, 0, 0, 0);
-            BoatNamesComboBox.SelectedIndex = 0;
-            BoatNamesComboBox.DropDownClosed += OnBoatNamesComboBoxClicked;
-            Grid.Children.Add(BoatNamesComboBox);
-            using (var context = new Database())
-                foreach (var item in from db in context.Boats where db.Type == BoatType select db.Name)
-                    BoatNamesComboBox.Items.Add(item);
 
-        }
-
+        // Deze methode zorgt voor de afhandeling van boot keuze in combobox
         private void OnBoatNamesComboBoxClicked(object sender, EventArgs e)
         {
             var selectedDate = Calendar.SelectedDate;
@@ -344,6 +367,7 @@ namespace Reserve
             PlannerGrid.Populate(earliestSlot, latestSlot, claimedSlotsForThisDayAndBoat, aboutToBeClaimedSlots);
         }
 
+        
         private Calendar MakeCalendar()
         {
             var calendar = new Calendar
@@ -355,6 +379,7 @@ namespace Reserve
             calendar.SelectedDatesChanged += OnCalendarClicked;
             return calendar;
         }
+
 
         private DateTime[] GetSunriseAndSunsetTimes(DateTime selectedDate)
         {
@@ -409,7 +434,7 @@ namespace Reserve
         {
             var claimedSlots = new List<DateTime>();
             var selectedBoat = new Boatcontroller().GetBoatWithName(selectedBoatString);
-            var reservations = new ReservationController().GetReservationsForDayAndBoat(selectedDate, selectedBoat);
+            var reservations = new ReservationController().GetReservationsForDayAndBoatThatAreNotDeleted(selectedDate, selectedBoat);
             reservations.ForEach(reservation =>
             {
                 var endQuarter = DateTimeToDayQuarter(reservation.End);

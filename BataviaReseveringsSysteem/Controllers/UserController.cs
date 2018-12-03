@@ -18,7 +18,7 @@ namespace Controllers
 
 
 
-                var user = new User
+                User user = new User
                 {
                     Password = password,
                     Firstname = firstname,
@@ -36,11 +36,6 @@ namespace Controllers
 
 
                 context.SaveChanges();
-
-
-
-
-
             }
 
         }
@@ -68,16 +63,10 @@ namespace Controllers
                     dep.Email = email;
                     dep.GenderID = genderID;
                     dep.Birthday = birthday;
-                  
-
-
 
                     
                     context.SaveChanges();
                 }
-
-
-
 
             }
 
@@ -93,10 +82,7 @@ namespace Controllers
 
                 if (dep != null)
                 {
-
-
-
-                   
+                    
                     dep.Firstname = firstname;
                     dep.Lastname = lastname;
                     dep.Address = address;
