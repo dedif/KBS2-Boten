@@ -291,7 +291,7 @@ namespace BataviaReseveringsSysteem.Reservations
             return endSlotDayQuarter - startSlotDayQuarter;
         }
 
-        // Kijk hoeveel slots er zitten tussen het geselecteerde slot en de eerstvolgende afgeschreven slot of de eerste slot te ver in de toekomst komt
+        // Kijk hoeveel slots er zitten tussen het geselecteerde slot en de eerstvolgende afgeschreven slot of de eerste slot die te ver in de toekomst komt
         private int GetAmountOfClaimableSlots(IEnumerable<DateTime> claimedPastAndTooDistantSlotsForThisDayAndBoat,
             DateTime latestSlot)
         {
@@ -309,7 +309,7 @@ namespace BataviaReseveringsSysteem.Reservations
             }
             // Zo nee, dan wordt er gescand naar de eerstvolgende afgeschreven slot of de eerste slot die te ver in de toekomst komt
 
-            // Laatst claimbare slot is wordt eerst op de laatste slot voor zonsopgang gezet.
+            // Laatst claimbare slot wordt eerst op de laatste slot voor zonsopgang gezet.
             // Geen grijze slots vandaag? Dan is de laatst claimbare slot de laatste slot voor zonsopgang
             var endSlotDayQuarter = DateTimeToDayQuarter(latestSlot);
 
@@ -323,71 +323,98 @@ namespace BataviaReseveringsSysteem.Reservations
                 endSlotDayQuarter = claimedPastOrTooDistantSlotForThisDayAndBoatDayQuarter;
                 break;
             }
+            // Retourneer de hoeveelheid tijd
             return endSlotDayQuarter - startSlotDayQuarter;
         }
 
+        // Vul de afschrijvingsduur-combobox
         private void PopulateDurationTimeComboBox(int amountOfSlotsToNextUnclaimableSlot)
         {
             var itemsInComboBox = ReservationDurationComboBox.Items;
+            // Verkrijg het item dat nu geselecteerd is
             var oldSelectedIndex = ReservationDurationComboBox.SelectedIndex;
             if (oldSelectedIndex < 0) oldSelectedIndex = 0;
             itemsInComboBox.Clear();
+            // Aantal claimbare slots is het aantal slots tot het volgende onclaimbare slot met een maximum van 8
             var amountOfDurationTimeStrings =
                 new[] { amountOfSlotsToNextUnclaimableSlot, AmountOfAvailableQuarters }.Min();
+            // Vul de combobox met afschrijvingsduur-strings
             GenerateClaimableDurationStrings(amountOfDurationTimeStrings).ForEach(claimableDurationString =>
                 itemsInComboBox.Add(claimableDurationString));
             var amountOfItems = itemsInComboBox.Count;
+            // Als de dag helemaal vol zit, dan is het aantal duurstrings 0
             if (amountOfItems == 0)
             {
                 ReservationDurationComboBox.SelectedValue = "(geen slots meer reserveerbaar vandaag)";
             }
             else
             {
+                // Zo nee, stel dan de geselecteerde index opnieuw in.
+                // Het wordt de vorige geselecteerde index,
+                // tenzij de vorige geselecteerde index te hoog is
+                // omdat de bijbehorende string niet meer in de combobox zit
                 var highestSelectableIndex = amountOfItems - 1;
                 ReservationDurationComboBox.SelectedIndex = new[] { oldSelectedIndex, highestSelectableIndex }.Min();
             }
         }
 
+        // Maak de strings voor de afschrijvings-tijdsduur
         private List<string> GenerateClaimableDurationStrings(int amountOfSlotsToBeClaimed)
         {
             var claimableDurationStrings = new List<string>();
             for (var i = 1; i <= amountOfSlotsToBeClaimed; i++)
             {
+                // Bij bijvoorbeeld amountOfSlotsToBeClaimed = 2 maak je 00:15 en 00:30
                 var slotString = $"0{i / 4}:{i % 4 * 15}";
+                // Bij 01:0 en 02:0 moet je nog een 0 toevoegen zodat je 01:00 en 02:00 krijgt
                 if (i % 4 == 0) slotString += "0";
                 claimableDurationStrings.Add(slotString);
             }
             return claimableDurationStrings;
         }
 
+        // Maak de groene slots op basis van het aantal slots dat je wil claimen
         private List<DateTime> GetAboutToBeClaimedSlots(DateTime displayedDate, int amountOfSlotsToBeClaimed)
         {
             DateTime startSlot;
             try
             {
+                // Als de starttijd niet kan worden gelezen...
                 startSlot = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
             }
             catch (FormatException)
             {
+                // dan betekent dat dat de dag geen vrije slots meer bevat.
+                // Het aantal slots dat geclaimd moet worden is dus 0.
+                // De lijst met slots is dus leeg.
                 return new List<DateTime>();
             }
             var aboutToBeClaimedSlots = new List<DateTime>();
             var startSlotDayQuarter = DateTimeToDayQuarter(startSlot);
             var endSlotDayQuarter = startSlotDayQuarter + amountOfSlotsToBeClaimed;
+            
+            // Maak slots vanaf de startslot tot de eindslot
             for (var i = startSlotDayQuarter; i < endSlotDayQuarter; i++)
                 aboutToBeClaimedSlots.Add(DayQuarterToDateTime(displayedDate, i));
-
+            
+            // en retourneer ze
             return aboutToBeClaimedSlots;
         }
 
+        // Vul de afschrijvingsstartcombobox
         private void PopulateStartTimeComboBox(DateTime selectedDate, DateTime earliestSlot, DateTime latestSlot,
             List<DateTime> claimedSlotsForThisDay)
         {
             _reservationStartComboBox.Items.Clear();
+            // Maak claimbare startslots op basis van de geselecteerde datum.
+            // Zorg er daarbij voor dat alles vóór en na het donker en de geclaimde slots niet geselecteerd kunnen worden:
+            // deze startslots worden ook niet gemaakt
             GenerateClaimableStartSlots(selectedDate, earliestSlot, latestSlot, claimedSlotsForThisDay)
                 .ForEach(claimableStartSlot => _reservationStartComboBox.Items.Add(claimableStartSlot.ToString("t")));
+            // Als er niets in zit,
             if (_reservationStartComboBox.Items.Count == 0)
             {
+                // dan is de hele dag dus al gevuld.
                 _reservationStartComboBox.SelectedValue = "(geen slots beschikbaar)";
                 _noSlotsAvailableLabel.Visibility = Visibility.Visible;
                 _okButton.IsEnabled = false;
@@ -400,6 +427,8 @@ namespace BataviaReseveringsSysteem.Reservations
             }
         }
 
+        // Maak de startslots
+        // Zorg er daarbij voor dat alles vóór en na het donker en de geclaimde slots niet geselecteerd kunnen worden:
         private List<DateTime> GenerateClaimableStartSlots(DateTime selectedDate,
             DateTime earliestSlot,
             DateTime latestSlot,
@@ -408,20 +437,29 @@ namespace BataviaReseveringsSysteem.Reservations
             var claimableSlots = new List<DateTime>();
             var earliestSlotDayQuarter = DateTimeToDayQuarter(earliestSlot);
             var latestSlotDayQuarter = DateTimeToDayQuarter(latestSlot);
+            // Maak een lijst startslots
+            // die begint bij zonsopgang,
+            // eindigt bij zonsondergang en
+            // geen slots bevat die al gereserveerd zijn
             for (var i = earliestSlotDayQuarter; i < latestSlotDayQuarter; i++)
                 if (!unavailableSlots.Exists(unavailableSlot => DateTimeToDayQuarter(unavailableSlot) == i))
                     claimableSlots.Add(DayQuarterToDateTime(selectedDate, i));
             return claimableSlots;
         }
 
+        // Verkrijg de eerste slot waar het gedurende de hele slot licht is
         private DateTime GetEarliestSlot(DateTime sunrise) => TopRoundTimeToSlot(sunrise);
 
+        // Rond een tijdstip naar boven af op kwartieren
         private DateTime TopRoundTimeToSlot(DateTime time) => time.AddMinutes(15 - time.Minute % 15);
 
+        // Verkrijg de laatste slot waar het gedurende de hele slot licht is
         private DateTime GetLatestSlot(DateTime sunset) => BottomRoundTimeToSlot(sunset);
 
+        // Rond een tijdstip naar beneden af op kwartieren
         private DateTime BottomRoundTimeToSlot(DateTime time) => time.AddMinutes(-(time.Minute % 15));
 
+        // Initialiseer de afschrijvingsduur-combobox
         public void FillComboTimes()
         {
             ReservationDurationComboBox.Name = "ComboTimes";
@@ -441,6 +479,7 @@ namespace BataviaReseveringsSysteem.Reservations
             Grid.Children.Add(ReservationDurationComboBox);
         }
 
+        // Maak de registreerknop. Standaard staat ie op onklikbaar
         public void MakeRegisterBtn()
         {
             _okButton = new Button { Name = "okBtn", Content = "Afschrijven", Width = 120, Height = 25, IsEnabled = false };
@@ -450,78 +489,97 @@ namespace BataviaReseveringsSysteem.Reservations
             Grid.Children.Add(_okButton);
         }
 
-        // This method will take the length of the reserve period from the selected comboboxItem
+        // Tel de tijdsduur bij de starttijd op en genereer zo de eindtijd
         public DateTime GenerateEndTime(DateTime startTime) => startTime
             .AddHours(int.Parse(ReservationDurationComboBox.SelectedValue.ToString()[1].ToString()))
             .AddMinutes(int.Parse(ReservationDurationComboBox.SelectedValue.ToString().Substring(3)));
 
-
-        // When the button is clicked, boats will be reserved after messagebox dialog comfirmation
+        // Reserveer een boot
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
+            // Toon een popup.
+            // Als de gebruiker de afschrijving toch niet definitief wil maken, dan gaan we weer naar het afschrijvenscherm
             if (MessageBox.Show("Wilt u uw afschrijving definitief maken?",
                     "Afschrijving bevestigen",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question) !=
                 MessageBoxResult.Yes)
                 return;
+            
+            // Zo nee, dan gaan we de afschrijving in de database zetten
             using (var context = new DataBase())
             {
+                // Pak de boot die je wil afschrijven
                 var boat = (from db in context.Boats
                             where db.Name.Equals((string)BoatNamesComboBox.SelectedValue)
                             select db).First();
+                
+                // Pak de start- en eindtijd
                 var startTime = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
                 var endTime = GenerateEndTime(startTime);
-                // TODO: new Member() veranderen naar member die deze afschrijving maakt.
-                var rs1 = new Reservation(boat, LoginView.User, startTime, endTime);
-                context.Reservations.Add(rs1);
+
+                // Maak een reservering met de geselecteerde boot, de ingelogde gebruiker, de start- en de eindtijd
+                context.Reservations.Add(new Reservation(boat, LoginView.User, startTime, endTime));
                 context.SaveChanges();
             }
-            if (MessageBox.Show("De boot is succesvol afgeschreven",
-                    "Melding",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information) !=
-                MessageBoxResult.OK)
-                return;
+            MessageBox.Show("De boot is succesvol afgeschreven",
+                "Melding",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
             Switcher.Switch(new Dashboard());
         }
 
+        // Vul de bootnaamcombobox
         public void FillComboNames()
         {
             BoatNamesComboBox.Name = "ComboBoatName";
-            BoatNamesComboBox.Tag =
             BoatNamesComboBox.Width = 120;
             BoatNamesComboBox.Height = 25;
             BoatNamesComboBox.HorizontalAlignment = HorizontalAlignment.Left;
             BoatNamesComboBox.Margin = new Thickness(10, 0, 0, 0);
+            // De combobox selecteert bij openen van het scherm de eerste boot
             BoatNamesComboBox.SelectedIndex = 0;
             BoatNamesComboBox.DropDownClosed += OnBoatNamesComboBoxClicked;
             Grid.Children.Add(BoatNamesComboBox);
+            // Vul de combobox met boten uit de database die corresponderen met dit type
             using (var context = new DataBase())
                 foreach (var item in from db in context.Boats where db.Type == BoatType select db.Name)
                     BoatNamesComboBox.Items.Add(item);
         }
 
+        // Als er op de combobox voor de bootnamen wordt geklikt...
         private void OnBoatNamesComboBoxClicked(object sender, EventArgs e)
         {
+            // Ververs de plannergrid, de afschrijvingsstart-combobox en de -duurcombobox
             FullRefresh();
+
+            // Werk de boatview bij met data uit deze boot
             var selectedBoatString = (string)BoatNamesComboBox.SelectedValue;
             var selectedBoat = new Boatcontroller().GetBoatWithName(selectedBoatString);
             BoatView.UpdateView(selectedBoat);
         }
 
+        // Verkrijg de zonsopgangs- en zonsondergangstijden voor een geselecteerde datum
+        // De applicatie gaat er vanuit dat de roeivereniging zich in hartje Zwolle bevindt
+        // Retourneert een array met twee elementen: de datum voor zonsopgang en zonsondergang
         private DateTime[] GetSunriseAndSunsetTimes(DateTime selectedDate)
         {
+            // Maak twee booleans en twee DateTime-objecten aan. De inhoud van deze objecten maakt nog niet uit.
             var isSunrise = false;
             var isSunset = false;
             var sunrise = DateTime.Now;
             var sunset = DateTime.Now;
+
+            // De methode SunTimes.Instance.CalculateSunRiseSetTimes vormt deze objecten nu om.
+            // Met de booleans doen we niets, ze worden alleen gebruikt omdat dat nodig is voor de methode
             SunTimes.Instance.CalculateSunRiseSetTimes(
+                // Breedtegraad voor Zwolle
                 new SunTimes.LatitudeCoords(
                     52,
                     31,
                     0,
                     SunTimes.LatitudeCoords.Direction.North),
+                // Lengtegraad voor Zwolle
                 new SunTimes.LongitudeCoords(
                     6,
                     4,
@@ -533,42 +591,77 @@ namespace BataviaReseveringsSysteem.Reservations
                 ref isSunrise,
                 ref isSunset
                 );
+
+            // sunrise bevat nu de tijd van zonsopgang.
+            // sunset bevat nu de tijd van zonsondergang.
+
+            // Retourneer een array met sunrise en sunset
             return new[] { sunrise, sunset };
         }
 
+        // Als er op de kalender wordt geklikt, verversen we de afschrijvingsstart-combobox, de -duurcombobox en de plannergrid
         private void OnCalendarClicked(object sender, SelectionChangedEventArgs selectionChangedEventArgs) => FullRefresh();
 
+        // Ververs de afschrijvingsstart-combobox, de -duurcombobox en de plannergrid
         private void FullRefresh()
         {
+            // Eerst ververs je de starttijd.
+            // Als je van datum verandert, kan de starttijd namelijk veranderen.
+            // De duurcombobox moet weten of de startcombobox veranderd is, maar andersom maakt niet uit.
+            // Dan wordt de duurcombobox aangepast.
+            // Als de duur wordt veranderd, dan moet de plannergrid dat weten.
+            // Daarom wordt dán pas de plannergrid bijgewerkt
             var selectedDate = BoatTypeTabItemCalendar.SelectedDate;
             if (!selectedDate.HasValue) return;
+            
+            // Pak de DateTime uit de DateTime? van de kalender
             var selectedDateValue = selectedDate.Value;
+
+            // Ververs de afschrijvingsstart-combobox.
             var sunriseAndSunsetTimes = GetSunriseAndSunsetTimes(selectedDateValue);
             var earliestSlot = GetEarliestSlot(sunriseAndSunsetTimes[0]);
+
             var latestSlot = GetLatestSlot(sunriseAndSunsetTimes[1]);
+
             var selectedBoat = (string)BoatNamesComboBox.SelectedValue;
             var claimedSlotsForThisDayAndBoat =
                 GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(selectedDateValue, selectedBoat, earliestSlot, latestSlot);
+
             PopulateStartTimeComboBox(selectedDateValue, earliestSlot, latestSlot, claimedSlotsForThisDayAndBoat);
+
+            // Ververs de afschrijvingsduur-combobox
             var amountOfClaimableSlots = GetAmountOfClaimableSlots(claimedSlotsForThisDayAndBoat, latestSlot);
+
             PopulateDurationTimeComboBox(amountOfClaimableSlots);
+
+            // Ververs de plannergrid
             var amountOfSlotsWantingToBeClaimed = GetAmountOfSlotsWantingToBeClaimed();
             var amountOfSlotsToBeClaimed =
                 GetAmountOfSlotsToBeClaimed(amountOfClaimableSlots, amountOfSlotsWantingToBeClaimed);
             var aboutToBeClaimedSlots = GetAboutToBeClaimedSlots(selectedDateValue, amountOfSlotsToBeClaimed);
+
             PlannerGrid.Populate(earliestSlot, latestSlot, claimedSlotsForThisDayAndBoat, aboutToBeClaimedSlots);
         }
 
+        // Pak het aantal plannerslots dat geclaimd moet worden.
+        // Dit is het aantal slots dat geclaimd wil worden volgens de afschrijvingsduur-combobox,
+        // maar het mag niet meer zijn dan het aantal slots dat geclaimd mag worden
         private int GetAmountOfSlotsToBeClaimed(int amountOfClaimableSlots, int amountOfSlotsWantingToBeClaimed) =>
             new[] { amountOfClaimableSlots, amountOfSlotsWantingToBeClaimed }.Min();
 
+        // Verkrijg de slots die
+        // 1) waarbij de geselecteerde boot (we openen het reserveringsscherm net, dus de eerste boot in de botencombobox is de geselecteerde boot) al afgeschreven is
+        // 2) al voorbij zijn (maar waar de zon al wel op was)
+        // 3) te ver in de toekomst zijn om geclaimd te kunnen worden (maar waar de zon nog niet onder is)
         private List<DateTime> GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(DateTime selectedDate, string selectedBoatString,
             DateTime earliestSlot, DateTime latestSlot)
         {
             var claimedSlots = new List<DateTime>();
             var selectedBoat = new Boatcontroller().GetBoatWithName(selectedBoatString);
+            // Verkrijg de reserveringen voor de geselecteerde boot
             var reservations = new ReservationController().GetReservationsForDayAndBoat(selectedDate, selectedBoat);
             var now = DateTime.Now;
+            // Zet de reserveringen in de database om in slots
             reservations.ForEach(reservation =>
             {
                 var endQuarter = DateTimeToDayQuarter(reservation.End);
@@ -577,17 +670,25 @@ namespace BataviaReseveringsSysteem.Reservations
             });
             var datePartOfSelectedDate = selectedDate.Date;
             var datePartOfDateTimeNow = now.Date;
+
+            // Als de geselecteerde dag vandaag is, dan moeten er ook nog slots die al voorbij zijn worden grijs gemaakt
             if (datePartOfSelectedDate.Equals(datePartOfDateTimeNow))
             {
+                // Voeg slots die voorbij zijn toe aan de geclaimde slots
                 return GetClaimedAndPastSlots(claimedSlots, now, earliestSlot, latestSlot);
             }
             var twoDaysFromNow = now.AddDays(2);
             var datePartOfTwoDaysFromNow = twoDaysFromNow.Date;
+            
+            // Als de geselecteerde dag overmorgen is, dan moeten er ook nog slots die te ver weg zijn worden grijs gemaakt
             if (datePartOfSelectedDate.Equals(datePartOfTwoDaysFromNow))
+
+                // Voeg slots die te ver weg zijn aan de geclaimde slots
                 return GetClaimedAndTooDistantSlots(claimedSlots, twoDaysFromNow, earliestSlot, latestSlot);
             return claimedSlots;
         }
 
+        // Voeg slots die voorbij zijn toe aan de geclaimde slots
         private List<DateTime> GetClaimedAndPastSlots(List<DateTime> claimedSlots, DateTime now, DateTime earliestSlot,
             DateTime latestSlot)
         {
@@ -595,7 +696,14 @@ namespace BataviaReseveringsSysteem.Reservations
             var earliestSlotDayQuarter = DateTimeToDayQuarter(earliestSlot);
             var slotThatIsNow = DateTimeToDayQuarter(TopRoundTimeToSlot(now));
             var latestSlotDayQuarter = DateTimeToDayQuarter(latestSlot);
+
+            // De laatste slot die als "voorbij" moet worden gemarkeerd is de slot van dit moment,
+            // maar de laatste grijze slot mag niet voorbij de laatste slot waar het nog licht is komen.
             var latestSlotThatShouldBeMarkedAsDue = new[] { slotThatIsNow, latestSlotDayQuarter }.Min();
+
+            // Meng de slots in het verleden samen met de slots die al geclaimd zijn.
+            // Als er al een slot in het verleden geclaimd is,
+            // dan wordt die niet dubbel grijs gemaakt
             for (var i = earliestSlotDayQuarter; i < latestSlotThatShouldBeMarkedAsDue; i++)
             {
                 var passedSlot = DayQuarterToDateTime(now, i);
@@ -605,16 +713,24 @@ namespace BataviaReseveringsSysteem.Reservations
             return claimedAndPastSlots;
         }
 
+        // Voeg slots die te ver weg zijn aan de geclaimde slots
         private List<DateTime> GetClaimedAndTooDistantSlots(List<DateTime> claimedSlots, DateTime twoDaysFromNow,
             DateTime earliestSlot, DateTime latestSlot)
         {
             var claimedAndTooDistantSlots = new List<DateTime>(claimedSlots);
             var earliestSlotDayQuarter = DateTimeToDayQuarter(earliestSlot);
             var slotThatIsTwoDaysFromNow = DateTimeToDayQuarter(BottomRoundTimeToSlot(twoDaysFromNow));
-            var earliestSlotThatShouldBeMarkedAsDue =
+
+            // De vroegste slot die als "te ver in de toekomst" moet worden gemarkeerd is de slot van dit moment,
+            // maar de eerste grijze slot mag niet voor de eerste slot waar het al licht is komen.
+            var earliestSlotThatShouldBeMarkedAsTooDistant =
                 new[] { earliestSlotDayQuarter, slotThatIsTwoDaysFromNow }.Max();
             var latestSlotDayQuarter = DateTimeToDayQuarter(latestSlot);
-            for (var i = earliestSlotThatShouldBeMarkedAsDue; i < latestSlotDayQuarter; i++)
+
+            // Meng de slots te ver in de toekomst samen met de slots die al geclaimd zijn.
+            // Als er al een slot te ver in de toekomst geclaimd is,
+            // dan wordt die niet dubbel grijs gemaakt
+            for (var i = earliestSlotThatShouldBeMarkedAsTooDistant; i < latestSlotDayQuarter; i++)
             {
                 var tooDistantSlot = DayQuarterToDateTime(twoDaysFromNow, i);
                 if (!claimedSlots.Contains(tooDistantSlot)) claimedAndTooDistantSlots.Add(tooDistantSlot);
@@ -623,8 +739,16 @@ namespace BataviaReseveringsSysteem.Reservations
             return claimedAndTooDistantSlots;
         }
 
+        // Zet een datum om naar een dagkwartier. Het dagkwartier van 8.30 is 34
+        // (8 uren * 4 kwartieren per uur = 32 kwartieren,
+        // 30 minuten / 15 minuten per kwartieren = 2 kwartieren,
+        // bij elkaar opgeteld is 34)
         private int DateTimeToDayQuarter(DateTime time) => time.Hour * 4 + time.Minute / 15;
 
+        // Zet een dagkwartier om naar een datumtijd. De tijd van dagkwartier 34 is 8.30
+        // (34 kwartieren / 4 kwartieren per uur = 8 uren rest 2,
+        // 2 kwartieren * 15 minuten per kwartier = 30 minuten,
+        // bij elkaar opgeteld is 8 uur 30 minuten = 8.30)
         private DateTime DayQuarterToDateTime(DateTime selectedDate,
             int dayQuarter) => new DateTime(selectedDate.Year,
             selectedDate.Month,
