@@ -49,7 +49,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button x:Name="DeleteButton"   Tag="{Binding BoatID}" Content="Delete" />
+                                <Button x:Name="DeleteButton"  Click="ButtonDelete" Tag="{Binding BoatID}" Content="Delete" />
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
