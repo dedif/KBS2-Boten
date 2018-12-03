@@ -12,7 +12,7 @@ namespace Views
     /// </summary>
     public partial class AddBoat : UserControl
     {
-        Boatcontroller b = new Boatcontroller();
+        BoatController b = new BoatController();
 
         public AddBoat()
         {

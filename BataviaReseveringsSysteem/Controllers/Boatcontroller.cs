@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace Controllers
 {
-    public class Boatcontroller
+    public class BoatController
     {
         private string notification;
 

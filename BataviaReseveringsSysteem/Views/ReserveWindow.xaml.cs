@@ -15,7 +15,7 @@ namespace Views
         public ReserveWindow()
         {
             InitializeComponent();
-            var boats = new Boatcontroller().BoatList();
+            var boats = new BoatController().BoatList();
             var reservations = new ReservationController().GetReservations();
             AddBoatTypeTabs(boats, reservations);
         }

@@ -22,7 +22,7 @@ namespace UnitTest
         public void WhiteCheck_Bool(string Name, string Weight, bool answer)
         {
             //Arrange
-            Boatcontroller boot = new Boatcontroller();
+            BoatController boot = new BoatController();
             //Act
             bool result = boot.WhiteCheck(Name, Weight);
             //Assert
@@ -38,7 +38,7 @@ namespace UnitTest
         public void WeightCheck_Bool(string Weight, bool answer)
         {
             //Arrange
-            Boatcontroller boot = new Boatcontroller();
+            BoatController boot = new BoatController();
             //Act
             bool result = boot.WeightCheck(Weight);
             //Assert
@@ -54,7 +54,7 @@ namespace UnitTest
         public void NameCheck_Bool(string name, bool answer)
         {
             //Arrange
-            Boatcontroller boot = new Boatcontroller();
+            BoatController boot = new BoatController();
             boot.AddBoat("pizza", "scull", 3, 23, false);
             //Act
             bool result = boot.NameCheck(name);
