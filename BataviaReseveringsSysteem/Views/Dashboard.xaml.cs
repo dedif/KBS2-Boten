@@ -243,6 +243,8 @@ namespace Views
                 GridDashboard.Children.Remove(ButtonList[i]);
             }
         }
+
+        
         private Button AddChangeButton(int x, int y)
         {
             //Er wordt een button aangemaakt. 

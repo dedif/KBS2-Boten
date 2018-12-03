@@ -32,7 +32,7 @@
         <Button x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Left" Margin="344,177.2,0,0" VerticalAlignment="Top" Width="75" FontSize="16" Click="SaveButton_Click" RenderTransformOrigin="0.986,0.422" Grid.Row="1"/>
         <Button x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Left" Margin="25,177.2,0,0" VerticalAlignment="Top" Width="75" FontSize="16" RenderTransformOrigin="0.432,0.234" Click="CancelButton_Click" Grid.Row="1"/>
 
-        <Label x:Name="NotificationLabel" Visibility="Hidden" Content="" HorizontalAlignment="Left" Margin="137,10.748,0,0" VerticalAlignment="Top" Width="290" Foreground="#FFFF0909" Grid.Row="1"/>
+        <Label x:Name="NotificationLabel" Content="&#xD;&#xA;" HorizontalAlignment="Left" Margin="131,40.2,0,0" VerticalAlignment="Top" Width="290" Foreground="#FFFF0909" Grid.Row="1" FontSize="16"/>
         <Label x:Name="SkiffLabel" Content="Een skiff boot heeft altijd één roeier en geen stuur" Visibility="Hidden" HorizontalAlignment="Left" Height="31" Margin="356,80,0,0" VerticalAlignment="Top" Width="331"/>
         <Label Content="Diploma:" HorizontalAlignment="Left" Margin="131,240,0,0" VerticalAlignment="Top" FontSize="16"/>
         <CheckBox x:Name="S1CheckBox" Tag="1" HorizontalAlignment="Left" Margin="212,249,0,0" VerticalAlignment="Top" FontSize="16"/>

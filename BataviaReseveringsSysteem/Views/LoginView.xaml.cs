@@ -17,10 +17,12 @@ namespace Views
     {
 
         public static User LoggedUser;
+        LoginController loginController = new LoginController();
         public LoginView()
         {
             InitializeComponent();
             this.HorizontalAlignment = HorizontalAlignment.Center;
+            loginController.DeleteOldReservations();
             using (DataBase context = new DataBase())
             {
                 var ReservationInfo = (from data in context.Reservations
