@@ -18,6 +18,7 @@ namespace Reserve
         public PlannerGrid PlannerGrid { get; set; }
         public List<Reservation> Reservations { get; set; }
         public BoatView BoatView { get; set; }
+        public int User { get; set; }
         public List<Boat> Boats { get; set; }
         public Boat.BoatType BoatType { get; set; }
         public ComboBox ReservationDurationComboBox = new ComboBox();
@@ -103,6 +104,7 @@ namespace Reserve
             ReservationDurationComboBox.DropDownClosed += OnDurationComboBoxClick;
         }
 
+        // De methode wanneer je een tijdsduur voor afschrijving kiest
         private void OnDurationComboBoxClick(object sender, EventArgs e)
         {
             var selectedDate = Calendar.SelectedDate;
@@ -119,6 +121,7 @@ namespace Reserve
             PlannerGrid.Populate(earliestSlot, latestSlot, claimedSlots, aboutToBeClaimedSlots);
         }
 
+        // De methode voor wanneer je een starttijd kiest
         private void OnStartComboBoxClick(object sender, EventArgs eventArgs)
         {
             var selectedDate = Calendar.SelectedDate;
@@ -145,6 +148,7 @@ namespace Reserve
             return endSlotDayQuarter - startSlotDayQuarter;
         }
 
+        // Deze methode
         private int GetAmountOfClaimableSlots(IEnumerable<DateTime> claimedSlots, DateTime latestSlot)
         {
             var startSlotDayQuarter = DateTimeToDayQuarter(DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString()));
@@ -159,6 +163,7 @@ namespace Reserve
 
             return endSlotDayQuarter - startSlotDayQuarter;
         }
+
 
         private void PopulateDurationTimeComboBox(int amountOfSlotsToNextUnclaimableSlot)
         {
@@ -226,6 +231,7 @@ namespace Reserve
 
         private DateTime GetLatestSlot(DateTime sunset) => sunset.AddMinutes(-(sunset.Minute % 15));
 
+        // Deze methode vult de combobox met tijden van 15 min tot 2 uur
         public void FillComboTimes()
         {
             ReservationDurationComboBox.Name = "ComboTimes";
@@ -245,6 +251,7 @@ namespace Reserve
             Grid.Children.Add(ReservationDurationComboBox);
         }
 
+        // Deze methode maakt de "afschrijven" button klikbaar 
         public void MakeRegisterBtnVisibleAfterChoice()
         {
             OkButton = new Button { Name = "okBtn", Content = "Afschrijven", Width = 120, Height = 25, IsEnabled = false };
@@ -254,13 +261,13 @@ namespace Reserve
             Grid.Children.Add(OkButton);
         }
 
-        // This method will take the length of the reserve period from the selected comboboxItem
+        // Deze methode zal de lengte van afschrijfperiode nemen die gekozen is in de combobox
         public DateTime GenerateEndTime(DateTime startTime) => startTime
             .AddHours(int.Parse(ReservationDurationComboBox.SelectedValue.ToString()[1].ToString()))
             .AddMinutes(int.Parse(ReservationDurationComboBox.SelectedValue.ToString().Substring(3)));
 
 
-        // When the button is clicked, boats will be reserved after messagebox dialog comfirmation
+        // Zodra de OkBtn is aangeklikt zal de boot worden afgeschreven na messagebox dialoog bevestiging
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Wilt u uw afschrijving definitief maken?",
@@ -269,19 +276,17 @@ namespace Reserve
                     MessageBoxImage.Question) !=
                 MessageBoxResult.Yes)
                 return;
-
             using (var context = new DataBase())
             {
                 var boat = (from db in context.Boats
                             where db.Name.Equals((string)BoatNamesComboBox.SelectedValue)
                             select db).First();
-                var startdatum = Calendar.SelectedDate.Value.Date;
+                User = LoginView.LoggedUserID;
                 var startTime = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
-                var startDateTime = startdatum.AddHours(startTime.Hour).AddMinutes(startTime.Minute);
+                var startDate = Calendar.SelectedDate.Value.Date;
+                var startDateTime = startDate.AddHours(startTime.Hour).AddMinutes(startTime.Minute);
                 var endTime = GenerateEndTime(startDateTime);
-                var rs1 = new Reservation(boat, new Member(), startDateTime, endTime);
-                context.Reservations.Add(rs1);
-                context.SaveChanges();
+                var newReservation = new Reservation(boat, User, startDateTime, endTime);
                 if (MessageBox.Show("De boot is succesvol afgeschreven",
                         "Melding",
                         MessageBoxButton.OK,
@@ -304,10 +309,13 @@ namespace Reserve
                 var aboutToBeClaimedSlots = GetAboutToBeClaimedSlots(selectedDateValue, amountOfSlotsToBeClaimed);
                 PopulateDurationTimeComboBox(amountOfClaimableSlots);
                 PlannerGrid.Populate(earliestSlot, latestSlot, claimedSlotsForThisDayAndBoat, aboutToBeClaimedSlots);
+                context.Reservations.Add(newReservation);
+                context.SaveChanges();
                 Switcher.Switch(new Dashboard());
             }
         }
 
+        // Deze methode vult combobox met bootnamen
         public void FillComboNames()
         {
             BoatNamesComboBox.Name = "ComboBoatName";
@@ -319,13 +327,13 @@ namespace Reserve
             BoatNamesComboBox.SelectedIndex = 0;
             BoatNamesComboBox.DropDownClosed += OnBoatNamesComboBoxClicked;
             Grid.Children.Add(BoatNamesComboBox);
-
             using (var context = new DataBase())
                 foreach (var item in from db in context.Boats where db.Type == BoatType select db.Name)
                     BoatNamesComboBox.Items.Add(item);
 
         }
 
+        // Deze methode zorgt voor de afhandeling van boot keuze in combobox
         private void OnBoatNamesComboBoxClicked(object sender, EventArgs e)
         {
             var selectedDate = Calendar.SelectedDate;
@@ -348,6 +356,7 @@ namespace Reserve
             PlannerGrid.Populate(earliestSlot, latestSlot, claimedSlotsForThisDayAndBoat, aboutToBeClaimedSlots);
         }
 
+
         private Calendar MakeCalendar()
         {
             var calendar = new Calendar
@@ -359,6 +368,7 @@ namespace Reserve
             calendar.SelectedDatesChanged += OnCalendarClicked;
             return calendar;
         }
+
 
         private DateTime[] GetSunriseAndSunsetTimes(DateTime selectedDate)
         {
@@ -413,7 +423,7 @@ namespace Reserve
         {
             var claimedSlots = new List<DateTime>();
             var selectedBoat = new Boatcontroller().GetBoatWithName(selectedBoatString);
-            var reservations = new ReservationController().GetReservationsForDayAndBoat(selectedDate, selectedBoat);
+            var reservations = new ReservationController().GetReservationsForDayAndBoatThatAreNotDeleted(selectedDate, selectedBoat);
             reservations.ForEach(reservation =>
             {
                 var endQuarter = DateTimeToDayQuarter(reservation.End);

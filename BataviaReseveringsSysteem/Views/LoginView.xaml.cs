@@ -17,7 +17,7 @@ namespace Views
     public partial class LoginView : UserControl
     {
 
-        public static User LoggedUser;
+        public static int LoggedUserID;
         LoginController loginController = new LoginController();
         public LoginView()
         {
@@ -57,14 +57,12 @@ namespace Views
                         where data.PersonID == username
                         select data).Single();
 
-                    LoggedUser = User;
+                    LoggedUserID = User.PersonID;
 
 
                     Dashboard s = new Dashboard();
                     Switcher.Switch(s);
-                    DateTime test = LoggedUser.LastLogedIn;
-                    s.Notification(test);
-                    LoggedUser.LastLogedIn = DateTime.Now;
+                    User.LastLoggedIn = DateTime.Now;
                     context.SaveChanges();
                         }
             }

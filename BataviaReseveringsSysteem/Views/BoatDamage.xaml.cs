@@ -57,6 +57,7 @@ namespace Views
 
                             var Reservations = (from data in context.Reservations
                                                where data.Boat.Name == NameboatCombo.Text
+                                               where data.Deleted == null
                                                select data).ToList();
 
                         
@@ -75,7 +76,7 @@ namespace Views
                             }
                             }
 
-                            Damage damage = new Damage(LoginView.LoggedUser.PersonID, Boat.BoatID, DescriptionBox.Text, status);
+                            Damage damage = new Damage(LoginView.LoggedUserID, Boat.BoatID, DescriptionBox.Text, status);
                             
                             context.Damages.Add(damage);
                             context.SaveChanges();
