@@ -23,8 +23,7 @@ namespace Views
         private void AddBoatTypeTabs(IReadOnlyCollection<Boat> boats, List<Reservation> reservations)
         {
             foreach (var boatType in GetDifferentBoatTypes(boats))
-                BoatTypeTabControl.Items.Add(new BoatTypeTabItem(GetBoatsForBoatType(boats, boatType).ToList(),
-                    boatType, reservations));
+                BoatTypeTabControl.Items.Add(new BoatTypeTabItem(boatType, reservations));
         }
         private IEnumerable<Boat.BoatType> GetDifferentBoatTypes(IEnumerable<Boat> boats) =>
             boats.Select(boat => boat.Type).Distinct();
