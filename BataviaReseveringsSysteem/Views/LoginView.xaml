@@ -21,6 +21,5 @@
         <Label x:Name="Test" Content="" HorizontalAlignment="Left" Height="42" Margin="332,275,0,0" VerticalAlignment="Top" Width="113"/>
         <Label Content="" x:Name="LoginError" HorizontalAlignment="Left" Margin="332,43,0,0" Foreground="Red" VerticalAlignment="Top" Height="26" Width="10"/>
         <Button Content="Registreren" IsDefault="True"  HorizontalAlignment="Left" Margin="819,535,0,0" VerticalAlignment="Top" Width="245" Height="45" Click="Button_Click" FontSize="26"/>
-
     </Grid>
 </UserControl>

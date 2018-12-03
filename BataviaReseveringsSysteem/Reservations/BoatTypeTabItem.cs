@@ -525,7 +525,7 @@ namespace BataviaReseveringsSysteem.Reservations
         {
             FullRefresh();
             var selectedBoatString = (string)BoatNamesComboBox.SelectedValue;
-            var selectedBoat = new Boatcontroller().GetBoatWithName(selectedBoatString);
+            var selectedBoat = new BoatController().GetBoatWithName(selectedBoatString);
             BoatView.UpdateView(selectedBoat);
         }
 
@@ -586,7 +586,7 @@ namespace BataviaReseveringsSysteem.Reservations
             DateTime earliestSlot, DateTime latestSlot)
         {
             var claimedSlots = new List<DateTime>();
-            var selectedBoat = new Boatcontroller().GetBoatWithName(selectedBoatString);
+            var selectedBoat = new BoatController().GetBoatWithName(selectedBoatString);
             var reservations = new ReservationController().GetReservationsForDayAndBoat(selectedDate, selectedBoat);
             var now = DateTime.Now;
             reservations.ForEach(reservation =>

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Controllers
 {
-    public class Boatcontroller
+    public class BoatController
     {
         private string notification;
 
@@ -83,7 +83,8 @@ namespace Controllers
             {
               
                     Enum.TryParse(type, out Boat.BoatType MyType);
-                Boat boot1 = new Boat(name, MyType, rowers, weight, steeringwheel);
+                DateTime CreatedAt = DateTime.Now;
+                Boat boot1 = new Boat(name, MyType, rowers, weight, steeringwheel, CreatedAt);
                
                     context.Boats.Add(boot1);
 
@@ -95,6 +96,30 @@ namespace Controllers
 
             }
 
+        //Deze methode update en boot als verwijdert in de database
+        public void DeleteBoat(int boatID)
+        {
+
+            using (DataBase context = new DataBase())
+
+            {
+                Boat delBoat = context.Boats.Where(d => d.BoatID == boatID).First();
+
+                if (delBoat != null)
+                {
+
+                    delBoat.DeletedAt = DateTime.Now;
+
+                    context.SaveChanges();
+                }
+
+                context.Boats.Add(delBoat);
+
+
+                context.SaveChanges();
+            }
+
+        }
 
 
         public List<Boat> BoatList()

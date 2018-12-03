@@ -9,8 +9,8 @@ namespace Controllers
     public class LoginController
     {
 
-        public static bool Login(TextBox Username, PasswordBox Password, Label LoginError)
-        {
+
+        public static Boolean IsLoginDataValid(TextBox Username,PasswordBox Password,Label LoginError){
 
             var u = new UserController();
 

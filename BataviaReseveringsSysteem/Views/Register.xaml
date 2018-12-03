@@ -50,10 +50,10 @@
 
         <Button x:Name="buttonRegister" Content="Registreren" HorizontalAlignment="Left" Margin="675,443,0,0" VerticalAlignment="Top" Width="75"  Click="ButtonRegister"/>
         <Button x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Left" Margin="584,443,0,0" VerticalAlignment="Top" Width="75" Height="19" Click="CancelButton_Click"/>
-        <CheckBox x:Name="Reparateur" Content="Reparateur" Tag="2" HorizontalAlignment="Left" Margin="364,260,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="Coach" Content="Coach" Tag="3" HorizontalAlignment="Left" Margin="364,304,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="Commissaris" Content="Wedstrijd commissaris" Tag="4" HorizontalAlignment="Left" Margin="470,260,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="Examinator"  Content="Examinator"  Tag="5" HorizontalAlignment="Left" Margin="469,304,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="Administrator" Content="Systeembeheerder" Tag="6" HorizontalAlignment="Left" Margin="564,304,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="Reparateur"  HorizontalAlignment="Left" Margin="364,260,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="Coach"   HorizontalAlignment="Left" Margin="364,304,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="Commissaris"   HorizontalAlignment="Left" Margin="470,260,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="Examinator"    HorizontalAlignment="Left" Margin="469,304,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="Administrator"  HorizontalAlignment="Left" Margin="564,304,0,0" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>

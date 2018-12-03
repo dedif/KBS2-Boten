@@ -11,5 +11,9 @@ namespace BataviaReseveringsSysteem.Database
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<MemberRole> MemberRoles { get; set; }
+        public virtual DbSet<Diploma> Diplomas { get; set; }
+        public virtual DbSet<Member_Diploma> MemberDiplomas { get; set; }
     }
 }
+    
+

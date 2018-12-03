@@ -6,6 +6,7 @@ using System.Linq;
 using BataviaReseveringsSysteem.Database;
 using Models;
 using ScreenSwitcher;
+using BataviaReseveringsSysteem;
 
 namespace Views
 {
@@ -24,7 +25,7 @@ namespace Views
 
         private void LoginButton(object sender, RoutedEventArgs e)
         {
-            if (LoginController.Login(Username, Password, LoginError))
+            if (LoginController.IsLoginDataValid(Username, Password, LoginError))
             {
                 int username = int.Parse(Username.Text);
                 using (DataBase context = new DataBase())
@@ -35,6 +36,7 @@ namespace Views
                         select data.PersonID).Single();
 
                     UserId = member;
+
                 }
 
                 Switcher.Switch(new Dashboard());
@@ -64,6 +66,5 @@ namespace Views
         {
             Switcher.Switch(new Register());
         }
-
     }
 }
