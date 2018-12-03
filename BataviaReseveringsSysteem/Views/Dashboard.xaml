@@ -15,11 +15,13 @@
             <Button x:Name="UserListButton" Content="Inzien gebruikers" HorizontalAlignment="right" Margin="0,135,20,0" VerticalAlignment="Top" Width="345" Height="45" RenderTransformOrigin="0.163,0.676" FontSize="26" Click="UserListButton_Click" />
             <Button x:Name="AddBoatButton" Content="Aanmaken boten" HorizontalAlignment="right" Margin="0,200,20,0" VerticalAlignment="Top" Width="345" Height="45" RenderTransformOrigin="0.163,0.676" FontSize="26" Click="AddBoatButton_Click"/>
             <Image Source="..\Images\User.png" HorizontalAlignment="Right" Height="70" VerticalAlignment="Top" Width="58" Margin="0,0,20,0" RenderTransformOrigin="0.475,0.311"/>
+            <Button x:Name="DamageButton" FontSize="16" Content="Schade Melden" HorizontalAlignment="Right" Margin="490,213,0,0" VerticalAlignment="Top" Width="123" Click="DamageButton_Click"/>
+            <Image Source="..\Images\User.png" HorizontalAlignment="Right" Height="70" VerticalAlignment="Top" Width="58" RenderTransformOrigin="0.475,0.311"/>
             <Label x:Name="NoReservationLabel"  Content="U heeft nog geen afschrijvingen"  Visibility="Hidden" FontSize="30" HorizontalAlignment="Left" Margin="63,70,0,0" VerticalAlignment="Top" Height="86" Width="518"/>
             <Label x:Name="MaxReservations" Visibility="Hidden" Foreground="#FFFF0909" Content="U heeft het maximaal aantal afschrijvingen bereikt" HorizontalAlignment="Left" Margin="292,10,0,0" VerticalAlignment="Top" Width="323"/>
-
+            <Label x:Name="NameLabel" HorizontalContentAlignment="Center" HorizontalAlignment="Right" FontSize="16" Margin="540,63,0,0" VerticalAlignment="Top" Height="33" Width="65"/>
+           
         </Grid>
 
     </ScrollViewer>
-
 </UserControl>

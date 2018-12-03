@@ -1,18 +1,19 @@
-﻿using System;
+﻿using Models;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-
 namespace BataviaReseveringsSysteem.Reservations
+namespace Reserve
 {
     public class PlannerGrid : Canvas
     {
         private const int PlannerGridColumnWidth = 50;
         private const int PlannerGridRowHeight = 20;
         private const int PlannerGridWidth = 200;
-        private readonly Brush _slotDisabledDueToDarknessColor = new SolidColorBrush(Colors.MidnightBlue);
+        private readonly Brush _slotDisabledDueToDarknessColor = new SolidColorBrush(Colors.DarkRed);
         private readonly Brush _slotClaimedColor = new SolidColorBrush(Colors.Gray);
         private readonly Brush _slotAboutToBeClaimedColor = new SolidColorBrush(Colors.Green);
         private int _earliestHourOnPlanningGrid;

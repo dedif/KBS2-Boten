@@ -54,7 +54,7 @@ namespace Controllers
                 }
                 if (item.Name == "Firstname" || item.Name == "Lastname" || item.Name == "Middlename" || item.Name == "City")
                 {
-                    if (!DoesletterOnlyTextboxContainNumber(item.Text))
+                    if (!IsAllLetters(item.Text))
                     {
                         ErrorAlert(item);
                         validate = false;
@@ -158,8 +158,9 @@ namespace Controllers
             }
            
         }
+		
         // check if there are no numbers in inputbox
-        public static bool DoesletterOnlyTextboxContainNumber(string s)
+        public static bool IsAllLetters(string s)
         {
             foreach (char c in s)
             {
