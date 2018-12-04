@@ -168,8 +168,7 @@ namespace BataviaReseveringsSysteem.Reservations
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(300, 340, 0, 0),
-                FontSize = 26
-            });
+                FontSize = 26);
             _reservationStartComboBox = new ComboBox
             {
                 HorizontalAlignment = HorizontalAlignment.Left,
@@ -226,8 +225,6 @@ namespace BataviaReseveringsSysteem.Reservations
         public void FillComboTimes()
         {
             ReservationDurationComboBox.Name = "ComboTimes";
-            ReservationDurationComboBox.Width = 120;
-            ReservationDurationComboBox.Height = 25;
             ReservationDurationComboBox.Width = 245;
             ReservationDurationComboBox.Height = 45;
             ReservationDurationComboBox.FontSize = 26;
@@ -256,7 +253,6 @@ namespace BataviaReseveringsSysteem.Reservations
             var selectedDateValue = selectedDate.Value;
             var sunriseAndSunsetTimes = GetSunriseAndSunsetTimes(selectedDateValue);
             var earliestSlot = GetEarliestSlot(sunriseAndSunsetTimes[0]);
-
             var latestSlot = GetLatestSlot(sunriseAndSunsetTimes[1]);
 
             // Genereer de slots die al voorbij zijn, te ver weg zijn of al geclaimd zijn
@@ -283,11 +279,7 @@ namespace BataviaReseveringsSysteem.Reservations
 
             // Genereer de eerste en de laatste slots die je mag afschrijven,
             var selectedDate = BoatTypeTabItemCalendar.SelectedDate;
-            if (!selectedDate.HasValue) return;
-            var selectedDateValue = selectedDate.Value;
-            var sunriseAndSunsetTimes = GetSunriseAndSunsetTimes(selectedDateValue);
-            var earliestSlot = GetEarliestSlot(sunriseAndSunsetTimes[0]);
-
+            var selectedDate = Calendar.SelectedDate;
             var latestSlot = GetLatestSlot(sunriseAndSunsetTimes[1]);
 
             // Genereer de slots die al voorbij zijn, te ver weg zijn of al geclaimd zijn
@@ -334,7 +326,6 @@ namespace BataviaReseveringsSysteem.Reservations
 
             // Verkrijg de duur van de slot op basis van de beginslot en de duurcombobox
             var endSlot = GenerateEndTime(startSlot);
-            
             var startSlotDayQuarter = DateTimeToDayQuarter(startSlot);
             var endSlotDayQuarter = DateTimeToDayQuarter(endSlot);
             return endSlotDayQuarter - startSlotDayQuarter;
@@ -480,7 +471,6 @@ namespace BataviaReseveringsSysteem.Reservations
             _okButton.HorizontalAlignment = HorizontalAlignment.Left;
             _okButton.Margin = new Thickness(150, 120, 0, 0);
             Grid.Children.Add(_okButton);
-
         }
 
         // Deze methode zal de lengte van afschrijfperiode nemen die gekozen is in de combobox
@@ -576,6 +566,7 @@ namespace BataviaReseveringsSysteem.Reservations
             var amountOfSlotsToBeClaimed =
                 GetAmountOfSlotsToBeClaimed(amountOfClaimableSlots, amountOfSlotsWantingToBeClaimed);
             var aboutToBeClaimedSlots = GetAboutToBeClaimedSlots(selectedDateValue, amountOfSlotsToBeClaimed);
+            PopulateDurationTimeComboBox(amountOfClaimableSlots);
             PlannerGrid.Populate(earliestSlot, latestSlot, claimedSlotsForThisDayAndBoat, aboutToBeClaimedSlots);
         }
 

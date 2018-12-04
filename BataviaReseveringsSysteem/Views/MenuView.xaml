@@ -25,8 +25,8 @@
                     <MenuItem x:Name="DiplomaUitreiken" Height="50" Header="Diploma's toewijzen" HorizontalAlignment="Left" Width="249"/>
                 </MenuItem>
                 <MenuItem Header="Boten" Width="250" Height="100" FontSize="16">
-                    <MenuItem x:Name="BotenBekijken" Height="50" Header="Boten inzien" HorizontalAlignment="Left" Width="249"/>
-                    <MenuItem x:Name="BotenToevoegen" Height="50" Header="Boten toevoegen" HorizontalAlignment="Left" Width="249"/>
+                    <MenuItem x:Name="BotenBekijken" Height="50" Header="Boten inzien" HorizontalAlignment="Left" Width="249" Click="BotenBekijken_Click"/>
+                    <MenuItem x:Name="BotenToevoegen" Height="50" Header="Boten toevoegen" HorizontalAlignment="Left" Width="249" Click="BotenToevoegen_Click"/>
                 </MenuItem>
                 <MenuItem Header="Nieuws" Width="250" Height="100" FontSize="16">
                     <MenuItem x:Name="Toernooien" Height="50" Header="Toernooien" HorizontalAlignment="Left" Width="249"/>

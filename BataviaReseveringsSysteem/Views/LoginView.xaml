@@ -19,7 +19,18 @@
         <PasswordBox x:Name="Password" PasswordChar="*" HorizontalAlignment="Left" Height="45" Margin="819,415,0,0"  VerticalAlignment="Top" Width="245" FontSize="26"/>
         <Button Content="Login" IsDefault="True"  HorizontalAlignment="Left" Margin="819,475,0,0" VerticalAlignment="Top" Width="245" Click="LoginButton" Height="45" FontSize="26"/>
         <Label x:Name="Test" Content="" HorizontalAlignment="Left" Height="42" Margin="332,275,0,0" VerticalAlignment="Top" Width="113"/>
-        <Label Content="" x:Name="LoginError" HorizontalAlignment="Left" Margin="332,43,0,0" Foreground="Red" VerticalAlignment="Top" Height="26" Width="10"/>
+        <Label Content="" FontSize="16" x:Name="LoginError" HorizontalAlignment="Left" Margin="332,72,0,0" Foreground="Red" VerticalAlignment="Top" RenderTransformOrigin="0.7,1.226"/>
         <Button Content="Registreren" IsDefault="True"  HorizontalAlignment="Left" Margin="819,535,0,0" VerticalAlignment="Top" Width="245" Height="45" Click="Button_Click" FontSize="26"/>
+
+        <DataGrid x:Name="DataReservations" FontSize="16" Visibility=" Hidden" CanUserAddRows="false" x:FieldModifier="public"  AutoGenerateColumns="false" HorizontalAlignment="Left"  Margin="41,100,0,0" VerticalAlignment="Top" >
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="BoatName" Width="auto"  Binding="{Binding Boat.Name}"    Header="Bootnaam" IsReadOnly="true" />
+                <DataGridTextColumn x:Name="BoatType"  Width="auto"  Binding="{Binding Boat.Type}" Header="Type" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="NumberOfRowers"  Width="auto"   Binding="{Binding Boat.NumberOfRowers}" Header="Aantal roeiers" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Date"  Width="auto"   Binding="{Binding Start,StringFormat='{}{0:MM/dd/yyyy}'}" Header="Datum" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="DateStart" Width="auto"    Binding="{Binding Start,StringFormat='hh:mm'}" Header="Starttijd" IsReadOnly="true" />
+                <DataGridTextColumn x:Name="DateEnd"   Width="auto"   Binding="{Binding End,StringFormat='hh:mm'}" Header="Eindtijd" IsReadOnly="true"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

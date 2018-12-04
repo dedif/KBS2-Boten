@@ -90,6 +90,7 @@ namespace Views
             Switcher.Switch(new Dashboard());
         }
 
+
         private void Diploma(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new DiplomaList());
