@@ -16,7 +16,7 @@ namespace Views
     public partial class Dashboard : UserControl
     {
 
-       public int YLeft = 50;
+        public int YLeft = 50;
         public int YRight = 50;
         public int Count = 0;
         public int MaxReservationUser = 2;
@@ -32,56 +32,53 @@ namespace Views
             GridDashboard.Margin = new Thickness(50, 0, 50, 20);
 
             var loggedUser = (from data in context.Users
-                           where data.PersonID == LoginView.LoggedUserID
-                           select data).Single();
+                              where data.PersonID == LoginView.UserId
+                              select data).Single();
 
             NameLabel.Content = loggedUser.Firstname + " " + loggedUser.Lastname;
 
 
             dashboardController = new DashboardController(this);
-          
+
             var rol = (from data in context.MemberRoles
-                           where data.PersonID == LoginView.LoggedUserID
-                           select data.RoleID).ToList();
+                       where data.PersonID == LoginView.UserId
+                       select data.RoleID).ToList();
 
-                if (rol.Contains(6))
-                {
-                    MaxReservationUser = 2;
-                    AddBoatButton.Visibility = Visibility.Visible;
-                    UserListButton.Visibility = Visibility.Visible;
-                }
+            if (rol.Contains(6))
+            {
+                MaxReservationUser = 2;
+                AddBoatButton.Visibility = Visibility.Visible;
+                UserListButton.Visibility = Visibility.Visible;
+            }
 
-                if (rol.Contains(3))
-                {
-                    MaxReservationUser = 8;
-                }
-          
-                if (rol.Contains(4))
-                {
-                    MaxReservationUser = int.MaxValue;
-                }
+            if (rol.Contains(3))
+            {
+                MaxReservationUser = 8;
+            }
 
-                if (rol.Contains(5))
-                {
-                    MaxReservationUser = int.MaxValue;
-                }
+            if (rol.Contains(4))
+            {
+                MaxReservationUser = int.MaxValue;
+            }
+
+            if (rol.Contains(5))
+            {
+                MaxReservationUser = int.MaxValue;
+            }
 
 
-                //De reservaties van de gebruiker worden met deze methode getoond op het scherm
-                ShowReservations();
+            //De reservaties van de gebruiker worden met deze methode getoond op het scherm
+            ShowReservations();
             dashboardController.Notification(loggedUser.LastLoggedIn);
 
-
         }
-
-
 
         public void ShowReservations()
         {
             using (DataBase context = new DataBase())
             {
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
-                if (context.Reservations.Where(i => i.Deleted == null).Count() == 0)
+                if(context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId).Count() == 0)
                 {
                     NoReservationLabel.Visibility = Visibility.Visible;
                 }
@@ -90,24 +87,17 @@ namespace Views
                     NoReservationLabel.Visibility = Visibility.Hidden;
                 }
 
-                if (context.Reservations.Where(i => i.Deleted == null).Count() >= MaxReservationUser)
+                if (context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId).Count() >= 2)
                 {
                     MaxReservations.Visibility = Visibility.Visible;
-                    //AddReservationButton.IsEnabled = false;
+                    AddReservationButton.IsEnabled = false;
                 }
                 else
                 {
                     MaxReservations.Visibility = Visibility.Hidden;
-                    //AddReservationButton.IsEnabled = true;
+                    AddReservationButton.IsEnabled = true;
                 }
-
-                var OrderedReservations = (from data in context.Reservations
-                                           where data.Deleted == null
-                                           where data.UserID == LoginView.LoggedUserID
-                                           orderby data.Start
-                                           select data).ToList();
-
-                foreach (Reservation r in OrderedReservations)
+                foreach (Reservation r in context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId))
                 {
                     if (Count % 2 == 0)
                     {
@@ -165,7 +155,8 @@ namespace Views
             }
         }
 
-  
+       
+      
         //Deze methode verwijderd alle controls
         public void DeleteAllControls()
         {
@@ -211,11 +202,6 @@ namespace Views
         private void AddBoatButton_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new AddBoat());
-        }
-
-        private void DamageButton_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new BoatDamage());
         }
     }
 }

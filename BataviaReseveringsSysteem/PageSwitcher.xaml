@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BataviaReseveringsSysteem"
         mc:Ignorable="d"
-        Title="Boot reserverings Systeem" Height="450" Width="800" WindowState="Maximized">
-    <Grid x:Name="test">
-      
+        Title="Boot reserverings Systeem" Height="1024" Width="768" WindowState="Maximized">
+    <Grid x:Name="switcherGrid">
+        
     </Grid>
 </Window>

@@ -8,15 +8,16 @@ namespace Controllers
 {
     public class ReservationController
     {
-        DataBase context = new DataBase();
+
         public List<Reservation> GetReservations()
         {
-           return context.Reservations.ToList();
+            using (var context = new DataBase()) return context.Reservations.ToList();
         }
 
         public List<Reservation> GetReservationsForDay(DateTime day)
         {
-           
+            using (var context = new DataBase())
+
                 return context.Reservations.Where(reservation =>
                     reservation.Start.Day == day.Day &&
                     reservation.Start.Month == day.Month &&
@@ -25,24 +26,26 @@ namespace Controllers
 
         public List<Reservation> GetReservationsForDayAndBoat(DateTime day, Boat boat)
         {
-            
+            using (var context = new DataBase())
+            {
                 return context.Reservations.Where(reservation =>
                     reservation.Start.Day == day.Day &&
                     reservation.Start.Month == day.Month &&
                     reservation.Start.Year == day.Year &&
                     reservation.Boat.BoatID == boat.BoatID).ToList();
-            
+            }
         }
         public List<Reservation> GetReservationsForDayAndBoatThatAreNotDeleted(DateTime day, Boat boat)
         {
-          
+            using (var context = new DataBase())
+            {
                 return context.Reservations.Where(reservation =>
                         reservation.Start.Day == day.Day &&
                         reservation.Start.Month == day.Month &&
                         reservation.Start.Year == day.Year &&
                         reservation.Boat.BoatID == boat.BoatID &&
                         reservation.Deleted == null).ToList();
-            
+            }
         }
     }
 }

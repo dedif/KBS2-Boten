@@ -21,9 +21,74 @@ namespace Views
         {
             this.InitializeComponent();
             this.HorizontalAlignment = HorizontalAlignment.Center;
+            using (DataBase context = new DataBase())
+            {
+                // als er nog geen diploma's in de database staan maak dan deze diploma's aan.
+                if (!context.Diplomas.Any(z => z.DiplomaName == "S1" || z.DiplomaName == "S2" || z.DiplomaName == "S3" || z.DiplomaName == "P1" || z.DiplomaName == "P2" || z.DiplomaName == "B1" || z.DiplomaName == "B2" || z.DiplomaName == "B3"))
+                {
+                    dbc.Add_Diploma("S1");
+                    dbc.Add_Diploma("S2");
+                    dbc.Add_Diploma("S3");
+                    dbc.Add_Diploma("P1");
+                    dbc.Add_Diploma("P2");
+                    dbc.Add_Diploma("B1");
+                    dbc.Add_Diploma("B2");
+                    dbc.Add_Diploma("B3");
+                }
 
+
+                // als er nog geen rollen in de database staan maak dan deze rollen aan
+                if (!context.Roles.Any(z => z.RoleName == "Reparateur" || z.RoleName == "Coach" || z.RoleName == "Wedstrijd Commissaris" || z.RoleName == "Examinator" || z.RoleName == "Bestuur"))
+                {
+                    dbc.Add_Role("Reparateur");
+                    dbc.Add_Role("Coach");
+                    dbc.Add_Role("Wedstrijd Commissaris");
+                    dbc.Add_Role("Examinator");
+                    dbc.Add_Role("Bestuur");
+                }
+
+                var Roles = context.Roles.ToList();
+
+                foreach (var role in Roles)
+                {
+                    if("Reparateur" == role.RoleName)
+                    {
+                        Reparateur.Content = role.RoleName;
+                        Reparateur.Tag = role.RoleID;
+                    } 
+                    if("Coach" == role.RoleName)
+                    {
+                        Coach.Content = role.RoleName;
+                        Coach.Tag = role.RoleID;
+
+                    }
+                    if ("Wedstrijd Commissaris" == role.RoleName)
+                    {
+                        Commissaris.Content = role.RoleName;
+                        Commissaris.Tag = role.RoleID;
+
+                    }
+                    if ("Examinator" == role.RoleName)
+                    {
+                        Examinator.Content = role.RoleName;
+                        Examinator.Tag = role.RoleID;
+
+                    }
+                    if ("Bestuur" == role.RoleName)
+                    {
+                        Administrator.Content = role.RoleName;
+                        Administrator.Tag = role.RoleID;
+
+                    }
+                    //Reparateur.Content = role.RoleName[2];
+                    //Coach.Content = role.RoleName[3];
+                    //Commissaris.Content = role.RoleName[4];
+                    //Examinator.Content = role.RoleName[5];
+                    //Administrator.Content = role.RoleName[6];
+                }
+
+            }
         }
-
         //Redirect to DashBoard
         private void Login_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
@@ -33,11 +98,11 @@ namespace Views
         //Register member of user
         private void ButtonRegister(object sender, RoutedEventArgs e)
         {
-            if (RegisterController.Registreren(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword))
+            if (RegisterController.Register(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword))
             {
                 using (DataBase context = new DataBase()) {
 
-
+                  
                     foreach (CheckBox c in RegisterLayout.Children.OfType<CheckBox>())
                     {
                         if (c.IsChecked == true)

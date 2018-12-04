@@ -81,7 +81,7 @@ namespace Views
                                 }
                             }
                             
-                            Damage damage = new Damage(LoginView.LoggedUserID, Boat.BoatID, DescriptionBox.Text, status);
+                            Damage damage = new Damage(LoginView.UserId, Boat.BoatID, DescriptionBox.Text, status);
                         
                            context.Damages.Add(damage);
                             context.SaveChanges();

@@ -11,12 +11,6 @@ namespace Models
     {
         [Key]
         public int DiplomaID { get; set; }
-        public string Name { get; set; }
-
-        public Diploma(int diplomaID, string name)
-        {
-            DiplomaID = diplomaID;
-            Name = name;
-        }
+        public string DiplomaName { get; set; }
     }
 }

@@ -9,22 +9,40 @@ namespace Controllers
 {
     public class LoginController
     {
-
-        public static Boolean Login(TextBox Username,PasswordBox Password,Label LoginError){
-
-            UserController u = new UserController();
-
+        public void DeleteOldReservations()
+        {
             using (DataBase context = new DataBase())
             {
-                var Result = context.Users.ToList();
-               
-                
-                if (Result.Count > 0)
+                var Reservations = (from data in context.Reservations
+                                    where data.End < DateTime.Now
+                                    select data).ToList();
+
+                foreach (var r in Reservations)
                 {
-                    foreach (var results in Result)
+                    r.Deleted = DateTime.Now;
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public static Boolean IsLoginDataValid(TextBox Username, PasswordBox Password, Label LoginError)
+        {
+
+
+
+            var u = new UserController();
+
+            using (var context = new DataBase())
+            {
+                var result = context.Users.ToList();
+
+
+                if (result.Count > 0)
+                {
+                    foreach (var results in result)
                     {
-                        
-                        string hashedPassword = u.PasswordHash(Password.Password);
+
+                        var hashedPassword = u.PasswordHash(Password.Password);
 
                         Username.BorderBrush = Brushes.Gray;
                         Password.BorderBrush = Brushes.Gray;
@@ -43,7 +61,7 @@ namespace Controllers
                                 {
                                     if (results.Password.Equals(hashedPassword))
                                     {
-                                       return true;
+                                        return true;
                                     }
 
                                     else
@@ -81,7 +99,7 @@ namespace Controllers
                                 LoginError.Content = "De gegevens komen niet overeen.";
                                 LoginError.UpdateLayout();
                                 Password.UpdateLayout();
-                             
+
                             }
 
                         }
@@ -97,23 +115,5 @@ namespace Controllers
             return false;
 
         }
-
-      public void DeleteOldReservations()
-        {
-            using (DataBase context = new DataBase())
-            {
-                var Reservations = (from data in context.Reservations
-                                   where data.End < DateTime.Now
-                                   select data).ToList();
-
-                foreach (var r in Reservations)
-                {
-                      r.Deleted = DateTime.Now;
-                    context.SaveChanges();
-                }
-            }
-        }
     }
-
-    
 }

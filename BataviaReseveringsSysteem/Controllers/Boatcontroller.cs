@@ -84,7 +84,8 @@ namespace Controllers
             {
               
                     Enum.TryParse(type, out Boat.BoatType MyType);
-                Boat boot1 = new Boat(name, MyType, rowers, weight, steeringwheel);
+                DateTime CreatedAt = DateTime.Now;
+                Boat boot1 = new Boat(name, MyType, rowers, weight, steeringwheel, CreatedAt);
                
                     context.Boats.Add(boot1);
 
@@ -95,29 +96,30 @@ namespace Controllers
                 
 
             }
-        public void AddDiploma(List<CheckBox> list)
+
+        //Deze methode update en boot als verwijdert in de database
+        public void DeleteBoat(int boatID)
         {
 
-
             using (DataBase context = new DataBase())
+
             {
-                //De BoatID van de laatst toegvoegde boat
-                var BoatID = (from data in context.Boats
-                              orderby data.BoatID descending
-                              select data.BoatID).First();
-                //Elke checkbox voor diploma's worden toegeoegt aan een list
-                foreach (CheckBox box in list)
+                Boat delBoat = context.Boats.Where(d => d.BoatID == boatID).First();
+
+                if (delBoat != null)
                 {
-                    //Als de checkbox is aangevinkt dat wordt dit toegevoegd aan de database
-                    if (box.IsChecked == true)
-                    {
-                        int diplomaID = int.Parse(box.Tag.ToString());
-                        Boat_Diploma Diploma = new Boat_Diploma(BoatID, diplomaID);
-                        context.Boat_Diplomas.Add(Diploma);
-                        context.SaveChanges();
-                    }
+
+                    delBoat.DeletedAt = DateTime.Now;
+
+                    context.SaveChanges();
                 }
+
+                context.Boats.Add(delBoat);
+
+
+                context.SaveChanges();
             }
+
         }
 
 
@@ -144,6 +146,30 @@ namespace Controllers
             }
         }
 
+        public void AddDiploma(List<CheckBox> list)
+        {
+
+
+            using (DataBase context = new DataBase())
+            {
+                //De BoatID van de laatst toegvoegde boat
+                var BoatID = (from data in context.Boats
+                              orderby data.BoatID descending
+                              select data.BoatID).First();
+                //Elke checkbox voor diploma's worden toegeoegt aan een list
+                foreach (CheckBox box in list)
+                {
+                    //Als de checkbox is aangevinkt dat wordt dit toegevoegd aan de database
+                    if (box.IsChecked == true)
+                    {
+                        int diplomaID = int.Parse(box.Tag.ToString());
+                        Boat_Diploma Diploma = new Boat_Diploma(BoatID, diplomaID);
+                        context.Boat_Diplomas.Add(Diploma);
+                        context.SaveChanges();
+                    }
+                }
+            }
+        }
 
     }
 }
