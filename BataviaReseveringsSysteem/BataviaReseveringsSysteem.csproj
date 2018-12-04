@@ -81,6 +81,8 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Databasecontroller.cs" />
+    <Compile Include="Models\Boat_Diploma.cs" />
+    <Compile Include="Models\Damage.cs" />
     <Compile Include="Models\Diploma.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\MemberRole.cs" />
@@ -89,6 +91,9 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Reservations\BoatTypeTabItemCalendar.cs" />
+    <Compile Include="Views\BoatDamage.xaml.cs">
+      <DependentUpon>BoatDamage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BoatList.xaml.cs">
       <DependentUpon>BoatList.xaml</DependentUpon>
     </Compile>
@@ -134,6 +139,10 @@
     <Compile Include="Views\UserList.xaml.cs">
       <DependentUpon>UserList.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\BoatDamage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\BoatList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -143,7 +152,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EditDiplomaView.xaml">
-    <Page Include="Views\BoatDamage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -6,6 +6,7 @@ using Models;
 using BataviaReseveringsSysteem.Database;
 using ScreenSwitcher;
 using System;
+using Controllers;
 
 namespace Views
 {
@@ -15,32 +16,61 @@ namespace Views
     public partial class Dashboard : UserControl
     {
 
-        int YLeft = 50;
-        int YRight = 50;
-        int Count = 0;
+        public int YLeft = 50;
+        public int YRight = 50;
+        public int Count = 0;
+        public int MaxReservationUser = 2;
         //Deze lijsten, bevatten alle buttens en labels
-        List<Label> LabelList = new List<Label>();
-        List<Button> ButtonList = new List<Button>();
+        public List<Label> LabelList = new List<Label>();
+        public List<Button> ButtonList = new List<Button>();
+        DataBase context = new DataBase();
+        DashboardController dashboardController;
         public Dashboard()
         {
             InitializeComponent();
-            this.HorizontalAlignment = HorizontalAlignment.Center;
-            GridDashboard.Margin = new Thickness(0, 0, 0, 20);
+            GridDashboard.VerticalAlignment = VerticalAlignment.Top;
+            GridDashboard.Margin = new Thickness(50, 0, 50, 20);
+
+            var loggedUser = (from data in context.Users
+                              where data.PersonID == LoginView.UserId
+                              select data).Single();
+
+            NameLabel.Content = loggedUser.Firstname + " " + loggedUser.Lastname;
+
+
+            dashboardController = new DashboardController(this);
+
+            var rol = (from data in context.MemberRoles
+                       where data.PersonID == LoginView.UserId
+                       select data.RoleID).ToList();
+
+            if (rol.Contains(6))
+            {
+                MaxReservationUser = 2;
+                AddBoatButton.Visibility = Visibility.Visible;
+                UserListButton.Visibility = Visibility.Visible;
+            }
+
+            if (rol.Contains(3))
+            {
+                MaxReservationUser = 8;
+            }
+
+            if (rol.Contains(4))
+            {
+                MaxReservationUser = int.MaxValue;
+            }
+
+            if (rol.Contains(5))
+            {
+                MaxReservationUser = int.MaxValue;
+            }
+
 
             //De reservaties van de gebruiker worden met deze methode getoond op het scherm
             ShowReservations();
-            using (DataBase context = new DataBase())
-            {
-                var rol = (from data in context.MemberRoles
-                           where data.PersonID == LoginView.UserId
-                           select data.RoleID).ToList();
+            dashboardController.Notification(loggedUser.LastLoggedIn);
 
-                if (rol.Contains(5))
-                {
-                    AddBoatButton.Visibility = Visibility.Visible;
-                    UserListButton.Visibility = Visibility.Visible;
-                }
-            }
         }
 
         public void ShowReservations()
@@ -255,13 +285,13 @@ namespace Views
 
 
 
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        public void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
             DeleteReservation((int)b.Tag);
         }
 
-        private void Change_Click(object sender, RoutedEventArgs e)
+        public void Change_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new Dashboard());
         }

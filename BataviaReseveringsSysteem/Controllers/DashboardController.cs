@@ -30,9 +30,9 @@ namespace Controllers
                                       where data.TimeOfFix == null
                                       where data.Status == "Zware schade"
                                       select data).ToList();
-            
+
             var User = (from data in context.Users
-                        where data.PersonID == LoginView.LoggedUserID
+                        where data.PersonID == LoginView.UserId
                         select data).Single();
 
           

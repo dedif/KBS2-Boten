@@ -1,4 +1,9 @@
-﻿namespace BataviaReseveringsSysteem.Controllers
+﻿using BataviaReseveringsSysteem.Database;
+using Models;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace BataviaReseveringsSysteem.Controllers
 {
     public class DamageController
     {
@@ -8,11 +13,11 @@
 
         }
 
-        //public List<Damage> GetDamagesList()
-        //{
-        //    using (var context = new Database()) return context.Damages.ToList();
-            
-        //}
-        
+        public List<Damage> GetDamagesList()
+        {
+            using (var context = new DataBase()) return context.Damages.ToList();
+
+        }
+
     }
 }

@@ -15,10 +15,9 @@
                     <MenuItem x:Name="AfschrijvingenInzien" Height="50" Header="Afschrijvingen inzien" HorizontalAlignment="Left" Width="249" Click="AfschrijvingenInzien_Click"/>
                 </MenuItem>
                 <MenuItem Header="Schade melden" Width="250" Height="100" FontSize="16">
-                    <MenuItem x:Name="Lorem1" Header="Lorem1" HorizontalAlignment="Left" Width="249"/>
-                    <MenuItem x:Name="Lorem2" Header="Lorem2" HorizontalAlignment="Left" Width="249"/>
-                    <MenuItem x:Name="Lorem3" Header="Lorem3" HorizontalAlignment="Left" Width="249"/>
-                    <MenuItem x:Name="Lorem4" Header="Lorem4" HorizontalAlignment="Left" Width="249"/>
+                    <MenuItem x:Name="SchadeMelden" Header="Schade melden" HorizontalAlignment="Left" Width="249" Click="SchadeMelden_Click"/>
+                    <MenuItem x:Name="SchadeInzien" Header="Schade inzien" HorizontalAlignment="Left" Width="249"/>
+                    <MenuItem x:Name="SchadeHerstellen" Header="Schade herstellen" HorizontalAlignment="Left" Width="249"/>
                 </MenuItem>
                 <MenuItem Header="Certificering" Width="250" Height="100" FontSize="16">
                     <MenuItem x:Name="DiplomaBekijken" Height="50" Header="Diploma's bekijken" HorizontalAlignment="Left" Width="249"/>

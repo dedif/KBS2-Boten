@@ -48,7 +48,7 @@ namespace UnitTest
       
         // true = de boot bestaat nog niet, false = de boot bestaat al
         [Test]
-        [TestCase("bodsot", true)]
+        [TestCase("boot", true)]
         [TestCase("pizza", false)]
        
         public void NameCheck_Bool(string name, bool answer)

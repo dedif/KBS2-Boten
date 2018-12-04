@@ -39,5 +39,10 @@ namespace BataviaReseveringsSysteem.Views
         {
             Switcher.Switch(new AddBoat());
         }
+
+        private void SchadeMelden_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new BoatDamage());
+        }
     }
 }

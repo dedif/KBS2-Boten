@@ -9,9 +9,26 @@ namespace Controllers
 {
     public class LoginController
     {
+        public void DeleteOldReservations()
+        {
+            using (DataBase context = new DataBase())
+            {
+                var Reservations = (from data in context.Reservations
+                                    where data.End < DateTime.Now
+                                    select data).ToList();
+
+                foreach (var r in Reservations)
+                {
+                    r.Deleted = DateTime.Now;
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public static Boolean IsLoginDataValid(TextBox Username, PasswordBox Password, Label LoginError)
+        {
 
 
-        public static Boolean IsLoginDataValid(TextBox Username,PasswordBox Password,Label LoginError){
 
             var u = new UserController();
 
@@ -82,6 +99,7 @@ namespace Controllers
                                 LoginError.Content = "De gegevens komen niet overeen.";
                                 LoginError.UpdateLayout();
                                 Password.UpdateLayout();
+
                             }
 
                         }
@@ -97,23 +115,5 @@ namespace Controllers
             return false;
 
         }
-
-      public void DeleteOldReservations()
-        {
-            using (DataBase context = new DataBase())
-            {
-                var Reservations = (from data in context.Reservations
-                                   where data.End < DateTime.Now
-                                   select data).ToList();
-
-                foreach (var r in Reservations)
-                {
-                      r.Deleted = DateTime.Now;
-                    context.SaveChanges();
-                }
-            }
-        }
     }
-
-    
 }

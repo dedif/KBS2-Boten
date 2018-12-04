@@ -10,7 +10,7 @@ using System.Text;
 
 
 namespace BataviaReseveringsSysteem
-
+{
    public class DataBaseController
     {
         public void Add_Role(string roleName)
@@ -63,7 +63,6 @@ namespace BataviaReseveringsSysteem
             }
         }
 
-
         public void Add_MemberRole(int roleID,int personID)
         {
 
@@ -78,10 +77,12 @@ namespace BataviaReseveringsSysteem
                     Updated_at = null,
                     Deleted_at = null
 
-                };              
+                };
+              
                     context.MemberRoles.Add(MemberRole);
                     context.SaveChanges();
-                  
+                
+                
             }
 
         }
@@ -98,23 +99,18 @@ namespace BataviaReseveringsSysteem
             }
             catch(NullReferenceException)
             { return false; }
-
-                context.MemberRoles.Add(MemberRole);
-                context.SaveChanges();
-            }
-
+            
+        }
 
         public void Delete_MemberRole(int personID, int rolID)
         {
             using (DataBase context = new DataBase())
             {
 
-                //Models.MemberRole delMemberRole = context.MemberRoles.Where(d => d.PersonID == personID).First();
-
-
                 var delMemberRole = (from x in context.MemberRoles
                                      where x.PersonID == personID && x.Deleted_at == null && x.RoleID == rolID
                                      select x).ToList();
+
 
                 context.MemberRoles.RemoveRange(delMemberRole);
 
@@ -138,21 +134,6 @@ namespace BataviaReseveringsSysteem
 
                 context.SaveChanges();
                 
-
-                //if (delMemberRole != null)
-                //{
-                //    delMemberRole.ForEach(x => x.Deleted_at = DateTime.Now);
-            
-                //}
-
-                // if (delMemberRole != null)
-                // {
-                //   delMemberRole.Deleted_at = DateTime.Now;
-
-                context.MemberRoles.RemoveRange(delMemberRole);
-
-                context.SaveChanges();
-               // }
             }
 
         }

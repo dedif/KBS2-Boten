@@ -48,38 +48,6 @@ namespace ScreenSwitcher
             };
             menuCanvas.Children.Add(MenuView);
             switcherGrid.Children.Add(menuCanvas);
-
-        public PageSwitcher()
-        {
-            InitializeComponent();
-            Switcher.pageSwitcher = this;
-            Switcher.Switch(new LoginView());
-
-            // toevoegen diploma's
-            //using (DataBase context = new DataBase())
-            //{
-            //    Diploma s1 = new Diploma(1, "s1");
-            //    Diploma s2 = new Diploma(2, "s2");
-            //    Diploma s3 = new Diploma(3, "s3");
-            //    Diploma b1 = new Diploma(4, "b1");
-            //    Diploma b2 = new Diploma(5, "b2");
-            //    Diploma b3 = new Diploma(6, "b3");
-            //    Diploma p1 = new Diploma(7, "p1");
-            //    Diploma p2 = new Diploma(8, "p2");
-
-            //    context.Diplomas.Add(s1);
-            //    context.Diplomas.Add(s2);
-            //    context.Diplomas.Add(s3);
-            //    context.Diplomas.Add(b1);
-            //    context.Diplomas.Add(b2);
-            //    context.Diplomas.Add(b3);
-            //    context.Diplomas.Add(p1);
-            //    context.Diplomas.Add(p2);
-
-            //    context.SaveChanges();
-            //}
-
-
         }
 
 
@@ -87,8 +55,6 @@ namespace ScreenSwitcher
         {
             this.switcherCanvas.Children.Clear();
             this.switcherCanvas.Children.Add(nextPage);
-
-            this.Content = nextPage;
         }
     }
 }

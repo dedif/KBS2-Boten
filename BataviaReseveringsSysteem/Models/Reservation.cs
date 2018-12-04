@@ -9,6 +9,7 @@ namespace Models
         //primaire sleutel voor de database
         [Key]
         public int ReservationID { get; set; }
+
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public Boat Boat { get; set; }
@@ -21,11 +22,13 @@ namespace Models
             Boat = boat;
             Start = start;
             End = end;
+ 
         }
 
         public Reservation()
         {
 
         }
+       
     }
 }

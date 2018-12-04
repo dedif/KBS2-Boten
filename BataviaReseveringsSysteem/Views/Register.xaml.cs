@@ -21,7 +21,6 @@ namespace Views
         {
             this.InitializeComponent();
             this.HorizontalAlignment = HorizontalAlignment.Center;
-
             using (DataBase context = new DataBase())
             {
                 // als er nog geen diploma's in de database staan maak dan deze diploma's aan.
@@ -90,7 +89,6 @@ namespace Views
 
             }
         }
-
         //Redirect to DashBoard
         private void Login_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
@@ -104,6 +102,7 @@ namespace Views
             {
                 using (DataBase context = new DataBase()) {
 
+                  
                     foreach (CheckBox c in RegisterLayout.Children.OfType<CheckBox>())
                     {
                         if (c.IsChecked == true)
