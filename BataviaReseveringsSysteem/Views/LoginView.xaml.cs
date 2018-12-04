@@ -7,6 +7,7 @@ using BataviaReseveringsSysteem.Database;
 using Models;
 using ScreenSwitcher;
 using BataviaReseveringsSysteem;
+using System;
 
 namespace Views
 {
@@ -49,16 +50,17 @@ namespace Views
                 int username = int.Parse(Username.Text);
                 using (DataBase context = new DataBase())
                 {
-                    var member = (
+                    var user = (
                         from data in context.Users
                         where data.PersonID == username
-                        select data.PersonID).Single();
+                        select data).Single();
 
-                    UserId = member;
+                    UserId = user.PersonID;
 
+                    Switcher.Switch(new Dashboard());
+                    user.LastLoggedIn = DateTime.Now;
+                    context.SaveChanges();
                 }
-
-                Switcher.Switch(new Dashboard());
             }
             
         }

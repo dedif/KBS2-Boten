@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-        >
+             Height="1024" Width="768">
     <Grid Width="468" Height="328">
         <Label x:Name="NameLabel" FontSize="16" Content="Naam boot:" HorizontalAlignment="Left" Margin="46,33,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="NameboatCombo" FontSize="16" HorizontalAlignment="Left" Margin="183,38,0,0" VerticalAlignment="Top" Width="120"/>

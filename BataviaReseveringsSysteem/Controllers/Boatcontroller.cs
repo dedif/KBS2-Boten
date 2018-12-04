@@ -3,6 +3,7 @@ using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace Controllers
 {
@@ -142,6 +143,31 @@ namespace Controllers
             using (var context = new DataBase())
             {
                 return (from boat in context.Boats where boat.Name.Equals(name) select boat).First();
+            }
+        }
+
+        public void AddDiploma(List<CheckBox> list)
+        {
+
+
+            using (DataBase context = new DataBase())
+            {
+                //De BoatID van de laatst toegvoegde boat
+                var BoatID = (from data in context.Boats
+                              orderby data.BoatID descending
+                              select data.BoatID).First();
+                //Elke checkbox voor diploma's worden toegeoegt aan een list
+                foreach (CheckBox box in list)
+                {
+                    //Als de checkbox is aangevinkt dat wordt dit toegevoegd aan de database
+                    if (box.IsChecked == true)
+                    {
+                        int diplomaID = int.Parse(box.Tag.ToString());
+                        Boat_Diploma Diploma = new Boat_Diploma(BoatID, diplomaID);
+                        context.Boat_Diplomas.Add(Diploma);
+                        context.SaveChanges();
+                    }
+                }
             }
         }
 

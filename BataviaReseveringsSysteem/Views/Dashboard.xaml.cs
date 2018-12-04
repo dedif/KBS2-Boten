@@ -105,15 +105,15 @@ namespace Views
                         //Dit is voor de label aan de linkerkant van de twee rijen
                         Label l = new Label()
                         {
-                            Content = ReservationContent(r),
+                            Content = dashboardController.ReservationContent(r),
                             Margin = new Thickness(20, YLeft, 50, 50),
                             FontSize = 16,
                             HorizontalAlignment = HorizontalAlignment.Left,
                             VerticalAlignment = VerticalAlignment.Top,
                         };
                         LabelList.Add(l);
-                        Button deleteButton = AddDeleteButton(20, YLeft + 130, r.ReservationID);
-                        Button changeButton = AddChangeButton(20, YLeft + 170);
+                        Button deleteButton = dashboardController.AddDeleteButton(20, YLeft + 130, r.ReservationID);
+                        Button changeButton = dashboardController.AddChangeButton(20, YLeft + 170);
                         ButtonList.Add(deleteButton);
                         ButtonList.Add(changeButton);
 
@@ -129,15 +129,15 @@ namespace Views
                         //Hiermee maak je een label
                         Label l2 = new Label()
                         {
-                            Content = ReservationContent(r),
+                            Content = dashboardController.ReservationContent(r),
                             Margin = new Thickness(500, YRight, 50, 50),
                             FontSize = 16,
                             HorizontalAlignment = HorizontalAlignment.Left,
                             VerticalAlignment = VerticalAlignment.Top,
                         };
                         LabelList.Add(l2);
-                        Button deleteButton = AddDeleteButton(500, YRight + 130, r.ReservationID);
-                        Button changeButton = AddChangeButton(500, YRight + 170);
+                        Button deleteButton = dashboardController.AddDeleteButton(500, YRight + 130, r.ReservationID);
+                        Button changeButton = dashboardController.AddChangeButton(500, YRight + 170);
                         ButtonList.Add(deleteButton);
                         ButtonList.Add(changeButton);
 
@@ -155,77 +155,8 @@ namespace Views
             }
         }
 
-        //Deze methode vult de labels van de huidige reservaties
-        public string ReservationContent(Reservation reservation)
-        {
-            using (DataBase context = new DataBase())
-            {
-
-                var ReservationBoatID = (
-                    from r in context.Reservations
-                    where r.ReservationID == reservation.ReservationID
-                    select r.Boat.BoatID).Single();
-
-                var Name =
-                    (from boat in context.Boats
-                     where boat.BoatID == ReservationBoatID
-                     select boat.Name).Single();
-
-                var Date =
-                  (from r in context.Reservations
-                   where r.ReservationID == reservation.ReservationID
-                   select r.Start).Single();
-
-                string minuten = Date.Minute.ToString();
-                if (Date.Minute < 10)
-                {
-                    minuten = "0" + minuten;
-                }
-
-                string content;
-                content = "Naam : " + Name;
-                content += "\nTijd: " + Date.Hour + ":" + minuten;
-                content += "\nDatum: " + Date.Month + "/" + Date.Day + "/" + Date.Year;
-
-                return content;
-            }
-        }
-        //Deze methode verwijderd de bijbehorende reservatie
-        public void DeleteReservation(int id)
-        {
-            using (DataBase context = new DataBase())
-            {
-                var Delete = (
-                    from r in context.Reservations
-                    where r.ReservationID == id
-                    select r).Single();
-                //De gebruiker krijgt een controle melding.
-                MessageBoxResult confirm = MessageBox.Show(
-                                "Weet u zeker dat u de volgende afschrijving wilt verwijderen:\n"
-                                + ReservationContent(Delete),
-                                "Melding",
-                                MessageBoxButton.YesNo,
-                                MessageBoxImage.Information);
-
-                //Als de gebruiker de reservering wilt verwijderen.
-                if (confirm == MessageBoxResult.Yes)
-                {
-                    //De reservering wordt uit de database verwijderd. 
-                    //context.Reservations.Remove(Delete);
-                    
-                    Delete.Deleted = DateTime.Now;
-                    context.SaveChanges();
-                    //Alle oude knoppen en labels worden verwijderd van het scherm.
-                    this.DeleteAllControls();
-                    YLeft = 50;
-                    YRight = 50;
-                    Count = 0;
-                    //De nieuwe reserveringen worden op het scherm getoond. 
-                    ShowReservations();
-                }
-
-            }
-        }
+       
+      
         //Deze methode verwijderd alle controls
         public void DeleteAllControls()
         {
@@ -238,57 +169,13 @@ namespace Views
                 GridDashboard.Children.Remove(ButtonList[i]);
             }
         }
-        private Button AddChangeButton(int x, int y)
-        {
-            //Er wordt een button aangemaakt. 
-            Button Left = new Button()
-            {
-                Content = "Afschrijving wijzigen",
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(x, y, 0, 0),
-                Height = 30,
-                Width = 160,
-                FontSize = 16,
-                HorizontalContentAlignment = HorizontalAlignment.Left
-            };
-            //De button krijgt een click event
-            Left.Click += Change_Click;
-
-            return Left;
-        }
-
-
-        private Button AddDeleteButton(int x, int y, int id)
-        {
-
-            Button Right = new Button()
-            {
-                //Er wordt een button aangemaakt. 
-                Content = "Afschrijving annuleren",
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(x, y, 0, 0),
-                Height = 30,
-                Width = 160,
-                FontSize = 16,
-                Tag = id,
-                HorizontalContentAlignment = HorizontalAlignment.Left
-            };
-            //De button krijgt een click event
-            Right.Click += DeleteButton_Click;
-
-
-            return Right;
-        }
-
 
 
 
         public void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
-            DeleteReservation((int)b.Tag);
+            dashboardController.DeleteReservation((int)b.Tag);
         }
 
         public void Change_Click(object sender, RoutedEventArgs e)
