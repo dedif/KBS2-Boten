@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Net.Mail;
 
 namespace Views
 {
@@ -19,6 +20,7 @@ namespace Views
         string reserved = null;
         public BoatDamage()
         {
+          
             InitializeComponent();
 
             var NameBoats = (from data in context.Boats
@@ -94,6 +96,8 @@ namespace Views
                     }
             }
         }
+
+       
 
         private void HeavyDamageRadioButton_Checked(object sender, RoutedEventArgs e)
         {

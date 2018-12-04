@@ -127,12 +127,6 @@
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NavigationView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\NavigationView.Designer.cs">
-      <DependentUpon>NavigationView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>
