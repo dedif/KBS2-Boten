@@ -16,7 +16,8 @@ namespace Views
     /// </summary>
     public partial class Register : UserControl
     {
-	DataBaseController dbc = new DataBaseController();
+	    DataBaseController dbc = new DataBaseController();
+
         public Register()
         {
             this.InitializeComponent();

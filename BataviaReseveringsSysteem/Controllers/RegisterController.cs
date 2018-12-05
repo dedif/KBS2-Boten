@@ -13,6 +13,8 @@ using Controllers;
 
 namespace Controllers
 {
+
+
     public class RegisterController
     {
         //Register member of user

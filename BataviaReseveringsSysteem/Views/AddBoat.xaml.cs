@@ -43,7 +43,7 @@ namespace Views
                         int Rowers = int.Parse(RowersCombo.Text);
                         Boolean Steeringwheel = false;
 
-                        if (SteeringWheelCheckbox.IsChecked == true)
+                        if (SteeringWheelToggle.IsChecked == true)
                         {
                             Steeringwheel = true;
                         }
@@ -84,21 +84,19 @@ namespace Views
                 {
                 RowersCombo.SelectedIndex = 0;
                 RowersCombo.IsEnabled = false;
-                SteeringWheelCheckbox.IsChecked = false;
-                SteeringWheelCheckbox.IsEnabled = false;
+                SteeringWheelToggle.IsChecked = false;
+                SteeringWheelToggle.IsEnabled = false;
                 SkiffLabel.Visibility = Visibility.Visible;
                 }
             else 
             {
            
                 RowersCombo.IsEnabled = true;
-                SteeringWheelCheckbox.IsChecked = true;
-                SteeringWheelCheckbox.IsEnabled = true;
+                //SteeringWheelToggle.IsChecked = true; ;
+                SteeringWheelToggle.IsEnabled = true;
                 SkiffLabel.Visibility = Visibility.Hidden;
             }
         }
-
-
     }
 }
 

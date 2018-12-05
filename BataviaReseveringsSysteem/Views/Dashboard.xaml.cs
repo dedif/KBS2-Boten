@@ -31,45 +31,53 @@ namespace Views
             GridDashboard.VerticalAlignment = VerticalAlignment.Top;
             GridDashboard.Margin = new Thickness(50, 0, 50, 20);
 
-            var loggedUser = (from data in context.Users
-                              where data.PersonID == LoginView.UserId
-                              select data).Single();
 
-            NameLabel.Content = loggedUser.Firstname + " " + loggedUser.Lastname;
+            //try
+            //{
+                var loggedUser = (from data in context.Users
+                                  where data.PersonID == LoginView.UserId
+                                  select data).Single();
+                NameLabel.Content = loggedUser.Firstname + " " + loggedUser.Lastname;
+
+                dashboardController = new DashboardController(this);
+
+                var rol = (from data in context.MemberRoles
+                           where data.PersonID == LoginView.UserId
+                           select data.RoleID).ToList();
+
+                if (rol.Contains(6))
+                {
+                    MaxReservationUser = 2;
+                    AddBoatButton.Visibility = Visibility.Visible;
+                    UserListButton.Visibility = Visibility.Visible;
+                }
+
+                if (rol.Contains(3))
+                {
+                    MaxReservationUser = 8;
+                }
+
+                if (rol.Contains(4))
+                {
+                    MaxReservationUser = int.MaxValue;
+                }
+
+                if (rol.Contains(5))
+                {
+                    MaxReservationUser = int.MaxValue;
+                }
 
 
-            dashboardController = new DashboardController(this);
+                //De reservaties van de gebruiker worden met deze methode getoond op het scherm
+                ShowReservations();
+                dashboardController.Notification(loggedUser.LastLoggedIn);
+            //}
 
-            var rol = (from data in context.MemberRoles
-                       where data.PersonID == LoginView.UserId
-                       select data.RoleID).ToList();
-
-            if (rol.Contains(6))
-            {
-                MaxReservationUser = 2;
-                AddBoatButton.Visibility = Visibility.Visible;
-                UserListButton.Visibility = Visibility.Visible;
-            }
-
-            if (rol.Contains(3))
-            {
-                MaxReservationUser = 8;
-            }
-
-            if (rol.Contains(4))
-            {
-                MaxReservationUser = int.MaxValue;
-            }
-
-            if (rol.Contains(5))
-            {
-                MaxReservationUser = int.MaxValue;
-            }
-
-
-            //De reservaties van de gebruiker worden met deze methode getoond op het scherm
-            ShowReservations();
-            dashboardController.Notification(loggedUser.LastLoggedIn);
+            //catch (InvalidOperationException ioe)
+            //{
+            //    MessageBox.Show("U dient eerst in te loggen", "Waarschuwing", MessageBoxButton.OK, MessageBoxImage.Information);
+            //    Switcher.Switch(new LoginView());
+            //}
 
         }
 
