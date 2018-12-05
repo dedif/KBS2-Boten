@@ -44,5 +44,20 @@ namespace BataviaReseveringsSysteem.Views
         {
             Switcher.Switch(new AddBoat());
         }
+
+        private void SeeUsersBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new UserList());
+        }
+
+        private void AddUsersBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new Register());
+        }
+
+        private void SeeDiplomasBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new DiplomaList());
+        }
     }
 }

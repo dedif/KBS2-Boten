@@ -1,4 +1,5 @@
-﻿using BataviaReseveringsSysteem.Views;
+﻿using BataviaReseveringsSysteem.Database;
+using BataviaReseveringsSysteem.Views;
 using System.Windows;
 using System.Windows.Controls;
 using Views;
@@ -16,10 +17,12 @@ namespace ScreenSwitcher
         public PageSwitcher()
         {
             InitializeComponent();
+            
+
             MenuMaker();
             SwitcherContentCanvas();
             Switcher.pageSwitcher = this;
-            Switcher.Switch(new AddBoat());
+            Switcher.Switch(new LoginView());
         }
 
         public void SwitcherContentCanvas()
@@ -40,6 +43,13 @@ namespace ScreenSwitcher
             NavigationView = new NavigationView();
             Canvas menuCanvas = new Canvas();
             menuCanvas.Children.Add(NavigationView);
+            Label l1 = new Label();
+            l1.Content = "";
+            DataBase context = new DataBase();
+            foreach (var item in context.Diplomas.ToString())
+            {
+
+            }
             switcherGrid.Children.Add(menuCanvas);
         }
 

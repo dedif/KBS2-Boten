@@ -4,21 +4,35 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp13"
-        mc:Ignorable="d">
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Height="1080" Width="1024">
 
     <ScrollViewer>
-
-        <Grid Name="GridDashboard" Width="1920" Height="1080">
-            <Button x:Name="AddReservationButton" Content="+ Afschrijving toevoegen" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" Width="345" Height="45" Click="AddReservationButton_Click" FontSize="26"/>
-            <Button x:Name="SettingsButton" Visibility="Hidden" Content="Instellingen" HorizontalAlignment="right" Margin="0,81,22,0" VerticalAlignment="Top" Width="111" RenderTransformOrigin="0.524,1.334" FontSize="16"/>
-            <Button x:Name="SignOutButton" Content="Uitloggen" HorizontalAlignment="right" Margin="0,70,100,0" VerticalAlignment="Top" Width="345" Height="45" RenderTransformOrigin="0.163,0.676" FontSize="26" Click="SignOutButton_Click"/>
-            <Button x:Name="UserListButton" Content="Inzien gebruikers" HorizontalAlignment="right" Margin="0,135,100,0" VerticalAlignment="Top" Width="345" Height="45" RenderTransformOrigin="0.163,0.676" FontSize="26" Click="UserListButton_Click" />
-            <Button x:Name="AddBoatButton" Content="Aanmaken boten" HorizontalAlignment="right" Margin="0,200,100,0" VerticalAlignment="Top" Width="345" Height="45" RenderTransformOrigin="0.163,0.676" FontSize="26" Click="AddBoatButton_Click"/>
-            <Image Source="..\Images\User.png" HorizontalAlignment="Right" Height="70" VerticalAlignment="Top" Width="58" Margin="0,0,100,0" RenderTransformOrigin="0.475,0.311"/>
-            <Label x:Name="NoReservationLabel"  Content="U heeft nog geen afschrijvingen"  Visibility="Hidden" FontSize="30" HorizontalAlignment="Left" Margin="63,70,0,0" VerticalAlignment="Top" Height="86" Width="518"/>
-            <Label x:Name="MaxReservations" Visibility="Hidden" Foreground="#FFFF0909" Content="U heeft het maximaal aantal afschrijvingen bereikt" HorizontalAlignment="Left" Margin="292,10,0,0" VerticalAlignment="Top" Width="323"/>
-            <Label x:Name="NameLabel" HorizontalAlignment="Left" Margin="1576,18,0,0" VerticalAlignment="Top" Height="37" Width="249"/>
-
+        <Grid Name="GridDashboard">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="2" HorizontalAlignment="Left">
+                <Button x:Name="AddReservationButton" Content="+ Afschrijving toevoegen" Width="120" Click="AddReservationButton_Click"/>
+                <Image Source="..\Images\User.png" HorizontalAlignment="Right" Height="70" VerticalAlignment="Top" Width="58" Margin="0,0,100,0" RenderTransformOrigin="0.475,0.311"/>
+                <Label x:Name="NoReservationLabel"  Content="U heeft nog geen afschrijvingen"  Visibility="Hidden" FontSize="30" HorizontalAlignment="Left" Height="86" Width="518"/>
+                <Label x:Name="MaxReservations" Visibility="Hidden" Foreground="#FFFF0909" Content="U heeft het maximaal aantal afschrijvingen bereikt" HorizontalAlignment="Left" Margin="292,10,0,0" VerticalAlignment="Top" Width="323"/>
+                <Label x:Name="NameLabel" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="249"/>
+            </StackPanel>
         </Grid>
 
     </ScrollViewer>

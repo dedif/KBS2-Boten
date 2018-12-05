@@ -24,7 +24,7 @@ namespace Views
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new Dashboard());
+            Switcher.Switch(new BoatList());
         }
         //Deze methode checkt op whitespace in de textvelden, de uniekheid van de Naam die is ingevoerd en dat gewicht juist is ingevoerd
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -77,6 +77,7 @@ namespace Views
             NotificationLabel.Content = b.Notification();
         }
 
+
         private void TypCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
            
@@ -92,7 +93,6 @@ namespace Views
             {
            
                 RowersCombo.IsEnabled = true;
-                //SteeringWheelToggle.IsChecked = true; ;
                 SteeringWheelToggle.IsEnabled = true;
                 SkiffLabel.Visibility = Visibility.Hidden;
             }

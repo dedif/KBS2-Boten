@@ -33,9 +33,12 @@
                 <Separator />
                 <MenuItem Header="Schade herstellen" x:Name="RepairDamagesBtn"/>
             </MenuItem>
-            <MenuItem Header="_Certificering">
-                <MenuItem Header="Diploma's inzien" x:Name="SeeDiplomasBtn"></MenuItem>
-                <MenuItem Header="Diploma's toewijzen" x:Name="AssignDiplomasBtn"></MenuItem>
+            <MenuItem Header="_Leden">
+                <MenuItem Header="Leden inzien" x:Name="SeeUsersBtn" Click="SeeUsersBtn_Click"></MenuItem>
+                <MenuItem Header="Leden toevoegen" x:Name="AddUsersBtn" Click="AddUsersBtn_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Diploma's">
+                <MenuItem Header="Diploma's inzien" x:Name="SeeDiplomasBtn" Click="SeeDiplomasBtn_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Boten">
                 <MenuItem Header="Boten inzien" x:Name="SeeBoatsBtn" Click="SeeBoatsBtn_Click"></MenuItem>
@@ -53,5 +56,13 @@
                 <MenuItem Header="Hulp bij inloggen"></MenuItem>
             </MenuItem>
         </Menu>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label x:Name="NameLabel" Content="" Height="37" Width="120"/>
+            <materialDesign:PopupBox StaysOpen="False">
+                <StackPanel>
+                    <Button Content="Uitloggen"/>
+                </StackPanel>
+            </materialDesign:PopupBox>
+        </StackPanel>
     </Grid>
 </UserControl>

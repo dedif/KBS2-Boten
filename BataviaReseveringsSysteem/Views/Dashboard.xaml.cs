@@ -7,6 +7,7 @@ using BataviaReseveringsSysteem.Database;
 using ScreenSwitcher;
 using System;
 using Controllers;
+using BataviaReseveringsSysteem.Views;
 
 namespace Views
 {
@@ -23,54 +24,52 @@ namespace Views
         //Deze lijsten, bevatten alle buttens en labels
         public List<Label> LabelList = new List<Label>();
         public List<Button> ButtonList = new List<Button>();
+        public NavigationView NavigationView { get; set; }
         DataBase context = new DataBase();
         DashboardController dashboardController;
         public Dashboard()
         {
             InitializeComponent();
-            GridDashboard.VerticalAlignment = VerticalAlignment.Top;
-            GridDashboard.Margin = new Thickness(50, 0, 50, 20);
-
 
             //try
             //{
-                var loggedUser = (from data in context.Users
-                                  where data.PersonID == LoginView.UserId
-                                  select data).Single();
-                NameLabel.Content = loggedUser.Firstname + " " + loggedUser.Lastname;
+            var loggedUser = (from data in context.Users
+                              where data.PersonID == LoginView.UserId
+                              select data).Single();
+            NameLabel.Content = loggedUser.Firstname + " " + loggedUser.Lastname;
 
-                dashboardController = new DashboardController(this);
+            dashboardController = new DashboardController(this);
 
-                var rol = (from data in context.MemberRoles
-                           where data.PersonID == LoginView.UserId
-                           select data.RoleID).ToList();
+            var rol = (from data in context.MemberRoles
+                       where data.PersonID == LoginView.UserId
+                       select data.RoleID).ToList();
 
-                if (rol.Contains(6))
-                {
-                    MaxReservationUser = 2;
-                    AddBoatButton.Visibility = Visibility.Visible;
-                    UserListButton.Visibility = Visibility.Visible;
-                }
+            if (rol.Contains(6))
+            {
+                MaxReservationUser = 2;
+                //AddBoatButton.Visibility = Visibility.Visible;
+                //UserListButton.Visibility = Visibility.Visible;
+            }
 
-                if (rol.Contains(3))
-                {
-                    MaxReservationUser = 8;
-                }
+            if (rol.Contains(3))
+            {
+                MaxReservationUser = 8;
+            }
 
-                if (rol.Contains(4))
-                {
-                    MaxReservationUser = int.MaxValue;
-                }
+            if (rol.Contains(4))
+            {
+                MaxReservationUser = int.MaxValue;
+            }
 
-                if (rol.Contains(5))
-                {
-                    MaxReservationUser = int.MaxValue;
-                }
+            if (rol.Contains(5))
+            {
+                MaxReservationUser = int.MaxValue;
+            }
 
+            //De reservaties van de gebruiker worden met deze methode getoond op het scherm
+            ShowReservations();
+            dashboardController.Notification(loggedUser.LastLoggedIn);
 
-                //De reservaties van de gebruiker worden met deze methode getoond op het scherm
-                ShowReservations();
-                dashboardController.Notification(loggedUser.LastLoggedIn);
             //}
 
             //catch (InvalidOperationException ioe)
@@ -86,7 +85,7 @@ namespace Views
             using (DataBase context = new DataBase())
             {
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
-                if(context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId).Count() == 0)
+                if (context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId).Count() == 0)
                 {
                     NoReservationLabel.Visibility = Visibility.Visible;
                 }
@@ -163,8 +162,6 @@ namespace Views
             }
         }
 
-       
-      
         //Deze methode verwijderd alle controls
         public void DeleteAllControls()
         {
@@ -195,21 +192,6 @@ namespace Views
         {
             Switcher.Switch(new ReserveWindow());
 
-        }
-
-        private void SignOutButton_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new LoginView());
-        }
-
-        private void UserListButton_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new UserList());
-        }
-
-        private void AddBoatButton_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new AddBoat());
         }
     }
 }
