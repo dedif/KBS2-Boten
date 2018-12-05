@@ -18,11 +18,10 @@ namespace Models
 
 
         public User User { get; set; }
-        public Boolean Deleted { get; set; } = false;
 
         public Reservation(Boat boat, int user, DateTime start, DateTime end)
         {
-            UserID = LoginView.LoggedMember;
+            UserID = LoginView.UserId;
             Boat = boat;
             Start = start;
             End = end;

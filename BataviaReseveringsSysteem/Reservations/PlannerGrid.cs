@@ -98,7 +98,7 @@ namespace BataviaReseveringsSysteem.Reservations
                 amountOfHoursOnDisplay * PlannerGridRowHeight)
                 .ForEach(plannerGridColumnDivider => Children.Add(plannerGridColumnDivider));
 
-            // Maak de slots voor zonsopgang blauw
+            // Maak de slots vóór zonsopgang blauw
             GetFirstUnavailableSlotTiles(earliestSlot, _earliestHourOnPlanningGrid)
                 .ForEach(firstUnavailableSlotTile => Children.Add(firstUnavailableSlotTile));
 
@@ -164,6 +164,8 @@ namespace BataviaReseveringsSysteem.Reservations
 
             return plannerSideLabels;
         }
+
+        // Maak de labels voor de kwartieren
         private List<Label> GeneratePlannerTopLabels()
         {
             var plannerTopLabels = new List<Label>();
@@ -182,6 +184,7 @@ namespace BataviaReseveringsSysteem.Reservations
             return plannerTopLabels;
         }
 
+        // Maak de horizontale lijnen die de rijen verdelen
         private List<Line> GeneratePlannerHorizontalLines(int earliestHourOnPlanningGrid, int latestHourOnPlanningGrid)
         {
             var plannerHorizontalLines = new List<Line>();
@@ -200,34 +203,56 @@ namespace BataviaReseveringsSysteem.Reservations
             return plannerHorizontalLines;
         }
 
-        private int GetLatestHourOnPlanningGrid(DateTime earliestSlot) => earliestSlot.Hour + 1;
+        // Verkrijg het laatste uur dat op de plannergrid vermeld staat: altijd het uur na het uur dat de zon onder gaat
+        private int GetLatestHourOnPlanningGrid(DateTime latestSlot) => latestSlot.Hour + 1;
 
+        // Verkrijg het eerste uur dat op de plannergrid vermeld staat: altijd het uur na het uur dat de zon 
         private int GetEarliestHourOnPlanningGrid(DateTime earliestSlot) => earliestSlot.Hour;
 
+        // Maak de slots na zonsopgang blauw
         private List<Rectangle> GetLastUnavailableSlotTiles(DateTime latestSlot, int firstHour)
         {
             var lastUnavailableSlotTiles = new List<Rectangle>();
+            
+            // Als de zon om 16.17 ondergaat,
+            // dan moeten er 3 slots worden uitgeschakeld
+            // 17 / 15 = 1 (niet 2,4666...)
+            // 4 - 1 = 3
             var amountOfLastUnavailableSlots = 4 - latestSlot.Minute / 15;
             var latestHour = latestSlot.Hour;
+            
+            // Maak het aantal onclaimbare slots.
+            // Begin daarbij bij de laatste slot
+            // Daarom is de for-loop zo raar
             for (var i = 3; i > 3 - amountOfLastUnavailableSlots; i--)
                 lastUnavailableSlotTiles.Add(SlotInDarknessTile(firstHour, latestHour, i));
             return lastUnavailableSlotTiles;
         }
+
+        // Maak de slots vóór zonsopgang blauw
         private List<Rectangle> GetFirstUnavailableSlotTiles(DateTime earliestSlot, int firstHour)
         {
             var firstUnavailableSlotTiles = new List<Rectangle>();
-            var amountOfFirstUnavailableSlots = earliestSlot.Minute / 15;
-            for (var i = 0; i < amountOfFirstUnavailableSlots; i++)
+
+            // Als de zon om 08.12 opgaat,
+            // dan moet er 1 slot worden uitgeschakeld
+            // 12 / 15 = 0 (niet 0,8)
+            // 0 + 1 = 1
+            var amountOfFirstUnavailableSlots = earliestSlot.Minute / 15 + 1;
+            for (var i = 1; i < amountOfFirstUnavailableSlots; i++)
                 firstUnavailableSlotTiles.Add(SlotInDarknessTile(firstHour, firstHour, i));
             return firstUnavailableSlotTiles;
         }
 
+        // Maak een donker slot
         private Rectangle SlotInDarknessTile(int firstHour, int disabledSlotHour, int quarter) =>
             OccupiedSlotTile(firstHour, disabledSlotHour, quarter, _slotDisabledDueToDarknessColor);
 
+        // Maak een slot dat geclaimd is, in het verleden is of te ver weg is
         private Rectangle ClaimedSlotTile(int firstHour, int claimedSlotHour, int quarter) =>
             OccupiedSlotTile(firstHour, claimedSlotHour, quarter, _slotClaimedColor);
 
+        // Maak een gekleurd slot
         private Rectangle OccupiedSlotTile(int firstHour, int occupiedSlotHour, int quarter, Brush color) => new Rectangle
         {
             Height = PlannerGridRowHeight,

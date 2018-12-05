@@ -37,7 +37,7 @@ namespace Controllers
         }
         public List<Reservation> GetReservationsForDayAndBoatThatAreNotDeleted(DateTime day, Boat boat)
         {
-            using (var context = new Database())
+            using (var context = new DataBase())
             {
                 return context.Reservations.Where(reservation =>
                         reservation.Start.Day == day.Day &&

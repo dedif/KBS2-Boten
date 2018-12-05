@@ -6,7 +6,6 @@ using System.Linq;
 using BataviaReseveringsSysteem.Database;
 using Models;
 using ScreenSwitcher;
-using Models;
 
 namespace Views
 {
@@ -36,7 +35,7 @@ namespace Views
                         where data.PersonID == username
                         select data.PersonID).Single();
 
-                    LoggedMember = member;
+                    UserId = member;
                 }
 
                 Switcher.Switch(new Dashboard());

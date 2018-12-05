@@ -48,7 +48,7 @@ namespace Views
             using (DataBase context = new DataBase())
             {
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
-                if(context.Reservations.Where(i => i.Deleted == null && i.UserID == LoginView.LoggedMember).Count() == 0)
+                if(context.Reservations.Where(i => i.Deleted == null && i.UserID == LoginView.UserId).Count() == 0)
                 {
                     NoReservationLabel.Visibility = Visibility.Visible;
                 }
@@ -57,7 +57,7 @@ namespace Views
                     NoReservationLabel.Visibility = Visibility.Hidden;
                 }
 
-                if (context.Reservations.Where(i => i.Deleted == null && i.UserID == LoginView.LoggedMember).Count() >= 2)
+                if (context.Reservations.Where(i => i.Deleted == null && i.UserID == LoginView.UserId).Count() >= 2)
                 {
                     MaxReservations.Visibility = Visibility.Visible;
                     AddReservationButton.IsEnabled = false;
@@ -67,7 +67,7 @@ namespace Views
                     MaxReservations.Visibility = Visibility.Hidden;
                     AddReservationButton.IsEnabled = true;
                 }
-                foreach (Reservation r in context.Reservations.Where(i => i.Deleted == null && i.UserID == LoginView.LoggedMember))
+                foreach (Reservation r in context.Reservations.Where(i => i.Deleted == null && i.UserID == LoginView.UserId))
                 {
                     if (Count % 2 == 0)
                     {
