@@ -17,7 +17,7 @@ namespace Views
     {
         DataBase context = new DataBase();
 
-        string reserved = null;
+        public string reserved { get; set; } = null;
         public BoatDamage()
         {
           
@@ -55,7 +55,7 @@ namespace Views
 
                     switch (Melding)
                     {
-                        case MessageBoxResult.Yes:
+                    case MessageBoxResult.Yes:
 
                             var Boat = (from data in context.Boats
                                         where data.Name == NameboatCombo.Text

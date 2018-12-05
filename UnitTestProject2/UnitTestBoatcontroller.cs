@@ -15,11 +15,12 @@ namespace UnitTest
 
         // true = De ingevulde gegevens zijn correct, false = de ingevulde gegevens zijn leeg
         [Test]
-        [TestCase("Wall", "12,13", true)]
-        [TestCase("  ", "14,11", false)]
-        [TestCase("dino", "", false)]
-        [TestCase("Shark", "33", true)]
-        public void WhiteCheck_Bool(string Name, string Weight, bool answer)
+        [TestCase("Wall", "12,13", true)]//return true omdat er geen whitespace is
+        [TestCase("  ", "14,11", false)]//return false omdat er whitespace is
+        [TestCase("dino", "", false)]//return false omdat er whitespace is
+        [TestCase("Shark", "33", true)]//return true omdat er geen whitespace is
+
+        public void WhiteCheck_WithOrWithoutWhiteSpace_ReturnBool(string Name, string Weight, bool answer)
         {
             //Arrange
             BoatController boot = new BoatController();
@@ -28,6 +29,7 @@ namespace UnitTest
             //Assert
             Assert.AreEqual(answer, result);
         }
+
         //true = het gewicht is een int, false = het gewicht is niet correct ingevoerd
         [Test]
         [TestCase("4,66", true)]
@@ -35,7 +37,7 @@ namespace UnitTest
         [TestCase("numbers", false)]
         [TestCase("", false)]
         [TestCase("33", true)]
-        public void WeightCheck_Bool(string Weight, bool answer)
+        public void WeightCheck_WeightFilledWithNumbersOrNot_ReturnBool(string Weight, bool answer)
         {
             //Arrange
             BoatController boot = new BoatController();
@@ -51,7 +53,7 @@ namespace UnitTest
         [TestCase("boot", true)]
         [TestCase("pizza", false)]
        
-        public void NameCheck_Bool(string name, bool answer)
+        public void NameCheck_NameContainsOrNot_ReturnBool(string name, bool answer)
         {
             //Arrange
             BoatController boot = new BoatController();

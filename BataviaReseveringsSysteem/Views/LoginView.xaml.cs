@@ -43,7 +43,7 @@ namespace Views
             }
         }
 
-        private void LoginButton(object sender, RoutedEventArgs e)
+        public void LoginButton(object sender, RoutedEventArgs e)
         {
             if (LoginController.IsLoginDataValid(Username, Password, LoginError))
             {
