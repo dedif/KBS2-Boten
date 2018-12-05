@@ -80,7 +80,6 @@ namespace Views
                 RowersCombo.IsEnabled = false;
                 SteeringWheelCheckbox.IsChecked = false;
                 SteeringWheelCheckbox.IsEnabled = false;
-                SkiffLabel.Visibility = Visibility.Visible;
                 }
             else 
             {
@@ -88,7 +87,6 @@ namespace Views
                 RowersCombo.IsEnabled = true;
                 SteeringWheelCheckbox.IsChecked = true;
                 SteeringWheelCheckbox.IsEnabled = true;
-                SkiffLabel.Visibility = Visibility.Hidden;
             }
         }
 

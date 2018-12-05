@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Models;
 using BataviaReseveringsSysteem.Database;
 using ScreenSwitcher;
+using System;
 
 namespace Views
 {
@@ -47,7 +48,7 @@ namespace Views
             using (DataBase context = new DataBase())
             {
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
-                if (context.Reservations.Where(i => i.Deleted == false).Count() == 0)
+                if(context.Reservations.Where(i => i.Deleted == null && i.UserID == LoginView.LoggedMember).Count() == 0)
                 {
                     NoReservationLabel.Visibility = Visibility.Visible;
                 }
@@ -56,7 +57,7 @@ namespace Views
                     NoReservationLabel.Visibility = Visibility.Hidden;
                 }
 
-                if (context.Reservations.Where(i => i.Deleted == false).Count() >= 2)
+                if (context.Reservations.Where(i => i.Deleted == null && i.UserID == LoginView.LoggedMember).Count() >= 2)
                 {
                     MaxReservations.Visibility = Visibility.Visible;
                     AddReservationButton.IsEnabled = false;
@@ -66,7 +67,7 @@ namespace Views
                     MaxReservations.Visibility = Visibility.Hidden;
                     AddReservationButton.IsEnabled = true;
                 }
-                foreach (Reservation r in context.Reservations.Where(i => i.Deleted == false))
+                foreach (Reservation r in context.Reservations.Where(i => i.Deleted == null && i.UserID == LoginView.LoggedMember))
                 {
                     if (Count % 2 == 0)
                     {
@@ -181,8 +182,8 @@ namespace Views
                 {
                     //De reservering wordt uit de database verwijderd. 
                     //context.Reservations.Remove(Delete);
-
-                    Delete.Deleted = true;
+                    
+                    Delete.Deleted = DateTime.Now;
                     context.SaveChanges();
                     //Alle oude knoppen en labels worden verwijderd van het scherm.
                     this.DeleteAllControls();

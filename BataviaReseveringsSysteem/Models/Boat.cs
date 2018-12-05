@@ -4,10 +4,11 @@ namespace Models
 {
     public class Boat
     {
-        public enum BoatType {Scull, Skiff, Board}
+        public enum BoatType {Scull = 0 , Skiff = 1, Board = 2}
 
         [Key]
         public int BoatID { get; set; }
+
         public string Name { get; set; }
         public BoatType Type { get; set; }
         public int NumberOfRowers { get; set;}

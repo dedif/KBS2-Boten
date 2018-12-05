@@ -6,6 +6,7 @@ using System.Linq;
 using BataviaReseveringsSysteem.Database;
 using Models;
 using ScreenSwitcher;
+using Models;
 
 namespace Views
 {
@@ -30,12 +31,12 @@ namespace Views
                 int username = int.Parse(Username.Text);
                 using (DataBase context = new DataBase())
                 {
-                    var id = (
+                    var member = (
                         from data in context.Users
                         where data.PersonID == username
                         select data.PersonID).Single();
 
-                    UserId = id;
+                    LoggedMember = member;
                 }
 
                 Switcher.Switch(new Dashboard());
@@ -50,9 +51,21 @@ namespace Views
                 e.Handled = regex.IsMatch(e.Text);
             }
 
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new Register());
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new LoginView());
+        }
+
         private void RegistrerenButton(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new Register());
         }
+
     }
 }
