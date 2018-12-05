@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
+using Views;
 
 namespace Controllers
 {
@@ -16,13 +17,13 @@ namespace Controllers
             return notification;
         }
         //Deze methode returnt true als naam en gewicht zijn ingevoerd (anders false)
-        
+
         public Boolean WhiteCheck(string name, string weight)
         {
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(weight))
             {
                 notification = "U heeft niet alle gegevens ingevuld";
-                
+
                 return false;
 
             }
@@ -35,7 +36,7 @@ namespace Controllers
         //Deze methode returnd true als gewicht is ingeverd als cijfers (anders false)
         public Boolean WeightCheck(string weight)
         {
-     
+
             try
             {
                 double Weight = double.Parse(weight);
@@ -63,7 +64,7 @@ namespace Controllers
                 if (CountNames.Count > 0)
                 {
                     notification = "Deze bootnaam bestaat al";
-                   
+
 
                     return false;
 
@@ -74,7 +75,7 @@ namespace Controllers
                 }
             }
         }
-//Deze methode voegt een boot toe aan de database
+        //Deze methode voegt een boot toe aan de database
         public void AddBoat(string name, string type, int rowers, double weight, bool steeringwheel)
         {
             notification = "";
@@ -82,20 +83,20 @@ namespace Controllers
             using (DataBase context = new DataBase())
 
             {
-              
-                    Enum.TryParse(type, out Boat.BoatType MyType);
+
+                Enum.TryParse(type, out Boat.BoatType MyType);
                 DateTime CreatedAt = DateTime.Now;
                 Boat boot1 = new Boat(name, MyType, rowers, weight, steeringwheel, CreatedAt);
-               
-                    context.Boats.Add(boot1);
+
+                context.Boats.Add(boot1);
 
 
-                    context.SaveChanges();
-                }
-      
-                
-
+                context.SaveChanges();
             }
+
+
+
+        }
 
         //Deze methode update en boot als verwijdert in de database
         public void DeleteBoat(int boatID)
@@ -136,8 +137,8 @@ namespace Controllers
                 return boats;
             }
         }
-		
-		public Boat GetBoatWithName(string name)
+
+        public Boat GetBoatWithName(string name)
         {
 
             using (var context = new DataBase())
@@ -171,5 +172,19 @@ namespace Controllers
             }
         }
 
+        public List<Boat> GetBoatsReservableWithThisUsersDiplomas()
+        {
+            using (var context = new DataBase())
+            {
+                return
+                    (from boat in context.Boats
+                        join boatDiploma in context.Boat_Diplomas on boat.BoatID equals boatDiploma.BoatID
+                        join memberDiploma in context.MemberDiplomas on boatDiploma.DiplomaID equals memberDiploma
+                         .DiplomaID
+                        where memberDiploma.PersonID == LoginView.UserId
+                        where boatDiploma.BoatID == boat.BoatID
+                        select boat).Distinct().ToList();
+            }
+        }
     }
 }

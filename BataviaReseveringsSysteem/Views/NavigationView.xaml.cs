@@ -22,7 +22,9 @@ namespace BataviaReseveringsSysteem.Views
 
         private void MakeReservationsBtn_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new ReserveWindow());
+            var reserveWindow = new ReserveWindow();
+            Switcher.Switch(reserveWindow);
+            reserveWindow.Populate();
         }
 
         private void SeeReservationsBtn_Click(object sender, RoutedEventArgs e)

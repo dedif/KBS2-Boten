@@ -192,8 +192,9 @@ namespace Views
 
         private void AddReservationButton_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new ReserveWindow());
-
+            var reserveWindow = new ReserveWindow();
+            Switcher.Switch(reserveWindow);
+            reserveWindow.Populate();
         }
 
         private void SignOutButton_Click(object sender, RoutedEventArgs e)

@@ -33,7 +33,6 @@ namespace BataviaReseveringsSysteem.Reservations
         public List<Boat> Boats { get; set; }
 
         // Aangezien een BoatTypeTabItem een TabItem is waarop je alle boten van een bepaald type kan weergeven, is het handig dat het BoatType erin staat
-        public Boat.BoatType BoatType { get; set; }
 
         // Dropdown voor de tijdsduur van je afschrijving
         public ComboBox ReservationDurationComboBox = new ComboBox();
@@ -51,7 +50,7 @@ namespace BataviaReseveringsSysteem.Reservations
         // dan wordt dit label met de melding dat er geen slots beschikbaar zijn, zichtbaar
         private Label _noSlotsAvailableLabel;
 
-        public BoatTypeTabItem(Boat.BoatType type, List<Reservation> reservations)
+        public BoatTypeTabItem(List<Reservation> reservations)
         {
             _noSlotsAvailableLabel = new Label
             {
@@ -63,8 +62,6 @@ namespace BataviaReseveringsSysteem.Reservations
 
             BoatView = new BoatView();
 
-            BoatType = type;
-            Header = type.ToString();
             Reservations = reservations;
 
             // Maak de grid waar alles in komt
@@ -218,7 +215,7 @@ namespace BataviaReseveringsSysteem.Reservations
             Grid.Children.Add(BoatNamesComboBox);
             // Vul de combobox met boten uit de database die corresponderen met dit type
             using (var context = new DataBase())
-                foreach (var item in from db in context.Boats where db.Type == BoatType select db.Name)
+                foreach (var item in from db in context.Boats select db.Name)
                     BoatNamesComboBox.Items.Add(item);
         }
 
@@ -548,7 +545,7 @@ namespace BataviaReseveringsSysteem.Reservations
                 var endTime = GenerateEndTime(startTime);
 
                 // Maak een reservering met de geselecteerde boot, de ingelogde gebruiker, de start- en de eindtijd
-                context.Reservations.Add(new Reservation(boat, LoginView.UserId, startTime, endTime));
+                context.Reservations.Add(new Reservation(boat, startTime, endTime));
                 context.SaveChanges();
             }
             MessageBox.Show("De boot is succesvol afgeschreven",
@@ -668,7 +665,7 @@ namespace BataviaReseveringsSysteem.Reservations
             DateTime earliestSlot, DateTime latestSlot)
         {
             var claimedSlots = new List<DateTime>();
-            var selectedBoat = new Boatcontroller().GetBoatWithName(selectedBoatString);
+            var selectedBoat = new BoatController().GetBoatWithName(selectedBoatString);
             // Verkrijg de reserveringen voor de geselecteerde boot
             var reservations = new ReservationController().GetReservationsForDayAndBoat(selectedDate, selectedBoat);
             var now = DateTime.Now;

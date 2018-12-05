@@ -72,18 +72,6 @@ namespace Views
             e.Handled = regex.IsMatch(e.Text);
         }
 
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new Register());
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new LoginView());
-        }
-
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new Register());

@@ -240,7 +240,7 @@ namespace BataviaReseveringsSysteem.Reservations
             // 0 + 1 = 1
             var amountOfFirstUnavailableSlots = earliestSlot.Minute / 15 + 1;
             for (var i = 1; i < amountOfFirstUnavailableSlots; i++)
-                firstUnavailableSlotTiles.Add(SlotInDarknessTile(firstHour, firstHour, i));
+                firstUnavailableSlotTiles.Add(SlotInDarknessTile(firstHour, firstHour, i - 1));
             return firstUnavailableSlotTiles;
         }
 
