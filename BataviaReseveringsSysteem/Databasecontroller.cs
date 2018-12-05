@@ -11,7 +11,7 @@ using System.Text;
 
 namespace BataviaReseveringsSysteem
 {
-    class DataBaseController
+   public class DataBaseController
     {
         public void Add_Role(string roleName)
         {
@@ -34,6 +34,35 @@ namespace BataviaReseveringsSysteem
 
         }
 
+        public void Add_Diploma(string diplomaName)
+        {
+            using (DataBase context = new DataBase())
+            {
+                var diploma = new Models.Diploma
+                {
+                    DiplomaName = diplomaName,
+                };
+                context.Diplomas.Add(diploma);
+                context.SaveChanges();
+            }
+        }
+
+        public void Add_MemberDiploma(int diplomaID, int personID)
+        {
+            using (DataBase context = new DataBase())
+            {
+                var memberDiploma = new Models.Member_Diploma
+                {
+                    DiplomaID = diplomaID,
+                    PersonID = personID,
+                    Created_at = DateTime.Now,
+                    
+                };
+                context.MemberDiplomas.Add(memberDiploma);
+                context.SaveChanges();
+            }
+        }
+
         public void Add_MemberRole(int roleID,int personID)
         {
 
@@ -49,11 +78,28 @@ namespace BataviaReseveringsSysteem
                     Deleted_at = null
 
                 };
-
-                context.MemberRoles.Add(MemberRole);
-                context.SaveChanges();
+              
+                    context.MemberRoles.Add(MemberRole);
+                    context.SaveChanges();
+                
+                
             }
 
+        }
+        public bool Get_MemberRole(int roleID, int personID)
+        {
+            try
+            {
+                using (DataBase context = new DataBase())
+                {
+                    bool hasMemberRole = context.MemberRoles.Any(cus => cus.PersonID == personID && cus.RoleID == roleID);
+                    return hasMemberRole;
+                }
+               
+            }
+            catch(NullReferenceException)
+            { return false; }
+            
         }
 
         public void Delete_MemberRole(int personID, int rolID)
@@ -61,27 +107,33 @@ namespace BataviaReseveringsSysteem
             using (DataBase context = new DataBase())
             {
 
-                //Models.MemberRole delMemberRole = context.MemberRoles.Where(d => d.PersonID == personID).First();
-
                 var delMemberRole = (from x in context.MemberRoles
                                      where x.PersonID == personID && x.Deleted_at == null && x.RoleID == rolID
                                      select x).ToList();
 
 
-                //if (delMemberRole != null)
-                //{
-                //    delMemberRole.ForEach(x => x.Deleted_at = DateTime.Now);
-            
-                //}
-
-                // if (delMemberRole != null)
-                // {
-                //   delMemberRole.Deleted_at = DateTime.Now;
-
                 context.MemberRoles.RemoveRange(delMemberRole);
 
                 context.SaveChanges();
-               // }
+               
+            }
+
+        }
+
+        public void Delete_MemberDiploma(int personID, int diplomaID)
+        {
+            using (DataBase context = new DataBase())
+            {
+
+                var delMemberDiploma = (from x in context.MemberDiplomas
+                                     where x.PersonID == personID && x.Deleted_at == null && x.DiplomaID == diplomaID
+                                     select x).ToList();
+
+
+                context.MemberDiplomas.RemoveRange(delMemberDiploma);
+
+                context.SaveChanges();
+                
             }
 
         }

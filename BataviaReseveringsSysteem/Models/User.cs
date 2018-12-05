@@ -21,6 +21,7 @@ namespace Models
         public DateTime Created_at { get; set; }
         public DateTime? Updated_at { get; set; }
         public DateTime? Deleted_at { get; set; }
+        public DateTime LastLoggedIn { get; set; } = DateTime.Now;
 
         public User()
         {

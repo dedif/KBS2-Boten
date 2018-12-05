@@ -1,4 +1,5 @@
 ﻿using BataviaReseveringsSysteem.Database;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,9 +9,26 @@ namespace Controllers
 {
     public class LoginController
     {
-
-        public static bool Login(TextBox Username, PasswordBox Password, Label LoginError)
+        public void DeleteOldReservations()
         {
+            using (DataBase context = new DataBase())
+            {
+                var Reservations = (from data in context.Reservations
+                                    where data.End < DateTime.Now
+                                    select data).ToList();
+
+                foreach (var r in Reservations)
+                {
+                    r.Deleted = DateTime.Now;
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public static Boolean IsLoginDataValid(TextBox Username, PasswordBox Password, Label LoginError)
+        {
+
+
 
             var u = new UserController();
 

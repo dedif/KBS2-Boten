@@ -3,10 +3,11 @@ using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace Controllers
 {
-    public class Boatcontroller
+    public class BoatController
     {
         private string notification;
 
@@ -83,7 +84,8 @@ namespace Controllers
             {
               
                     Enum.TryParse(type, out Boat.BoatType MyType);
-                Boat boot1 = new Boat(name, MyType, rowers, weight, steeringwheel);
+                DateTime CreatedAt = DateTime.Now;
+                Boat boot1 = new Boat(name, MyType, rowers, weight, steeringwheel, CreatedAt);
                
                     context.Boats.Add(boot1);
 
@@ -95,6 +97,30 @@ namespace Controllers
 
             }
 
+        //Deze methode update en boot als verwijdert in de database
+        public void DeleteBoat(int boatID)
+        {
+
+            using (DataBase context = new DataBase())
+
+            {
+                Boat delBoat = context.Boats.Where(d => d.BoatID == boatID).First();
+
+                if (delBoat != null)
+                {
+
+                    delBoat.DeletedAt = DateTime.Now;
+
+                    context.SaveChanges();
+                }
+
+                context.Boats.Add(delBoat);
+
+
+                context.SaveChanges();
+            }
+
+        }
 
 
         public List<Boat> BoatList()
@@ -117,6 +143,31 @@ namespace Controllers
             using (var context = new DataBase())
             {
                 return (from boat in context.Boats where boat.Name.Equals(name) select boat).First();
+            }
+        }
+
+        public void AddDiploma(List<CheckBox> list)
+        {
+
+
+            using (DataBase context = new DataBase())
+            {
+                //De BoatID van de laatst toegvoegde boat
+                var BoatID = (from data in context.Boats
+                              orderby data.BoatID descending
+                              select data.BoatID).First();
+                //Elke checkbox voor diploma's worden toegeoegt aan een list
+                foreach (CheckBox box in list)
+                {
+                    //Als de checkbox is aangevinkt dat wordt dit toegevoegd aan de database
+                    if (box.IsChecked == true)
+                    {
+                        int diplomaID = int.Parse(box.Tag.ToString());
+                        Boat_Diploma Diploma = new Boat_Diploma(BoatID, diplomaID);
+                        context.Boat_Diplomas.Add(Diploma);
+                        context.SaveChanges();
+                    }
+                }
             }
         }
 

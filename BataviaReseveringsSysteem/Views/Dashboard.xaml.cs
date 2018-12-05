@@ -6,6 +6,7 @@ using Models;
 using BataviaReseveringsSysteem.Database;
 using ScreenSwitcher;
 using System;
+using Controllers;
 
 namespace Views
 {
@@ -15,32 +16,69 @@ namespace Views
     public partial class Dashboard : UserControl
     {
 
-        int YLeft = 50;
-        int YRight = 50;
-        int Count = 0;
+        public int YLeft = 50;
+        public int YRight = 50;
+        public int Count = 0;
+        public int MaxReservationUser = 2;
         //Deze lijsten, bevatten alle buttens en labels
-        List<Label> LabelList = new List<Label>();
-        List<Button> ButtonList = new List<Button>();
+        public List<Label> LabelList = new List<Label>();
+        public List<Button> ButtonList = new List<Button>();
+        DataBase context = new DataBase();
+        DashboardController dashboardController;
         public Dashboard()
         {
             InitializeComponent();
-            this.HorizontalAlignment = HorizontalAlignment.Center;
-            GridDashboard.Margin = new Thickness(0, 0, 0, 20);
+            GridDashboard.VerticalAlignment = VerticalAlignment.Top;
+            GridDashboard.Margin = new Thickness(50, 0, 50, 20);
 
-            //De reservaties van de gebruiker worden met deze methode getoond op het scherm
-            ShowReservations();
-            using (DataBase context = new DataBase())
-            {
+
+            //try
+            //{
+                var loggedUser = (from data in context.Users
+                                  where data.PersonID == LoginView.UserId
+                                  select data).Single();
+                NameLabel.Content = loggedUser.Firstname + " " + loggedUser.Lastname;
+
+                dashboardController = new DashboardController(this);
+
                 var rol = (from data in context.MemberRoles
                            where data.PersonID == LoginView.UserId
-                           select data.RoleID).Single();
+                           select data.RoleID).ToList();
 
-                if (rol == 6)
+                if (rol.Contains(6))
                 {
+                    MaxReservationUser = 2;
                     AddBoatButton.Visibility = Visibility.Visible;
                     UserListButton.Visibility = Visibility.Visible;
                 }
-            }
+
+                if (rol.Contains(3))
+                {
+                    MaxReservationUser = 8;
+                }
+
+                if (rol.Contains(4))
+                {
+                    MaxReservationUser = int.MaxValue;
+                }
+
+                if (rol.Contains(5))
+                {
+                    MaxReservationUser = int.MaxValue;
+                }
+
+
+                //De reservaties van de gebruiker worden met deze methode getoond op het scherm
+                ShowReservations();
+                dashboardController.Notification(loggedUser.LastLoggedIn);
+            //}
+
+            //catch (InvalidOperationException ioe)
+            //{
+            //    MessageBox.Show("U dient eerst in te loggen", "Waarschuwing", MessageBoxButton.OK, MessageBoxImage.Information);
+            //    Switcher.Switch(new LoginView());
+            //}
+
         }
 
         public void ShowReservations()
@@ -48,7 +86,7 @@ namespace Views
             using (DataBase context = new DataBase())
             {
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
-                if(context.Reservations.Where(i => i.Deleted == null && i.UserID == LoginView.UserId).Count() == 0)
+                if(context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId).Count() == 0)
                 {
                     NoReservationLabel.Visibility = Visibility.Visible;
                 }
@@ -57,7 +95,7 @@ namespace Views
                     NoReservationLabel.Visibility = Visibility.Hidden;
                 }
 
-                if (context.Reservations.Where(i => i.Deleted == null && i.UserID == LoginView.UserId).Count() >= 2)
+                if (context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId).Count() >= 2)
                 {
                     MaxReservations.Visibility = Visibility.Visible;
                     AddReservationButton.IsEnabled = false;
@@ -67,7 +105,8 @@ namespace Views
                     MaxReservations.Visibility = Visibility.Hidden;
                     AddReservationButton.IsEnabled = true;
                 }
-                foreach (Reservation r in context.Reservations.Where(i => i.Deleted == null && i.UserID == LoginView.UserId))
+				
+                foreach (Reservation r in context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId))
                 {
                     if (Count % 2 == 0)
                     {
@@ -75,15 +114,15 @@ namespace Views
                         //Dit is voor de label aan de linkerkant van de twee rijen
                         Label l = new Label()
                         {
-                            Content = ReservationContent(r),
+                            Content = dashboardController.ReservationContent(r),
                             Margin = new Thickness(20, YLeft, 50, 50),
                             FontSize = 16,
                             HorizontalAlignment = HorizontalAlignment.Left,
                             VerticalAlignment = VerticalAlignment.Top,
                         };
                         LabelList.Add(l);
-                        Button deleteButton = AddDeleteButton(20, YLeft + 130, r.ReservationID);
-                        Button changeButton = AddChangeButton(20, YLeft + 170);
+                        Button deleteButton = dashboardController.AddDeleteButton(20, YLeft + 130, r.ReservationID);
+                        Button changeButton = dashboardController.AddChangeButton(20, YLeft + 170);
                         ButtonList.Add(deleteButton);
                         ButtonList.Add(changeButton);
 
@@ -99,15 +138,15 @@ namespace Views
                         //Hiermee maak je een label
                         Label l2 = new Label()
                         {
-                            Content = ReservationContent(r),
+                            Content = dashboardController.ReservationContent(r),
                             Margin = new Thickness(500, YRight, 50, 50),
                             FontSize = 16,
                             HorizontalAlignment = HorizontalAlignment.Left,
                             VerticalAlignment = VerticalAlignment.Top,
                         };
                         LabelList.Add(l2);
-                        Button deleteButton = AddDeleteButton(500, YRight + 130, r.ReservationID);
-                        Button changeButton = AddChangeButton(500, YRight + 170);
+                        Button deleteButton = dashboardController.AddDeleteButton(500, YRight + 130, r.ReservationID);
+                        Button changeButton = dashboardController.AddChangeButton(500, YRight + 170);
                         ButtonList.Add(deleteButton);
                         ButtonList.Add(changeButton);
 
@@ -125,77 +164,6 @@ namespace Views
             }
         }
 
-        //Deze methode vult de labels van de huidige reservaties
-        public string ReservationContent(Reservation reservation)
-        {
-            using (DataBase context = new DataBase())
-            {
-
-                var ReservationBoatID = (
-                    from r in context.Reservations
-                    where r.ReservationID == reservation.ReservationID
-                    select r.Boat.BoatID).Single();
-
-                var Name =
-                    (from boat in context.Boats
-                     where boat.BoatID == ReservationBoatID
-                     select boat.Name).Single();
-
-                var Date =
-                  (from r in context.Reservations
-                   where r.ReservationID == reservation.ReservationID
-                   select r.Start).Single();
-
-                string minuten = Date.Minute.ToString();
-                if (Date.Minute < 10)
-                {
-                    minuten = "0" + minuten;
-                }
-
-                string content;
-                content = "Naam : " + Name;
-                content += "\nTijd: " + Date.Hour + ":" + minuten;
-                content += "\nDatum: " + Date.Month + "/" + Date.Day + "/" + Date.Year;
-
-                return content;
-            }
-        }
-        //Deze methode verwijderd de bijbehorende reservatie
-        public void DeleteReservation(int id)
-        {
-            using (DataBase context = new DataBase())
-            {
-                var Delete = (
-                    from r in context.Reservations
-                    where r.ReservationID == id
-                    select r).Single();
-                //De gebruiker krijgt een controle melding.
-                MessageBoxResult confirm = MessageBox.Show(
-                                "Weet u zeker dat u de volgende afschrijving wilt verwijderen:\n"
-                                + ReservationContent(Delete),
-                                "Melding",
-                                MessageBoxButton.YesNo,
-                                MessageBoxImage.Information);
-
-                //Als de gebruiker de reservering wilt verwijderen.
-                if (confirm == MessageBoxResult.Yes)
-                {
-                    //De reservering wordt uit de database verwijderd. 
-                    //context.Reservations.Remove(Delete);
-                    
-                    Delete.Deleted = DateTime.Now;
-                    context.SaveChanges();
-                    //Alle oude knoppen en labels worden verwijderd van het scherm.
-                    this.DeleteAllControls();
-                    YLeft = 50;
-                    YRight = 50;
-                    Count = 0;
-                    //De nieuwe reserveringen worden op het scherm getoond. 
-                    ShowReservations();
-                }
-
-            }
-        }
         //Deze methode verwijderd alle controls
         public void DeleteAllControls()
         {
@@ -208,60 +176,16 @@ namespace Views
                 GridDashboard.Children.Remove(ButtonList[i]);
             }
         }
-        private Button AddChangeButton(int x, int y)
-        {
-            //Er wordt een button aangemaakt. 
-            Button Left = new Button()
-            {
-                Content = "Afschrijving wijzigen",
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(x, y, 0, 0),
-                Height = 30,
-                Width = 160,
-                FontSize = 16,
-                HorizontalContentAlignment = HorizontalAlignment.Left
-            };
-            //De button krijgt een click event
-            Left.Click += Change_Click;
-
-            return Left;
-        }
-
-
-        private Button AddDeleteButton(int x, int y, int id)
-        {
-
-            Button Right = new Button()
-            {
-                //Er wordt een button aangemaakt. 
-                Content = "Afschrijving annuleren",
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(x, y, 0, 0),
-                Height = 30,
-                Width = 160,
-                FontSize = 16,
-                Tag = id,
-                HorizontalContentAlignment = HorizontalAlignment.Left
-            };
-            //De button krijgt een click event
-            Right.Click += DeleteButton_Click;
-
-
-            return Right;
-        }
 
 
 
-
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        public void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
-            DeleteReservation((int)b.Tag);
+            dashboardController.DeleteReservation((int)b.Tag);
         }
 
-        private void Change_Click(object sender, RoutedEventArgs e)
+        public void Change_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new Dashboard());
         }

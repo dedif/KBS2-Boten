@@ -11,7 +11,7 @@ namespace ScreenSwitcher
     public partial class PageSwitcher : Window
     {
         public Canvas switcherCanvas;
-        public MenuView MenuView { get; set; }
+        public NavigationView NavigationView { get; set; }
 
         public PageSwitcher()
         {
@@ -19,34 +19,28 @@ namespace ScreenSwitcher
             MenuMaker();
             SwitcherContentCanvas();
             Switcher.pageSwitcher = this;
-            Switcher.Switch(new ReserveWindow());
+            Switcher.Switch(new AddBoat());
         }
 
         public void SwitcherContentCanvas()
         {
             switcherCanvas = new Canvas
             {
-                Width = 1920,
-                Height = 1080,
-                Margin = new Thickness(0, 100, 0, 0),
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
+
+                Width = 1024,
+                Height = 768,
+                //Margin = new Thickness(0, 100, 0, 0),
+                //HorizontalAlignment = HorizontalAlignment.Left,
+                //VerticalAlignment = VerticalAlignment.Top,
             };
             switcherGrid.Children.Add(switcherCanvas);
         }
 
         public void MenuMaker()
         {
-            MenuView = new MenuView();
-            Canvas menuCanvas = new Canvas
-            {
-                Width = 1920,
-                Height = 80,
-                Margin = new Thickness(0, 25, 0, 0),
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top
-            };
-            menuCanvas.Children.Add(MenuView);
+            NavigationView = new NavigationView();
+            Canvas menuCanvas = new Canvas();
+            menuCanvas.Children.Add(NavigationView);
             switcherGrid.Children.Add(menuCanvas);
         }
 

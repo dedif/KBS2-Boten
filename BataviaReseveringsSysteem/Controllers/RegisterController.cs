@@ -13,10 +13,12 @@ using Controllers;
 
 namespace Controllers
 {
+
+
     public class RegisterController
     {
         //Register member of user
-        public static Boolean Registreren(TextBox Firstname, 
+        public static Boolean Register(TextBox Firstname, 
                                      TextBox Middlename, 
                                      TextBox Lastname, 
                                      TextBox City,
@@ -54,7 +56,7 @@ namespace Controllers
                 }
                 if (item.Name == "Firstname" || item.Name == "Lastname" || item.Name == "Middlename" || item.Name == "City")
                 {
-                    if (!IsAllLetters(item.Text))
+                    if (!DoesletterOnlyTextboxContainNumber(item.Text))
                     {
                         ErrorAlert(item);
                         validate = false;
@@ -159,7 +161,7 @@ namespace Controllers
            
         }
         // check if there are no numbers in inputbox
-        public static bool IsAllLetters(string s)
+        public static bool DoesletterOnlyTextboxContainNumber(string s)
         {
             foreach (char c in s)
             {

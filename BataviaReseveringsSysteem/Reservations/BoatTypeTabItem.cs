@@ -153,7 +153,7 @@ namespace BataviaReseveringsSysteem.Reservations
                     latestSlot);
 
             // Weergeef de eigenschappen van de geselecteerde boot (wederom de eerste in de botencombobox)
-            BoatView.UpdateView(new Boatcontroller().GetBoatWithName(selectedBoatString));
+            BoatView.UpdateView(new BoatController().GetBoatWithName(selectedBoatString));
 
             // Vul de PlannerGrid met de slots voor deze dag.
             // Alles vòòr de eerste en na de laatste slot wordt donkerblauw.
@@ -196,9 +196,6 @@ namespace BataviaReseveringsSysteem.Reservations
             // Weergeef de grid
             Content = Grid;
 
-            // Initialiseer de afschrijvingsduur-combobox met acht opties (één tot acht kwartier na de starttijd)
-            FillComboTimes();
-
             // Kijk of je wel acht kwartier mag afschrijven of dat er afschrijving binnen die acht kwartier geclaimd is.
             OnStartComboBoxClick(null, null);
 
@@ -225,7 +222,7 @@ namespace BataviaReseveringsSysteem.Reservations
                     BoatNamesComboBox.Items.Add(item);
         }
 
-        // Deze methode vult de combobox met tijden van 15 min tot 2 uur
+        // Initialiseer de afschrijvingsduur-combobox met acht opties (één tot acht kwartier na de starttijd)
         public void FillComboTimes()
         {
             ReservationDurationComboBox.Name = "ComboTimes";
@@ -527,7 +524,7 @@ namespace BataviaReseveringsSysteem.Reservations
             .AddHours(int.Parse(ReservationDurationComboBox.SelectedValue.ToString()[1].ToString()))
             .AddMinutes(int.Parse(ReservationDurationComboBox.SelectedValue.ToString().Substring(3)));
 
-        // Reserveer een boot
+        // Zodra de OkBtn is aangeklikt zal de boot worden afgeschreven na messagebox dialoog bevestiging
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
             // Toon een popup.
@@ -561,8 +558,6 @@ namespace BataviaReseveringsSysteem.Reservations
             Switcher.Switch(new Dashboard());
         }
 
-        
-
         // Als er op de combobox voor de bootnamen wordt geklikt...
         private void OnBoatNamesComboBoxClicked(object sender, EventArgs e)
         {
@@ -571,7 +566,7 @@ namespace BataviaReseveringsSysteem.Reservations
 
             // Werk de boatview bij met data uit deze boot
             var selectedBoatString = (string)BoatNamesComboBox.SelectedValue;
-            var selectedBoat = new Boatcontroller().GetBoatWithName(selectedBoatString);
+            var selectedBoat = new BoatController().GetBoatWithName(selectedBoatString);
             BoatView.UpdateView(selectedBoat);
         }
 

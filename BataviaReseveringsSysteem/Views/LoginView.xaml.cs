@@ -6,6 +6,8 @@ using System.Linq;
 using BataviaReseveringsSysteem.Database;
 using Models;
 using ScreenSwitcher;
+using BataviaReseveringsSysteem;
+using System;
 
 namespace Views
 {
@@ -16,39 +18,70 @@ namespace Views
     {
 
         public static int UserId;
-        public static User User;
+        LoginController loginController = new LoginController();
+
         public LoginView()
         {
             InitializeComponent();
-            HorizontalAlignment = HorizontalAlignment.Center;
+            this.HorizontalAlignment = HorizontalAlignment.Center;
+            loginController.DeleteOldReservations();
+            using (DataBase context = new DataBase())
+            {
+                var ReservationInfo = (from data in context.Reservations
+                                       where data.Deleted == null
+                                       orderby data.Start
+                                       select data).ToList();
+
+                var BoatInfo = (from data in context.Reservations
+                                where data.Deleted == null
+                                select data.Boat).ToList();
+                if (ReservationInfo.Count > 0)
+                {
+                    DataReservations.Visibility = Visibility.Visible;
+                }
+                DataReservations.ItemsSource = ReservationInfo;
+            }
         }
 
         private void LoginButton(object sender, RoutedEventArgs e)
         {
-            if (LoginController.Login(Username, Password, LoginError))
+            if (LoginController.IsLoginDataValid(Username, Password, LoginError))
             {
                 int username = int.Parse(Username.Text);
                 using (DataBase context = new DataBase())
                 {
-                    var member = (
+                    var user = (
                         from data in context.Users
                         where data.PersonID == username
-                        select data.PersonID).Single();
+                        select data).Single();
 
-                    UserId = member;
+                    UserId = user.PersonID;
+
+                    Switcher.Switch(new Dashboard());
+                    user.LastLoggedIn = DateTime.Now;
+                    context.SaveChanges();
                 }
-
-                Switcher.Switch(new Dashboard());
             }
-            
+
         }
-       
+
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
-            {
-                Regex regex = new Regex("[^0-9]+");
-                e.Handled = regex.IsMatch(e.Text);
-            }
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new Register());
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new LoginView());
+        }
 
 
         private void Button_Click(object sender, RoutedEventArgs e)

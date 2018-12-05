@@ -4,10 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-		Height="800" Width="1080">
+		Height="768" Width="1024">
     <Grid>
 
-        <TabControl x:Name="BoatTypeTabControl" HorizontalAlignment="Left" Height="800" Margin="10,10,20,0" Width="900" RenderTransformOrigin="0.5,0.5">
+        <TabControl x:Name="BoatTypeTabControl" Margin="10,10,20,0" RenderTransformOrigin="0.5,0.5">
         </TabControl>
         <Button Visibility="Hidden" x:Name="AfschrijvenBtn" Content="Afschrijven" HorizontalAlignment="Left" Margin="391,321,0,0" VerticalAlignment="Top" Height="25" Width="120"/>
         <ComboBox Visibility="Hidden" x:Name="TimeCombo" HorizontalAlignment="Left" Margin="226,321,0,0" VerticalAlignment="Top" Height="25"  Width="120" SelectedIndex="0">

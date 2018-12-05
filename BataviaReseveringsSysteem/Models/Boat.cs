@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Models
 {
@@ -15,15 +16,21 @@ namespace Models
         public double Weight { get; set; }
         public bool Steering { get; set; }
         public string Status { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
+        public bool Broken { get; set; } = false;
 
-        public Boat(string name, BoatType type, int numberOfRowers, double weight, bool steering)
+        public Boat(string name, BoatType type, int numberOfRowers, double weight, bool steering, DateTime createdAt)
         {
             Name = name;
             Type = type;
             NumberOfRowers = numberOfRowers;
             Weight = weight;
             Steering = steering;
-              
+            CreatedAt = createdAt;
+
+
         }
         public Boat()
         {

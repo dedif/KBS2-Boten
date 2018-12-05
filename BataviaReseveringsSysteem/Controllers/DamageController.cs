@@ -1,8 +1,7 @@
-﻿using System;
+﻿using BataviaReseveringsSysteem.Database;
+using Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BataviaReseveringsSysteem.Controllers
 {
@@ -14,11 +13,11 @@ namespace BataviaReseveringsSysteem.Controllers
 
         }
 
-        //public List<Damage> GetDamagesList()
-        //{
-        //    using (var context = new Database()) return context.Damages.ToList();
-            
-        //}
-        
+        public List<Damage> GetDamagesList()
+        {
+            using (var context = new DataBase()) return context.Damages.ToList();
+
+        }
+
     }
 }

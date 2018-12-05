@@ -3,41 +3,119 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp13"
         mc:Ignorable="d"
-        >
-    <Grid Background="White" Width="1920" Height="1076">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Height="768" Width="1024">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="493*"/>
-            <RowDefinition Height="587*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Canvas HorizontalAlignment="Center" Margin="591,0,622,0.333" Width="707">
-            <Label x:Name="NameLabel" Content="Bootnaam:" HorizontalAlignment="Left" Margin="130,36,0,0" VerticalAlignment="Top" FontSize="26" Height="45" Width="133"/>
-            <TextBox x:Name="NameBox" HorizontalAlignment="Left" Height="45" Margin="288,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="245" FontSize="26"/>
-            <Label x:Name="TypeLabel" Content="Type:" Margin="189,248,1657,92.333" RenderTransformOrigin="0.985,0.426" FontSize="26" />
-            <ComboBox x:Name="TypCombo" HorizontalAlignment="Left" Margin="288,242,0,0" Height="45"  VerticalAlignment="Top" Width="245" SelectionChanged="TypCombo_SelectionChanged" FontSize="26">
-                <ComboBoxItem Content="Scull" Height="45" Width="300" FontSize="26"/>
-                <ComboBoxItem  Content="Skiff" Height="45" Width="300" FontSize="26"/>
-                <ComboBoxItem Content="Board" Height="45" Width="300" FontSize="26"/>
-            </ComboBox>
-            <Label x:Name="RowersLabel" Content="Aantal roeiers:" HorizontalAlignment="Left" Margin="96,100,0,0" VerticalAlignment="Top" FontSize="26" Height="45" Width="173"/>
-            <ComboBox x:Name="RowersCombo" HorizontalAlignment="Left" Height="45" FontSize="26" Margin="288,100,0,0" VerticalAlignment="Top" Width="245">
-                <ComboBoxItem IsSelected="True" Content="1" Height="45" FontSize="26" Margin="0,0,42.4,0"/>
-                <ComboBoxItem Content="2" Height="45" FontSize="26" Margin="0,0,42.4,0"/>
-                <ComboBoxItem Content="4" Height="45" FontSize="26" Margin="0,0,42.4,0"/>
-                <ComboBoxItem Content="8" Height="45" FontSize="26" Margin="0,0,42.4,0"/>
-            </ComboBox>
-            <Label x:Name="WeightLabel" Content="Gewicht (kg):" HorizontalAlignment="Left" Margin="104,164,0,0" VerticalAlignment="Top" FontSize="26" RenderTransformOrigin="0.858,0.188" Height="45" Width="159"/>
-            <TextBox x:Name="WeightBox" HorizontalAlignment="Left" Height="45" Margin="288,164,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="245" FontSize="26"/>
-            <CheckBox x:Name="SteeringWheelCheckbox" Content="Stuur" HorizontalAlignment="Left" Margin="150,304,0,0" VerticalAlignment="Top" FontSize="26" Height="46" Width="113" RenderTransformOrigin="0.703,1.145"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="NameBox" 
+                materialDesign:HintAssist.Hint="Bootnaam"
+                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25" />
+        <ComboBox Grid.Row="1" Grid.Column="1" x:Name="TypCombo" 
+                  materialDesign:HintAssist.Hint="Boot type"
+                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25"  SelectionChanged="TypCombo_SelectionChanged">
+            <ComboBoxItem Content="Scull"/>
+            <ComboBoxItem  Content="Skiff"/>
+            <ComboBoxItem Content="Board"/>
+        </ComboBox>
+        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="RowersCombo" 
+                  materialDesign:HintAssist.Hint="Aantal roeiers"
+                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25">
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="8"/>
+        </ComboBox>
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="WeightBox" 
+                 materialDesign:HintAssist.Hint="Gewicht (kg)"
+                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25" FontSize="14"/>
+        <ToggleButton Grid.Row="4" Grid.Column="1" x:Name="SteeringWheelToggle"
+              Style="{StaticResource MaterialDesignSwitchToggleButton}"
+              ToolTip="Default ToggleButton Style"/>
+        <Label Grid.Row="4" Grid.Column="1" Content="Stuur?" Margin="50,0,150,0" VerticalAlignment="Center"/>
 
+        <Button Grid.Row="5" Grid.Column="1" x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="SaveButton_Click"/>
+        <Button Grid.Row="5" Grid.Column="1" x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="140" Height="35" FontSize="16" Click="CancelButton_Click"/>
 
-            <Label x:Name="NotificationLabel" Visibility="Hidden" Content="" HorizontalAlignment="Left" Margin="137,17.667,0,0" VerticalAlignment="Top" Width="290" Foreground="#FFFF0909" Grid.Row="1" Height="26"/>
-        </Canvas>
-        <Canvas>
-            <Button x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Left" VerticalAlignment="Top" Height="45" Width="245" FontSize="26" Click="SaveButton_Click" RenderTransformOrigin="0.986,0.422" Grid.Row="1" Canvas.Left="1018" Canvas.Top="543"/>
-            <Button x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Left" VerticalAlignment="Top" Width="245" FontSize="26" Height="45" RenderTransformOrigin="0.432,0.234" Click="CancelButton_Click" Grid.Row="1" Canvas.Left="695" Canvas.Top="543"/>
-        </Canvas>
-
+        <Label x:Name="NotificationLabel" Content="&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,30.667,0,0" VerticalAlignment="Top" Width="290" Grid.Row="1" FontSize="16" Grid.ColumnSpan="2"/>
+        <Label Grid.Row="1" Grid.Column="2" x:Name="SkiffLabel" Content="Een skiff boot heeft altijd één roeier en geen stuur" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Left" Width="331"/>
+        <Label Grid.Row="2" Grid.Column="2" Content="Benodigd diploma:"/>
+        <StackPanel Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <CheckBox x:Name="S1CheckBox" Tag="1">
+                <DockPanel Height="16">
+                    <Image DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Top" Text="S1" />
+                </DockPanel>
+            </CheckBox>
+            <CheckBox x:Name="S2CheckBox" Tag="2">
+                <DockPanel Height="16">
+                    <Image DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Top" Text="S2" />
+                </DockPanel>
+            </CheckBox>
+            <CheckBox x:Name="S3CheckBox" Tag="3">
+                <DockPanel Height="16">
+                    <Image DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Top" Text="S3" />
+                </DockPanel>
+            </CheckBox>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <CheckBox x:Name="B1CheckBox" Tag="4">
+                <DockPanel Height="16">
+                    <Image DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Top" Text="B1" />
+                </DockPanel>
+            </CheckBox>
+            <CheckBox x:Name="B2CheckBox" Tag="5">
+                <DockPanel Height="16">
+                    <Image DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Top" Text="B2" />
+                </DockPanel>
+            </CheckBox>
+            <CheckBox x:Name="B3CheckBox" Tag="6">
+                <DockPanel Height="16">
+                    <Image DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Top" Text="B3" />
+                </DockPanel>
+            </CheckBox>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <CheckBox x:Name="P1CheckBox" Tag="7">
+                <DockPanel Height="16">
+                    <Image DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Top" Text="P1" />
+                </DockPanel>
+            </CheckBox>
+            <CheckBox x:Name="P2CheckBox" Tag="8">
+                <DockPanel Height="16">
+                    <Image DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Top" Text="P2" />
+                </DockPanel>
+            </CheckBox>
+        </StackPanel>
     </Grid>
 </UserControl>
