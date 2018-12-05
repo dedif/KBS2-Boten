@@ -9,7 +9,6 @@
     <ScrollViewer>
 
         <Grid Name="GridDashboard" Width="1920" Height="1080">
-            <Button x:Name="AddReservationButton" Content="+ Afschrijving toevoegen" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" Width="345" Height="45" Click="AddReservationButton_Click" FontSize="26"/>
             <Button x:Name="SettingsButton" Visibility="Hidden" Content="Instellingen" HorizontalAlignment="right" Margin="0,81,22,0" VerticalAlignment="Top" Width="111" RenderTransformOrigin="0.524,1.334" FontSize="16"/>
             <Button x:Name="SignOutButton" Content="Uitloggen" HorizontalAlignment="right" Margin="0,70,100,0" VerticalAlignment="Top" Width="345" Height="45" RenderTransformOrigin="0.163,0.676" FontSize="26" Click="SignOutButton_Click"/>
             <Button x:Name="UserListButton" Content="Inzien gebruikers" HorizontalAlignment="right" Margin="0,135,100,0" VerticalAlignment="Top" Width="345" Height="45" RenderTransformOrigin="0.163,0.676" FontSize="26" Click="UserListButton_Click" />

@@ -19,7 +19,7 @@ namespace ScreenSwitcher
             MenuMaker();
             SwitcherContentCanvas();
             Switcher.pageSwitcher = this;
-            Switcher.Switch(new ReserveWindow());
+            Switcher.Switch(new LoginView());
         }
 
         public void SwitcherContentCanvas()

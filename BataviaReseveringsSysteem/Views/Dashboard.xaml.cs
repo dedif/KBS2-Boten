@@ -90,12 +90,11 @@ namespace Views
                 if (context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId).Count() >= 2)
                 {
                     MaxReservations.Visibility = Visibility.Visible;
-                    AddReservationButton.IsEnabled = false;
-                }
+               }
                 else
                 {
                     MaxReservations.Visibility = Visibility.Hidden;
-                    AddReservationButton.IsEnabled = true;
+              
                 }
                 foreach (Reservation r in context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId))
                 {
@@ -183,11 +182,7 @@ namespace Views
             Switcher.Switch(new Dashboard());
         }
 
-        private void AddReservationButton_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new ReserveWindow());
-
-        }
+   
 
         private void SignOutButton_Click(object sender, RoutedEventArgs e)
         {

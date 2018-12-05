@@ -142,66 +142,116 @@ namespace BataviaReseveringsSysteem.Reservations
             // De laatste slot waar het licht is. Gaat de zon onder om 20.08, dan is de laatste slot van 19.45 tot 20.00
             var latestSlot = GetLatestSlot(sunriseAndSunsetTimes[1]);
 
+
             var selectedBoatString = (string)BoatNamesComboBox.SelectedValue;
 
-            // Haal alle slots op
-            // 1) waarbij de geselecteerde boot (we openen het reserveringsscherm net, dus de eerste boot in de botencombobox is de geselecteerde boot) al afgeschreven is
-            // 2) al voorbij zijn (maar waar de zon al wel op was)
-            // 3) te ver in de toekomst zijn om geclaimd te kunnen worden (maar waar de zon nog niet onder is)
-            var claimedPastAndTooDistantSlotsForThisDayAndBoat =
-                GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(DateTime.Now, selectedBoatString, earliestSlot,
-                    latestSlot);
+                // Haal alle slots op
+                // 1) waarbij de geselecteerde boot (we openen het reserveringsscherm net, dus de eerste boot in de botencombobox is de geselecteerde boot) al afgeschreven is
+                // 2) al voorbij zijn (maar waar de zon al wel op was)
+                // 3) te ver in de toekomst zijn om geclaimd te kunnen worden (maar waar de zon nog niet onder is)
+                var claimedPastAndTooDistantSlotsForThisDayAndBoat =
+                    GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(DateTime.Now, selectedBoatString, earliestSlot,
+                        latestSlot);
 
-            // Weergeef de eigenschappen van de geselecteerde boot (wederom de eerste in de botencombobox)
-            BoatView.UpdateView(new BoatController().GetBoatWithName(selectedBoatString));
+                // Weergeef de eigenschappen van de geselecteerde boot (wederom de eerste in de botencombobox)
+                BoatView.UpdateView(new BoatController().GetBoatWithName(selectedBoatString));
 
-            // Vul de PlannerGrid met de slots voor deze dag.
-            // Alles vòòr de eerste en na de laatste slot wordt donkerblauw.
-            // Alle slots die al geclaimd zijn, voorbij zijn of nog niet gereserveerd mogen worden, worden grijs
-            PlannerGrid.Populate(earliestSlot, latestSlot, claimedPastAndTooDistantSlotsForThisDayAndBoat);
-            Grid.Children.Add(PlannerGrid);
+                // Vul de PlannerGrid met de slots voor deze dag.
+                // Alles vòòr de eerste en na de laatste slot wordt donkerblauw.
+                // Alle slots die al geclaimd zijn, voorbij zijn of nog niet gereserveerd mogen worden, worden grijs
+                PlannerGrid.Populate(earliestSlot, latestSlot, claimedPastAndTooDistantSlotsForThisDayAndBoat);
+                Grid.Children.Add(PlannerGrid);
 
-            // Staat boven de reservationstartcombobox. Fungeert als kopje.
-            Grid.Children.Add(new Label
+                // Staat boven de reservationstartcombobox. Fungeert als kopje.
+                Grid.Children.Add(new Label
+                {
+                    Content = "Starttijd:",
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Top,
+                    Margin = new Thickness(300, 340, 0, 0),
+                    FontSize = 26
+                });
+                _reservationStartComboBox = new ComboBox
+                {
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Top,
+                    Width = 245,
+                    Margin = new Thickness(310, 380, 0, 0),
+                    SelectedIndex = 0,
+                    FontSize = 26
+
+                };
+
+                // DropDownClosed wordt getriggerd bij inklappen van de grid.
+                _reservationStartComboBox.DropDownClosed += OnStartComboBoxClick;
+
+                // Vul de reservationstartcombobox met de beschikbare starttijden voor een afschrijving.
+                // Om een starttijd te mogen kiezen, moet de slot van de starttijd aan de volgende voorwaarden voldoen:
+                // 1) Het slot moet na zonsopgang zijn
+                // 2) Het slot moet vòòr zonsondergang zijn
+                // 3) Het slot is nog niet afgeschreven
+                // 4) Het slot begint niet in het verleden
+                PopulateStartTimeComboBox(DateTime.Now, earliestSlot, latestSlot, claimedPastAndTooDistantSlotsForThisDayAndBoat);
+                Grid.Children.Add(_reservationStartComboBox);
+
+                // Weergeef de grid
+                Content = Grid;
+
+                // Kijk of je wel acht kwartier mag afschrijven of dat er afschrijving binnen die acht kwartier geclaimd is.
+                OnStartComboBoxClick(null, null);
+
+                ReservationDurationComboBox.DropDownClosed += OnDurationComboBoxClick;
+
+                Grid.Children.Add(_noSlotsAvailableLabel);
+
+            
+        }
+
+        public List<string> GetDiplomasUser()
+        {
+            using (var context = new DataBase())
             {
-                Content = "Starttijd:",
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(300, 340, 0, 0),
-                FontSize = 26
-            });
-            _reservationStartComboBox = new ComboBox
-            {
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Width = 245,
-                Margin = new Thickness(310, 380, 0, 0),
-                SelectedIndex = 0,
-                FontSize = 26
-                
-            };
+                List<string> BoatNames = new List<string>();
+     
 
-            // DropDownClosed wordt getriggerd bij inklappen van de grid.
-            _reservationStartComboBox.DropDownClosed += OnStartComboBoxClick;
+                //Dit zijn alle boten in de database
+                var Boats = (
+                    from data in context.Boats
+                    where data.DeletedAt == null
+                    where data.Broken == false
+                    select data).ToList();
 
-            // Vul de reservationstartcombobox met de beschikbare starttijden voor een afschrijving.
-            // Om een starttijd te mogen kiezen, moet de slot van de starttijd aan de volgende voorwaarden voldoen:
-            // 1) Het slot moet na zonsopgang zijn
-            // 2) Het slot moet vòòr zonsondergang zijn
-            // 3) Het slot is nog niet afgeschreven
-            // 4) Het slot begint niet in het verleden
-            PopulateStartTimeComboBox(DateTime.Now, earliestSlot, latestSlot, claimedPastAndTooDistantSlotsForThisDayAndBoat);
-            Grid.Children.Add(_reservationStartComboBox);
 
-            // Weergeef de grid
-            Content = Grid;
+                foreach (Boat boat in Boats)
+                {
+                    try
+                    {
+                        //Deze query selecteerd de BoatID's die de gebruiker mag reserveren
+                        var DiplomasUserEquelToDiplomasBoat = (
+                        from BoatDiplomas in context.Boat_Diplomas
+                        join UserDiplomas in context.MemberDiplomas
+                        on BoatDiplomas.DiplomaID equals UserDiplomas.DiplomaID
+                        where UserDiplomas.PersonID == LoginView.UserId
+                        where BoatDiplomas.BoatID == boat.BoatID
+                        select BoatDiplomas.BoatID).First();
 
-            // Kijk of je wel acht kwartier mag afschrijven of dat er afschrijving binnen die acht kwartier geclaimd is.
-            OnStartComboBoxClick(null, null);
+                        //Deze query selecteerd de naam van de boat die hoort bij het ID van de vorige query
+                        var BoatName = (
+                            from boats in context.Boats
+                            where boats.BoatID == DiplomasUserEquelToDiplomasBoat
+                            select boat.Name).Single();
 
-            ReservationDurationComboBox.DropDownClosed += OnDurationComboBoxClick;
+                        BoatNames.Add(BoatName);
+                    }
+                    catch
+                    {
 
-            Grid.Children.Add(_noSlotsAvailableLabel);
+                    }
+                }
+                return BoatNames;
+
+
+            }
         }
 
         // Deze methode vult combobox met bootnamen
@@ -218,7 +268,7 @@ namespace BataviaReseveringsSysteem.Reservations
             BoatNamesComboBox.DropDownClosed += OnBoatNamesComboBoxClicked;
             Grid.Children.Add(BoatNamesComboBox);
             using (var context = new DataBase())
-                foreach (var item in from db in context.Boats where db.Type == BoatType select db.Name)
+                foreach (var item in GetDiplomasUser())
                     BoatNamesComboBox.Items.Add(item);
         }
 
@@ -334,7 +384,7 @@ namespace BataviaReseveringsSysteem.Reservations
 
             // Verkrijg de duur van de slot op basis van de beginslot en de duurcombobox
             var endSlot = GenerateEndTime(startSlot);
-            
+
             var startSlotDayQuarter = DateTimeToDayQuarter(startSlot);
             var endSlotDayQuarter = DateTimeToDayQuarter(endSlot);
             return endSlotDayQuarter - startSlotDayQuarter;
@@ -586,6 +636,7 @@ namespace BataviaReseveringsSysteem.Reservations
             DateTime earliestSlot, DateTime latestSlot)
         {
             var claimedSlots = new List<DateTime>();
+
             var selectedBoat = new BoatController().GetBoatWithName(selectedBoatString);
             var reservations = new ReservationController().GetReservationsForDayAndBoat(selectedDate, selectedBoat);
             var now = DateTime.Now;
