@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="BataviaReseveringsSysteem.Views.MenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BataviaReseveringsSysteem.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid x:Name="startLayout" Margin="0,-25,0,0">
+        <StackPanel>
+            <Menu Height="100" Width="1920">
+                <MenuItem Header="_Inloggen" Width="250" Height="100" FontSize="16" Click="LoginBtn_Click">
+                </MenuItem>
+                <MenuItem Header="Afschrijvingen" Width="250" Height="100" FontSize="16">
+                    <MenuItem x:Name="AfschrijvingDoen" Height="50" Header="Afschrijving doen" HorizontalAlignment="Left" Width="249" Click="AfschrijvingDoen_Click" />
+                    <MenuItem x:Name="AfschrijvingenInzien" Height="50" Header="Afschrijvingen inzien" HorizontalAlignment="Left" Width="249" Click="AfschrijvingenInzien_Click"/>
+                </MenuItem>
+                <MenuItem Header="Schade melden" Width="250" Height="100" FontSize="16">
+                    <MenuItem x:Name="Lorem1" Header="Lorem1" HorizontalAlignment="Left" Width="249"/>
+                    <MenuItem x:Name="Lorem2" Header="Lorem2" HorizontalAlignment="Left" Width="249"/>
+                    <MenuItem x:Name="Lorem3" Header="Lorem3" HorizontalAlignment="Left" Width="249"/>
+                    <MenuItem x:Name="Lorem4" Header="Lorem4" HorizontalAlignment="Left" Width="249"/>
+                </MenuItem>
+                <MenuItem Header="Certificering" Width="250" Height="100" FontSize="16">
+                    <MenuItem x:Name="DiplomaBekijken" Height="50" Header="Diploma's bekijken" HorizontalAlignment="Left" Width="249"/>
+                    <MenuItem x:Name="DiplomaUitreiken" Height="50" Header="Diploma's toewijzen" HorizontalAlignment="Left" Width="249"/>
+                </MenuItem>
+                <MenuItem Header="Boten" Width="250" Height="100" FontSize="16">
+                    <MenuItem x:Name="BotenBekijken" Height="50" Header="Boten inzien" HorizontalAlignment="Left" Width="249"/>
+                    <MenuItem x:Name="BotenToevoegen" Height="50" Header="Boten toevoegen" HorizontalAlignment="Left" Width="249"/>
+                </MenuItem>
+                <MenuItem Header="Nieuws" Width="250" Height="100" FontSize="16">
+                    <MenuItem x:Name="Toernooien" Height="50" Header="Toernooien" HorizontalAlignment="Left" Width="249"/>
+                    <MenuItem x:Name="Competitie" Height="50" Header="Competitie" HorizontalAlignment="Left" Width="249"/>
+                    <MenuItem x:Name="Wedstrijden" Height="50" Header="Wedstrijden" HorizontalAlignment="Left" Width="249"/>
+                </MenuItem>
+                <MenuItem Header="Help" Width="250" Height="100" FontSize="16">
+                    <MenuItem x:Name="HulpBijAfschrijven" Height="50" Header="Hulp bij afschrijven" HorizontalAlignment="Left" Width="249"/>
+                    <MenuItem x:Name="HulpBijSchade" Height="50" Header="Hulp bij schades" HorizontalAlignment="Left" Width="249"/>
+                    <MenuItem x:Name="HulpBijCertificering" Height="50" Header="Hulp bij certificering" HorizontalAlignment="Left" Width="249"/>
+                    <MenuItem x:Name="HulpBijInloggen" Height="50" Header="Hulp bij inloggen" HorizontalAlignment="Left" Width="249"/>
+                </MenuItem>
+            </Menu>
+        </StackPanel>
+    </Grid>
+</UserControl>

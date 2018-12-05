@@ -29,6 +29,8 @@ namespace BataviaReseveringsSysteem.Reservations
 
         // Een statusdisplay van de boten
         public BoatView BoatView { get; set; }
+        public int User { get; set; }
+        public List<Boat> Boats { get; set; }
 
         // Aangezien een BoatTypeTabItem een TabItem is waarop je alle boten van een bepaald type kan weergeven, is het handig dat het BoatType erin staat
         public Boat.BoatType BoatType { get; set; }
@@ -86,7 +88,8 @@ namespace BataviaReseveringsSysteem.Reservations
                 Content = "Boot:",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(5, 200, 0, 0)
+                Margin = new Thickness(300, 450, 0, 0),
+                FontSize = 26
             });
 
             // Dit label staat boven de boatview en fungeert als een kopje
@@ -95,7 +98,8 @@ namespace BataviaReseveringsSysteem.Reservations
                 Content = "Eigenschappen boot:",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(150, 180, 0, 0)
+                Margin = new Thickness(300, 150, 0, 0),
+                FontSize = 26
             });
 
             // De boatview is een paar regels terug al aangemaakt.
@@ -107,7 +111,8 @@ namespace BataviaReseveringsSysteem.Reservations
                 Content = "Duur reservering:",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(10, 250, 0, 0)
+                Margin = new Thickness(580, 340, 0, 0),
+                FontSize = 26
             });
 
             var annulerenButton = new Button
@@ -117,7 +122,7 @@ namespace BataviaReseveringsSysteem.Reservations
                 Height = 25,
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(290, 284, 0, 0),
+                Margin = new Thickness(290, 784, 0, 0),
             };
 
             // Als je op "Annuleren" klikt, dan ga je weer terug naar het dashboard
@@ -162,14 +167,18 @@ namespace BataviaReseveringsSysteem.Reservations
                 Content = "Starttijd:",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(10, 310, 0, 0)
+                Margin = new Thickness(300, 340, 0, 0),
+                FontSize = 26
             });
             _reservationStartComboBox = new ComboBox
             {
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(10, 340, 0, 0),
-                SelectedIndex = 0
+                Width = 245,
+                Margin = new Thickness(310, 380, 0, 0),
+                SelectedIndex = 0,
+                FontSize = 26
+                
             };
 
             // DropDownClosed wordt getriggerd bij inklappen van de grid.
@@ -198,6 +207,48 @@ namespace BataviaReseveringsSysteem.Reservations
             Grid.Children.Add(_noSlotsAvailableLabel);
         }
 
+        // Vul de bootnaamcombobox
+        public void FillComboNames()
+        {
+            BoatNamesComboBox.Name = "ComboBoatName";
+            BoatNamesComboBox.Width = 120;
+            BoatNamesComboBox.Height = 25;
+            BoatNamesComboBox.HorizontalAlignment = HorizontalAlignment.Left;
+            BoatNamesComboBox.Margin = new Thickness(10, 0, 0, 0);
+            // De combobox selecteert bij openen van het scherm de eerste boot
+            BoatNamesComboBox.SelectedIndex = 0;
+            BoatNamesComboBox.DropDownClosed += OnBoatNamesComboBoxClicked;
+            Grid.Children.Add(BoatNamesComboBox);
+            // Vul de combobox met boten uit de database die corresponderen met dit type
+            using (var context = new DataBase())
+                foreach (var item in from db in context.Boats where db.Type == BoatType select db.Name)
+                    BoatNamesComboBox.Items.Add(item);
+        }
+
+        // Deze methode vult de combobox met tijden van 15 min tot 2 uur
+        public void FillComboTimes()
+        {
+            ReservationDurationComboBox.Name = "ComboTimes";
+            ReservationDurationComboBox.Width = 120;
+            ReservationDurationComboBox.Height = 25;
+            ReservationDurationComboBox.Width = 245;
+            ReservationDurationComboBox.Height = 45;
+            ReservationDurationComboBox.FontSize = 26;
+            ReservationDurationComboBox.HorizontalAlignment = HorizontalAlignment.Left;
+            ReservationDurationComboBox.Margin = new Thickness(600, 37, 0, 0);
+            ReservationDurationComboBox.SelectedIndex = 0;
+            ReservationDurationComboBox.Items.Add("00:15");
+            ReservationDurationComboBox.Items.Add("00:30");
+            ReservationDurationComboBox.Items.Add("00:45");
+            ReservationDurationComboBox.Items.Add("01:00");
+            ReservationDurationComboBox.Items.Add("01:15");
+            ReservationDurationComboBox.Items.Add("01:30");
+            ReservationDurationComboBox.Items.Add("01:45");
+            ReservationDurationComboBox.Items.Add("02:00");
+            Grid.Children.Add(ReservationDurationComboBox);
+        }
+
+        // De methode wanneer je een tijdsduur voor afschrijving kiest
         private void OnDurationComboBoxClick(object sender, EventArgs e)
         {
             // Als er op de afschrijvingslengte-combobox wordt geklikt, dan wordt de plannergrid opnieuw gerenderd. 
@@ -228,6 +279,7 @@ namespace BataviaReseveringsSysteem.Reservations
             PlannerGrid.Populate(earliestSlot, latestSlot, claimedPastAndTooDistantSlotsForThisDayAndBoat, aboutToBeClaimedSlots);
         }
 
+        // De methode voor wanneer je een starttijd kiest
         private void OnStartComboBoxClick(object sender, EventArgs eventArgs)
         {
             // Als de startcombobox wordt gesloten, refresh dan de afschrijvingslengte-combobox en de plannergrid
@@ -459,26 +511,6 @@ namespace BataviaReseveringsSysteem.Reservations
         // Rond een tijdstip naar beneden af op kwartieren
         private DateTime BottomRoundTimeToSlot(DateTime time) => time.AddMinutes(-(time.Minute % 15));
 
-        // Initialiseer de afschrijvingsduur-combobox
-        public void FillComboTimes()
-        {
-            ReservationDurationComboBox.Name = "ComboTimes";
-            ReservationDurationComboBox.Width = 120;
-            ReservationDurationComboBox.Height = 25;
-            ReservationDurationComboBox.HorizontalAlignment = HorizontalAlignment.Left;
-            ReservationDurationComboBox.Margin = new Thickness(10, 120, 0, 0);
-            ReservationDurationComboBox.SelectedIndex = 0;
-            ReservationDurationComboBox.Items.Add("00:15");
-            ReservationDurationComboBox.Items.Add("00:30");
-            ReservationDurationComboBox.Items.Add("00:45");
-            ReservationDurationComboBox.Items.Add("01:00");
-            ReservationDurationComboBox.Items.Add("01:15");
-            ReservationDurationComboBox.Items.Add("01:30");
-            ReservationDurationComboBox.Items.Add("01:45");
-            ReservationDurationComboBox.Items.Add("02:00");
-            Grid.Children.Add(ReservationDurationComboBox);
-        }
-
         // Maak de registreerknop. Standaard staat ie op onklikbaar
         public void MakeRegisterBtn()
         {
@@ -487,6 +519,7 @@ namespace BataviaReseveringsSysteem.Reservations
             _okButton.HorizontalAlignment = HorizontalAlignment.Left;
             _okButton.Margin = new Thickness(150, 120, 0, 0);
             Grid.Children.Add(_okButton);
+
         }
 
         // Tel de tijdsduur bij de starttijd op en genereer zo de eindtijd
@@ -513,13 +546,12 @@ namespace BataviaReseveringsSysteem.Reservations
                 var boat = (from db in context.Boats
                             where db.Name.Equals((string)BoatNamesComboBox.SelectedValue)
                             select db).First();
-                
                 // Pak de start- en eindtijd
                 var startTime = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
                 var endTime = GenerateEndTime(startTime);
 
                 // Maak een reservering met de geselecteerde boot, de ingelogde gebruiker, de start- en de eindtijd
-                context.Reservations.Add(new Reservation(boat, LoginView.User, startTime, endTime));
+                context.Reservations.Add(new Reservation(boat, LoginView.UserId, startTime, endTime));
                 context.SaveChanges();
             }
             MessageBox.Show("De boot is succesvol afgeschreven",
@@ -529,23 +561,7 @@ namespace BataviaReseveringsSysteem.Reservations
             Switcher.Switch(new Dashboard());
         }
 
-        // Vul de bootnaamcombobox
-        public void FillComboNames()
-        {
-            BoatNamesComboBox.Name = "ComboBoatName";
-            BoatNamesComboBox.Width = 120;
-            BoatNamesComboBox.Height = 25;
-            BoatNamesComboBox.HorizontalAlignment = HorizontalAlignment.Left;
-            BoatNamesComboBox.Margin = new Thickness(10, 0, 0, 0);
-            // De combobox selecteert bij openen van het scherm de eerste boot
-            BoatNamesComboBox.SelectedIndex = 0;
-            BoatNamesComboBox.DropDownClosed += OnBoatNamesComboBoxClicked;
-            Grid.Children.Add(BoatNamesComboBox);
-            // Vul de combobox met boten uit de database die corresponderen met dit type
-            using (var context = new DataBase())
-                foreach (var item in from db in context.Boats where db.Type == BoatType select db.Name)
-                    BoatNamesComboBox.Items.Add(item);
-        }
+        
 
         // Als er op de combobox voor de bootnamen wordt geklikt...
         private void OnBoatNamesComboBoxClicked(object sender, EventArgs e)

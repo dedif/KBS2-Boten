@@ -1,11 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTestProject2
 {
     [TestClass]
     public class BoatTypeTabItemTests
     {
-        [TestClass]
 
     }
 }
