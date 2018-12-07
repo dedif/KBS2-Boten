@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BataviaReseveringsSysteem.Views.NavigationView"        
+﻿<UserControl x:Class="Views.NavigationView"        
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -21,35 +21,31 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Menu IsMainMenu="True" DockPanel.Dock="Top" Grid.Row="0" Grid.Column="0">
-            <MenuItem Header="Inloggen" x:Name="LoginBtn" Click="LoginBtn_Click"></MenuItem>
-            <MenuItem Header="_Afschrijven">
+        <Menu Name="Menu" IsMainMenu="True"  DockPanel.Dock="Top" Grid.Row="0" Grid.Column="0">
+          <MenuItem Header="_Afschrijven">
                 <MenuItem Header="Afschrijvingen maken" x:Name="MakeReservationsBtn" Click="MakeReservationsBtn_Click"></MenuItem>
                 <MenuItem Header="Afschrijvingen inzien" x:Name="SeeReservationsBtn" Click="SeeReservationsBtn_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Schade">
                 <MenuItem Header="Schade melden" x:Name="ReportDamageaBtn" Click="ReportDamageaBtn_Click"></MenuItem>
-                <MenuItem Header="Schade inzien" x:Name="SeeDamagesBtn"></MenuItem>
-                <Separator />
-                <MenuItem Header="Schade herstellen" x:Name="RepairDamagesBtn"/>
             </MenuItem>
             <MenuItem Header="_Leden">
-                <MenuItem Header="Leden inzien" x:Name="SeeUsersBtn" Click="SeeUsersBtn_Click"></MenuItem>
-                <MenuItem Header="Leden toevoegen" x:Name="AddUsersBtn" Click="AddUsersBtn_Click"></MenuItem>
+                <MenuItem Header="Leden inzien" IsEnabled="False"  x:Name="SeeUsersBtn" Click="SeeUsersBtn_Click"></MenuItem>
+                <MenuItem Header="Leden toevoegen" IsEnabled="False"  x:Name="AddUsersBtn" Click="AddUsersBtn_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Diploma's">
-                <MenuItem Header="Diploma's inzien" x:Name="SeeDiplomasBtn" Click="SeeDiplomasBtn_Click"></MenuItem>
+                <MenuItem Header="Diploma's inzien" x:Name="SeeDiplomasBtn" IsEnabled="False" Click="SeeDiplomasBtn_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Boten">
-                <MenuItem Header="Boten inzien" x:Name="SeeBoatsBtn" Click="SeeBoatsBtn_Click"></MenuItem>
-                <MenuItem Header="Boten toevoegen" x:Name="AddBoatsBtn" Click="AddBoatsBtn_Click"></MenuItem>
+                <MenuItem Header="Boten inzien" IsEnabled="False" x:Name="SeeBoatsBtn" Click="SeeBoatsBtn_Click"></MenuItem>
+                <MenuItem Header="Boten toevoegen" IsEnabled="False"  x:Name="AddBoatsBtn" Click="AddBoatsBtn_Click"></MenuItem>
             </MenuItem>
-            <MenuItem Header="_Nieuws">
+            <MenuItem Visibility="Hidden" Header="_Nieuws">
                 <MenuItem Header="Wedstrijden"></MenuItem>
                 <MenuItem Header="Competitie"></MenuItem>
                 <MenuItem Header="Toernooien"></MenuItem>
             </MenuItem>
-            <MenuItem Header="_Help">
+            <MenuItem  Visibility="Hidden" Header="_Help">
                 <MenuItem Header="Hulp bij afschrijven"></MenuItem>
                 <MenuItem Header="Hulp bij schade"></MenuItem>
                 <MenuItem Header="Hulp bij certificering"></MenuItem>
@@ -57,10 +53,10 @@
             </MenuItem>
         </Menu>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Label x:Name="NameLabel" Content="" Height="37" Width="120"/>
+            <Label x:Name="NameLabel" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Content="" Height="37" Width="120"/>
             <materialDesign:PopupBox StaysOpen="False">
                 <StackPanel>
-                    <Button Content="Uitloggen"/>
+                    <Button Content="Uitloggen" Click="LogOutBtn_Click" />
                 </StackPanel>
             </materialDesign:PopupBox>
         </StackPanel>

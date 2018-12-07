@@ -57,6 +57,8 @@ namespace Views
 
                     UserId = user.PersonID;
 
+                    Switcher.MenuMaker();
+
                     Switcher.Switch(new Dashboard());
                     user.LastLoggedIn = DateTime.Now;
                     context.SaveChanges();

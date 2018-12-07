@@ -19,7 +19,7 @@ namespace ScreenSwitcher
             InitializeComponent();
             
 
-            MenuMaker();
+           // MenuMaker();
             SwitcherContentCanvas();
             Switcher.pageSwitcher = this;
             Switcher.Switch(new LoginView());
@@ -46,13 +46,14 @@ namespace ScreenSwitcher
             Label l1 = new Label();
             l1.Content = "";
             DataBase context = new DataBase();
-            foreach (var item in context.Diplomas.ToString())
-            {
 
-            }
             switcherGrid.Children.Add(menuCanvas);
         }
 
+        public void DeleteMenu()
+        {
+            switcherGrid.Children.RemoveAt(1);
+        }
 
         public void Navigate(UserControl nextPage)
         {

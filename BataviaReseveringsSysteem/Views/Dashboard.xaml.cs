@@ -17,8 +17,8 @@ namespace Views
     public partial class Dashboard : UserControl
     {
 
-        public int YLeft = 50;
-        public int YRight = 50;
+        public int YLeft = 100;
+        public int YRight = 100;
         public int Count = 0;
         public int MaxReservationUser = 2;
         //Deze lijsten, bevatten alle buttens en labels
@@ -47,8 +47,6 @@ namespace Views
             if (rol.Contains(6))
             {
                 MaxReservationUser = 2;
-                //AddBoatButton.Visibility = Visibility.Visible;
-                //UserListButton.Visibility = Visibility.Visible;
             }
 
             if (rol.Contains(3))
@@ -93,8 +91,8 @@ namespace Views
                 {
                     NoReservationLabel.Visibility = Visibility.Hidden;
                 }
-
-                if (context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId).Count() >= 2)
+                //Als de gebruiker het maximale aantal afschrijvingen heeft bereikt, mag hij geen boten meer afschrijven
+                if (context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId).Count() >= MaxReservationUser)
                 {
                     MaxReservations.Visibility = Visibility.Visible;
                     AddReservationButton.IsEnabled = false;

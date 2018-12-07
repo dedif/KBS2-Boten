@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 
 
-namespace BataviaReseveringsSysteem
+namespace Controllers
 {
     public class DataBaseController
     {

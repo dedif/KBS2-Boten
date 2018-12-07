@@ -10,5 +10,15 @@ namespace ScreenSwitcher
         {
             pageSwitcher.Navigate(newPage);
         }
+
+        public static void MenuMaker()
+        {
+            pageSwitcher.MenuMaker();
+        }
+
+        public static void DeleteMenu()
+        {
+            pageSwitcher.DeleteMenu();
+        }
     }
 }

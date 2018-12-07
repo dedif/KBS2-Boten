@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using ScreenSwitcher;
 using BataviaReseveringsSysteem;
 using BataviaReseveringsSysteem.Views;
+using Controllers;
 
 namespace Views
 {

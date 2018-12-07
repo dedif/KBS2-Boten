@@ -1,4 +1,5 @@
 ﻿using BataviaReseveringsSysteem.Database;
+using Controllers;
 using Models;
 using ScreenSwitcher;
 using System;
@@ -17,7 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BataviaReseveringsSysteem.Views
+namespace Views
 {
     /// <summary>
     /// Interaction logic for CertificateList.xaml

@@ -1,10 +1,11 @@
 ﻿using BataviaReseveringsSysteem.Database;
+using Controllers;
 using ScreenSwitcher;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace BataviaReseveringsSysteem.Views
+namespace Views
 {
     /// <summary>
     /// Interaction logic for EditDiplomaView.xaml
