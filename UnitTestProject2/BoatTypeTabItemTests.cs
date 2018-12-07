@@ -230,10 +230,10 @@ namespace UnitTestProject2
         [TestClass]
         public class DateTimeToDayQuarter
         {
-            private DateTime GetDateTimeWithGivenHoursAndMinutes(int hours, int minutes)
+            private DateTime GetDateTimeWithGivenHoursAndMinutes(int hour, int minute)
             {
                 var now = DateTime.Now;
-                return new DateTime(now.Year, now.Month, now.Day, hours, minutes, 00);
+                return new DateTime(now.Year, now.Month, now.Day, hour, minute, 00);
             }
 
             [TestMethod]
@@ -296,10 +296,8 @@ namespace UnitTestProject2
         [TestClass]
         public class DayQuarterToDateTime
         {
-            private DateTime GetDateTimeWithGivenHoursAndMinutes(DateTime now, int hours, int minutes)
-            {
-                return new DateTime(now.Year, now.Month, now.Day, hours, minutes, 00);
-            }
+            private DateTime GetDateTimeWithGivenHoursAndMinutes(DateTime now, int hour, int minute) =>
+                new DateTime(now.Year, now.Month, now.Day, hour, minute, 00);
 
             [TestMethod]
             public void ShouldReturn1200_WhenDayQuarterIs48()
@@ -344,6 +342,28 @@ namespace UnitTestProject2
 
                 // Assert
                 Assert.AreEqual(GetDateTimeWithGivenHoursAndMinutes(now, 23, 45), actual);
+            }
+        }
+
+        [TestClass]
+        public class GetClaimedAndTooDistantSlots
+        {
+            private DateTime GetDateTimeWithGivenHoursAndMinutes(int month, int day, int hour, int minute)
+            {
+                return new DateTime(DateTime.Now.Year, month, day, hour, minute, 00);
+            }
+
+            [TestMethod]
+            private void ShouldReturnAllClaimedSlotsAndSlotsFrom28February0630_WhenNowIs26February0620()
+            {
+                // Arrange
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+//                var now = DateTime.Now
+//                var February26
+
+                // Act
+
+                // Assert
             }
         }
     }
