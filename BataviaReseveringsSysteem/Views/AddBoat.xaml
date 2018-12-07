@@ -41,15 +41,15 @@
         <Label Content="S2" HorizontalAlignment="Left" Margin="232,260,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.081,-0.007" Grid.RowSpan="2"/>
         <CheckBox x:Name="S3CheckBox"  Tag="3" HorizontalAlignment="Left" Margin="211,295,0,0" VerticalAlignment="Top" FontSize="16" />
         <Label Content="S3" HorizontalAlignment="Left" Margin="232,288,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <CheckBox x:Name="B1CheckBox" Tag="4" HorizontalAlignment="Left" Margin="298,178,0,87.667" FontSize="16" RenderTransformOrigin="0.432,0.108"/>
+        <CheckBox x:Name="B1CheckBox" Tag="6" HorizontalAlignment="Left" Margin="298,178,0,87.667" FontSize="16" RenderTransformOrigin="0.432,0.108"/>
         <Label Content="B1" HorizontalAlignment="Left" Margin="318,238,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <CheckBox x:Name="B2CheckBox" Tag="5" HorizontalAlignment="Left" Margin="298,269,0,0" VerticalAlignment="Top" Grid.RowSpan="2" FontSize="16" />
+        <CheckBox x:Name="B2CheckBox" Tag="7" HorizontalAlignment="Left" Margin="298,269,0,0" VerticalAlignment="Top" Grid.RowSpan="2" FontSize="16" />
         <Label Content="B2" HorizontalAlignment="Left" Margin="318,260,0,0" VerticalAlignment="Top" FontSize="16" Grid.RowSpan="2"/>
-        <CheckBox x:Name="P1CheckBox" Tag="7" HorizontalAlignment="Left" Margin="391,248,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.382,-0.542"/>
+        <CheckBox x:Name="P1CheckBox" Tag="4" HorizontalAlignment="Left" Margin="391,248,0,0" VerticalAlignment="Top" FontSize="16" RenderTransformOrigin="0.382,-0.542"/>
         <Label Content="P1" HorizontalAlignment="Left" Margin="411,239,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <CheckBox x:Name="P2CheckBox" Tag="8" HorizontalAlignment="Left" Margin="391,269,0,0" VerticalAlignment="Top" FontSize="16" Grid.RowSpan="2"/>
+        <CheckBox x:Name="P2CheckBox" Tag="5" HorizontalAlignment="Left" Margin="391,269,0,0" VerticalAlignment="Top" FontSize="16" Grid.RowSpan="2"/>
         <Label Content="P2" HorizontalAlignment="Left" Margin="411,262,0,0" Grid.RowSpan="2" VerticalAlignment="Top" FontSize="16"/>
-        <CheckBox x:Name="B3CheckBox" Tag="6" HorizontalAlignment="Left" Margin="298,287,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <CheckBox x:Name="B3CheckBox" Tag="8" HorizontalAlignment="Left" Margin="298,287,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label Content="B3" HorizontalAlignment="Left" Margin="318,279,0,0" VerticalAlignment="Top" FontSize="16" Grid.RowSpan="2"/>
 
     </Grid>
