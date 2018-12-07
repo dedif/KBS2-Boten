@@ -35,7 +35,7 @@
             </MenuItem>
             <MenuItem Header="_Certificering">
                 <MenuItem Header="Diploma's inzien" x:Name="SeeDiplomasBtn"></MenuItem>
-                <MenuItem Header="Diploma's toewijzen" x:Name="AssignDiplomasBtn"></MenuItem>
+                <MenuItem Header="Diploma's toewijzen" x:Name="AssignDiplomasBtn" Click="AssignDiplomasBtn_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Boten">
                 <MenuItem Header="Boten inzien" x:Name="SeeBoatsBtn" Click="SeeBoatsBtn_Click"></MenuItem>
