@@ -1,4 +1,5 @@
 ﻿using BataviaReseveringsSysteem.Database;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -22,7 +23,7 @@ namespace BataviaReseveringsSysteem
                 var role = new Models.Role
                 {
                     RoleName = roleName,
-                    Created_at = DateTime.Now,
+                    CreatedAt = DateTime.Now,
 
                 };
 
@@ -47,53 +48,53 @@ namespace BataviaReseveringsSysteem
             }
         }
 
-        public void Add_MemberDiploma(int diplomaID, int personID)
+        public void Add_UserDiploma(int diplomaID, int userID)
         {
             using (DataBase context = new DataBase())
             {
-                var memberDiploma = new Models.Member_Diploma
+                var userDiploma = new Models.User_Diploma
                 {
                     DiplomaID = diplomaID,
-                    PersonID = personID,
-                    Created_at = DateTime.Now,
-                    
+                    UserID = userID,
+                    CreatedAt = DateTime.Now,
+
                 };
-                context.MemberDiplomas.Add(memberDiploma);
+                context.User_Diplomas.Add(userDiploma);
                 context.SaveChanges();
             }
         }
 
-        public void Add_MemberRole(int roleID,int personID)
+        public void Add_UserRole(int roleID, int userID)
         {
 
             using (DataBase context = new DataBase())
             {
 
-                var MemberRole = new Models.MemberRole
+                var UserRole = new Models.User_Role
                 {
                     RoleID = roleID,
-                    PersonID = personID,
-                    Created_at = DateTime.Now,
-                    Updated_at = null,
-                    Deleted_at = null
+                    UserID = userID,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = null,
+                    DeletedAt = null
 
                 };
-              
-                    context.MemberRoles.Add(MemberRole);
-                    context.SaveChanges();
-                
-                
+
+                context.User_Roles.Add(UserRole);
+                context.SaveChanges();
+
+
             }
 
         }
-        public bool Get_MemberRole(int roleID, int personID)
+        public bool Get_UserRole(int roleID, int userID)
         {
             try
             {
                 using (DataBase context = new DataBase())
                 {
-                    bool hasMemberRole = context.MemberRoles.Any(cus => cus.PersonID == personID && cus.RoleID == roleID);
-                    return hasMemberRole;
+                    bool hasUserRole = context.User_Roles.Any(cus => cus.User.UserID == userID && cus.Role.RoleID == roleID);
+                    return hasUserRole;
                 }
                
             }
@@ -102,35 +103,39 @@ namespace BataviaReseveringsSysteem
             
         }
 
-        public void Delete_MemberRole(int personID, int rolID)
+        public void Delete_UserRole(int userID, int rolID)
         {
             using (DataBase context = new DataBase())
             {
 
-                var delMemberRole = (from x in context.MemberRoles
-                                     where x.PersonID == personID && x.Deleted_at == null && x.RoleID == rolID
+                var deleteUserRole = (from x in context.User_Roles
+                                     where x.User.UserID == userID && x.DeletedAt == null && x.Role.RoleID == rolID
                                      select x).ToList();
 
+              
 
-                context.MemberRoles.RemoveRange(delMemberRole);
+
+                context.User_Roles.RemoveRange(deleteUserRole);
 
                 context.SaveChanges();
-               
+
+
+
             }
 
         }
 
-        public void Delete_MemberDiploma(int personID, int diplomaID)
+        public void Delete_UserDiploma(int userID, int diplomaID)
         {
             using (DataBase context = new DataBase())
             {
 
-                var delMemberDiploma = (from x in context.MemberDiplomas
-                                     where x.PersonID == personID && x.Deleted_at == null && x.DiplomaID == diplomaID
+                var delUserDiploma = (from x in context.User_Diplomas
+                                     where x.User.UserID == userID && x.DeletedAt == null && x.Diploma.DiplomaID == diplomaID
                                      select x).ToList();
 
 
-                context.MemberDiplomas.RemoveRange(delMemberDiploma);
+                context.User_Diplomas.RemoveRange(delUserDiploma);
 
                 context.SaveChanges();
                 
@@ -163,12 +168,12 @@ namespace BataviaReseveringsSysteem
                     Email = email,
                     GenderID = genderID,
                     Birthday = birthday,
-                    Created_at = DateTime.Now,
-                    Updated_at = null,
-                    Deleted_at = null
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = null,
+                    DeletedAt = null
                     
                 };
-                int PersonID = user.PersonID;
+                int UserID = user.UserID;
                 context.Users.Add(user);
 
 
@@ -177,29 +182,29 @@ namespace BataviaReseveringsSysteem
 
         }
 
-        public void Delete_User(int personID)
+        public void Delete_User(int userID)
         {
             using (DataBase context = new DataBase())
             {
 
-               Models.User delUser = context.Users.Where(d => d.PersonID == personID).First();
+               Models.User delUser = context.Users.Where(d => d.UserID == userID).First();
             
                 if (delUser != null)
                 {
 
-                    delUser.Deleted_at = DateTime.Now;
+                    delUser.DeletedAt = DateTime.Now;
                    
                     context.SaveChanges();
                 }
             }
 
         }
-        public void Update_User(int personID, string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
+        public void Update_User(int userID, string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
         {
             using (DataBase context = new DataBase())
             {
 
-                Models.User dep = context.Users.Where(d => d.PersonID == personID).First();
+                Models.User dep = context.Users.Where(d => d.UserID == userID).First();
 
 
                 if (dep != null)
@@ -215,8 +220,8 @@ namespace BataviaReseveringsSysteem
                     dep.GenderID = genderID;
                     dep.Birthday = birthday;
                     dep.Middlename = middlename;
-                    dep.Updated_at = DateTime.Now;
-                    dep.Deleted_at = null;
+                    dep.UpdatedAt = DateTime.Now;
+                    dep.DeletedAt = null;
 
                     context.SaveChanges();
                 }
@@ -226,12 +231,12 @@ namespace BataviaReseveringsSysteem
         }
 
 
-        public void Update_User(int personID,  string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
+        public void Update_User(int userID,  string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
         {
             using (DataBase context = new DataBase())
             {
 
-                Models.User dep = context.Users.Where(d => d.PersonID == personID).First();
+                Models.User dep = context.Users.Where(d => d.UserID == userID).First();
 
 
                 if (dep != null)
@@ -247,8 +252,8 @@ namespace BataviaReseveringsSysteem
                     dep.GenderID = genderID;
                     dep.Birthday = birthday;
                     dep.Middlename = middlename;
-                    dep.Updated_at = DateTime.Now;
-                    dep.Deleted_at = null;
+                    dep.UpdatedAt = DateTime.Now;
+                    dep.DeletedAt = null;
                     
 
                     context.SaveChanges();
@@ -299,14 +304,14 @@ namespace BataviaReseveringsSysteem
             {
                 // Display all courses from the database
                 var users = (from s in context.Users
-                             orderby s.PersonID
+                             orderby s.UserID
                              select s).ToList<Models.User>();
 
 
                 foreach (var boat in users)
                 {
 
-                    Console.WriteLine("ID: {0}, Voornaam: {1}, Achternaam: {2}, Address: {3}, Postcode: {4}, plaats: {5}, Telefoonnummer: {6}, Email: {7}", boat.PersonID, boat.Firstname, boat.Lastname, boat.Address, boat.Zipcode, boat.City, boat.Phonenumber, boat.Email);
+                    Console.WriteLine("ID: {0}, Voornaam: {1}, Achternaam: {2}, Address: {3}, Postcode: {4}, plaats: {5}, Telefoonnummer: {6}, Email: {7}", boat.UserID, boat.Firstname, boat.Lastname, boat.Address, boat.Zipcode, boat.City, boat.Phonenumber, boat.Email);
                 }
                 Console.ReadKey();
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Views;
 
 namespace Models
@@ -12,10 +13,16 @@ namespace Models
 
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
-        public Boat Boat { get; set; }
+
+        [ForeignKey("Boat")]
+        public int BoatID { get; set; }
+        [ForeignKey("User")]
         public int UserId { get; set; }
         public DateTime? Deleted { get; set; }
 
+
+        public Boat Boat { get; set; }
+        public User User { get; set; }
         public Reservation(Boat boat, DateTime start, DateTime end)
         {
             UserId = LoginView.UserId;

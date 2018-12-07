@@ -13,7 +13,7 @@
         <DataGrid x:Name="DataUserList"  CanUserAddRows="false"   ItemsSource="{Binding Users}" x:FieldModifier="public" DataContext="{StaticResource UserViewSource}" AutoGenerateColumns="false" HorizontalAlignment="Left" Height="469" Margin="87,80,0,0" VerticalAlignment="Top" Width="895" >
 
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="PersonID" Width="auto"    Binding="{Binding PersonID}" Header="Lidnummer" IsReadOnly="true" />
+                <DataGridTextColumn x:Name="UserID" Width="auto"    Binding="{Binding UserID}" Header="Lidnummer" IsReadOnly="true" />
                 <DataGridTextColumn x:Name="Firstname"    Binding="{Binding Firstname}" Header="Voornaam" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Middlename"  Binding="{Binding  Middlename}" Header="Tussenvoegsel" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Lastname"  Binding="{Binding Lastname}" Header="Achternaam" IsReadOnly="true"/>
@@ -37,7 +37,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button x:Name="EditButton" Tag="{Binding PersonID}"  Click="ButtonEdit" Content="Bewerk"/>
+                                <Button x:Name="EditButton" Tag="{Binding UserID}"  Click="ButtonEdit" Content="Bewerk"/>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

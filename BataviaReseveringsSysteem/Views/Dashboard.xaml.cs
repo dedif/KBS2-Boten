@@ -32,7 +32,7 @@ namespace Views
             GridDashboard.Margin = new Thickness(50, 0, 50, 20);
 
             var loggedUser = (from data in context.Users
-                              where data.PersonID == LoginView.UserId
+                              where data.UserID == LoginView.UserId
                               select data).Single();
 
             NameLabel.Content = loggedUser.Firstname + " " + loggedUser.Lastname;
@@ -40,11 +40,11 @@ namespace Views
 
             dashboardController = new DashboardController(this);
 
-            var rol = (from data in context.MemberRoles
-                       where data.PersonID == LoginView.UserId
+            var rol = (from data in context.User_Roles
+                       where data.UserID == LoginView.UserId
                        select data.RoleID).ToList();
 
-            if (rol.Contains(6))
+            if (rol.Contains(5))
             {
                 MaxReservationUser = 2;
                 AddBoatButton.Visibility = Visibility.Visible;
@@ -90,11 +90,12 @@ namespace Views
                 if (context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId).Count() >= 2)
                 {
                     MaxReservations.Visibility = Visibility.Visible;
-               }
+                    AddReservationButton.IsEnabled = false;
+                }
                 else
                 {
                     MaxReservations.Visibility = Visibility.Hidden;
-              
+                    AddReservationButton.IsEnabled = true;
                 }
                 foreach (Reservation r in context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId))
                 {
@@ -182,7 +183,11 @@ namespace Views
             Switcher.Switch(new Dashboard());
         }
 
-   
+        private void AddReservationButton_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new ReserveWindow());
+
+        }
 
         private void SignOutButton_Click(object sender, RoutedEventArgs e)
         {

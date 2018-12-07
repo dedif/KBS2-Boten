@@ -52,10 +52,10 @@ namespace Views
                 {
                     var user = (
                         from data in context.Users
-                        where data.PersonID == username
+                        where data.UserID == username
                         select data).Single();
 
-                    UserId = user.PersonID;
+                    UserId = user.UserID;
 
                     Switcher.Switch(new Dashboard());
                     user.LastLoggedIn = DateTime.Now;

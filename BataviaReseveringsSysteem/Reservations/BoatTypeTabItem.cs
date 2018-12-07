@@ -228,12 +228,12 @@ namespace BataviaReseveringsSysteem.Reservations
                     {
                         //Deze query selecteerd de BoatID's die de gebruiker mag reserveren
                         var DiplomasUserEquelToDiplomasBoat = (
-                        from BoatDiplomas in context.Boat_Diplomas
-                        join UserDiplomas in context.MemberDiplomas
-                        on BoatDiplomas.DiplomaID equals UserDiplomas.DiplomaID
-                        where UserDiplomas.PersonID == LoginView.UserId
-                        where BoatDiplomas.BoatID == boat.BoatID
-                        select BoatDiplomas.BoatID).First();
+                        from Boat_Diplomas in context.Boat_Diplomas
+                        join UserDiplomas in context.User_Diplomas
+                        on Boat_Diplomas.DiplomaID equals UserDiplomas.DiplomaID
+                        where UserDiplomas.UserID == LoginView.UserId
+                        where Boat_Diplomas.BoatID == boat.BoatID
+                        select Boat_Diplomas.BoatID).First();
 
                         //Deze query selecteerd de naam van de boat die hoort bij het ID van de vorige query
                         var BoatName = (
@@ -556,7 +556,7 @@ namespace BataviaReseveringsSysteem.Reservations
                 User = LoginView.UserId;
                 var startTime = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
                 var endTime = GenerateEndTime(startTime);
-                // TODO: new Member() veranderen naar member die deze afschrijving maakt.
+                // TODO: new User() veranderen naar user die deze afschrijving maakt.
                 var rs1 = new Reservation(boat, startTime, endTime);
                 context.Reservations.Add(rs1);
                 context.SaveChanges();

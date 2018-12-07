@@ -74,7 +74,57 @@ namespace Controllers
                 }
             }
         }
-//Deze methode voegt een boot toe aan de database
+
+        public Boolean BootExist(int boatID)
+        {
+
+            using (DataBase context = new DataBase())
+
+            {
+                var BoatExists = (from b in context.Boats
+                                  where b.BoatID == boatID
+                                  select b).ToList<Boat>();
+                if (BoatExists.Count > 0)
+                {
+                    notification = "Deze bootnaam bestaat al";
+
+
+                    return false;
+
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+
+        public Boolean BootParametersAreGiven(int boatID, string name, string type, int rowers, double weight, bool steering)
+        {
+
+            using (DataBase context = new DataBase())
+
+            {
+                var BoatExists = (from b in context.Boats
+                                  where b.BoatID == boatID && b.Name == name && b.Type .ToString() == type && b.NumberOfRowers == rowers && b.Weight == weight && b.Steering == steering
+                                  select b).ToList<Boat>();
+                if (BoatExists.Count > 0)
+                {
+                    notification = "Parameters zijn gegeven";
+
+
+                    return false;
+
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        //Deze methode voegt een boot toe aan de database
         public void AddBoat(string name, string type, int rowers, double weight, bool steeringwheel)
         {
             notification = "";
@@ -97,6 +147,27 @@ namespace Controllers
 
             }
 
+        public void UpdateBoat(int boatID, string name,string type, int rowers, double weight, bool steeringwheel)
+        {
+            using (DataBase context = new DataBase())
+            {
+                Boat UpdateBoat = context.Boats.Where(d => d.BoatID == boatID).First();
+                  Enum.TryParse(type, out Boat.BoatType MyType);
+                if (UpdateBoat != null)
+                {
+                    UpdateBoat.Name = name;
+                    UpdateBoat.Type = MyType;
+                    UpdateBoat.Weight = weight;
+                    UpdateBoat.Steering = steeringwheel;
+                    UpdateBoat.NumberOfRowers = rowers;
+                    UpdateBoat.UpdatedAt = DateTime.Now;
+
+                    context.SaveChanges();
+                }
+            }
+
+        }
+
         //Deze methode update en boot als verwijdert in de database
         public void DeleteBoat(int boatID)
         {
@@ -113,11 +184,6 @@ namespace Controllers
 
                     context.SaveChanges();
                 }
-
-                context.Boats.Add(delBoat);
-
-
-                context.SaveChanges();
             }
 
         }

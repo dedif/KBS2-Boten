@@ -24,9 +24,9 @@ namespace BataviaReseveringsSysteem.Views
     {
         int DiplomaUsersID;
         DataBaseController dbc = new DataBaseController();
-        public EditDiplomaView(int personID)
+        public EditDiplomaView(int userID)
         {
-            DiplomaUsersID = personID;
+            DiplomaUsersID = userID;
             InitializeComponent();
             using (DataBase context = new DataBase())
             {
@@ -83,43 +83,43 @@ namespace BataviaReseveringsSysteem.Views
                     }
                 }
 
-                var MemberDiplomas = from x in context.MemberDiplomas
-                                  where x.PersonID == personID && x.Deleted_at == null
+                var User_Diplomas = from x in context.User_Diplomas
+                                  where x.UserID == userID && x.DeletedAt == null
                                   select x;
 
-                foreach (var memberRole in MemberDiplomas)
+                foreach (var userRole in User_Diplomas)
                 {
-                    if (memberRole.DiplomaID == int.Parse(S1.Tag.ToString()))
+                    if (userRole.DiplomaID == int.Parse(S1.Tag.ToString()))
                     {
                         S1.IsChecked = true;
                     }
 
-                    if (memberRole.DiplomaID == int.Parse(S2.Tag.ToString()))
+                    if (userRole.DiplomaID == int.Parse(S2.Tag.ToString()))
                     {
                         S2.IsChecked = true;
                     }
 
-                    if (memberRole.DiplomaID == int.Parse(S3.Tag.ToString()))
+                    if (userRole.DiplomaID == int.Parse(S3.Tag.ToString()))
                     {
                         S3.IsChecked = true;
                     }
-                    if (memberRole.DiplomaID == int.Parse(B1.Tag.ToString()))
+                    if (userRole.DiplomaID == int.Parse(B1.Tag.ToString()))
                     {
                         B1.IsChecked = true;
                     }
-                    if (memberRole.DiplomaID == int.Parse(B2.Tag.ToString()))
+                    if (userRole.DiplomaID == int.Parse(B2.Tag.ToString()))
                     {
                         B2.IsChecked = true;
                     }
-                    if (memberRole.DiplomaID == int.Parse(B3.Tag.ToString()))
+                    if (userRole.DiplomaID == int.Parse(B3.Tag.ToString()))
                     {
                         B3.IsChecked = true;
                     }
-                    if (memberRole.DiplomaID == int.Parse(P1.Tag.ToString()))
+                    if (userRole.DiplomaID == int.Parse(P1.Tag.ToString()))
                     {
                         P1.IsChecked = true;
                     }
-                    if (memberRole.DiplomaID == int.Parse(P2.Tag.ToString()))
+                    if (userRole.DiplomaID == int.Parse(P2.Tag.ToString()))
                     {
                         P2.IsChecked = true;
                     }
@@ -138,15 +138,15 @@ namespace BataviaReseveringsSysteem.Views
                         //int.Parse(c.Tag.ToString());
 
 
-                        var MemberDiplomas = context.MemberDiplomas.Any(x => x.DiplomaID == diplomaID && x.Deleted_at == null && x.PersonID == DiplomaUsersID);
+                        var User_Diplomas = context.User_Diplomas.Any(x => x.DiplomaID == diplomaID && x.DeletedAt == null && x.UserID == DiplomaUsersID);
 
-                        if (MemberDiplomas)
+                        if (User_Diplomas)
                         {
 
                         }
                         else
                         {
-                            dbc.Add_MemberDiploma(diplomaID, DiplomaUsersID);
+                            dbc.Add_UserDiploma(diplomaID, DiplomaUsersID);
                         }
 
 
@@ -157,11 +157,11 @@ namespace BataviaReseveringsSysteem.Views
 
                         int diplomaID = int.Parse(c.Tag.ToString());
 
-                        var MemberDiplomas = context.MemberDiplomas.Any(x => x.DiplomaID == diplomaID && x.Deleted_at == null && x.PersonID == DiplomaUsersID);
+                        var User_Diplomas = context.User_Diplomas.Any(x => x.DiplomaID == diplomaID && x.DeletedAt == null && x.UserID == DiplomaUsersID);
 
-                        if (MemberDiplomas)
+                        if (User_Diplomas)
                         {
-                            dbc.Delete_MemberDiploma(DiplomaUsersID, diplomaID);
+                            dbc.Delete_UserDiploma(DiplomaUsersID, diplomaID);
                         }
                         else
                         {

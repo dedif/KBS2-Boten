@@ -95,7 +95,7 @@ namespace Views
              Switcher.Switch(new LoginView());
         }
 
-        //Register member of user
+        //Register user of user
         private void ButtonRegister(object sender, RoutedEventArgs e)
         {
             if (RegisterController.Register(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword))
@@ -111,12 +111,12 @@ namespace Views
                             //int.Parse(c.Tag.ToString());
 
 
-                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null);
+                            var User_Roles = context.User_Roles.Any(x => x.RoleID == roleID && x.DeletedAt == null);
 
-                            var LastUserID = context.Users.Select(x => x.PersonID).ToList().Last();
-                            var max = context.Users.OrderByDescending(p => p.PersonID).FirstOrDefault().PersonID;
+                            var LastUserID = context.Users.Select(x => x.UserID).ToList().Last();
+                            var max = context.Users.OrderByDescending(p => p.UserID).FirstOrDefault().UserID;
 
-                            dbc.Add_MemberRole(roleID, max);
+                            dbc.Add_UserRole(roleID, max);
                            
 
 

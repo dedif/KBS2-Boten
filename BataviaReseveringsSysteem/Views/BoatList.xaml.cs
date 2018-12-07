@@ -74,14 +74,14 @@ namespace Views
         void ButtonEdit(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
-            Switcher.Switch(new EditUser((int)b.Tag));
+            Switcher.Switch(new EditBoat((int)b.Tag));
         }
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
 
             DataBoatList.ItemsSource = (from x in context.Boats
-                                        where x.BoatID.ToString() == Search.Text || x.Name.Contains(Search.Text) || x.Type.ToString() == Search.Text || x.Weight.ToString() == Search.Text || x.NumberOfRowers.ToString() == Search.Text || x.Steering.ToString() == Search.Text || x.Status.Contains(Search.Text)  && x.DeletedAt == null
+                                        where x.BoatID.ToString() == Search.Text || x.Name.Contains(Search.Text) || x.Type.ToString() == Search.Text || x.Weight.ToString() == Search.Text || x.NumberOfRowers.ToString() == Search.Text || x.Steering.ToString() == Search.Text && x.DeletedAt == null
                                         select x).ToList();
 
 

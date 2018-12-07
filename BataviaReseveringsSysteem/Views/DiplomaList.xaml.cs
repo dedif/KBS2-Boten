@@ -33,13 +33,14 @@ namespace BataviaReseveringsSysteem.Views
             InitializeComponent();
             this.HorizontalAlignment = HorizontalAlignment.Center;
 
-            Load();
+            Load("");
 
         }
 
       
 
-        private void Load()
+
+        private void Load(string searchInfo)
         {
 
 
@@ -62,8 +63,8 @@ namespace BataviaReseveringsSysteem.Views
                     string b2 = "X";
                     string b3 = "X";
 
-                    var User1Diploma = (from d in context.MemberDiplomas
-                                        where d.PersonID == u.PersonID
+                    var User1Diploma = (from d in context.User_Diplomas
+                                        where d.UserID == u.UserID
                                         select d.DiplomaID).ToList();
 
                     if (User1Diploma.Contains(1))
@@ -110,7 +111,7 @@ namespace BataviaReseveringsSysteem.Views
 
 
 
-                    var dataUserListItems = new { u.PersonID, Firstname = u.Firstname, Middlename = u.Middlename, Lastname = u.Lastname, S1 = s1, S2 = s2, S3 = s3, P1 = p1, P2 = p2, B1 = b1, B2 = b2, B3 = b3 };
+                    var dataUserListItems = new { u.UserID, Firstname = u.Firstname, Middlename = u.Middlename, Lastname = u.Lastname, S1 = s1, S2 = s2, S3 = s3, P1 = p1, P2 = p2, B1 = b1, B2 = b2, B3 = b3 };
                     DataUserList.Items.Add(dataUserListItems);
                 }
 
@@ -131,8 +132,12 @@ namespace BataviaReseveringsSysteem.Views
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
-           
-           
+            for (int i = 0; DataUserList.Items.Count > i;)
+            {
+                DataUserList.Items.RemoveAt(i);
+            }
+            Load(Search.Text);
+
         }
 
       

@@ -58,7 +58,7 @@ namespace Views
                     case MessageBoxResult.Yes:
 
                             var Boat = (from data in context.Boats
-                                        where data.Name == NameboatCombo.Text
+                                        where data.Name == NameboatCombo.Text && data.DeletedAt == null
                                         select data).Single();
 
                             var Reservations = (from data in context.Reservations
