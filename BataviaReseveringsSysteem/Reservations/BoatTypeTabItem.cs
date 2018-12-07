@@ -145,8 +145,9 @@ namespace BataviaReseveringsSysteem.Reservations
             // 1) waarbij de geselecteerde boot (we openen het reserveringsscherm net, dus de eerste boot in de botencombobox is de geselecteerde boot) al afgeschreven is
             // 2) al voorbij zijn (maar waar de zon al wel op was)
             // 3) te ver in de toekomst zijn om geclaimd te kunnen worden (maar waar de zon nog niet onder is)
+            var now = DateTime.Now;
             var claimedPastAndTooDistantSlotsForThisDayAndBoat =
-                GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(DateTime.Now, selectedBoatString, earliestSlot,
+                GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(now, now, selectedBoatString, earliestSlot,
                     firstDarknessSlot);
 
             // Weergeef de eigenschappen van de geselecteerde boot (wederom de eerste in de botencombobox)
@@ -214,9 +215,9 @@ namespace BataviaReseveringsSysteem.Reservations
             BoatNamesComboBox.DropDownClosed += OnBoatNamesComboBoxClicked;
             Grid.Children.Add(BoatNamesComboBox);
             // Vul de combobox met boten uit de database die corresponderen met dit type
-//            using (var context = new DataBase())
-                foreach (var item in boats)
-                    BoatNamesComboBox.Items.Add(item.Name);
+            //            using (var context = new DataBase())
+            foreach (var item in boats)
+                BoatNamesComboBox.Items.Add(item.Name);
         }
 
         // Initialiseer de afschrijvingsduur-combobox met acht opties (één tot acht kwartier na de starttijd)
@@ -258,8 +259,8 @@ namespace BataviaReseveringsSysteem.Reservations
 
             // Genereer de slots die al voorbij zijn, te ver weg zijn of al geclaimd zijn
             var claimedPastAndTooDistantSlotsForThisDayAndBoat =
-                GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(selectedDateValue,
-                    (string)BoatNamesComboBox.SelectedValue, earliestSlot, firstDarknessSlot);
+                GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(DateTime.Now, selectedDateValue,
+                    (string) BoatNamesComboBox.SelectedValue, earliestSlot, firstDarknessSlot);
 
             // Genereer de slots die je wil claimen
             // (wordt bekeken aan de hand van de start- en de afschrijvingsduur-comboboxes
@@ -289,7 +290,7 @@ namespace BataviaReseveringsSysteem.Reservations
 
             // Genereer de slots die al voorbij zijn, te ver weg zijn of al geclaimd zijn
             var claimedPastAndTooDistantSlotsForThisDayAndBoat =
-                GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(selectedDateValue,
+                GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(DateTime.Now, selectedDateValue,
                     (string)BoatNamesComboBox.SelectedValue, earliestSlot, firstDarknessSlot);
 
             // De afschrijvingsduur-combobox moet worden ververst.
@@ -633,7 +634,8 @@ namespace BataviaReseveringsSysteem.Reservations
 
             var selectedBoat = (string)BoatNamesComboBox.SelectedValue;
             var claimedSlotsForThisDayAndBoat =
-                GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(selectedDateValue, selectedBoat, earliestSlot, firstDarknessSlot);
+                GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(DateTime.Now, selectedDateValue, selectedBoat,
+                    earliestSlot, firstDarknessSlot);
 
             PopulateStartTimeComboBox(selectedDateValue, earliestSlot, firstDarknessSlot, claimedSlotsForThisDayAndBoat);
 
@@ -661,14 +663,13 @@ namespace BataviaReseveringsSysteem.Reservations
         // 1) waarbij de geselecteerde boot (we openen het reserveringsscherm net, dus de eerste boot in de botencombobox is de geselecteerde boot) al afgeschreven is
         // 2) al voorbij zijn (maar waar de zon al wel op was)
         // 3) te ver in de toekomst zijn om geclaimd te kunnen worden (maar waar de zon nog niet onder is)
-        private List<DateTime> GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(DateTime selectedDate, string selectedBoatString,
+        public List<DateTime> GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(DateTime now, DateTime selectedDate, string selectedBoatString,
             DateTime earliestSlot, DateTime firstDarknessSlot)
         {
             var claimedSlots = new List<DateTime>();
             var selectedBoat = new BoatController().GetBoatWithName(selectedBoatString);
             // Verkrijg de reserveringen voor de geselecteerde boot
             var reservations = new ReservationController().GetReservationsForDayAndBoatThatAreNotDeleted(selectedDate, selectedBoat);
-            var now = DateTime.Now;
             // Zet de reserveringen in de database om in slots
             reservations.ForEach(reservation =>
             {
@@ -692,7 +693,7 @@ namespace BataviaReseveringsSysteem.Reservations
             if (datePartOfSelectedDate.Equals(datePartOfTwoDaysFromNow))
 
                 // Voeg slots die te ver weg zijn aan de geclaimde slots
-                return GetClaimedAndTooDistantSlots(claimedSlots, twoDaysFromNow, earliestSlot, firstDarknessSlot);
+                return GetClaimedAndTooDistantSlots(claimedSlots, twoDaysFromNow);
             return claimedSlots;
         }
 
@@ -722,18 +723,20 @@ namespace BataviaReseveringsSysteem.Reservations
         }
 
         // Voeg slots die te ver weg zijn aan de geclaimde slots
-        private List<DateTime> GetClaimedAndTooDistantSlots(List<DateTime> claimedSlots, DateTime twoDaysFromNow,
-            DateTime earliestSlot, DateTime firstDarknessSlot)
+        public List<DateTime> GetClaimedAndTooDistantSlots(List<DateTime> claimedSlots, DateTime twoDaysFromNow)
         {
             var claimedAndTooDistantSlots = new List<DateTime>(claimedSlots);
-            var earliestSlotDayQuarter = DateTimeToDayQuarter(earliestSlot);
+            var sunriseAndSunsetTimesForTwoDaysFromNow = GetSunriseAndSunsetTimes(twoDaysFromNow);
+            var earliestSlotTwoDaysFromNow = GetFirstLightSlot(sunriseAndSunsetTimesForTwoDaysFromNow[0]);
+            var firstDarknessSlotTwoDaysFromNow = GetFirstDarknessSlot(sunriseAndSunsetTimesForTwoDaysFromNow[1]);
+            var earliestSlotDayQuarter = DateTimeToDayQuarter(earliestSlotTwoDaysFromNow);
             var slotThatIsTwoDaysFromNow = DateTimeToDayQuarter(BottomRoundTimeToSlot(twoDaysFromNow));
 
-            // De vroegste slot die als "te ver in de toekomst" moet worden gemarkeerd is de slot van dit moment,
+            // De vroegste slot die als "te ver in de toekomst" moet worden gemarkeerd is de slot van dit tijdstip over twee dagen,
             // maar de eerste grijze slot mag niet voor de eerste slot waar het al licht is komen.
             var earliestSlotThatShouldBeMarkedAsTooDistant =
                 new[] { earliestSlotDayQuarter, slotThatIsTwoDaysFromNow }.Max();
-            var firstDarknessSlotDayQuarter = DateTimeToDayQuarter(firstDarknessSlot);
+            var firstDarknessSlotDayQuarter = DateTimeToDayQuarter(firstDarknessSlotTwoDaysFromNow);
 
             // Meng de slots te ver in de toekomst samen met de slots die al geclaimd zijn.
             // Als er al een slot te ver in de toekomst geclaimd is,

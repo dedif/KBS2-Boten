@@ -451,37 +451,5 @@ namespace UnitTestProject2
                 Assert.AreEqual(GetDateTimeWithGivenHoursAndMinutes(now, 23, 45), actual);
             }
         }
-
-        [TestClass]
-        public class GetClaimedAndTooDistantSlots
-        {
-            private DateTime GetDateWithGivenMonthDayHourAndMinute(int month, int day, int hour, int minute)
-            {
-                return new DateTime(DateTime.Now.Year, month, day, hour, minute, 00);
-            }
-
-//            [TestMethod]
-//            private void ShouldReturnAllClaimedSlotsAndSlotsFrom28February2016_0630_WhenNowIs26February0630()
-//            {
-//                // Arrange
-//                List<Boat> boats;
-//                using (var context = new DataBase()) boats = context.Boats.ToList();
-//                var boatTypeTabItem =
-//                    new BoatTypeTabItem(
-//                        boats,
-//                        new List<Reservation>());
-//                var february28_2016_0630 = new DateTime(2016,2,28,6,30,00);
-//                var february26_2016_0630 = new DateTime(2016,2,26,6,30,00);
-//                var sunriseAndSunsetTimes = boatTypeTabItem.GetSunriseAndSunsetTimes(february26_2016_0630);
-//                var earliestSlot = boatTypeTabItem.GetFirstLightSlot(sunriseAndSunsetTimes[0]);
-//
-//                var firstDarknessSlot = boatTypeTabItem.GetFirstDarknessSlot(sunriseAndSunsetTimes[1]);
-//
-//                // Act
-//                boatTypeTabItem.GetClaimedAndTooDistantSlots(new List<DateTime>(), february28_2016_0630, )
-//
-//                // Assert
-//            }
-        }
     }
 }
