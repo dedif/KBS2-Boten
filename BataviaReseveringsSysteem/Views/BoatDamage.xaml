@@ -18,11 +18,11 @@
         <ComboBox x:Name="NameboatCombo" FontSize="16" HorizontalAlignment="Left" Margin="45,38,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
         <Label x:Name="DescribtionLabel" FontSize="16" Content="Beschrijving:" HorizontalAlignment="Left" Margin="46,89,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <TextBox x:Name="DescriptionBox" FontSize="16" HorizontalAlignment="Left" Height="84" Margin="45,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" Grid.Column="1"/>
-        <Button x:Name="CancelButton" Content="Annuleren" FontSize="16" HorizontalAlignment="Left" Margin="46,110,0,0" VerticalAlignment="Top" Width="84" Click="CancelButton_Click" Grid.Row="1"/>
+        <Button x:Name="CancelButton" Content="Annuleren" FontSize="16" HorizontalAlignment="Left" Margin="46,110,0,0" VerticalAlignment="Top" Width="111" Click="CancelButton_Click" Grid.Row="1" Grid.ColumnSpan="2"/>
 
         <RadioButton x:Name="HeavyDamageRadioButton" FontSize="16" Content="Zware shade" HorizontalAlignment="Left" Margin="46,42,0,0" VerticalAlignment="Top" Checked="HeavyDamageRadioButton_Checked" Grid.Row="1" Grid.ColumnSpan="2"/>
         <RadioButton x:Name="LightDamageRadioButton"  FontSize="16" Content="Lichte schade" HorizontalAlignment="Left" Margin="64,42,0,0" VerticalAlignment="Top" Checked="LightDamageRadioButton_Checked" Grid.Row="1" Grid.Column="1"/>
-        <Button x:Name="SaveButton" Content="Opslaan" FontSize="16" HorizontalAlignment="Left" Margin="229,105,0,0" VerticalAlignment="Top" Width="75" Click="SaveButton_Click" Grid.Row="1" Grid.Column="1"/>
+        <Button x:Name="SaveButton" Content="Opslaan" FontSize="16" HorizontalAlignment="Left" Margin="201,105,0,0" VerticalAlignment="Top" Width="103" Click="SaveButton_Click" Grid.Row="1" Grid.Column="1"/>
         <Label x:Name="NotificationLabel" Visibility="Hidden" Content="De boot wordt uit de vaart genomen bij zware schade" FontSize="16" HorizontalAlignment="Left" Margin="46,69,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.237,0" Foreground="Red" Grid.Row="1" Grid.ColumnSpan="2"/>
         <Label x:Name="MessageLabel" Visibility="Hidden" Content="U heeft geen beschrijving ingevuld" HorizontalAlignment="Left" Margin="53,1,0,0" VerticalAlignment="Top" Width="313" FontSize="16" Foreground="#FFF70505" Grid.ColumnSpan="2"/>
 

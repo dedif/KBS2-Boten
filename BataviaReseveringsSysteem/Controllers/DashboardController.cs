@@ -160,7 +160,7 @@ namespace Controllers
                 VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(x, y, 0, 0),
                 Height = 30,
-                Width = 160,
+                Width = 200,
                 FontSize = 16,
                 HorizontalContentAlignment = HorizontalAlignment.Left
             };
@@ -182,7 +182,7 @@ namespace Controllers
                 VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(x, y, 0, 0),
                 Height = 30,
-                Width = 160,
+                Width = 200,
                 FontSize = 16,
                 Tag = id,
                 HorizontalContentAlignment = HorizontalAlignment.Left
