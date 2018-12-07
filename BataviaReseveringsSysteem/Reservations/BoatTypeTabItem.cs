@@ -50,7 +50,7 @@ namespace BataviaReseveringsSysteem.Reservations
         // dan wordt dit label met de melding dat er geen slots beschikbaar zijn, zichtbaar
         private Label _noSlotsAvailableLabel;
 
-        public BoatTypeTabItem(List<Reservation> reservations)
+        public BoatTypeTabItem(List<Boat> boats, List<Reservation> reservations)
         {
             _noSlotsAvailableLabel = new Label
             {
@@ -71,7 +71,7 @@ namespace BataviaReseveringsSysteem.Reservations
             MakeRegisterBtn();
 
             // Vul de combobox met namen
-            FillComboNames();
+            FillComboNames(boats);
 
             BoatTypeTabItemCalendar = new BoatTypeTabItemCalendar();
 
@@ -202,7 +202,7 @@ namespace BataviaReseveringsSysteem.Reservations
         }
 
         // Vul de bootnaamcombobox
-        public void FillComboNames()
+        public void FillComboNames(List<Boat> boats)
         {
             BoatNamesComboBox.Name = "ComboBoatName";
             BoatNamesComboBox.Width = 120;
@@ -214,9 +214,9 @@ namespace BataviaReseveringsSysteem.Reservations
             BoatNamesComboBox.DropDownClosed += OnBoatNamesComboBoxClicked;
             Grid.Children.Add(BoatNamesComboBox);
             // Vul de combobox met boten uit de database die corresponderen met dit type
-            using (var context = new DataBase())
-                foreach (var item in from db in context.Boats select db.Name)
-                    BoatNamesComboBox.Items.Add(item);
+//            using (var context = new DataBase())
+                foreach (var item in boats)
+                    BoatNamesComboBox.Items.Add(item.Name);
         }
 
         // Initialiseer de afschrijvingsduur-combobox met acht opties (één tot acht kwartier na de starttijd)

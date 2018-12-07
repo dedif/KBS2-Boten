@@ -18,7 +18,7 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1200 = new DateTime(now.Year, now.Month, now.Day, 12, 00, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstLightSlot(time1200);
@@ -33,7 +33,7 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1200 = new DateTime(now.Year, now.Month, now.Day, 12, 00, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstLightSlot(time1200);
@@ -48,7 +48,7 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1201 = new DateTime(now.Year, now.Month, now.Day, 12, 01, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstLightSlot(time1201);
@@ -63,7 +63,7 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1201 = new DateTime(now.Year, now.Month, now.Day, 12, 01, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstLightSlot(time1201);
@@ -78,7 +78,7 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1159 = new DateTime(now.Year, now.Month, now.Day, 11, 59, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstLightSlot(time1159);
@@ -93,7 +93,7 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1159 = new DateTime(now.Year, now.Month, now.Day, 11, 59, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstLightSlot(time1159);
@@ -112,7 +112,7 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1200 = new DateTime(now.Year, now.Month, now.Day, 12, 00, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1200);
@@ -127,7 +127,7 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1200 = new DateTime(now.Year, now.Month, now.Day, 12, 00, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1200);
@@ -142,7 +142,7 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1201 = new DateTime(now.Year, now.Month, now.Day, 12, 01, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1201);
@@ -157,7 +157,7 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1201 = new DateTime(now.Year, now.Month, now.Day, 12, 01, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1201);
@@ -172,7 +172,7 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1159 = new DateTime(now.Year, now.Month, now.Day, 11, 59, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1159);
@@ -187,7 +187,7 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1159 = new DateTime(now.Year, now.Month, now.Day, 11, 59, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1159);
@@ -202,7 +202,7 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1215 = new DateTime(now.Year, now.Month, now.Day, 12, 15, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1215);
@@ -217,7 +217,7 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1215 = new DateTime(now.Year, now.Month, now.Day, 12, 15, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1215);
@@ -240,7 +240,7 @@ namespace UnitTestProject2
             public void ShouldReturn48_WhenTimeIs1200()
             {
                 // Arrange
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
                 var time1200 = GetDateTimeWithGivenHoursAndMinutes(12, 00);
 
                 // Act
@@ -254,7 +254,7 @@ namespace UnitTestProject2
             public void ShouldReturn00_WhenTimeIs0000()
             {
                 // Arrange
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
                 var time0000 = GetDateTimeWithGivenHoursAndMinutes(00, 00);
 
                 // Act
@@ -268,7 +268,7 @@ namespace UnitTestProject2
             public void ShouldReturn95_WhenTimeIs2345()
             {
                 // Arrange
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
                 var time2345 = GetDateTimeWithGivenHoursAndMinutes(23, 45);
 
                 // Act
@@ -282,7 +282,7 @@ namespace UnitTestProject2
             public void ShouldReturn95_WhenDateTimeIs2345()
             {
                 // Arrange
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
                 var time2345 = GetDateTimeWithGivenHoursAndMinutes(23, 45);
 
                 // Act
@@ -303,7 +303,7 @@ namespace UnitTestProject2
             public void ShouldReturn1200_WhenDayQuarterIs48()
             {
                 // Arrange
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
                 var now = DateTime.Now;
                 var dayQuarter48 = 48;
 
@@ -318,7 +318,7 @@ namespace UnitTestProject2
             public void ShouldReturn0000_WhenDayQuarterIs00()
             {
                 // Arrange
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
                 var now = DateTime.Now;
                 var dayQuarter00 = 00;
 
@@ -333,7 +333,7 @@ namespace UnitTestProject2
             public void ShouldReturn2345_WhenDayQuarterIs95()
             {
                 // Arrange
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
                 var now = DateTime.Now;
                 var dayQuarter95 = 95;
 
@@ -357,9 +357,9 @@ namespace UnitTestProject2
             private void ShouldReturnAllClaimedSlotsAndSlotsFrom28February0630_WhenNowIs26February0620()
             {
                 // Arrange
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Reservation>());
-//                var now = DateTime.Now
-//                var February26
+                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                //                var now = DateTime.Now
+                //                var February26
 
                 // Act
 
