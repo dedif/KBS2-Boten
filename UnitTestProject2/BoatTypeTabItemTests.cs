@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using BataviaReseveringsSysteem.Database;
 using BataviaReseveringsSysteem.Reservations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Models;
@@ -18,7 +20,12 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1200 = new DateTime(now.Year, now.Month, now.Day, 12, 00, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                boats,
+                new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstLightSlot(time1200);
@@ -33,7 +40,12 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1200 = new DateTime(now.Year, now.Month, now.Day, 12, 00, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstLightSlot(time1200);
@@ -48,7 +60,12 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1201 = new DateTime(now.Year, now.Month, now.Day, 12, 01, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstLightSlot(time1201);
@@ -63,7 +80,12 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1201 = new DateTime(now.Year, now.Month, now.Day, 12, 01, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstLightSlot(time1201);
@@ -78,7 +100,12 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1159 = new DateTime(now.Year, now.Month, now.Day, 11, 59, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstLightSlot(time1159);
@@ -93,7 +120,12 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1159 = new DateTime(now.Year, now.Month, now.Day, 11, 59, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstLightSlot(time1159);
@@ -112,7 +144,12 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1200 = new DateTime(now.Year, now.Month, now.Day, 12, 00, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1200);
@@ -127,7 +164,12 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1200 = new DateTime(now.Year, now.Month, now.Day, 12, 00, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1200);
@@ -142,7 +184,12 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1201 = new DateTime(now.Year, now.Month, now.Day, 12, 01, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1201);
@@ -157,7 +204,12 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1201 = new DateTime(now.Year, now.Month, now.Day, 12, 01, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1201);
@@ -172,7 +224,12 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1159 = new DateTime(now.Year, now.Month, now.Day, 11, 59, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1159);
@@ -187,7 +244,12 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1159 = new DateTime(now.Year, now.Month, now.Day, 11, 59, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1159);
@@ -202,7 +264,12 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1215 = new DateTime(now.Year, now.Month, now.Day, 12, 15, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1215);
@@ -217,7 +284,12 @@ namespace UnitTestProject2
                 // Arrange
                 var now = DateTime.Now;
                 var time1215 = new DateTime(now.Year, now.Month, now.Day, 12, 15, 00);
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1215);
@@ -240,7 +312,12 @@ namespace UnitTestProject2
             public void ShouldReturn48_WhenTimeIs1200()
             {
                 // Arrange
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
                 var time1200 = GetDateTimeWithGivenHoursAndMinutes(12, 00);
 
                 // Act
@@ -254,7 +331,12 @@ namespace UnitTestProject2
             public void ShouldReturn00_WhenTimeIs0000()
             {
                 // Arrange
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
                 var time0000 = GetDateTimeWithGivenHoursAndMinutes(00, 00);
 
                 // Act
@@ -268,7 +350,12 @@ namespace UnitTestProject2
             public void ShouldReturn95_WhenTimeIs2345()
             {
                 // Arrange
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
                 var time2345 = GetDateTimeWithGivenHoursAndMinutes(23, 45);
 
                 // Act
@@ -282,7 +369,12 @@ namespace UnitTestProject2
             public void ShouldReturn95_WhenDateTimeIs2345()
             {
                 // Arrange
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
                 var time2345 = GetDateTimeWithGivenHoursAndMinutes(23, 45);
 
                 // Act
@@ -303,7 +395,12 @@ namespace UnitTestProject2
             public void ShouldReturn1200_WhenDayQuarterIs48()
             {
                 // Arrange
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
                 var now = DateTime.Now;
                 var dayQuarter48 = 48;
 
@@ -318,7 +415,12 @@ namespace UnitTestProject2
             public void ShouldReturn0000_WhenDayQuarterIs00()
             {
                 // Arrange
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
                 var now = DateTime.Now;
                 var dayQuarter00 = 00;
 
@@ -333,7 +435,12 @@ namespace UnitTestProject2
             public void ShouldReturn2345_WhenDayQuarterIs95()
             {
                 // Arrange
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
+                List<Boat> boats;
+                using (var context = new DataBase()) boats = context.Boats.ToList();
+                var boatTypeTabItem =
+                    new BoatTypeTabItem(
+                        boats,
+                        new List<Reservation>());
                 var now = DateTime.Now;
                 var dayQuarter95 = 95;
 
@@ -348,23 +455,33 @@ namespace UnitTestProject2
         [TestClass]
         public class GetClaimedAndTooDistantSlots
         {
-            private DateTime GetDateTimeWithGivenHoursAndMinutes(int month, int day, int hour, int minute)
+            private DateTime GetDateWithGivenMonthDayHourAndMinute(int month, int day, int hour, int minute)
             {
                 return new DateTime(DateTime.Now.Year, month, day, hour, minute, 00);
             }
 
-            [TestMethod]
-            private void ShouldReturnAllClaimedSlotsAndSlotsFrom28February0630_WhenNowIs26February0620()
-            {
-                // Arrange
-                var boatTypeTabItem = new BoatTypeTabItem(new List<Boat>(), new List<Reservation>());
-                //                var now = DateTime.Now
-                //                var February26
-
-                // Act
-
-                // Assert
-            }
+//            [TestMethod]
+//            private void ShouldReturnAllClaimedSlotsAndSlotsFrom28February2016_0630_WhenNowIs26February0630()
+//            {
+//                // Arrange
+//                List<Boat> boats;
+//                using (var context = new DataBase()) boats = context.Boats.ToList();
+//                var boatTypeTabItem =
+//                    new BoatTypeTabItem(
+//                        boats,
+//                        new List<Reservation>());
+//                var february28_2016_0630 = new DateTime(2016,2,28,6,30,00);
+//                var february26_2016_0630 = new DateTime(2016,2,26,6,30,00);
+//                var sunriseAndSunsetTimes = boatTypeTabItem.GetSunriseAndSunsetTimes(february26_2016_0630);
+//                var earliestSlot = boatTypeTabItem.GetFirstLightSlot(sunriseAndSunsetTimes[0]);
+//
+//                var firstDarknessSlot = boatTypeTabItem.GetFirstDarknessSlot(sunriseAndSunsetTimes[1]);
+//
+//                // Act
+//                boatTypeTabItem.GetClaimedAndTooDistantSlots(new List<DateTime>(), february28_2016_0630, )
+//
+//                // Assert
+//            }
         }
     }
 }

@@ -570,7 +570,7 @@ namespace BataviaReseveringsSysteem.Reservations
         // Verkrijg de zonsopgangs- en zonsondergangstijden voor een geselecteerde datum
         // De applicatie gaat er vanuit dat de roeivereniging zich in hartje Zwolle bevindt
         // Retourneert een array met twee elementen: de datum voor zonsopgang en zonsondergang
-        private DateTime[] GetSunriseAndSunsetTimes(DateTime selectedDate)
+        public DateTime[] GetSunriseAndSunsetTimes(DateTime selectedDate)
         {
             // Maak twee booleans en twee DateTime-objecten aan. De inhoud van deze objecten maakt nog niet uit.
             var isSunrise = false;
@@ -667,7 +667,7 @@ namespace BataviaReseveringsSysteem.Reservations
             var claimedSlots = new List<DateTime>();
             var selectedBoat = new BoatController().GetBoatWithName(selectedBoatString);
             // Verkrijg de reserveringen voor de geselecteerde boot
-            var reservations = new ReservationController().GetReservationsForDayAndBoat(selectedDate, selectedBoat);
+            var reservations = new ReservationController().GetReservationsForDayAndBoatThatAreNotDeleted(selectedDate, selectedBoat);
             var now = DateTime.Now;
             // Zet de reserveringen in de database om in slots
             reservations.ForEach(reservation =>
