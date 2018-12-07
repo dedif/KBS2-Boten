@@ -46,5 +46,10 @@ namespace BataviaReseveringsSysteem.Views
         {
             Switcher.Switch(new AddBoat());
         }
+
+        private void AssignDiplomasBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new DiplomaList());
+        }
     }
 }

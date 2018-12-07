@@ -84,19 +84,19 @@
             </CheckBox>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-            <CheckBox x:Name="B1CheckBox" Tag="4">
+            <CheckBox x:Name="B1CheckBox" Tag="6">
                 <DockPanel Height="16">
                     <Image DockPanel.Dock="Left" />
                     <TextBlock DockPanel.Dock="Top" Text="B1" />
                 </DockPanel>
             </CheckBox>
-            <CheckBox x:Name="B2CheckBox" Tag="5">
+            <CheckBox x:Name="B2CheckBox" Tag="7">
                 <DockPanel Height="16">
                     <Image DockPanel.Dock="Left" />
                     <TextBlock DockPanel.Dock="Top" Text="B2" />
                 </DockPanel>
             </CheckBox>
-            <CheckBox x:Name="B3CheckBox" Tag="6">
+            <CheckBox x:Name="B3CheckBox" Tag="8">
                 <DockPanel Height="16">
                     <Image DockPanel.Dock="Left" />
                     <TextBlock DockPanel.Dock="Top" Text="B3" />
@@ -104,13 +104,13 @@
             </CheckBox>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <CheckBox x:Name="P1CheckBox" Tag="7">
+            <CheckBox x:Name="P1CheckBox" Tag="4">
                 <DockPanel Height="16">
                     <Image DockPanel.Dock="Left" />
                     <TextBlock DockPanel.Dock="Top" Text="P1" />
                 </DockPanel>
             </CheckBox>
-            <CheckBox x:Name="P2CheckBox" Tag="8">
+            <CheckBox x:Name="P2CheckBox" Tag="5">
                 <DockPanel Height="16">
                     <Image DockPanel.Dock="Left" />
                     <TextBlock DockPanel.Dock="Top" Text="P2" />
