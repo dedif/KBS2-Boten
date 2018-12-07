@@ -36,7 +36,7 @@ namespace Views
             var loggedUser = (from data in context.Users
                               where data.PersonID == LoginView.UserId
                               select data).Single();
-            NameLabel.Content = loggedUser.Firstname + " " + loggedUser.Lastname;
+     
 
             dashboardController = new DashboardController(this);
 
@@ -78,12 +78,22 @@ namespace Views
 
         }
 
+   
+
         public void ShowReservations()
         {
             using (DataBase context = new DataBase())
             {
+
+                //Geeft de reserveringen van de user
+                var Reservations = (
+                    from data in context.Reservations
+                    where data.Deleted == null
+                    where data.UserId == LoginView.UserId
+                    select data).ToList();
+
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
-                if (context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId).Count() == 0)
+                if (Reservations.Count() == 0)
                 {
                     NoReservationLabel.Visibility = Visibility.Visible;
                 }
@@ -92,7 +102,7 @@ namespace Views
                     NoReservationLabel.Visibility = Visibility.Hidden;
                 }
                 //Als de gebruiker het maximale aantal afschrijvingen heeft bereikt, mag hij geen boten meer afschrijven
-                if (context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId).Count() >= MaxReservationUser)
+                if (Reservations.Count() >= MaxReservationUser)
                 {
                     MaxReservations.Visibility = Visibility.Visible;
                     AddReservationButton.IsEnabled = false;
@@ -102,7 +112,10 @@ namespace Views
                     MaxReservations.Visibility = Visibility.Hidden;
                     AddReservationButton.IsEnabled = true;
                 }
-                foreach (Reservation r in context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId))
+
+
+     
+                foreach (Reservation r in Reservations)
                 {
                     if (Count % 2 == 0)
                     {

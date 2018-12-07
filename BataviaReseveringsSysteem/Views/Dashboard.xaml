@@ -19,10 +19,8 @@
         <Grid Name="GridDashboard">
 
             <Button x:Name="AddReservationButton" Content="+ Afschrijving toevoegen" Width="120" Click="AddReservationButton_Click" Margin="279,49,608,999"/>
-            <Image Source="..\Images\User.png" HorizontalAlignment="Right" Height="70" VerticalAlignment="Top" Width="58" Margin="0,0,100,0" RenderTransformOrigin="0.475,0.311"/>
             <Label x:Name="NoReservationLabel"  Content="U heeft nog geen afschrijvingen"  Visibility="Hidden" FontSize="30" HorizontalAlignment="Left" Height="86" Width="518" Margin="228,201,0,793"/>
             <Label x:Name="MaxReservations" Visibility="Hidden" Foreground="#FFFF0909" Content="U heeft het maximaal aantal afschrijvingen bereikt" HorizontalAlignment="Left" Margin="468,49,0,0" VerticalAlignment="Top" Width="323"/>
-            <Label x:Name="NameLabel" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="172" Margin="796,75,0,0"/>
 
         </Grid>
 
