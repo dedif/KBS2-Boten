@@ -34,7 +34,8 @@
                 <MenuItem Header="Leden toevoegen" IsEnabled="False"  x:Name="AddUsersBtn" Click="AddUsersBtn_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Diploma's">
-                <MenuItem Header="Diploma's inzien" x:Name="SeeDiplomasBtn" IsEnabled="False" Click="SeeDiplomasBtn_Click"></MenuItem>
+                <MenuItem Header="Gebruikers diploma's inzien" x:Name="SeeUserDiplomasBtn" IsEnabled="False" Click="SeeUserDiplomasBtn_Click"></MenuItem>
+                <MenuItem Header="Boat diploma's inzien" x:Name="SeeBoatDiplomasBtn" IsEnabled="False" Click="SeeBoatDiplomasBtn_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Boten">
                 <MenuItem Header="Boten inzien" IsEnabled="False" x:Name="SeeBoatsBtn" Click="SeeBoatsBtn_Click"></MenuItem>

@@ -1,6 +1,7 @@
 ﻿using BataviaReseveringsSysteem.Database;
 using Controllers;
 using ScreenSwitcher;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,11 +11,11 @@ namespace Views
     /// <summary>
     /// Interaction logic for EditDiplomaView.xaml
     /// </summary>
-    public partial class EditDiplomaView : UserControl
+    public partial class EditUserDiplomaView : UserControl
     {
         int DiplomaUsersID;
         DataBaseController dbc = new DataBaseController();
-        public EditDiplomaView(int personID)
+        public EditUserDiplomaView(int personID)
         {
             DiplomaUsersID = personID;
             InitializeComponent();
@@ -26,49 +27,49 @@ namespace Views
                 {
                     if ("S1" == diploma.DiplomaName)
                     {
-                        S1.Content = diploma.DiplomaName;
-                        S1.Tag = diploma.DiplomaID;
+                        S1CheckBox.Content = diploma.DiplomaName;
+                        S1CheckBox.Tag = diploma.DiplomaID;
                     }
                     if ("S2" == diploma.DiplomaName)
                     {
-                        S2.Content = diploma.DiplomaName;
-                        S2.Tag = diploma.DiplomaID;
+                        S2CheckBox.Content = diploma.DiplomaName;
+                        S2CheckBox.Tag = diploma.DiplomaID;
 
                     }
                     if ("S3" == diploma.DiplomaName)
                     {
-                        S3.Content = diploma.DiplomaName;
-                        S3.Tag = diploma.DiplomaID;
+                        S3CheckBox.Content = diploma.DiplomaName;
+                        S3CheckBox.Tag = diploma.DiplomaID;
 
                     }
                     if ("P1" == diploma.DiplomaName)
                     {
-                        P1.Content = diploma.DiplomaName;
-                        P1.Tag = diploma.DiplomaID;
+                        P1CheckBox.Content = diploma.DiplomaName;
+                        P1CheckBox.Tag = diploma.DiplomaID;
 
                     }
                     if ("P2" == diploma.DiplomaName)
                     {
-                        P2.Content = diploma.DiplomaName;
-                        P2.Tag = diploma.DiplomaID;
+                        P2CheckBox.Content = diploma.DiplomaName;
+                        P2CheckBox.Tag = diploma.DiplomaID;
 
                     }
                     if ("B1" == diploma.DiplomaName)
                     {
-                        B1.Content = diploma.DiplomaName;
-                        B1.Tag = diploma.DiplomaID;
+                        B1CheckBox.Content = diploma.DiplomaName;
+                        B1CheckBox.Tag = diploma.DiplomaID;
 
                     }
                     if ("B2" == diploma.DiplomaName)
                     {
-                        B2.Content = diploma.DiplomaName;
-                        B2.Tag = diploma.DiplomaID;
+                        B2CheckBox.Content = diploma.DiplomaName;
+                        B2CheckBox.Tag = diploma.DiplomaID;
 
                     }
                     if ("B3" == diploma.DiplomaName)
                     {
-                        B3.Content = diploma.DiplomaName;
-                        B3.Tag = diploma.DiplomaID;
+                        B3CheckBox.Content = diploma.DiplomaName;
+                        B3CheckBox.Tag = diploma.DiplomaID;
 
                     }
                 }
@@ -79,39 +80,39 @@ namespace Views
 
                 foreach (var memberRole in MemberDiplomas)
                 {
-                    if (memberRole.DiplomaID == int.Parse(S1.Tag.ToString()))
+                    if (memberRole.DiplomaID == int.Parse(S1CheckBox.Tag.ToString()))
                     {
-                        S1.IsChecked = true;
+                        S1CheckBox.IsChecked = true;
                     }
 
-                    if (memberRole.DiplomaID == int.Parse(S2.Tag.ToString()))
+                    if (memberRole.DiplomaID == int.Parse(S2CheckBox.Tag.ToString()))
                     {
-                        S2.IsChecked = true;
+                        S2CheckBox.IsChecked = true;
                     }
 
-                    if (memberRole.DiplomaID == int.Parse(S3.Tag.ToString()))
+                    if (memberRole.DiplomaID == int.Parse(S3CheckBox.Tag.ToString()))
                     {
-                        S3.IsChecked = true;
+                        S3CheckBox.IsChecked = true;
                     }
-                    if (memberRole.DiplomaID == int.Parse(B1.Tag.ToString()))
+                    if (memberRole.DiplomaID == int.Parse(B1CheckBox.Tag.ToString()))
                     {
-                        B1.IsChecked = true;
+                        B1CheckBox.IsChecked = true;
                     }
-                    if (memberRole.DiplomaID == int.Parse(B2.Tag.ToString()))
+                    if (memberRole.DiplomaID == int.Parse(B2CheckBox.Tag.ToString()))
                     {
-                        B2.IsChecked = true;
+                        B2CheckBox.IsChecked = true;
                     }
-                    if (memberRole.DiplomaID == int.Parse(B3.Tag.ToString()))
+                    if (memberRole.DiplomaID == int.Parse(B3CheckBox.Tag.ToString()))
                     {
-                        B3.IsChecked = true;
+                        B3CheckBox.IsChecked = true;
                     }
-                    if (memberRole.DiplomaID == int.Parse(P1.Tag.ToString()))
+                    if (memberRole.DiplomaID == int.Parse(P1CheckBox.Tag.ToString()))
                     {
-                        P1.IsChecked = true;
+                        P1CheckBox.IsChecked = true;
                     }
-                    if (memberRole.DiplomaID == int.Parse(P2.Tag.ToString()))
+                    if (memberRole.DiplomaID == int.Parse(P2CheckBox.Tag.ToString()))
                     {
-                        P2.IsChecked = true;
+                        P2CheckBox.IsChecked = true;
                     }
                 }
             }
@@ -121,7 +122,8 @@ namespace Views
         {
             using (DataBase context = new DataBase())
             {
-                foreach (CheckBox c in EditDiplomaLayout.Children.OfType<CheckBox>())
+                List<CheckBox> CheckBoxList = new List<CheckBox>() { S1CheckBox, S2CheckBox, S3CheckBox, B1CheckBox, B2CheckBox, B3CheckBox, P1CheckBox, P2CheckBox };
+                foreach (CheckBox c in CheckBoxList)
                 {
                     if (c.IsChecked == true)
                     {
@@ -164,7 +166,7 @@ namespace Views
 
 
 
-            Switcher.Switch(new DiplomaList());
+            Switcher.Switch(new UserDiplomaList());
         }
 
 
@@ -172,7 +174,7 @@ namespace Views
 
         private void ButtonCancel(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new DiplomaList());
+            Switcher.Switch(new UserDiplomaList());
         }
     }
 }

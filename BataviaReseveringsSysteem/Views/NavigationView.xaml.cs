@@ -48,7 +48,8 @@ namespace Views
                 if (RolID.Contains(4))
                 {
                     //Mag die diploma's toevoegen
-                    SeeDiplomasBtn.IsEnabled = true;
+                    SeeUserDiplomasBtn.IsEnabled = true;
+                    SeeBoatDiplomasBtn.IsEnabled = true;
                 }
                 // Als de user een besstuur is: 
                 if (RolID.Contains(5))
@@ -125,9 +126,13 @@ namespace Views
             Switcher.Switch(new Register());
         }
 
-        private void SeeDiplomasBtn_Click(object sender, RoutedEventArgs e)
+        private void SeeUserDiplomasBtn_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new DiplomaList());
+            Switcher.Switch(new UserDiplomaList());
+        }
+        private void SeeBoatDiplomasBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new BoatDiplomaList());
         }
     }
 }

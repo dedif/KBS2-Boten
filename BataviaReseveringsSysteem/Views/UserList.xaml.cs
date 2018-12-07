@@ -93,7 +93,7 @@ namespace Views
 
         private void Diploma(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new DiplomaList());
+            Switcher.Switch(new UserDiplomaList());
 
         }
 

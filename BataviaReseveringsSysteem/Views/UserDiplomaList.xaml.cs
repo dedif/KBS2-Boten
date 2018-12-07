@@ -23,13 +23,13 @@ namespace Views
     /// <summary>
     /// Interaction logic for CertificateList.xaml
     /// </summary>
-    public partial class DiplomaList : UserControl
+    public partial class UserDiplomaList : UserControl
     {
         public static DataGrid DataGrid;
 
         private DataBase context = new DataBase();
         private DataBaseController dbc = new DataBaseController();
-        public DiplomaList()
+        public UserDiplomaList()
         {
             InitializeComponent();
             this.HorizontalAlignment = HorizontalAlignment.Center;
@@ -127,7 +127,7 @@ namespace Views
         private void ButtonEdit(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
-            Switcher.Switch(new EditDiplomaView((int)b.Tag));
+            Switcher.Switch(new EditUserDiplomaView((int)b.Tag));
         }
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
