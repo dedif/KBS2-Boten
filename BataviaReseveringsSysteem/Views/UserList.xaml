@@ -30,7 +30,6 @@
                 <DataGridTextColumn x:Name="Firstname"    Binding="{Binding Firstname}" Header="Voornaam" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Middlename"    Binding="{Binding Middlename}" Header="T.v." IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Lastname"  Binding="{Binding Lastname}" Header="Achternaam" IsReadOnly="true"/>
-                <!--<DataGridTextColumn x:Name="Gender" Binding="{Binding GenderID}" Header="Geslacht" IsReadOnly="true"/>-->
                 <DataGridTextColumn x:Name="Birthday"  Binding="{Binding Birthday, StringFormat=\{0:dd-MM-yyyy\}}" Header="Geb.Datum" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="City"  Binding="{Binding City}" Header="Woonplaats" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Address"  Binding="{Binding Address}" Header="Adres" IsReadOnly="true"/>
@@ -75,7 +74,7 @@
                         <DataTemplate>
                             <StackPanel>
                                 <Button Height="30" Width="30"
-                                    x:Name="DeleteButton"   Tag="{Binding UserID}" 
+                                    x:Name="DeleteButton"   Tag="{Binding UserID}" Click="ButtonDelete"
                                     Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
                                     ToolTip="Verwijderen">
                                     <materialDesign:PackIcon

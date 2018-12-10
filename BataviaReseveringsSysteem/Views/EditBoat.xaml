@@ -3,14 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-
-        mc:Ignorable="d" Height="499.866"
-        >
-    <Grid Background="White" Width="1920" Height="1076">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="493*"/>
-            <RowDefinition Height="587*"/>
-
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -40,10 +32,10 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TextBox Grid.Row="0" Grid.Column="1" x:Name="NameBox" 
-                materialDesign:HintAssist.Hint="Bootnaam"
+               materialDesign:HintAssist.Hint="Bootnaam"
                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25" />
         <ComboBox Grid.Row="1" Grid.Column="1" x:Name="TypCombo" 
-                  materialDesign:HintAssist.Hint="Boot type"
+                  materialDesign:HintAssist.Hint="Boottype"
                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25"  SelectionChanged="TypCombo_SelectionChanged">
             <ComboBoxItem Content="Scull"/>
             <ComboBoxItem  Content="Skiff"/>

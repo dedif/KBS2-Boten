@@ -4,7 +4,6 @@ using System.Windows.Controls;
 using Assert = NUnit.Framework.Assert;
 using Controllers;
 using BataviaReseveringsSysteem.Database;
-using BataviaReseveringsSysteem;
 
 namespace UnitTestLoginRegister
 {

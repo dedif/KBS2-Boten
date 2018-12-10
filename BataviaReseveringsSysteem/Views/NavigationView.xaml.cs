@@ -24,8 +24,8 @@ namespace Views
             using (DataBase context = new DataBase())
             {
                 //Maakt een lijst van alle rollen, van de ingelogde user
-                var RolID = (from data in context.MemberRoles
-                             where data.PersonID == LoginView.UserId
+                var RolID = (from data in context.User_Roles
+                             where data.UserID == LoginView.UserId
                              select data.RoleID).ToList();
 
                 // Als de user een reperateur is: 
@@ -75,7 +75,7 @@ namespace Views
             {
 
                 var loggedUser = (from data in context.Users
-                                  where data.PersonID == LoginView.UserId
+                                  where data.UserID == LoginView.UserId
                                   select data).Single();
                 NameLabel.Content = loggedUser.Firstname + " " + loggedUser.Middlename + " " + loggedUser.Lastname;
 

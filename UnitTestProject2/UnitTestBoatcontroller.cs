@@ -1,9 +1,5 @@
-﻿using System;
-using Controllers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Models;
+﻿using Controllers;
 using NUnit.Framework;
-using static Models.Boat;
 using Assert = NUnit.Framework.Assert;
 
 namespace UnitTest

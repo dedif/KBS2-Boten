@@ -212,26 +212,6 @@ namespace Controllers
             }
         }
 
-        public void UpdateBoat(int boatID, string name, string type, int rowers, double weight, bool steeringwheel)
-        {
-            using (DataBase context = new DataBase())
-            {
-                Boat UpdateBoat = context.Boats.Where(d => d.BoatID == boatID).First();
-                Enum.TryParse(type, out Boat.BoatType MyType);
-                if (UpdateBoat != null)
-                {
-                    UpdateBoat.Name = name;
-                    UpdateBoat.Type = MyType;
-                    UpdateBoat.Weight = weight;
-                    UpdateBoat.Steering = steeringwheel;
-                    UpdateBoat.NumberOfRowers = rowers;
-                    UpdateBoat.UpdatedAt = DateTime.Now;
-
-                    context.SaveChanges();
-                }
-            }
-
-        }
 
         public void AddDiploma(List<CheckBox> list)
         {
@@ -267,7 +247,7 @@ namespace Controllers
 
                 var BoatDiploma = new Models.Boat_Diploma
                 {
-                    BoatDiplomaID = diplomaID,
+                    DiplomaID = diplomaID,
                     BoatID = boatID,
                    
 

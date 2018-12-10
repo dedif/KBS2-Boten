@@ -57,7 +57,7 @@
                                 <Button 
                                     Height="30" 
                                     Width="30"
-                                    Tag="{Binding PersonID}"
+                                    Tag="{Binding UserID}"
                                     x:Name="EditButton" Click="ButtonEdit"
                                     Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
                                     ToolTip="Bewerken">

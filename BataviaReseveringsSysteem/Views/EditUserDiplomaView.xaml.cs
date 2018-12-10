@@ -16,7 +16,7 @@ namespace Views
         int DiplomaUsersID;
         DataBaseController dbc = new DataBaseController();
 
-        public EditUserDiplomaView(int personID)
+        public EditUserDiplomaView(int userID)
 
         {
             DiplomaUsersID = userID;
