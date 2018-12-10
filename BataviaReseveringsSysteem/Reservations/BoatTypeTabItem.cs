@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using BataviaReseveringsSysteem.Database;
 using Controllers;
 using Models;
@@ -49,6 +50,7 @@ namespace BataviaReseveringsSysteem.Reservations
         // of als het nog donker is, waardoor je geen enkele slot van overmorgen mag afschrijven,
         // dan wordt dit label met de melding dat er geen slots beschikbaar zijn, zichtbaar
         private Label _noSlotsAvailableLabel;
+        private bool _selectsDuration;
 
         public BoatTypeTabItem(List<Boat> boats, List<Reservation> reservations)
         {
@@ -127,6 +129,7 @@ namespace BataviaReseveringsSysteem.Reservations
             Grid.Children.Add(annulerenButton);
 
             PlannerGrid = new PlannerGrid();
+            PlannerGrid.MouseDown += OnPlannerGridClick;
 
             // Nu worden de plannergrid, de dropdowns, de kalender en de boatview geïnitialiseerd.
             // Als je dit niet zou doen,
@@ -260,7 +263,7 @@ namespace BataviaReseveringsSysteem.Reservations
             // Genereer de slots die al voorbij zijn, te ver weg zijn of al geclaimd zijn
             var claimedPastAndTooDistantSlotsForThisDayAndBoat =
                 GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(DateTime.Now, selectedDateValue,
-                    (string) BoatNamesComboBox.SelectedValue, earliestSlot, firstDarknessSlot);
+                    (string)BoatNamesComboBox.SelectedValue, earliestSlot, firstDarknessSlot);
 
             // Genereer de slots die je wil claimen
             // (wordt bekeken aan de hand van de start- en de afschrijvingsduur-comboboxes
@@ -667,34 +670,44 @@ namespace BataviaReseveringsSysteem.Reservations
             DateTime earliestSlot, DateTime firstDarknessSlot)
         {
             var claimedSlots = new List<DateTime>();
-            var selectedBoat = new BoatController().GetBoatWithName(selectedBoatString);
-            // Verkrijg de reserveringen voor de geselecteerde boot
-            var reservations = new ReservationController().GetReservationsForDayAndBoatThatAreNotDeleted(selectedDate, selectedBoat);
-            // Zet de reserveringen in de database om in slots
-            reservations.ForEach(reservation =>
-            {
-                var endQuarter = DateTimeToDayQuarter(reservation.End);
-                for (var i = DateTimeToDayQuarter(reservation.Start); i < endQuarter; i++)
-                    claimedSlots.Add(DayQuarterToDateTime(selectedDate, i));
-            });
-            var datePartOfSelectedDate = selectedDate.Date;
+
+            // Verkrijg de reserveringen voor de geselecteerde boot.
+            new ReservationController()
+                .GetReservationsForDayAndBoatThatAreNotDeleted(selectedDate,
+                    new BoatController().GetBoatWithName(selectedBoatString)).ForEach(reservation =>
+
+                    // Zet de reserveringen in de database om in slots
+                    {
+                        for (var i = DateTimeToDayQuarter(reservation.Start);
+                        i < DateTimeToDayQuarter(reservation.End);
+                        i++)
+                            claimedSlots.Add(DayQuarterToDateTime(selectedDate, i));
+                    });
             var datePartOfDateTimeNow = now.Date;
 
             // Als de geselecteerde dag vandaag is, dan moeten er ook nog slots die al voorbij zijn worden grijs gemaakt
-            if (datePartOfSelectedDate.Equals(datePartOfDateTimeNow))
-            {
-                // Voeg slots die voorbij zijn toe aan de geclaimde slots
+            // Voeg slots die voorbij zijn toe aan de geclaimde slots
+            // Als de geselecteerde dag overmorgen is
+            // (of het ingelogde lid is wedstrijdcommissaris en de geselecteerde dag is over een jaar),
+            // dan moeten er ook nog slots die te ver weg zijn worden grijs gemaakt
+            // Voeg slots die te ver weg zijn aan de geclaimde slots
+            // In de andere gevallen, retourneer alleen de geclaimde slots
+
+
+            if (selectedDate.Date.Equals(datePartOfDateTimeNow))
                 return GetClaimedAndPastSlots(claimedSlots, now, earliestSlot, firstDarknessSlot);
-            }
-            var twoDaysFromNow = now.AddDays(2);
-            var datePartOfTwoDaysFromNow = twoDaysFromNow.Date;
+            else if (DateIsLastReservableDate(new UserController().LoggedInUserIsRaceCommissioner(),
+                datePartOfDateTimeNow,
+                selectedDate))
+                return GetClaimedAndTooDistantSlots(claimedSlots, selectedDate, now);
+            else return claimedSlots;
+        }
 
-            // Als de geselecteerde dag overmorgen is, dan moeten er ook nog slots die te ver weg zijn worden grijs gemaakt
-            if (datePartOfSelectedDate.Equals(datePartOfTwoDaysFromNow))
-
-                // Voeg slots die te ver weg zijn aan de geclaimde slots
-                return GetClaimedAndTooDistantSlots(claimedSlots, twoDaysFromNow);
-            return claimedSlots;
+        // Controleer of de datum die nu geselecteerd is, de laatst mogelijke datum is
+        private bool DateIsLastReservableDate(bool loggedInUserIsRaceCommissioner, DateTime now, DateTime selectedDate)
+        {
+            var latestDateThatThisUserMayReserve = loggedInUserIsRaceCommissioner ? now.AddYears(1) : now.AddDays(2);
+            return selectedDate.Date.Equals(latestDateThatThisUserMayReserve);
         }
 
         // Voeg slots die voorbij zijn toe aan de geclaimde slots
@@ -723,14 +736,15 @@ namespace BataviaReseveringsSysteem.Reservations
         }
 
         // Voeg slots die te ver weg zijn aan de geclaimde slots
-        public List<DateTime> GetClaimedAndTooDistantSlots(List<DateTime> claimedSlots, DateTime twoDaysFromNow)
+        public List<DateTime> GetClaimedAndTooDistantSlots(List<DateTime> claimedSlots, DateTime lastReservableDay, DateTime now)
         {
             var claimedAndTooDistantSlots = new List<DateTime>(claimedSlots);
-            var sunriseAndSunsetTimesForTwoDaysFromNow = GetSunriseAndSunsetTimes(twoDaysFromNow);
+            var sunriseAndSunsetTimesForTwoDaysFromNow = GetSunriseAndSunsetTimes(lastReservableDay);
             var earliestSlotTwoDaysFromNow = GetFirstLightSlot(sunriseAndSunsetTimesForTwoDaysFromNow[0]);
             var firstDarknessSlotTwoDaysFromNow = GetFirstDarknessSlot(sunriseAndSunsetTimesForTwoDaysFromNow[1]);
             var earliestSlotDayQuarter = DateTimeToDayQuarter(earliestSlotTwoDaysFromNow);
-            var slotThatIsTwoDaysFromNow = DateTimeToDayQuarter(BottomRoundTimeToSlot(twoDaysFromNow));
+            var lastReservableDaySameTimeAsNow = lastReservableDay.AddHours(now.Hour).AddMinutes(now.Minute);
+            var slotThatIsTwoDaysFromNow = DateTimeToDayQuarter(BottomRoundTimeToSlot(lastReservableDaySameTimeAsNow));
 
             // De vroegste slot die als "te ver in de toekomst" moet worden gemarkeerd is de slot van dit tijdstip over twee dagen,
             // maar de eerste grijze slot mag niet voor de eerste slot waar het al licht is komen.
@@ -743,7 +757,7 @@ namespace BataviaReseveringsSysteem.Reservations
             // dan wordt die niet dubbel grijs gemaakt
             for (var i = earliestSlotThatShouldBeMarkedAsTooDistant; i < firstDarknessSlotDayQuarter; i++)
             {
-                var tooDistantSlot = DayQuarterToDateTime(twoDaysFromNow, i);
+                var tooDistantSlot = DayQuarterToDateTime(lastReservableDay, i);
                 if (!claimedSlots.Contains(tooDistantSlot)) claimedAndTooDistantSlots.Add(tooDistantSlot);
             }
 
@@ -767,5 +781,79 @@ namespace BataviaReseveringsSysteem.Reservations
             dayQuarter / 4,
             dayQuarter % 4 * 15,
             00);
+
+        private void OnPlannerGridClick(object sender, MouseButtonEventArgs e)
+        {
+//            MessageBox.Show("Hoi");
+            var position = e.GetPosition(PlannerGrid);
+            var x = position.X;
+            var y = position.Y;
+            if (x >= 0 && x < 200 && y >= 0 && _reservationStartComboBox.SelectedIndex >= 0 && ReservationDurationComboBox.SelectedIndex >= 0)
+            {
+                var minutes = PlannerGrid.GetMinutesFromX(x);
+                var hour = PlannerGrid.GetHourFromY(y);
+                _selectsDuration = !_selectsDuration;
+                if (_selectsDuration)
+                {
+//                    MessageBox.Show($"{DateTime.Today.AddHours(hour).AddMinutes(minutes).ToLongTimeString()}, selecteert duur");
+                    var selectedIndex = SelectStart(hour, minutes);
+                    if (selectedIndex.HasValue)
+                    {
+                        ReservationDurationComboBox.SelectedIndex = 0;
+                        _reservationStartComboBox.SelectedIndex = selectedIndex.Value;
+                        OnStartComboBoxClick(null, null);
+                    }
+                }
+                else
+                {
+//                    MessageBox.Show($"{DateTime.Today.AddHours(hour).AddMinutes(minutes).ToLongTimeString()}, selecteert begin");
+                    var selectedIndex = SelectDuration(hour, minutes, DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString()));
+                    if (selectedIndex.HasValue)
+                    {
+                        ReservationDurationComboBox.SelectedIndex = selectedIndex.Value;
+                        OnDurationComboBoxClick(null, null);
+                    }
+                }
+
+            }
+            else
+            {
+                _selectsDuration = false;
+            }
+        }
+
+        private int? SelectDuration(int hour, int minutes, DateTime selectedStartSlot)
+        {
+            var items = ReservationDurationComboBox.Items;
+            for (int i = 0; i < items.Count; i++)
+            {
+                var item = items[i];
+                var extraHours = int.Parse(item.ToString().Substring(0, 2));
+                var extraMinutes = int.Parse(item.ToString().Substring(3, 2));
+                var endSlot = selectedStartSlot.AddHours(extraHours).AddMinutes(extraMinutes).AddMinutes(-15);
+                if (endSlot.Hour == hour && endSlot.Minute == minutes)
+                {
+                    return i;
+                }
+            }
+
+            return null;
+        }
+
+        private int? SelectStart(int hour, int minutes)
+        {
+            var items = _reservationStartComboBox.Items;
+            for (var i = 0; i < items.Count; i++)
+            {
+                var item = items[i];
+                var startSlot = DateTime.Parse(item.ToString());
+                if (startSlot.Hour == hour && startSlot.Minute == minutes)
+                {
+                    return i;
+                }
+            }
+
+            return null;
+        }
     }
 }

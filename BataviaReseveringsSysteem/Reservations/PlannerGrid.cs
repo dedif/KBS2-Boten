@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -10,19 +11,20 @@ namespace BataviaReseveringsSysteem.Reservations
     // Het reserveringstabelletje
     public class PlannerGrid : Canvas
     {
+        private bool _selectsDuration;
         // Elke kolom is 50 pixels breed
         private const int PlannerGridColumnWidth = 50;
-        
+
         // en 20 pixels hoog
         private const int PlannerGridRowHeight = 20;
-        
+
         // De totale breedte is 200 pixels
         private const int PlannerGridWidth = 200;
 
         // Als een slot niet reserveerbaar is omdat het dan donker is,
         // dan is de kleur van dit slot donkerblauw
         private readonly Brush _slotDisabledDueToDarknessColor = new SolidColorBrush(Colors.MidnightBlue);
-        
+
         // Als een slot al geclaimd is, of als hij in het verleden is,
         // of als hij te ver in de toekomst is,
         // dan is de kleur van dit slot grijs
@@ -46,6 +48,8 @@ namespace BataviaReseveringsSysteem.Reservations
             margin.Top = l.DesiredSize.Height;
             Margin = margin;
         }
+
+        
 
         // Maak de horizontale lijnen 
         private List<Line> MakePlannerGridColumnDividers(int plannerGridHeight)
@@ -77,6 +81,8 @@ namespace BataviaReseveringsSysteem.Reservations
             Height = GeneratePlannerGridHeight(amountOfHoursOnDisplay);
 
             Children.Clear();
+
+            Children.Add(GenerateClickField(amountOfHoursOnDisplay));
 
             // Maak de labels aan de bovenkant
             GeneratePlannerSideLabels(_earliestHourOnPlanningGrid, latestHourOnPlanningGrid)
@@ -110,6 +116,14 @@ namespace BataviaReseveringsSysteem.Reservations
             GetClaimedSlotTiles(claimedSlots, _earliestHourOnPlanningGrid)
                 .ForEach(claimedSlotTile => Children.Add(claimedSlotTile));
         }
+
+        private Rectangle GenerateClickField(int amountOfHoursOnDisplay) =>
+            new Rectangle
+            {
+                Height = amountOfHoursOnDisplay * PlannerGridRowHeight,
+                Width = PlannerGridWidth,
+                Fill = new SolidColorBrush(Colors.Transparent)
+            };
 
         // Vul de plannergrid met alle lijnen, labels en slots die gemaakt moeten worden,
         // met groene slots
@@ -151,7 +165,7 @@ namespace BataviaReseveringsSysteem.Reservations
             for (var i = earliestHourOnPlanningGrid; i <= latestHourOnPlanningGrid; i++)
             {
                 var hourLabel = new Label { Content = $"{i}.00" };
-                
+
                 // Zorg ervoor dat de label mooi is uitgelijnd
                 hourLabel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
                 var margin = hourLabel.Margin;
@@ -213,14 +227,14 @@ namespace BataviaReseveringsSysteem.Reservations
         private List<Rectangle> GetLastUnavailableSlotTiles(DateTime latestSlot, int firstHour)
         {
             var lastUnavailableSlotTiles = new List<Rectangle>();
-            
+
             // Als de zon om 16.17 ondergaat,
             // dan moeten er 3 slots worden uitgeschakeld
             // 17 / 15 = 1 (niet 2,4666...)
             // 4 - 1 = 3
             var amountOfLastUnavailableSlots = 4 - latestSlot.Minute / 15;
             var latestHour = latestSlot.Hour;
-            
+
             // Maak het aantal onclaimbare slots.
             // Begin daarbij bij de laatste slot
             // Daarom is de for-loop zo raar
@@ -264,5 +278,15 @@ namespace BataviaReseveringsSysteem.Reservations
                 0,
                 0)
         };
+
+        public int GetHourFromY(double y)
+        {
+            return ((int)y / PlannerGridRowHeight) + _earliestHourOnPlanningGrid;
+        }
+
+        public int GetMinutesFromX(double x)
+        {
+            return (int)x / PlannerGridColumnWidth * 15;
+        }
     }
 }

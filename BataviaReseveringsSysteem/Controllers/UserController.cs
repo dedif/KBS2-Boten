@@ -1,16 +1,18 @@
 using BataviaReseveringsSysteem.Database;
 using Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using Views;
 
 
 namespace Controllers
 {
     class UserController
     {
-        
+
         public void Add_User(string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
         {
             using (DataBase context = new DataBase())
@@ -69,7 +71,7 @@ namespace Controllers
                     dep.Middlename = middlename;
                     dep.Updated_at = DateTime.Now;
                     dep.Deleted_at = null;
-                    
+
                     context.SaveChanges();
                 }
             }
@@ -142,13 +144,13 @@ namespace Controllers
             using (DataBase context = new DataBase())
             {
 
-                var Id =(
+                var Id = (
                         from data in context.Users
-                         orderby data.PersonID descending
+                        orderby data.PersonID descending
                         select data.PersonID).First();
                 return Id;
             }
-          
+
 
         }
 
@@ -172,6 +174,17 @@ namespace Controllers
             }
         }
 
+        public List<Role> GetRolesFromLoggedInUser()
+        {
+            using (var context = new DataBase())
+                return (from user in context.Users
+                        where user.PersonID == LoginView.UserId
+                        join memberRole in context.MemberRoles on user.PersonID equals memberRole.PersonID
+                        join role in context.Roles on memberRole.RoleID equals role.RoleID
+                        select role).ToList();
+        }
 
+        public bool LoggedInUserIsRaceCommissioner() =>
+            GetRolesFromLoggedInUser().Any(role => role.RoleName.Equals("Wedstrijd Commissaris"));
     }
 }
