@@ -1,5 +1,6 @@
 ﻿using BataviaReseveringsSysteem.Database;
 using Models;
+using ScreenSwitcher;
 using System;
 using System.Linq;
 using System.Security.Cryptography;
@@ -78,7 +79,8 @@ namespace Controllers
 
                 context.User_Roles.Add(UserRole);
                 context.SaveChanges();
-
+                Switcher.DeleteMenu();
+                Switcher.MenuMaker();
 
             }
 
@@ -114,7 +116,8 @@ namespace Controllers
                 context.User_Roles.RemoveRange(deleteUserRole);
 
                 context.SaveChanges();
-
+                Switcher.DeleteMenu();
+                Switcher.MenuMaker();
 
 
             }

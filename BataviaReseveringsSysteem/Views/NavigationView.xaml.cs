@@ -33,7 +33,6 @@ namespace Views
                 {
 
                 }
-
                 // Als de user een coach is: 
                 if (RolID.Contains(2))
                 {
@@ -51,6 +50,12 @@ namespace Views
                     SeeUserDiplomasBtn.IsEnabled = true;
                     SeeBoatDiplomasBtn.IsEnabled = true;
                 }
+                else
+                {
+
+                    SeeUserDiplomasBtn.IsEnabled = false;
+                    SeeBoatDiplomasBtn.IsEnabled = false;
+                }
                 // Als de user een besstuur is: 
                 if (RolID.Contains(5))
                 {
@@ -62,7 +67,15 @@ namespace Views
                     AddUsersBtn.IsEnabled = true;
                    
                 }
-
+                else
+                {
+                    //Mag die boten inzien en toevoegen
+                    SeeBoatsBtn.IsEnabled = false;
+                    AddBoatsBtn.IsEnabled = false;
+                    //Mag die users inzien en toevoegen
+                    SeeUsersBtn.IsEnabled = false;
+                    AddUsersBtn.IsEnabled = false;
+                }
 
 
             }

@@ -12,7 +12,6 @@ namespace ScreenSwitcher
     public partial class PageSwitcher : Window
     {
         public Canvas switcherCanvas;
-        public NavigationView NavigationView { get; set; }
 
         public PageSwitcher()
         {
@@ -40,7 +39,7 @@ namespace ScreenSwitcher
 
         public void MenuMaker()
         {
-            NavigationView = new NavigationView();
+            NavigationView NavigationView = new NavigationView();
             Canvas menuCanvas = new Canvas();
             menuCanvas.Children.Add(NavigationView);
             Label l1 = new Label();
