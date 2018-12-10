@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Net.Mail;
 
+
 namespace Views
 {
     /// <summary>
@@ -16,6 +17,7 @@ namespace Views
     public partial class BoatDamage : UserControl
     {
         DataBase context = new DataBase();
+
 
         public string reserved { get; set; } = null;
         public BoatDamage()
@@ -55,6 +57,7 @@ namespace Views
 
                     switch (Melding)
                     {
+
                     case MessageBoxResult.Yes:
 
                             var Boat = (from data in context.Boats
@@ -97,7 +100,6 @@ namespace Views
             }
         }
 
-       
 
         private void HeavyDamageRadioButton_Checked(object sender, RoutedEventArgs e)
         {

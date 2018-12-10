@@ -23,7 +23,9 @@ namespace Controllers
         {
             var DamagedBoatsOfUser = (from data in context.Damages
                                       join a in context.Reservations
-                                      on data.Boat.BoatID equals a.Boat.BoatID
+
+                                      on data.BoatID equals a.Boat.BoatID
+
                                       where data.TimeOfClaim > lastLogged
                                       where data.TimeOfClaim == a.Deleted
                                       where a.Deleted != null
@@ -32,7 +34,9 @@ namespace Controllers
                                       select data).ToList();
 
             var User = (from data in context.Users
+
                         where data.UserID == LoginView.UserId
+
                         select data).Single();
 
           

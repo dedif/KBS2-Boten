@@ -21,6 +21,7 @@
             <Label x:Name="NoReservationLabel"  Content="U heeft nog geen afschrijvingen"  Visibility="Hidden" FontSize="30" HorizontalAlignment="Left" Height="86" Width="518" Margin="228,201,0,793"/>
             <Label x:Name="MaxReservations" Visibility="Hidden" Foreground="#FFFF0909" Content="U heeft het maximaal aantal afschrijvingen bereikt" HorizontalAlignment="Left" Margin="468,49,0,0" VerticalAlignment="Top" Width="323"/>
 
+
         </Grid>
 
     </ScrollViewer>

@@ -56,9 +56,7 @@ namespace Views
                         select data).Single();
 
                     UserId = user.UserID;
-
                     Switcher.MenuMaker();
-
                     Switcher.Switch(new Dashboard());
                     user.LastLoggedIn = DateTime.Now;
                     context.SaveChanges();
@@ -74,7 +72,6 @@ namespace Views
             e.Handled = regex.IsMatch(e.Text);
         }
 
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new Register());
@@ -89,5 +86,6 @@ namespace Views
         {
             Switcher.Switch(new Register());
         }
+
     }
 }

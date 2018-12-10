@@ -10,6 +10,7 @@ using Controllers;
 using Models;
 
 
+
 namespace Views
 {
     /// <summary>
@@ -119,8 +120,7 @@ namespace Views
 
         private void Diploma(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new UserDiplomaList());
-
+        Switcher.Switch(new UserDiplomaList());
         }
 
         private void Boat(object sender, RoutedEventArgs e)

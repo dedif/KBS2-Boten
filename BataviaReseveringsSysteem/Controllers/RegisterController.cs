@@ -17,7 +17,9 @@ namespace Controllers
 
     public class RegisterController
     {
+
         //Register user of user
+
         public static Boolean Register(TextBox Firstname, 
                                      TextBox Middlename, 
                                      TextBox Lastname, 

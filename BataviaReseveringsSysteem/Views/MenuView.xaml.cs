@@ -15,6 +15,7 @@ namespace BataviaReseveringsSysteem.Views
         public MenuView()
         {
             InitializeComponent();
+
             using (DataBase context = new DataBase())
             {
 
@@ -67,10 +68,7 @@ namespace BataviaReseveringsSysteem.Views
                     }
 
                 }
-                else
-                {
-                  
-                }
+            
             }
 
         }
@@ -89,8 +87,7 @@ namespace BataviaReseveringsSysteem.Views
         {
             Switcher.Switch(new Dashboard());
         }
-
-        private void BotenBekijken_Click(object sender, RoutedEventArgs e)
+         private void BotenBekijken_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new BoatList());
         }
@@ -114,5 +111,6 @@ namespace BataviaReseveringsSysteem.Views
         {
             Switcher.Switch(new DiplomaList());
         }
+
     }
 }

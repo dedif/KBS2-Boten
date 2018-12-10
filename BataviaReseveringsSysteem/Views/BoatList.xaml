@@ -22,13 +22,14 @@
             <RowDefinition Height="100"/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
     
-        <DataGrid Grid.Row="2" Grid.Column="0" x:Name="DataBoatList" Width="1024" CanUserAddRows="false" x:FieldModifier="public" DataContext="{StaticResource BoatViewSource}" AutoGenerateColumns="false" VerticalAlignment="Top">
 
+        <DataGrid Grid.Row="2" Grid.Column="0" x:Name="DataBoatList" Width="1024" CanUserAddRows="false" x:FieldModifier="public" DataContext="{StaticResource BoatViewSource}" AutoGenerateColumns="false" VerticalAlignment="Top">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="BoatID" Width="auto"    Binding="{Binding BoatID}" Header="Bootnummer" IsReadOnly="true" />
                 <DataGridTextColumn x:Name="Name"    Binding="{Binding Name}" Header="Boot naam" IsReadOnly="true"/>

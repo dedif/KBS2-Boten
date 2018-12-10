@@ -82,7 +82,7 @@ namespace Views
                 
             }
 
-                var User_Roles = from x in context.User_Roles
+            var User_Roles = from x in context.User_Roles
                               where x.UserID == id && x.DeletedAt == null
                               select x;
 
@@ -160,9 +160,10 @@ namespace Views
 
                             var User_Roles = context.User_Roles.Any(x => x.RoleID == roleID && x.DeletedAt == null && x.UserID == (int)EditID.Content);
 
-                            if (!User_Roles)
+                             if (!User_Roles)
                             {
                             dbc.Add_UserRole(roleID, (int)EditID.Content);
+
                             }
                            
 

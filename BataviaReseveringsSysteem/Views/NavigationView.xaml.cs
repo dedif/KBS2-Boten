@@ -4,7 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using BataviaReseveringsSysteem.Database;
 using System.Linq;
+
 namespace Views
+
 {
     /// <summary>
     /// Interaction logic for NavigationView.xaml
@@ -106,7 +108,10 @@ namespace Views
 
         private void MakeReservationsBtn_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new ReserveWindow());
+            var reserveWindow = new ReserveWindow();
+            Switcher.Switch(reserveWindow);
+            reserveWindow.Populate();
+
         }
 
         private void SeeReservationsBtn_Click(object sender, RoutedEventArgs e)
@@ -146,6 +151,7 @@ namespace Views
         private void SeeBoatDiplomasBtn_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new BoatDiplomaList());
+
         }
     }
 }

@@ -75,6 +75,7 @@ namespace Views
         {
             Button b = (Button)sender;
             Switcher.Switch(new EditBoat((int)b.Tag));
+
         }
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)

@@ -9,8 +9,9 @@ using System.Text;
 
 namespace Controllers
 {
-    public class DataBaseController
-    {
+
+   public class DataBaseController
+  {
         public void Add_Role(string roleName)
         {
             
@@ -45,6 +46,7 @@ namespace Controllers
             }
         }
 
+
         public void Add_UserDiploma(int diplomaID, int userID)
         {
             using (DataBase context = new DataBase())
@@ -60,8 +62,8 @@ namespace Controllers
                 context.SaveChanges();
             }
         }
+    public void Add_UserRole(int roleID, int userID)
 
-        public void Add_UserRole(int roleID, int userID)
         {
 
             using (DataBase context = new DataBase())
@@ -85,14 +87,16 @@ namespace Controllers
             }
 
         }
+		
         public bool Get_UserRole(int roleID, int userID)
         {
             try
             {
                 using (DataBase context = new DataBase())
                 {
-                    bool hasUserRole = context.User_Roles.Any(cus => cus.User.UserID == userID && cus.Role.RoleID == roleID);
+                   bool hasUserRole = context.User_Roles.Any(cus => cus.User.UserID == userID && cus.Role.RoleID == roleID);
                     return hasUserRole;
+
                 }
                
             }
@@ -106,7 +110,7 @@ namespace Controllers
             using (DataBase context = new DataBase())
             {
 
-                var deleteUserRole = (from x in context.User_Roles
+             var deleteUserRole = (from x in context.User_Roles
                                      where x.User.UserID == userID && x.DeletedAt == null && x.Role.RoleID == rolID
                                      select x).ToList();
 
@@ -118,23 +122,23 @@ namespace Controllers
                 context.SaveChanges();
                 Switcher.DeleteMenu();
                 Switcher.MenuMaker();
-
-
             }
 
         }
 
         public void Delete_UserDiploma(int userID, int diplomaID)
+
         {
             using (DataBase context = new DataBase())
             {
 
-                var delUserDiploma = (from x in context.User_Diplomas
+              var delUserDiploma = (from x in context.User_Diplomas
                                      where x.User.UserID == userID && x.DeletedAt == null && x.Diploma.DiplomaID == diplomaID
                                      select x).ToList();
 
 
                 context.User_Diplomas.RemoveRange(delUserDiploma);
+
 
                 context.SaveChanges();
                 

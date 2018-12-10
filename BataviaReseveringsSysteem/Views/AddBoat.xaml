@@ -27,7 +27,6 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
@@ -41,7 +40,7 @@
             <ComboBoxItem  Content="Skiff"/>
             <ComboBoxItem Content="Board"/>
         </ComboBox>
-        <ComboBox Grid.Row="2" Grid.Column="0" x:Name="RowersCombo" 
+        <ComboBox Grid.Row="2" Grid.Column="0" x:Name="RowersCombo"
                   materialDesign:HintAssist.Hint="Aantal roeiers"
                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25">
             <ComboBoxItem Content="1"/>

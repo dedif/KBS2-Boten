@@ -9,6 +9,7 @@ using System;
 using Controllers;
 using BataviaReseveringsSysteem.Views;
 
+
 namespace Views
 {
     /// <summary>
@@ -16,7 +17,6 @@ namespace Views
     /// </summary>
     public partial class Dashboard : UserControl
     {
-
         public int YLeft = 100;
         public int YRight = 100;
         public int Count = 0;
@@ -24,15 +24,12 @@ namespace Views
         //Deze lijsten, bevatten alle buttens en labels
         public List<Label> LabelList = new List<Label>();
         public List<Button> ButtonList = new List<Button>();
-        public NavigationView NavigationView { get; set; }
         DataBase context = new DataBase();
         DashboardController dashboardController;
         public Dashboard()
         {
             InitializeComponent();
 
-            //try
-            //{
             var loggedUser = (from data in context.Users
                               where data.UserID == LoginView.UserId
                               select data).Single();
@@ -68,13 +65,7 @@ namespace Views
             ShowReservations();
             dashboardController.Notification(loggedUser.LastLoggedIn);
 
-            //}
 
-            //catch (InvalidOperationException ioe)
-            //{
-            //    MessageBox.Show("U dient eerst in te loggen", "Waarschuwing", MessageBoxButton.OK, MessageBoxImage.Information);
-            //    Switcher.Switch(new LoginView());
-            //}
 
         }
 
@@ -93,7 +84,9 @@ namespace Views
                     select data).ToList();
 
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
+
                 if (Reservations.Count() == 0)
+
                 {
                     NoReservationLabel.Visibility = Visibility.Visible;
                 }
@@ -101,8 +94,10 @@ namespace Views
                 {
                     NoReservationLabel.Visibility = Visibility.Hidden;
                 }
+
                 //Als de gebruiker het maximale aantal afschrijvingen heeft bereikt, mag hij geen boten meer afschrijven
                 if (Reservations.Count() >= MaxReservationUser)
+
                 {
                     MaxReservations.Visibility = Visibility.Visible;
                     AddReservationButton.IsEnabled = false;
@@ -112,10 +107,8 @@ namespace Views
                     MaxReservations.Visibility = Visibility.Hidden;
                     AddReservationButton.IsEnabled = true;
                 }
+            foreach (Reservation r in Reservations)
 
-
-     
-                foreach (Reservation r in Reservations)
                 {
                     if (Count % 2 == 0)
                     {
@@ -201,8 +194,9 @@ namespace Views
 
         private void AddReservationButton_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new ReserveWindow());
-
+            var reserveWindow = new ReserveWindow();
+            Switcher.Switch(reserveWindow);
+            reserveWindow.Populate();
         }
     }
 }

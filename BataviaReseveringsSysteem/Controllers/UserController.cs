@@ -1,16 +1,18 @@
 using BataviaReseveringsSysteem.Database;
 using Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using Views;
 
 
 namespace Controllers
 {
     class UserController
     {
-        
+      
         //Maak een nieuwe gebruiker aan
         public void Add_User(string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
         {
@@ -177,12 +179,13 @@ namespace Controllers
             using (DataBase context = new DataBase())
             {
 
-                var Id =(
+                var Id = (
                         from data in context.Users
                         orderby data.UserID descending
                         select data.UserID).First();
                 return Id;
             }
+
 
         }
 
@@ -206,6 +209,17 @@ namespace Controllers
             }
         }
 
+        public List<Role> GetRolesFromLoggedInUser()
+        {
+            using (var context = new DataBase())
+                return (from user in context.Users
+                        where user.UserID == LoginView.UserId
+                        join userRole in context.User_Roles on user.UserID equals userRole.UserID
+                        join role in context.Roles on userRole.RoleID equals role.RoleID
+                        select role).ToList();
+        }
 
+        public bool LoggedInUserIsRaceCommissioner() =>
+            GetRolesFromLoggedInUser().Any(role => role.RoleName.Equals("Wedstrijd Commissaris"));
     }
 }

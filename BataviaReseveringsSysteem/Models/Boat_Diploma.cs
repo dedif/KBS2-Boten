@@ -15,9 +15,9 @@ namespace Models
         public int BoatID { get; set; }
         [Key,ForeignKey("Diploma"), Column(Order =1)]
         public int DiplomaID { get; set; }
-
         public Boat Boat { get; set; }
         public Diploma Diploma { get; set; }
+
 
         public Boat_Diploma(int boatID, int diplomaID)
         {

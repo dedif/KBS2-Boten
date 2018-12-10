@@ -1,11 +1,12 @@
-﻿using Controllers;
+﻿using System;
+using Controllers;
 using Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using BataviaReseveringsSysteem.Reservations;
 using ScreenSwitcher;
-using System.Windows;
 
 namespace Views
 {
@@ -17,44 +18,26 @@ namespace Views
         public ReserveWindow()
         {
             InitializeComponent();
-            var boats = new BoatController().BoatList();
+        }
 
-            var reservations = new ReservationController().GetReservations();
-
-                AddBoatTypeTabs(boats, reservations);
-           
-                
-   
-
-}
-
-        // deze methode zorgt voor de tabbladen met de types boten bovenaan in het scherm
-        private void AddBoatTypeTabs(IReadOnlyCollection<Boat> boats, List<Reservation> reservations)
+        public void Populate()
         {
-
-            try
+            var boats = new BoatController().GetBoatsReservableWithThisUsersDiplomas();
+            Console.WriteLine(boats);
+            if (boats.Count == 0)
             {
-                foreach (var boatType in GetDifferentBoatTypes(boats))
-                {
-
-                    BoatTypeTabItem boatTypeTabItem = new BoatTypeTabItem(boatType, reservations);
-                    BoatTypeTabControl.Items.Add(boatTypeTabItem);
-                }
-            }
-            catch
-            {
-                MessageBoxResult Succes = MessageBox.Show(
-                    "U heeft nog niet de juiste diploma's om boten te kunnen reserveren",
-                    "Melding",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-
+                MessageBox.Show("Je kan met jouw diploma's geen enkele boot afschrijven");
                 Switcher.Switch(new Dashboard());
-
-
+                return;
             }
-
-
+            var reservations = new ReservationController().GetReservations();
+            AddBoatTypeTabs(boats, reservations);
+		}
+		
+        // deze methode zorgt voor de tabbladen met de types boten bovenaan in het scherm
+        private void AddBoatTypeTabs(List<Boat> boats, List<Reservation> reservations)
+        {
+            BoatTypeTabControl.Items.Add(new BoatTypeTabItem(boats, reservations));
         }
         
        
@@ -63,5 +46,10 @@ namespace Views
 
         private IEnumerable<Boat> GetBoatsForBoatType(IEnumerable<Boat> allBoats, Boat.BoatType boatType) =>
             allBoats.Where(boat => boat.Type == boatType);
+
+        //        private List<Boat> GetBoatsReservableWithThisDiploma(List<Boat> allBoats)
+        //        {
+        //            
+        //        }
     }
 }

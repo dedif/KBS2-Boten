@@ -13,21 +13,20 @@ namespace ScreenSwitcher
     {
         public Canvas switcherCanvas;
 
+
         public PageSwitcher()
         {
             InitializeComponent();
-            
-
-           // MenuMaker();
             SwitcherContentCanvas();
             Switcher.pageSwitcher = this;
-            Switcher.Switch(new LoginView());
+            Switcher.Switch(new AddBoat());
         }
 
         public void SwitcherContentCanvas()
         {
             switcherCanvas = new Canvas
             {
+
                 Width = 1024,
                 Height = 768,
                 //Margin = new Thickness(0, 100, 0, 0),
@@ -37,22 +36,21 @@ namespace ScreenSwitcher
             switcherGrid.Children.Add(switcherCanvas);
         }
 
-        public void MenuMaker()
-        {
-            NavigationView NavigationView = new NavigationView();
-            Canvas menuCanvas = new Canvas();
-            menuCanvas.Children.Add(NavigationView);
-            Label l1 = new Label();
-            l1.Content = "";
-            DataBase context = new DataBase();
 
-            switcherGrid.Children.Add(menuCanvas);
-        }
 
         public void DeleteMenu()
         {
             switcherGrid.Children.RemoveAt(1);
         }
+
+        public void MenuMaker()
+        {
+            NavigationView = new NavigationView();
+            Canvas menuCanvas = new Canvas();
+            menuCanvas.Children.Add(NavigationView);
+            switcherGrid.Children.Add(menuCanvas);
+        }
+
 
         public void Navigate(UserControl nextPage)
         {
