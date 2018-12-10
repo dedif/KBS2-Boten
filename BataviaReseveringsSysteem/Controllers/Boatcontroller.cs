@@ -212,6 +212,27 @@ namespace Controllers
             }
         }
 
+        public void UpdateBoat(int boatID, string name, string type, int rowers, double weight, bool steeringwheel)
+        {
+            using (DataBase context = new DataBase())
+            {
+                Boat UpdateBoat = context.Boats.Where(d => d.BoatID == boatID).First();
+                Enum.TryParse(type, out Boat.BoatType MyType);
+                if (UpdateBoat != null)
+                {
+                    UpdateBoat.Name = name;
+                    UpdateBoat.Type = MyType;
+                    UpdateBoat.Weight = weight;
+                    UpdateBoat.Steering = steeringwheel;
+                    UpdateBoat.NumberOfRowers = rowers;
+                    UpdateBoat.UpdatedAt = DateTime.Now;
+
+                    context.SaveChanges();
+                }
+            }
+
+        }
+
         public void AddDiploma(List<CheckBox> list)
         {
 
@@ -235,6 +256,46 @@ namespace Controllers
                     }
                 }
             }
+        }
+
+        public void Add_BoatDiploma(int diplomaID, int boatID)
+        {
+
+
+            using (DataBase context = new DataBase())
+            {
+
+                var BoatDiploma = new Models.Boat_Diploma
+                {
+                    BoatDiplomaID = diplomaID,
+                    BoatID = boatID,
+                   
+
+                };
+
+                context.Boat_Diplomas.Add(BoatDiploma);
+                context.SaveChanges();
+
+
+            }
+        }
+
+        public void Delete_BoatDiploma(int boatID, int diplomaID)
+        {
+            using (DataBase context = new DataBase())
+            {
+
+                var delBoatDiploma = (from x in context.Boat_Diplomas
+                                        where x.BoatID == boatID && x.DiplomaID == diplomaID
+                                        select x).ToList();
+
+
+                context.Boat_Diplomas.RemoveRange(delBoatDiploma);
+
+                context.SaveChanges();
+
+            }
+
         }
 
     }

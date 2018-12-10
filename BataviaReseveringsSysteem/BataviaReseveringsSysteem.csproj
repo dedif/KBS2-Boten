@@ -83,7 +83,7 @@
     <Compile Include="Controllers\EditController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
-    <Compile Include="Databasecontroller.cs" />
+    <Compile Include="Controllers\Databasecontroller.cs" />
     <Compile Include="Models\Boat_Diploma.cs" />
     <Compile Include="Models\Damage.cs" />
     <Compile Include="Models\Diploma.cs" />
@@ -97,6 +97,9 @@
     <Compile Include="Views\BoatDamage.xaml.cs">
       <DependentUpon>BoatDamage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\BoatDiplomaList.xaml.cs">
+      <DependentUpon>BoatDiplomaList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BoatList.xaml.cs">
       <DependentUpon>BoatList.xaml</DependentUpon>
     </Compile>
@@ -108,8 +111,11 @@
     </Compile>
     <Compile Include="Reservations\BoatTypeTabItem.cs" />
     <Compile Include="Reservations\CalcSunTimes.cs" />
-    <Compile Include="Views\DiplomaList.xaml.cs">
-      <DependentUpon>DiplomaList.xaml</DependentUpon>
+    <Compile Include="Views\EditBoatDiplomaView.xaml.cs">
+      <DependentUpon>EditBoatDiplomaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserDiplomaList.xaml.cs">
+      <DependentUpon>UserDiplomaList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
@@ -118,8 +124,8 @@
     <Compile Include="Views\EditBoat.xaml.cs">
       <DependentUpon>EditBoat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EditDiplomaView.xaml.cs">
-      <DependentUpon>EditDiplomaView.xaml</DependentUpon>
+    <Compile Include="Views\EditUserDiplomaView.xaml.cs">
+      <DependentUpon>EditUserDiplomaView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditUser.xaml.cs">
       <DependentUpon>EditUser.xaml</DependentUpon>
@@ -129,6 +135,8 @@
     </Compile>
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
+    <Compile Include="Views\NavigationView.xaml.cs">
+      <DependentUpon>NavigationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
@@ -149,11 +157,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\BoatDiplomaList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BoatList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DiplomaList.xaml">
+    <Page Include="Views\EditBoatDiplomaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserDiplomaList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -162,6 +178,7 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\EditDiplomaView.xaml">
+    <Page Include="Views\EditUserDiplomaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -188,7 +205,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MenuView.xaml">
+    <Page Include="Views\NavigationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

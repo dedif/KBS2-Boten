@@ -9,6 +9,7 @@ using BataviaReseveringsSysteem.Views;
 using Controllers;
 using Models;
 
+
 namespace Views
 {
     /// <summary>
@@ -106,6 +107,7 @@ namespace Views
                                             select new { x.UserID, Firstname = x.Firstname, Middlename = x.Middlename, Lastname = x.Lastname, Gender = g.GenderName, Birthday = x.Birthday, City = x.City, Address = x.Address, Zipcode = x.Zipcode, Phonenumber = x.Phonenumber, Email = x.Email }).ToList();
 
 
+
                 DataGrid = DataUserList;
             }
         }
@@ -117,7 +119,7 @@ namespace Views
 
         private void Diploma(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new DiplomaList());
+            Switcher.Switch(new UserDiplomaList());
 
         }
 

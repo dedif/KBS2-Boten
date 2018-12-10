@@ -24,7 +24,7 @@ namespace Views
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new Dashboard());
+            Switcher.Switch(new BoatList());
         }
         //Deze methode checkt op whitespace in de textvelden, de uniekheid van de Naam die is ingevoerd en dat gewicht juist is ingevoerd
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -43,7 +43,7 @@ namespace Views
                         int Rowers = int.Parse(RowersCombo.Text);
                         Boolean Steeringwheel = false;
 
-                        if (SteeringWheelCheckbox.IsChecked == true)
+                        if (SteeringWheelToggle.IsChecked == true)
                         {
                             Steeringwheel = true;
                         }
@@ -77,6 +77,7 @@ namespace Views
             NotificationLabel.Content = b.Notification();
         }
 
+
         private void TypCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
            
@@ -84,21 +85,18 @@ namespace Views
                 {
                 RowersCombo.SelectedIndex = 0;
                 RowersCombo.IsEnabled = false;
-                SteeringWheelCheckbox.IsChecked = false;
-                SteeringWheelCheckbox.IsEnabled = false;
+                SteeringWheelToggle.IsChecked = false;
+                SteeringWheelToggle.IsEnabled = false;
                 SkiffLabel.Visibility = Visibility.Visible;
                 }
             else 
             {
            
                 RowersCombo.IsEnabled = true;
-                SteeringWheelCheckbox.IsChecked = true;
-                SteeringWheelCheckbox.IsEnabled = true;
+                SteeringWheelToggle.IsEnabled = true;
                 SkiffLabel.Visibility = Visibility.Hidden;
             }
         }
-
-
     }
 }
 

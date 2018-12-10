@@ -1,16 +1,34 @@
-﻿<UserControl x:Class="BataviaReseveringsSysteem.Views.DiplomaList"
+﻿<UserControl x:Class="Views.UserDiplomaList"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BataviaReseveringsSysteem.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="1080" Background="White" d:DesignWidth="1920">
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             Height="768" Width="1024">
     <UserControl.Resources>
         <CollectionViewSource x:Key="UserViewSource"></CollectionViewSource>
     </UserControl.Resources>
     <Grid>
-        <DataGrid x:Name="DataUserList"  CanUserAddRows="false"   ItemsSource="{Binding Users}" x:FieldModifier="public" DataContext="{StaticResource UserViewSource}" AutoGenerateColumns="false" HorizontalAlignment="Left" Height="469" Margin="87,80,0,0" VerticalAlignment="Top" Width="895" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <DataGrid Grid.Row="2"
+            x:Name="DataUserList"  CanUserAddRows="false"   ItemsSource="{Binding Users}" x:FieldModifier="public" DataContext="{StaticResource UserViewSource}" AutoGenerateColumns="false" Height="469">
 
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="UserID" Width="auto"    Binding="{Binding UserID}" Header="Lidnummer" IsReadOnly="true" />
@@ -20,12 +38,11 @@
                 <DataGridTextColumn x:Name="S1"  Binding="{Binding S1}" Header="S1" IsReadOnly="False"  />
                 <DataGridTextColumn x:Name="S2"  Binding="{Binding S2}" Header="S2" IsReadOnly="False"/>
                 <DataGridTextColumn x:Name="S3"  Binding="{Binding S3}" Header="S3" IsReadOnly="true"/>
-                <DataGridTextColumn x:Name="P1"  Binding="{Binding P1}" Header="P1" IsReadOnly="true"/>
-                <DataGridTextColumn x:Name="P2"  Binding="{Binding P2}" Header="P2" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="B1"  Binding="{Binding B1}" Header="B1" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="B2"  Binding="{Binding B2}" Header="B2" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="B3"  Binding="{Binding B3}" Header="B3" IsReadOnly="true"/>
-
+                <DataGridTextColumn x:Name="P1"  Binding="{Binding P1}" Header="P1" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="P2"  Binding="{Binding P2}" Header="P2" IsReadOnly="true"/>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.HeaderTemplate>
 
@@ -37,7 +54,18 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button x:Name="EditButton" Tag="{Binding UserID}"  Click="ButtonEdit" Content="Bewerk"/>
+                                <Button 
+                                    Height="30" 
+                                    Width="30"
+                                    Tag="{Binding PersonID}"
+                                    x:Name="EditButton" Click="ButtonEdit"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                    ToolTip="Bewerken">
+                                    <materialDesign:PackIcon
+                                    Kind="Edit"
+                                    Height="20"
+                                    Width="20" />
+                                </Button>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

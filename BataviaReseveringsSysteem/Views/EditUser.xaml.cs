@@ -1,5 +1,6 @@
 ﻿using BataviaReseveringsSysteem;
 using BataviaReseveringsSysteem.Database;
+using Controllers;
 using ScreenSwitcher;
 using System;
 using System.Collections.Generic;
@@ -201,6 +202,11 @@ namespace Views
         Switcher.Switch(new UserList());
     }
 
-}
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new UserList());
+        }
+    }
+    
 
 }

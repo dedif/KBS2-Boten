@@ -1,18 +1,14 @@
 ﻿using BataviaReseveringsSysteem.Database;
 using Models;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
-using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
 
-namespace BataviaReseveringsSysteem
+namespace Controllers
 {
-   public class DataBaseController
+    public class DataBaseController
     {
         public void Add_Role(string roleName)
         {

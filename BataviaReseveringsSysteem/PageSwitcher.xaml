@@ -5,7 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BataviaReseveringsSysteem"
         mc:Ignorable="d"
-        Title="Boot reserverings Systeem" Height="1024" Width="768" WindowState="Maximized">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="Boot reserverings Systeem" Height="768" Width="1024" 
+        ResizeMode="NoResize"  
+        WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid x:Name="switcherGrid">
         
     </Grid>

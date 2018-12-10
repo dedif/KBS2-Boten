@@ -1,4 +1,5 @@
-﻿using BataviaReseveringsSysteem.Views;
+﻿using BataviaReseveringsSysteem.Database;
+using BataviaReseveringsSysteem.Views;
 using System.Windows;
 using System.Windows.Controls;
 using Views;
@@ -11,12 +12,14 @@ namespace ScreenSwitcher
     public partial class PageSwitcher : Window
     {
         public Canvas switcherCanvas;
-        public MenuView MenuView { get; set; }
+        public NavigationView NavigationView { get; set; }
 
         public PageSwitcher()
         {
             InitializeComponent();
-            MenuMaker();
+            
+
+           // MenuMaker();
             SwitcherContentCanvas();
             Switcher.pageSwitcher = this;
             Switcher.Switch(new LoginView());
@@ -26,30 +29,31 @@ namespace ScreenSwitcher
         {
             switcherCanvas = new Canvas
             {
-                Width = 1920,
-                Height = 1080,
-                Margin = new Thickness(0, 100, 0, 0),
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
+                Width = 1024,
+                Height = 768,
+                //Margin = new Thickness(0, 100, 0, 0),
+                //HorizontalAlignment = HorizontalAlignment.Left,
+                //VerticalAlignment = VerticalAlignment.Top,
             };
             switcherGrid.Children.Add(switcherCanvas);
         }
 
         public void MenuMaker()
         {
-            MenuView = new MenuView();
-            Canvas menuCanvas = new Canvas
-            {
-                Width = 1920,
-                Height = 80,
-                Margin = new Thickness(0, 25, 0, 0),
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top
-            };
-            menuCanvas.Children.Add(MenuView);
+            NavigationView = new NavigationView();
+            Canvas menuCanvas = new Canvas();
+            menuCanvas.Children.Add(NavigationView);
+            Label l1 = new Label();
+            l1.Content = "";
+            DataBase context = new DataBase();
+
             switcherGrid.Children.Add(menuCanvas);
         }
 
+        public void DeleteMenu()
+        {
+            switcherGrid.Children.RemoveAt(1);
+        }
 
         public void Navigate(UserControl nextPage)
         {

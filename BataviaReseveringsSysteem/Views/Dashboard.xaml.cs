@@ -7,6 +7,7 @@ using BataviaReseveringsSysteem.Database;
 using ScreenSwitcher;
 using System;
 using Controllers;
+using BataviaReseveringsSysteem.Views;
 
 namespace Views
 {
@@ -16,27 +17,26 @@ namespace Views
     public partial class Dashboard : UserControl
     {
 
-        public int YLeft = 50;
-        public int YRight = 50;
+        public int YLeft = 100;
+        public int YRight = 100;
         public int Count = 0;
         public int MaxReservationUser = 2;
         //Deze lijsten, bevatten alle buttens en labels
         public List<Label> LabelList = new List<Label>();
         public List<Button> ButtonList = new List<Button>();
+        public NavigationView NavigationView { get; set; }
         DataBase context = new DataBase();
         DashboardController dashboardController;
         public Dashboard()
         {
             InitializeComponent();
-            GridDashboard.VerticalAlignment = VerticalAlignment.Top;
-            GridDashboard.Margin = new Thickness(50, 0, 50, 20);
 
+            //try
+            //{
             var loggedUser = (from data in context.Users
                               where data.UserID == LoginView.UserId
                               select data).Single();
-
-            NameLabel.Content = loggedUser.Firstname + " " + loggedUser.Lastname;
-
+     
 
             dashboardController = new DashboardController(this);
 
@@ -47,8 +47,6 @@ namespace Views
             if (rol.Contains(5))
             {
                 MaxReservationUser = 2;
-                AddBoatButton.Visibility = Visibility.Visible;
-                UserListButton.Visibility = Visibility.Visible;
             }
 
             if (rol.Contains(3))
@@ -66,19 +64,36 @@ namespace Views
                 MaxReservationUser = int.MaxValue;
             }
 
-
             //De reservaties van de gebruiker worden met deze methode getoond op het scherm
             ShowReservations();
             dashboardController.Notification(loggedUser.LastLoggedIn);
 
+            //}
+
+            //catch (InvalidOperationException ioe)
+            //{
+            //    MessageBox.Show("U dient eerst in te loggen", "Waarschuwing", MessageBoxButton.OK, MessageBoxImage.Information);
+            //    Switcher.Switch(new LoginView());
+            //}
+
         }
+
+   
 
         public void ShowReservations()
         {
             using (DataBase context = new DataBase())
             {
+
+                //Geeft de reserveringen van de user
+                var Reservations = (
+                    from data in context.Reservations
+                    where data.Deleted == null
+                    where data.UserId == LoginView.UserId
+                    select data).ToList();
+
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
-                if(context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId).Count() == 0)
+                if (Reservations.Count() == 0)
                 {
                     NoReservationLabel.Visibility = Visibility.Visible;
                 }
@@ -86,8 +101,8 @@ namespace Views
                 {
                     NoReservationLabel.Visibility = Visibility.Hidden;
                 }
-
-                if (context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId).Count() >= 2)
+                //Als de gebruiker het maximale aantal afschrijvingen heeft bereikt, mag hij geen boten meer afschrijven
+                if (Reservations.Count() >= MaxReservationUser)
                 {
                     MaxReservations.Visibility = Visibility.Visible;
                     AddReservationButton.IsEnabled = false;
@@ -97,7 +112,10 @@ namespace Views
                     MaxReservations.Visibility = Visibility.Hidden;
                     AddReservationButton.IsEnabled = true;
                 }
-                foreach (Reservation r in context.Reservations.Where(i => i.Deleted == null && i.UserId == LoginView.UserId))
+
+
+     
+                foreach (Reservation r in Reservations)
                 {
                     if (Count % 2 == 0)
                     {
@@ -107,7 +125,7 @@ namespace Views
                         {
                             Content = dashboardController.ReservationContent(r),
                             Margin = new Thickness(20, YLeft, 50, 50),
-                            FontSize = 16,
+                           FontSize = 16,
                             HorizontalAlignment = HorizontalAlignment.Left,
                             VerticalAlignment = VerticalAlignment.Top,
                         };
@@ -155,8 +173,6 @@ namespace Views
             }
         }
 
-       
-      
         //Deze methode verwijderd alle controls
         public void DeleteAllControls()
         {
@@ -187,21 +203,6 @@ namespace Views
         {
             Switcher.Switch(new ReserveWindow());
 
-        }
-
-        private void SignOutButton_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new LoginView());
-        }
-
-        private void UserListButton_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new UserList());
-        }
-
-        private void AddBoatButton_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new AddBoat());
         }
     }
 }
