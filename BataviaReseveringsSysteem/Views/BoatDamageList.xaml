@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="BataviaReseveringsSysteem.Views.BoatDamageList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BataviaReseveringsSysteem.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="1080" Background="White" d:DesignWidth="1920">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="BoatDamageSource"></CollectionViewSource>
+    </UserControl.Resources>
+    <Grid>
+        <DataGrid x:Name="DataBoatDamageList"  CanUserAddRows="false"   ItemsSource="{Binding Users}" x:FieldModifier="public" DataContext="{StaticResource BoatDamageSource}" AutoGenerateColumns="false" HorizontalAlignment="Left" Height="469" Margin="87,80,0,0" VerticalAlignment="Top" Width="895" >
+
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="BoatID" Width="auto"    Binding="{Binding BoatID}" Header="Bootnummer" IsReadOnly="true" />
+                <DataGridTextColumn x:Name="Boatname"    Binding="{Binding BoatName}" Header="Bootnaam" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="description"  Binding="{Binding  Description}" Header="Omschrijving" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="timeofclaim"  Binding="{Binding TimeOfClaim, StringFormat=\{0:dd-MM-yyyy hh:mm:ss\}}" Header="Tijd van schade" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="timeoffix"  Binding="{Binding TimeOfFix, StringFormat=\{0:dd-MM-yyyy hh:mm:ss\}}" Header="Tijd van herstel" IsReadOnly="true"  />
+                <DataGridTextColumn x:Name="status"  Binding="{Binding Status}" Header="status" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="firstname"  Binding="{Binding FirstName}" Header="Voornaam" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="middlename"  Binding="{Binding MiddleName}" Header="Tussenvoegsel" IsReadOnly="true"  />
+                <DataGridTextColumn x:Name="lastname"  Binding="{Binding LastName}" Header="Achternaam" IsReadOnly="true"/>
+               
+
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.HeaderTemplate>
+
+                        <DataTemplate>
+                            <TextBlock Text="Bewerken" ></TextBlock>
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="EditButton" Tag="{Binding BoatID}"  Click="ButtonEdit" Content="Bewerk"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <TextBox HorizontalAlignment="Left" x:Name="Search" TextChanged="Search_TextChanged" Height="23" Margin="856,38,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+
+    </Grid>
+
+</UserControl>

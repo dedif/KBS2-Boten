@@ -107,7 +107,7 @@ namespace BataviaReseveringsSysteem.Views
 
         private void SchadeInzien_Click(object sender, RoutedEventArgs e)
         {
-            //Switcher.Switch(new BoatDamageList());
+            Switcher.Switch(new BoatDamageList());
         }
 
         private void DiplomaList_Click(object sender, RoutedEventArgs e)
