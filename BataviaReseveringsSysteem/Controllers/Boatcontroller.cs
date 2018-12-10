@@ -320,7 +320,10 @@ namespace Controllers
                          .DiplomaID
                         where userDiploma.UserID == LoginView.UserId
                         where boatDiploma.BoatID == boat.BoatID
-                        select boat).Distinct().ToList();
+                        select boat).Distinct().Concat(
+                        from boat in context.Boats
+                        where (from boatDiploma in context.Boat_Diplomas where boatDiploma.BoatID == boat.BoatID select boatDiploma).Count() == 0
+                        select boat).ToList();
             }
         }
     }

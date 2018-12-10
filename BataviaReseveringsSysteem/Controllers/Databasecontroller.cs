@@ -67,8 +67,7 @@ namespace Controllers
             
             using (DataBase context = new DataBase())
             {
-                int amountOfUsersBeforeAdding = context.Users.Count();
-                var UserRole = new Models.User_Role
+              var UserRole = new Models.User_Role
                 {
                     RoleID = roleID,
                     UserID = userID,
@@ -79,11 +78,9 @@ namespace Controllers
 
                 context.User_Roles.Add(UserRole);
                 context.SaveChanges();
-                if (amountOfUsersBeforeAdding > 0)
-                {
-                    Switcher.DeleteMenu();
-                    Switcher.MenuMaker();
-                }
+               
+               
+                
             }
         }
 		
