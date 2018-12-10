@@ -90,13 +90,10 @@
         </DataGrid>
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
             <Button Content="Nieuw lid" Click="RegisterUserButton" Width="120"/>
-            <Button Content="Terug" Click="BackButton" Margin="10,0,0,0" Width="120"/>
             <TextBox x:Name="Search" 
                      materialDesign:HintAssist.Hint="Zoeken"
-                     TextChanged="Search_TextChanged" Text="" Margin="125,0,0,0"  Width="240"/>
-            <Button Content="Diploma" Click="Diploma" Margin="125,0,0,0" Width="120"/>
-            <Button Content="Boot" Click="Boat" Margin="10,0,0,0" Width="120"/>
-            
+                     TextChanged="Search_TextChanged" Text="" Margin="125,0,0,0"  Width="240" RenderTransformOrigin="0.77,0.615"/>
+
         </StackPanel>
     </Grid>
     

@@ -100,6 +100,9 @@
     <Compile Include="Views\BoatDamage.xaml.cs">
       <DependentUpon>BoatDamage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\BoatDamageList.xaml.cs">
+      <DependentUpon>BoatDamageList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BoatDiplomaList.xaml.cs">
       <DependentUpon>BoatDiplomaList.xaml</DependentUpon>
     </Compile>
@@ -114,6 +117,9 @@
     </Compile>
     <Compile Include="Reservations\BoatTypeTabItem.cs" />
     <Compile Include="Reservations\CalcSunTimes.cs" />
+    <Compile Include="Views\EditBoatDamage.xaml.cs">
+      <DependentUpon>EditBoatDamage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditBoatDiplomaView.xaml.cs">
       <DependentUpon>EditBoatDiplomaView.xaml</DependentUpon>
     </Compile>
@@ -158,6 +164,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\BoatDamageList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\BoatDiplomaList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -165,6 +175,10 @@
     <Page Include="Views\BoatList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditBoatDamage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\EditBoatDiplomaView.xaml">
       <SubType>Designer</SubType>

@@ -14,7 +14,7 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              Height="768" Width="1024">
- 
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -26,13 +26,13 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <DataGrid Grid.Row="2"
-            x:Name="DataBoatList"  CanUserAddRows="false"   ItemsSource="{Binding Boats}" x:FieldModifier="public" AutoGenerateColumns="false" Height="469">
+            x:Name="DataBoatList"  CanUserAddRows="false"   ItemsSource="{Binding Boats}" x:FieldModifier="public" AutoGenerateColumns="false" Height="469" Margin="0,0,10,149" Grid.RowSpan="2">
 
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="BoatID" Width="auto"    Binding="{Binding BoatID}" Header="Bootnummer" IsReadOnly="true" />
                 <DataGridTextColumn x:Name="Name"    Binding="{Binding Name}" Header="Bootnaam" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Type"  Binding="{Binding  Type}" Header="Type" IsReadOnly="true"/>
-                 <DataGridTextColumn x:Name="S1"  Binding="{Binding S1}" Header="S1" IsReadOnly="False"  />
+                <DataGridTextColumn x:Name="S1"  Binding="{Binding S1}" Header="S1" IsReadOnly="False"  />
                 <DataGridTextColumn x:Name="S2"  Binding="{Binding S2}" Header="S2" IsReadOnly="False"/>
                 <DataGridTextColumn x:Name="S3"  Binding="{Binding S3}" Header="S3" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="B1"  Binding="{Binding B1}" Header="B1" IsReadOnly="true"/>
@@ -70,7 +70,7 @@
             </DataGrid.Columns>
 
         </DataGrid>
-        <TextBox HorizontalAlignment="Left" x:Name="Search" TextChanged="Search_TextChanged" Height="23" Margin="856,38,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" x:Name="Search" TextChanged="Search_TextChanged" Height="23" Margin="854,67,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Grid.Row="1"/>
 
     </Grid>
 

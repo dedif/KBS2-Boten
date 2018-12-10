@@ -27,6 +27,8 @@
             </MenuItem>
             <MenuItem Header="_Schade">
                 <MenuItem Header="Schade melden" x:Name="ReportDamageaBtn" Click="ReportDamageaBtn_Click"></MenuItem>
+                <MenuItem Header="Schade lijst boten" x:Name="seeDamageList" Click="seeDamageListBtn_Click"></MenuItem>
+
             </MenuItem>
             <MenuItem Header="_Leden">
                 <MenuItem Header="Leden inzien" IsEnabled="False"  x:Name="SeeUsersBtn" Click="SeeUsersBtn_Click"></MenuItem>
