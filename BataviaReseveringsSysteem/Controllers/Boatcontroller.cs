@@ -168,6 +168,30 @@ namespace Controllers
 
         }
 
+        public void UpdateBoatDamage(int boatID, string description, string status)
+        {
+            using (DataBase context = new DataBase())
+            {
+                Damage UpdateDamageBoat = context.Damages.Where(d => d.BoatID == boatID).First();
+
+                if (UpdateDamageBoat != null)
+                {
+                    UpdateDamageBoat.Description = description;
+                    UpdateDamageBoat.Status = status;
+                    if (UpdateDamageBoat.Status == "Geen schade")
+                    {
+                        UpdateDamageBoat.TimeOfFix = DateTime.Now;
+                    }
+                    else
+                    {
+                        UpdateDamageBoat.TimeOfFix = null;
+                    }
+                    context.SaveChanges();
+                }
+            }
+
+        }
+
         //Deze methode update en boot als verwijdert in de database
         public void DeleteBoat(int boatID)
         {
