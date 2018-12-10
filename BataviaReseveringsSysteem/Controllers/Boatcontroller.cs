@@ -165,14 +165,11 @@ namespace Controllers
 
                     context.SaveChanges();
                 }
-
-                context.Boats.Add(delBoat);
-
-
-                context.SaveChanges();
             }
-		}
 
+
+        }
+ 
 
         public void UpdateBoat(int boatID, string name,string type, int rowers, double weight, bool steeringwheel)
         {
@@ -219,26 +216,7 @@ namespace Controllers
 
         }
 
-        //Deze methode update en boot als verwijdert in de database
-        public void DeleteBoat(int boatID)
-        {
-
-            using (DataBase context = new DataBase())
-
-            {
-                Boat delBoat = context.Boats.Where(d => d.BoatID == boatID).First();
-
-                if (delBoat != null)
-                {
-
-                    delBoat.DeletedAt = DateTime.Now;
-
-                    context.SaveChanges();
-                }
-            }
-
-
-        }
+  
 
 
         public List<Boat> BoatList()
@@ -338,9 +316,9 @@ namespace Controllers
                 return
                     (from boat in context.Boats
                         join boatDiploma in context.Boat_Diplomas on boat.BoatID equals boatDiploma.BoatID
-                        join memberDiploma in context.MemberDiplomas on boatDiploma.DiplomaID equals memberDiploma
+                        join userDiploma in context.User_Diplomas on boatDiploma.DiplomaID equals userDiploma
                          .DiplomaID
-                        where memberDiploma.PersonID == LoginView.UserId
+                        where userDiploma.UserID == LoginView.UserId
                         where boatDiploma.BoatID == boat.BoatID
                         select boat).Distinct().ToList();
             }

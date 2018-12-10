@@ -21,7 +21,8 @@ namespace Models
         public DateTime? TimeOfFix { get; set; }
         public string Status { get; set; }
 
-
+        public User User { get; set; }
+        public Boat Boat { get; set; }
         public Damage(int userID, int boatID, string description, string status)
         {
 

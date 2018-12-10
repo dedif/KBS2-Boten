@@ -19,7 +19,12 @@ namespace ScreenSwitcher
             InitializeComponent();
             SwitcherContentCanvas();
             Switcher.pageSwitcher = this;
-            Switcher.Switch(new AddBoat());
+            using (var context = new DataBase())
+            {
+                if (context.Database.Exists()) Switcher.Switch(new LoginView());
+                else Switcher.Switch(new Register());
+            }
+            
         }
 
         public void SwitcherContentCanvas()
@@ -45,7 +50,7 @@ namespace ScreenSwitcher
 
         public void MenuMaker()
         {
-            NavigationView = new NavigationView();
+            NavigationView NavigationView = new NavigationView();
             Canvas menuCanvas = new Canvas();
             menuCanvas.Children.Add(NavigationView);
             switcherGrid.Children.Add(menuCanvas);

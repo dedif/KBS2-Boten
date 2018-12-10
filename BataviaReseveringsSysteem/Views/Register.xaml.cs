@@ -8,6 +8,7 @@ using Controllers;
 using ScreenSwitcher;
 using BataviaReseveringsSysteem;
 using BataviaReseveringsSysteem.Database;
+using System.Collections.Generic;
 
 namespace Views
 {
@@ -110,9 +111,9 @@ namespace Views
             if (RegisterController.Register(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword))
             {
                 using (DataBase context = new DataBase()) {
-
+                    List<CheckBox> CheckBoxList = new List<CheckBox>() { Reparateur, Commissaris, Examinator, Coach, Administrator };
                   
-                    foreach (CheckBox c in RegisterLayout.Children.OfType<CheckBox>())
+                    foreach (CheckBox c in CheckBoxList)
                     {
                         if (c.IsChecked == true)
                         {
@@ -133,7 +134,14 @@ namespace Views
                         }
                     }
                 }
+                try
+                {
                     Switcher.Switch(new Dashboard());
+                } catch
+                {
+                    Switcher.Switch(new LoginView());
+                }
+                    
             }
             else
             {

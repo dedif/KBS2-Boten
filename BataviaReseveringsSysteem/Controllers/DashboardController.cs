@@ -24,7 +24,7 @@ namespace Controllers
             var DamagedBoatsOfUser = (from data in context.Damages
                                       join a in context.Reservations
 
-                                      on data.BoatID equals a.Boat.BoatID
+                                      on data.BoatID equals a.BoatID
 
                                       where data.TimeOfClaim > lastLogged
                                       where data.TimeOfClaim == a.Deleted
@@ -79,7 +79,7 @@ namespace Controllers
                 var ReservationBoatID = (
                     from r in context.Reservations
                     where r.ReservationID == reservation.ReservationID
-                    select r.Boat.BoatID).Single();
+                    select r.BoatID).Single();
 
                 var Name =
                     (from boat in context.Boats

@@ -19,20 +19,21 @@ namespace Models
         [ForeignKey("User")]
         public int UserId { get; set; }
         public DateTime? Deleted { get; set; }
-      
+        public User User { get; set; }
+        public Boat Boat { get; set; }
         public Reservation(Boat boat, DateTime start, DateTime end)
         {
             UserId = LoginView.UserId;
             BoatID = boat.BoatID;
             Start = start;
             End = end;
- 
+
         }
 
         public Reservation()
         {
 
         }
-       
+
     }
 }

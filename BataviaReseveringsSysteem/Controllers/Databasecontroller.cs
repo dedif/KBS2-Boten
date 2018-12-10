@@ -63,12 +63,11 @@ namespace Controllers
             }
         }
     public void Add_UserRole(int roleID, int userID)
-
         {
-
+            
             using (DataBase context = new DataBase())
             {
-
+                int amountOfUsersBeforeAdding = context.Users.Count();
                 var UserRole = new Models.User_Role
                 {
                     RoleID = roleID,
@@ -76,16 +75,16 @@ namespace Controllers
                     CreatedAt = DateTime.Now,
                     UpdatedAt = null,
                     DeletedAt = null
-
                 };
 
                 context.User_Roles.Add(UserRole);
                 context.SaveChanges();
-                Switcher.DeleteMenu();
-                Switcher.MenuMaker();
-
+                if (amountOfUsersBeforeAdding > 0)
+                {
+                    Switcher.DeleteMenu();
+                    Switcher.MenuMaker();
+                }
             }
-
         }
 		
         public bool Get_UserRole(int roleID, int userID)

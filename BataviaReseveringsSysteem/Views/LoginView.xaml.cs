@@ -33,8 +33,11 @@ namespace Views
                                        select data).ToList();
 
                 var BoatInfo = (from data in context.Reservations
+                                join boats in context.Boats on data.BoatID equals boats.BoatID
                                 where data.Deleted == null
-                                select data.Boat).ToList();
+                                select boats).ToList();
+
+
                 if (ReservationInfo.Count > 0)
                 {
                     DataReservations.Visibility = Visibility.Visible;

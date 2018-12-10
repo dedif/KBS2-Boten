@@ -18,7 +18,6 @@ namespace Models
         public Boat Boat { get; set; }
         public Diploma Diploma { get; set; }
 
-
         public Boat_Diploma(int boatID, int diplomaID)
         {
             BoatID = boatID;

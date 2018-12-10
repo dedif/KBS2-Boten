@@ -33,7 +33,7 @@
 
             <ComboBoxItem x:Name="Men" Tag="1" >Man</ComboBoxItem>
             <ComboBoxItem x:Name="Woman" Tag="2">Vrouw</ComboBoxItem>
-            <ComboBoxItem x:Name="Something" Tag="3">Apache helicopter</ComboBoxItem>
+            <ComboBoxItem x:Name="Other" Tag="3">Anders</ComboBoxItem>
         </ComboBox>
         <TextBox PreviewTextInput="NumberValidationTextBox" 
                  materialDesign:HintAssist.Hint="01"
