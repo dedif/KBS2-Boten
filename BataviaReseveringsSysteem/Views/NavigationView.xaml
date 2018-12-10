@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BataviaReseveringsSysteem"
-        mc:Ignorable="d"
+             mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
          TextElement.FontWeight="Regular"
@@ -13,7 +12,7 @@
          TextOptions.TextRenderingMode="Auto"
          Background="{DynamicResource MaterialDesignPaper}"
          FontFamily="{DynamicResource MaterialDesignFont}"
-        Height="50" Width="1024">
+        Height="50" Width="1624">
     <Grid x:Name="switcherGrid">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -53,9 +52,9 @@
                 <MenuItem Header="Hulp bij inloggen"></MenuItem>
             </MenuItem>
         </Menu>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Label x:Name="NameLabel" HorizontalContentAlignment="Center"  HorizontalAlignment="Right" VerticalContentAlignment="Center" Content="" Height="37" Width="120"/>
-            <materialDesign:PopupBox StaysOpen="False" HorizontalAlignment="Right">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,-711,0" Width="865">
+            <Label x:Name="NameLabel" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Content="" Height="37" Width="120"/>
+            <materialDesign:PopupBox StaysOpen="False">
                 <StackPanel>
                     <Button Content="Uitloggen" Click="LogOutBtn_Click" />
                 </StackPanel>
