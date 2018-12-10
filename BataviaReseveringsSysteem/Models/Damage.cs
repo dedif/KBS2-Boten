@@ -10,9 +10,11 @@ namespace Models
 {
    public class Damage
     {
-        [Key,ForeignKey("User"), Column(Order =0)]
+        [Key]
+        public int DamageID { get; set; }
+        [ForeignKey("User"), Column(Order =0)]
         public int UserID { get; set; }
-        [Key,ForeignKey("Boat"), Column(Order = 1)]
+        [ForeignKey("Boat"), Column(Order = 1)]
         public int BoatID { get; set; }
         public string Description { get; set; }
         public DateTime TimeOfClaim { get; set; }

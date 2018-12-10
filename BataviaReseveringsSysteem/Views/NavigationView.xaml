@@ -54,8 +54,8 @@
             </MenuItem>
         </Menu>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Label x:Name="NameLabel" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Content="" Height="37" Width="120"/>
-            <materialDesign:PopupBox StaysOpen="False">
+            <Label x:Name="NameLabel" HorizontalContentAlignment="Center"  HorizontalAlignment="Right" VerticalContentAlignment="Center" Content="" Height="37" Width="120"/>
+            <materialDesign:PopupBox StaysOpen="False" HorizontalAlignment="Right">
                 <StackPanel>
                     <Button Content="Uitloggen" Click="LogOutBtn_Click" />
                 </StackPanel>
