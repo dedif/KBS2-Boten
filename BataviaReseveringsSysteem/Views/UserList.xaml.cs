@@ -112,21 +112,5 @@ namespace Views
                 DataGrid = DataUserList;
             }
         }
-
-        private void BackButton(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new Dashboard());
-        }
-
-        private void Diploma(object sender, RoutedEventArgs e)
-        {
-        Switcher.Switch(new UserDiplomaList());
-        }
-
-        private void Boat(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new BoatList());
-
-        }
     }
 }

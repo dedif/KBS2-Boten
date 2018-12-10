@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using BataviaReseveringsSysteem.Database;
 using System.Linq;
+using BataviaReseveringsSysteem.Views;
 
 namespace Views
 
@@ -123,6 +124,12 @@ namespace Views
         {
             Switcher.Switch(new BoatDamage());
         }
+
+        private void seeDamageListBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new BoatDamageList());
+        }
+
 
         private void SeeBoatsBtn_Click(object sender, RoutedEventArgs e)
         {
