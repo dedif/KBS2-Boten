@@ -25,8 +25,8 @@ namespace Models
         public Damage(int userID, int boatID, string description, string status)
         {
 
-            User.UserID = userID;
-            Boat.BoatID = boatID;
+            UserID = userID;
+            BoatID = boatID;
             Description = description;
             TimeOfClaim = DateTime.Now;
             Status = status;

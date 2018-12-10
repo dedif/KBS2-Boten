@@ -43,6 +43,24 @@ namespace Controllers
             }
 
         }
+        public void Add_Gender(string GenderName)
+        {
+            using (DataBase context = new DataBase())
+            {
+                var gender = new Models.Gender
+                {
+
+                    GenderName = GenderName,
+                  
+
+                };
+                context.Genders.Add(gender);
+
+
+                context.SaveChanges();
+            }
+
+        }
 
         //Bewerk een gebruiker met wachtwoord
         public void Update_User(int userID, string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)

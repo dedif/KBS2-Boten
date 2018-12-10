@@ -16,7 +16,8 @@ namespace Views
     /// </summary>
     public partial class Register : UserControl
     {
-	DataBaseController dbc = new DataBaseController();
+	    DataBaseController dbc = new DataBaseController();
+        UserController uc = new UserController();
         public Register()
         {
             this.InitializeComponent();
@@ -36,6 +37,13 @@ namespace Views
                     dbc.Add_Diploma("B3");
                 }
 
+                if (!context.Genders.Any(z => z.GenderName == "Man" || z.GenderName == "Vrouw" || z.GenderName == "Anders"))
+                {
+                    uc.Add_Gender("Man");
+                    uc.Add_Gender("Vrouw");
+                    uc.Add_Gender("Anders");
+                  
+                }
 
                 // als er nog geen rollen in de database staan maak dan deze rollen aan
                 if (!context.Roles.Any(z => z.RoleName == "Reparateur" || z.RoleName == "Coach" || z.RoleName == "Wedstrijd Commissaris" || z.RoleName == "Examinator" || z.RoleName == "Bestuur"))

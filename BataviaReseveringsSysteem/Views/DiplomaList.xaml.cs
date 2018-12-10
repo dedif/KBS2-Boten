@@ -50,6 +50,7 @@ namespace BataviaReseveringsSysteem.Views
 
 
                 var users = (from u in context.Users
+                             where u.Firstname.Contains(searchInfo) || u.Lastname.Contains(searchInfo) || u.Middlename.Contains(searchInfo)
                              select u).ToList();
 
                 foreach (User u in users)
