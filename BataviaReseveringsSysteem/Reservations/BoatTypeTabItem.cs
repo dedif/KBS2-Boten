@@ -547,7 +547,9 @@ namespace BataviaReseveringsSysteem.Reservations
                             where db.Name.Equals((string)BoatNamesComboBox.SelectedValue)
                             select db).First();
                 // Pak de start- en eindtijd
-                var startTime = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
+                var selectedDate = BoatTypeTabItemCalendar.SelectedDate.Value;
+                var selectedTime = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
+                var startTime = selectedDate.AddHours(selectedTime.Hour).AddMinutes(selectedTime.Minute);
                 var endTime = GenerateEndTime(startTime);
  
                 // Maak een reservering met de geselecteerde boot, de ingelogde gebruiker, de start- en de eindtijd

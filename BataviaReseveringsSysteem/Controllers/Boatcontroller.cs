@@ -322,7 +322,7 @@ namespace Controllers
                         where boatDiploma.BoatID == boat.BoatID
                         select boat).Distinct().Concat(
                         from boat in context.Boats
-                        where (from boatDiploma in context.Boat_Diplomas where boatDiploma.BoatID == boat.BoatID select boatDiploma).Count() == 0
+                        where !(from boatDiploma in context.Boat_Diplomas where boatDiploma.BoatID == boat.BoatID select boatDiploma).Any()
                         select boat).ToList();
             }
         }
