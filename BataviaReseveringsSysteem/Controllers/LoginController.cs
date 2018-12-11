@@ -34,7 +34,7 @@ namespace Controllers
 
             using (var context = new DataBase())
             {
-                var result = context.Users.ToList();
+                var result = context.Users.Select(x => x).Where(x => x.DeletedAt == null).ToList();
 
 
                 if (result.Count > 0)
@@ -63,20 +63,20 @@ namespace Controllers
                                     {
                                         return true;
                                     }
+                                
+                                else
+                                {
 
-                                    else
-                                    {
+                                    Password.BorderBrush = Brushes.Red;
+                                    Password.BorderThickness = new Thickness(2);
 
-                                        Password.BorderBrush = Brushes.Red;
-                                        Password.BorderThickness = new Thickness(2);
-
-                                        LoginError.Content = "De gegevens komen niet overeen.";
-                                        Username.BorderBrush = Brushes.Red;
-                                        Username.BorderThickness = new Thickness(2);
-                                        LoginError.UpdateLayout();
-                                        Password.UpdateLayout();
-                                        return false;
-                                    }
+                                    LoginError.Content = "De gegevens komen niet overeen.";
+                                    Username.BorderBrush = Brushes.Red;
+                                    Username.BorderThickness = new Thickness(2);
+                                    LoginError.UpdateLayout();
+                                    Password.UpdateLayout();
+                                    return false;
+                                }
                                 }
                                 else
                                 {

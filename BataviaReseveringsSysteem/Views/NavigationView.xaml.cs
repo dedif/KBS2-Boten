@@ -19,7 +19,7 @@ namespace Views
             InitializeComponent();
             Roles();
             FillName();
-
+            Dashboard.navigationview = this;
         }
 
         private void Roles()
@@ -31,10 +31,18 @@ namespace Views
                              where data.UserID == LoginView.UserId
                              select data.RoleID).ToList();
 
-                // Als de user een reperateur is: 
-                if (RolID.Contains(1))
+                // Als de user een reperateur en bestuur is: 
+                if (RolID.Contains(1) || RolID.Contains(5))
                 {
-
+                    //Mag die boten inzien en toevoegen
+                    SeeBoatsBtn.IsEnabled = true;
+                    AddBoatsBtn.IsEnabled = true;
+                }
+                else
+                {
+                    //Mag die boten inzien en toevoegen
+                    SeeBoatsBtn.IsEnabled = false;
+                    AddBoatsBtn.IsEnabled = false;
                 }
                 // Als de user een coach is: 
                 if (RolID.Contains(2))
@@ -47,7 +55,7 @@ namespace Views
 
                 }
                 // Als de user een examinator is: 
-                if (RolID.Contains(4))
+                if (RolID.Contains(4) )
                 {
                     //Mag die diploma's toevoegen
                     SeeUserDiplomasBtn.IsEnabled = true;
@@ -59,12 +67,9 @@ namespace Views
                     SeeUserDiplomasBtn.IsEnabled = false;
                     SeeBoatDiplomasBtn.IsEnabled = false;
                 }
-                // Als de user een besstuur is: 
+                // Als de user een bestuur is: 
                 if (RolID.Contains(5))
                 {
-                    //Mag die boten inzien en toevoegen
-                    SeeBoatsBtn.IsEnabled = true;
-                    AddBoatsBtn.IsEnabled = true;
                     //Mag die users inzien en toevoegen
                     SeeUsersBtn.IsEnabled = true;
                     AddUsersBtn.IsEnabled = true;
@@ -72,16 +77,17 @@ namespace Views
                 }
                 else
                 {
-                    //Mag die boten inzien en toevoegen
-                    SeeBoatsBtn.IsEnabled = false;
-                    AddBoatsBtn.IsEnabled = false;
-                    //Mag die users inzien en toevoegen
+                   //Mag die users inzien en toevoegen
                     SeeUsersBtn.IsEnabled = false;
                     AddUsersBtn.IsEnabled = false;
                 }
 
 
             }
+        }
+        public void MakeAddReservationInvisible(bool boolean)
+        {
+            MakeReservationsBtn.IsEnabled = boolean;
         }
 
         //De naam van de user wordt getoond in de menubalk, rechtsboven
