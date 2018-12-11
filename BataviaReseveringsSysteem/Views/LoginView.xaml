@@ -13,11 +13,11 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Width="1024" Height="868">
+        Height="768" Width="1024">
 
     <Grid x:Name="loginLayout">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition Height="700" />
 
