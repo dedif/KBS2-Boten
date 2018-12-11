@@ -67,7 +67,9 @@ namespace Views
                     SeeUserDiplomasBtn.IsEnabled = false;
                     SeeBoatDiplomasBtn.IsEnabled = false;
                 }
-                // Als de user een bestuur is: 
+
+				// Als de user een bestuur is: 
+
                 if (RolID.Contains(5))
                 {
                     //Mag die users inzien en toevoegen
@@ -77,11 +79,11 @@ namespace Views
                 }
                 else
                 {
+
                    //Mag die users inzien en toevoegen
                     SeeUsersBtn.IsEnabled = false;
                     AddUsersBtn.IsEnabled = false;
 
-                    
 
                 }
 

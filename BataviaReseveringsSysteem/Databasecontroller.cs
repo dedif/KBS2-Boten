@@ -1,17 +1,14 @@
 ﻿using BataviaReseveringsSysteem.Database;
-using Models;
-using ScreenSwitcher;
 using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
 
-namespace Controllers
+namespace BataviaReseveringsSysteem
 {
-
-   public class DataBaseController
-  {
+    public class DataBaseController
+    {
         public void Add_Role(string roleName)
         {
             
@@ -21,7 +18,7 @@ namespace Controllers
                 var role = new Models.Role
                 {
                     RoleName = roleName,
-                    CreatedAt = DateTime.Now,
+                    Created_at = DateTime.Now,
 
                 };
 
@@ -46,60 +43,53 @@ namespace Controllers
             }
         }
 
-
-        public void Add_UserDiploma(int diplomaID, int userID)
+        public void Add_MemberDiploma(int diplomaID, int personID)
         {
             using (DataBase context = new DataBase())
             {
-                var userDiploma = new Models.User_Diploma
+                var memberDiploma = new Models.Member_Diploma
                 {
                     DiplomaID = diplomaID,
-                    UserID = userID,
-                    CreatedAt = DateTime.Now,
-
+                    PersonID = personID,
+                    Created_at = DateTime.Now,
+                    
                 };
-                context.User_Diplomas.Add(userDiploma);
+                context.MemberDiplomas.Add(memberDiploma);
                 context.SaveChanges();
             }
         }
-    public void Add_UserRole(int roleID, int userID)
+
+        public void Add_MemberRole(int roleID,int personID)
         {
-            
+
             using (DataBase context = new DataBase())
             {
-              var UserRole = new Models.User_Role
+
+                var MemberRole = new Models.MemberRole
                 {
                     RoleID = roleID,
-                    UserID = userID,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = null,
-                    DeletedAt = null
+                    PersonID = personID,
+                    Created_at = DateTime.Now,
+                    Updated_at = null,
+                    Deleted_at = null
+
                 };
-
-                context.User_Roles.Add(UserRole);
-                context.SaveChanges();
-                Switcher.DeleteMenu();
-                Switcher.MenuMaker();
-
-
-
-
-               
-               
+              
+                    context.MemberRoles.Add(MemberRole);
+                    context.SaveChanges();
                 
-
+                
             }
+
         }
-		
-        public bool Get_UserRole(int roleID, int userID)
+        public bool Get_MemberRole(int roleID, int personID)
         {
             try
             {
                 using (DataBase context = new DataBase())
                 {
-                   bool hasUserRole = context.User_Roles.Any(cus => cus.User.UserID == userID && cus.Role.RoleID == roleID);
-                    return hasUserRole;
-
+                    bool hasMemberRole = context.MemberRoles.Any(cus => cus.PersonID == personID && cus.RoleID == roleID);
+                    return hasMemberRole;
                 }
                
             }
@@ -108,40 +98,35 @@ namespace Controllers
             
         }
 
-        public void Delete_UserRole(int userID, int rolID)
+        public void Delete_MemberRole(int personID, int rolID)
         {
             using (DataBase context = new DataBase())
             {
 
-             var deleteUserRole = (from x in context.User_Roles
-                                     where x.User.UserID == userID && x.DeletedAt == null && x.Role.RoleID == rolID
+                var delMemberRole = (from x in context.MemberRoles
+                                     where x.PersonID == personID && x.Deleted_at == null && x.RoleID == rolID
                                      select x).ToList();
 
-              
 
-
-                context.User_Roles.RemoveRange(deleteUserRole);
+                context.MemberRoles.RemoveRange(delMemberRole);
 
                 context.SaveChanges();
-                Switcher.DeleteMenu();
-                Switcher.MenuMaker();
+               
             }
 
         }
 
-        public void Delete_UserDiploma(int userID, int diplomaID)
-
+        public void Delete_MemberDiploma(int personID, int diplomaID)
         {
             using (DataBase context = new DataBase())
             {
 
-              var delUserDiploma = (from x in context.User_Diplomas
-                                     where x.User.UserID == userID && x.DeletedAt == null && x.Diploma.DiplomaID == diplomaID
+                var delMemberDiploma = (from x in context.MemberDiplomas
+                                     where x.PersonID == personID && x.Deleted_at == null && x.DiplomaID == diplomaID
                                      select x).ToList();
 
 
-                context.User_Diplomas.RemoveRange(delUserDiploma);
-
+                context.MemberDiplomas.RemoveRange(delMemberDiploma);
 
                 context.SaveChanges();
                 
@@ -174,12 +159,12 @@ namespace Controllers
                     Email = email,
                     GenderID = genderID,
                     Birthday = birthday,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = null,
-                    DeletedAt = null
+                    Created_at = DateTime.Now,
+                    Updated_at = null,
+                    Deleted_at = null
                     
                 };
-                int UserID = user.UserID;
+                int PersonID = user.PersonID;
                 context.Users.Add(user);
 
 
@@ -188,29 +173,29 @@ namespace Controllers
 
         }
 
-        public void Delete_User(int userID)
+        public void Delete_User(int personID)
         {
             using (DataBase context = new DataBase())
             {
 
-               Models.User delUser = context.Users.Where(d => d.UserID == userID).First();
+               Models.User delUser = context.Users.Where(d => d.PersonID == personID).First();
             
                 if (delUser != null)
                 {
 
-                    delUser.DeletedAt = DateTime.Now;
+                    delUser.Deleted_at = DateTime.Now;
                    
                     context.SaveChanges();
                 }
             }
 
         }
-        public void Update_User(int userID, string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
+        public void Update_User(int personID, string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
         {
             using (DataBase context = new DataBase())
             {
 
-                Models.User dep = context.Users.Where(d => d.UserID == userID).First();
+                Models.User dep = context.Users.Where(d => d.PersonID == personID).First();
 
 
                 if (dep != null)
@@ -226,8 +211,8 @@ namespace Controllers
                     dep.GenderID = genderID;
                     dep.Birthday = birthday;
                     dep.Middlename = middlename;
-                    dep.UpdatedAt = DateTime.Now;
-                    dep.DeletedAt = null;
+                    dep.Updated_at = DateTime.Now;
+                    dep.Deleted_at = null;
 
                     context.SaveChanges();
                 }
@@ -237,12 +222,12 @@ namespace Controllers
         }
 
 
-        public void Update_User(int userID,  string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
+        public void Update_User(int personID,  string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
         {
             using (DataBase context = new DataBase())
             {
 
-                Models.User dep = context.Users.Where(d => d.UserID == userID).First();
+                Models.User dep = context.Users.Where(d => d.PersonID == personID).First();
 
 
                 if (dep != null)
@@ -258,8 +243,8 @@ namespace Controllers
                     dep.GenderID = genderID;
                     dep.Birthday = birthday;
                     dep.Middlename = middlename;
-                    dep.UpdatedAt = DateTime.Now;
-                    dep.DeletedAt = null;
+                    dep.Updated_at = DateTime.Now;
+                    dep.Deleted_at = null;
                     
 
                     context.SaveChanges();
@@ -310,14 +295,14 @@ namespace Controllers
             {
                 // Display all courses from the database
                 var users = (from s in context.Users
-                             orderby s.UserID
+                             orderby s.PersonID
                              select s).ToList<Models.User>();
 
 
                 foreach (var boat in users)
                 {
 
-                    Console.WriteLine("ID: {0}, Voornaam: {1}, Achternaam: {2}, Address: {3}, Postcode: {4}, plaats: {5}, Telefoonnummer: {6}, Email: {7}", boat.UserID, boat.Firstname, boat.Lastname, boat.Address, boat.Zipcode, boat.City, boat.Phonenumber, boat.Email);
+                    Console.WriteLine("ID: {0}, Voornaam: {1}, Achternaam: {2}, Address: {3}, Postcode: {4}, plaats: {5}, Telefoonnummer: {6}, Email: {7}", boat.PersonID, boat.Firstname, boat.Lastname, boat.Address, boat.Zipcode, boat.City, boat.Phonenumber, boat.Email);
                 }
                 Console.ReadKey();
             }

@@ -154,9 +154,6 @@
     <Compile Include="PageSwitcher.xaml.cs">
       <DependentUpon>PageSwitcher.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StartView.xaml.cs">
-      <DependentUpon>StartView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\UserList.xaml.cs">
       <DependentUpon>UserList.xaml</DependentUpon>
     </Compile>
@@ -232,10 +229,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PageSwitcher.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\StartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

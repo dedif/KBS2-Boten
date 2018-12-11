@@ -27,7 +27,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-    
 
         <DataGrid Grid.Row="2" Grid.Column="0" x:Name="DataBoatList" Width="1024" CanUserAddRows="false" x:FieldModifier="public" DataContext="{StaticResource BoatViewSource}" AutoGenerateColumns="false" VerticalAlignment="Top">
             <DataGrid.Columns>
@@ -38,7 +37,7 @@
                 <DataGridTextColumn x:Name="Weight"  Binding="{Binding Weight}" Header="Gewicht" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Steering"  Binding="{Binding Steering}" Header="Stuur" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Status"  Binding="{Binding Status}" Header="Status" IsReadOnly="true"/>
-                
+
 
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.HeaderTemplate>
@@ -58,7 +57,7 @@
                                     x:Name="EditButton" Click="ButtonEdit"
                                     Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
                                     ToolTip="Bewerken">
-                                        <materialDesign:PackIcon
+                                    <materialDesign:PackIcon
                                     Kind="Edit"
                                     Height="20"
                                     Width="20" />
@@ -97,12 +96,12 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" >
-            <Button Content="Boot toevoegen" Click="AddBoatButton" HorizontalAlignment="Left" />
-            <TextBox x:Name="Search" 
+        <TextBox 
+            Grid.Row="1"
+            HorizontalAlignment="Right" VerticalAlignment="Bottom" 
+            x:Name="Search" 
                      materialDesign:HintAssist.Hint="Zoeken"
-                     TextChanged="Search_TextChanged" Margin="125,0,0,0" Width="240"/>
-        </StackPanel>
+                     TextChanged="Search_TextChanged" Margin="0,0,20,10" Width="120"/>
 
     </Grid>
 
