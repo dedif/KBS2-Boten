@@ -13,9 +13,9 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Boot reserverings Systeem" Height="768" Width="1024" 
+        Title="Boot reserverings Systeem" Height="768" Width="1024"
         ResizeMode="NoResize"  
-        WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        WindowStartupLocation="CenterScreen">
     <Grid x:Name="switcherGrid">
         
     </Grid>
