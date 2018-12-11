@@ -26,6 +26,7 @@ namespace Views
         public List<Button> ButtonList = new List<Button>();
         DataBase context = new DataBase();
         DashboardController dashboardController;
+        public static NavigationView navigationview;
         public Dashboard()
         {
             InitializeComponent();
@@ -101,11 +102,13 @@ namespace Views
                 {
                     MaxReservations.Visibility = Visibility.Visible;
                     AddReservationButton.IsEnabled = false;
+                    navigationview.MakeAddReservationInvisible(false);
                 }
                 else
                 {
                     MaxReservations.Visibility = Visibility.Hidden;
                     AddReservationButton.IsEnabled = true;
+                    navigationview.MakeAddReservationInvisible(true);
                 }
             foreach (Reservation r in Reservations)
 

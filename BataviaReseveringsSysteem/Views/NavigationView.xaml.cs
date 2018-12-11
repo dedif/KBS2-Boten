@@ -19,7 +19,7 @@ namespace Views
             InitializeComponent();
             Roles();
             FillName();
-
+            Dashboard.navigationview = this;
         }
 
         private void Roles()
@@ -82,6 +82,10 @@ namespace Views
 
 
             }
+        }
+        public void MakeAddReservationInvisible(bool boolean)
+        {
+            MakeReservationsBtn.IsEnabled = boolean;
         }
 
         //De naam van de user wordt getoond in de menubalk, rechtsboven
