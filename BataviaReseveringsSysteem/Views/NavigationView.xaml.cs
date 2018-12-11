@@ -80,6 +80,9 @@ namespace Views
                    //Mag die users inzien en toevoegen
                     SeeUsersBtn.IsEnabled = false;
                     AddUsersBtn.IsEnabled = false;
+
+                    
+
                 }
 
 
