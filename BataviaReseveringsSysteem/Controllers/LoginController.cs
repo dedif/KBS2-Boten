@@ -34,7 +34,7 @@ namespace Controllers
 
             using (var context = new DataBase())
             {
-                var result = context.Users.ToList();
+                var result = context.Users.Select(x => x).Where(x => x.DeletedAt == null).ToList();
 
 
                 if (result.Count > 0)
