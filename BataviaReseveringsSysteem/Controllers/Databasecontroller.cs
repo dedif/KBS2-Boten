@@ -78,9 +78,11 @@ namespace Controllers
 
                 context.User_Roles.Add(UserRole);
                 context.SaveChanges();
-               
-               
-                
+                Switcher.DeleteMenu();
+                Switcher.MenuMaker();
+
+
+
             }
         }
 		
