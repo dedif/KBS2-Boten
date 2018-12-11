@@ -110,7 +110,7 @@ namespace BataviaReseveringsSysteem.Reservations
                 Content = "Duur reservering:",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(580, 340, 0, 0),
+                Margin = new Thickness(580, 290, 0, 0),
                 FontSize = 26
             });
  
@@ -547,7 +547,7 @@ namespace BataviaReseveringsSysteem.Reservations
                             where db.Name.Equals((string)BoatNamesComboBox.SelectedValue)
                             select db).First();
                 // Pak de start- en eindtijd
-                var selectedDate = BoatTypeTabItemCalendar.SelectedDate.Value;
+                var selectedDate = BoatTypeTabItemCalendar.SelectedDate.Value.Date;
                 var selectedTime = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
                 var startTime = selectedDate.AddHours(selectedTime.Hour).AddMinutes(selectedTime.Minute);
                 var endTime = GenerateEndTime(startTime);
@@ -677,7 +677,7 @@ namespace BataviaReseveringsSysteem.Reservations
  
             // Verkrijg de reserveringen voor de geselecteerde boot.
             new ReservationController()
-                .GetReservationsForDayAndBoatThatAreNotDeleted(selectedDate,
+                .GetReservationsForDayAndBoatThatAreNotDeletedOrBroken(selectedDate,
                     new BoatController().GetBoatWithName(selectedBoatString)).ForEach(reservation =>
  
                     // Zet de reserveringen in de database om in slots
