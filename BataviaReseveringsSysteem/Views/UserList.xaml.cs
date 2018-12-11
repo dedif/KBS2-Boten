@@ -83,8 +83,13 @@ namespace Views
         void ButtonDelete(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
-           
-                usc.Delete_User((int)b.Tag);
+            if (MessageBox.Show("Wilt u deze gebruiker definitief verwijderen?",
+                    "Bevestig verwijdering",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) !=
+                MessageBoxResult.Yes)
+                return;
+            usc.Delete_User((int)b.Tag);
             
             
             Switcher.Switch(new UserList());
