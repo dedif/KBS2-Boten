@@ -54,7 +54,7 @@
                 <MenuItem Header="Hulp bij inloggen"></MenuItem>
             </MenuItem>
         </Menu>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,-711,0" Width="865">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,0" Width="1024">
             <Label x:Name="NameLabel" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Content="" Height="37" Width="120"/>
             <materialDesign:PopupBox StaysOpen="False">
                 <StackPanel>
