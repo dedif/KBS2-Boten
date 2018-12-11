@@ -35,7 +35,7 @@ namespace Controllers
                     reservation.BoatID == boat.BoatID).ToList();
             }
         }
-        public List<Reservation> GetReservationsForDayAndBoatThatAreNotDeletedOrBroken(DateTime day, Boat boat)
+        public List<Reservation> GetReservationsForDayAndBoatThatAreNotDeleted(DateTime day, Boat boat)
         {
             using (var context = new DataBase())
             {
@@ -44,8 +44,7 @@ namespace Controllers
                         reservation.Start.Month == day.Month &&
                         reservation.Start.Year == day.Year &&
                         reservation.BoatID == boat.BoatID &&
-                        reservation.Deleted == null &&
-                        reservation.Boat.Broken == false).ToList();
+                        reservation.Deleted == null).ToList();
             }
         }
 

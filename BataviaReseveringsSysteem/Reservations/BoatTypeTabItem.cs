@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using BataviaReseveringsSysteem.Controllers;
 using BataviaReseveringsSysteem.Database;
 using Controllers;
 using Models;
@@ -150,7 +151,7 @@ namespace BataviaReseveringsSysteem.Reservations
             // 3) te ver in de toekomst zijn om geclaimd te kunnen worden (maar waar de zon nog niet onder is)
             var now = DateTime.Now;
             var claimedPastAndTooDistantSlotsForThisDayAndBoat =
-                GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(now, now, selectedBoatString, earliestSlot,
+                GetClaimedBrokenPastAndTooDistantSlotsForThisDayAndBoat(now, now, selectedBoatString, earliestSlot,
                     firstDarknessSlot);
  
             // Weergeef de eigenschappen van de geselecteerde boot (wederom de eerste in de botencombobox)
@@ -264,7 +265,7 @@ namespace BataviaReseveringsSysteem.Reservations
  
             // Genereer de slots die al voorbij zijn, te ver weg zijn of al geclaimd zijn
             var claimedPastAndTooDistantSlotsForThisDayAndBoat =
-                GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(DateTime.Now, selectedDateValue,
+                GetClaimedBrokenPastAndTooDistantSlotsForThisDayAndBoat(DateTime.Now, selectedDateValue,
                     (string)BoatNamesComboBox.SelectedValue, earliestSlot, firstDarknessSlot);
  
             // Genereer de slots die je wil claimen
@@ -295,7 +296,7 @@ namespace BataviaReseveringsSysteem.Reservations
  
             // Genereer de slots die al voorbij zijn, te ver weg zijn of al geclaimd zijn
             var claimedPastAndTooDistantSlotsForThisDayAndBoat =
-                GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(DateTime.Now, selectedDateValue,
+                GetClaimedBrokenPastAndTooDistantSlotsForThisDayAndBoat(DateTime.Now, selectedDateValue,
                     (string)BoatNamesComboBox.SelectedValue, earliestSlot, firstDarknessSlot);
  
             // De afschrijvingsduur-combobox moet worden ververst.
@@ -641,7 +642,7 @@ namespace BataviaReseveringsSysteem.Reservations
  
             var selectedBoat = (string)BoatNamesComboBox.SelectedValue;
             var claimedSlotsForThisDayAndBoat =
-                GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(DateTime.Now, selectedDateValue, selectedBoat,
+                GetClaimedBrokenPastAndTooDistantSlotsForThisDayAndBoat(DateTime.Now, selectedDateValue, selectedBoat,
                     earliestSlot, firstDarknessSlot);
  
             PopulateStartTimeComboBox(selectedDateValue, earliestSlot, firstDarknessSlot, claimedSlotsForThisDayAndBoat);
@@ -670,15 +671,16 @@ namespace BataviaReseveringsSysteem.Reservations
         // 1) waarbij de geselecteerde boot (we openen het reserveringsscherm net, dus de eerste boot in de botencombobox is de geselecteerde boot) al afgeschreven is
         // 2) al voorbij zijn (maar waar de zon al wel op was)
         // 3) te ver in de toekomst zijn om geclaimd te kunnen worden (maar waar de zon nog niet onder is)
-        public List<DateTime> GetClaimedPastAndTooDistantSlotsForThisDayAndBoat(DateTime now, DateTime selectedDate, string selectedBoatString,
+        public List<DateTime> GetClaimedBrokenPastAndTooDistantSlotsForThisDayAndBoat(DateTime now, DateTime selectedDate, string selectedBoatString,
             DateTime earliestSlot, DateTime firstDarknessSlot)
         {
             var claimedSlots = new List<DateTime>();
  
             // Verkrijg de reserveringen voor de geselecteerde boot.
+            var boat = new BoatController().GetBoatWithName(selectedBoatString);
             new ReservationController()
-                .GetReservationsForDayAndBoatThatAreNotDeletedOrBroken(selectedDate,
-                    new BoatController().GetBoatWithName(selectedBoatString)).ForEach(reservation =>
+                .GetReservationsForDayAndBoatThatAreNotDeleted(selectedDate,
+                    boat).ForEach(reservation =>
  
                     // Zet de reserveringen in de database om in slots
                     {
@@ -688,7 +690,12 @@ namespace BataviaReseveringsSysteem.Reservations
                             claimedSlots.Add(DayQuarterToDateTime(selectedDate, i));
                     });
             var datePartOfDateTimeNow = now.Date;
- 
+
+//            var isBroken = new DamageController().IsThisBoatBrokenToday(boat, selectedDate);
+//            if (isBroken)
+//            {
+//                GetClaimedAndDamagedSlots(claimedSlots, now, earliestSlot, firstDarknessSlot);
+//            }
             // Als de geselecteerde dag vandaag is, dan moeten er ook nog slots die al voorbij zijn worden grijs gemaakt
             // Voeg slots die voorbij zijn toe aan de geclaimde slots
             // Als de geselecteerde dag overmorgen is
@@ -696,8 +703,7 @@ namespace BataviaReseveringsSysteem.Reservations
             // dan moeten er ook nog slots die te ver weg zijn worden grijs gemaakt
             // Voeg slots die te ver weg zijn aan de geclaimde slots
             // In de andere gevallen, retourneer alleen de geclaimde slots
- 
- 
+
             if (selectedDate.Date.Equals(datePartOfDateTimeNow))
                 return GetClaimedAndPastSlots(claimedSlots, now, earliestSlot, firstDarknessSlot);
             else if (DateIsLastReservableDate(new UserController().LoggedInUserIsRaceCommissioner(),
@@ -706,7 +712,17 @@ namespace BataviaReseveringsSysteem.Reservations
                 return GetClaimedAndTooDistantSlots(claimedSlots, selectedDate, now);
             else return claimedSlots;
         }
- 
+
+//        private List<DateTime> GetClaimedAndDamagedSlots(List<DateTime> claimedSlots, DateTime now, DateTime earliestSlot, DateTime firstDarknessSlot, Boat boat)
+//        {
+//            List<DateTime> damagedSlots;
+//            var damageController = new DamageController();
+//            var earliestSlotDayQuarter = DateTimeToDayQuarter(earliestSlot);
+//            var firstDarknessSlotDayQuarter = DateTimeToDayQuarter(firstDarknessSlot);
+//            var earliestDamagedSlotDayQuarter = DateTimeToDayQuarter(BottomRoundTimeToSlot(damageController.GetEarliestDamagedSlotDayQuarterForBoat(boat)))
+//            
+//        }
+
         // Controleer of de datum die nu geselecteerd is, de laatst mogelijke datum is
         private bool DateIsLastReservableDate(bool loggedInUserIsRaceCommissioner, DateTime now, DateTime selectedDate)
         {
