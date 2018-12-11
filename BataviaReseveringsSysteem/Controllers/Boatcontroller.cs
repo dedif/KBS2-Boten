@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
+using Views;
 
 namespace Controllers
 {
@@ -16,13 +17,13 @@ namespace Controllers
             return notification;
         }
         //Deze methode returnt true als naam en gewicht zijn ingevoerd (anders false)
-        
+
         public Boolean WhiteCheck(string name, string weight)
         {
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(weight))
             {
                 notification = "U heeft niet alle gegevens ingevuld";
-                
+
                 return false;
 
             }
@@ -35,7 +36,7 @@ namespace Controllers
         //Deze methode returnd true als gewicht is ingeverd als cijfers (anders false)
         public Boolean WeightCheck(string weight)
         {
-     
+
             try
             {
                 double Weight = double.Parse(weight);
@@ -63,7 +64,7 @@ namespace Controllers
                 if (CountNames.Count > 0)
                 {
                     notification = "Deze bootnaam bestaat al";
-                   
+
 
                     return false;
 
@@ -74,7 +75,57 @@ namespace Controllers
                 }
             }
         }
-//Deze methode voegt een boot toe aan de database
+
+        public Boolean BootExist(int boatID)
+        {
+
+            using (DataBase context = new DataBase())
+
+            {
+                var BoatExists = (from b in context.Boats
+                                  where b.BoatID == boatID
+                                  select b).ToList<Boat>();
+                if (BoatExists.Count > 0)
+                {
+                    notification = "Deze bootnaam bestaat al";
+
+
+                    return false;
+
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+
+        public Boolean BootParametersAreGiven(int boatID, string name, string type, int rowers, double weight, bool steering)
+        {
+
+            using (DataBase context = new DataBase())
+
+            {
+                var BoatExists = (from b in context.Boats
+                                  where b.BoatID == boatID && b.Name == name && b.Type .ToString() == type && b.NumberOfRowers == rowers && b.Weight == weight && b.Steering == steering
+                                  select b).ToList<Boat>();
+                if (BoatExists.Count > 0)
+                {
+                    notification = "Parameters zijn gegeven";
+
+
+                    return false;
+
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        //Deze methode voegt een boot toe aan de database
         public void AddBoat(string name, string type, int rowers, double weight, bool steeringwheel)
         {
             notification = "";
@@ -82,20 +133,21 @@ namespace Controllers
             using (DataBase context = new DataBase())
 
             {
-              
-                    Enum.TryParse(type, out Boat.BoatType MyType);
+
+
+                Enum.TryParse(type, out Boat.BoatType MyType);
                 DateTime CreatedAt = DateTime.Now;
                 Boat boot1 = new Boat(name, MyType, rowers, weight, steeringwheel, CreatedAt);
-               
-                    context.Boats.Add(boot1);
+
+                context.Boats.Add(boot1);
 
 
-                    context.SaveChanges();
-                }
-      
-                
-
+                context.SaveChanges();
             }
+
+
+
+        }
 
         //Deze methode update en boot als verwijdert in de database
         public void DeleteBoat(int boatID)
@@ -113,14 +165,58 @@ namespace Controllers
 
                     context.SaveChanges();
                 }
+            }
 
-                context.Boats.Add(delBoat);
 
+        }
+ 
 
-                context.SaveChanges();
+        public void UpdateBoat(int boatID, string name,string type, int rowers, double weight, bool steeringwheel)
+        {
+            using (DataBase context = new DataBase())
+            {
+                Boat UpdateBoat = context.Boats.Where(d => d.BoatID == boatID).First();
+                  Enum.TryParse(type, out Boat.BoatType MyType);
+                if (UpdateBoat != null)
+                {
+                    UpdateBoat.Name = name;
+                    UpdateBoat.Type = MyType;
+                    UpdateBoat.Weight = weight;
+                    UpdateBoat.Steering = steeringwheel;
+                    UpdateBoat.NumberOfRowers = rowers;
+                    UpdateBoat.UpdatedAt = DateTime.Now;
+
+                    context.SaveChanges();
+                }
             }
 
         }
+
+        public void UpdateBoatDamage(int boatID, string description, string status)
+        {
+            using (DataBase context = new DataBase())
+            {
+                Damage UpdateDamageBoat = context.Damages.Where(d => d.BoatID == boatID).First();
+
+                if (UpdateDamageBoat != null)
+                {
+                    UpdateDamageBoat.Description = description;
+                    UpdateDamageBoat.Status = status;
+                    if (UpdateDamageBoat.Status == "Geen schade")
+                    {
+                        UpdateDamageBoat.TimeOfFix = DateTime.Now;
+                    }
+                    else
+                    {
+                        UpdateDamageBoat.TimeOfFix = null;
+                    }
+                    context.SaveChanges();
+                }
+            }
+
+        }
+
+  
 
 
         public List<Boat> BoatList()
@@ -136,35 +232,14 @@ namespace Controllers
                 return boats;
             }
         }
-		
-		public Boat GetBoatWithName(string name)
+
+        public Boat GetBoatWithName(string name)
         {
 
             using (var context = new DataBase())
             {
                 return (from boat in context.Boats where boat.Name.Equals(name) select boat).First();
             }
-        }
-
-        public void UpdateBoat(int boatID, string name, string type, int rowers, double weight, bool steeringwheel)
-        {
-            using (DataBase context = new DataBase())
-            {
-                Boat UpdateBoat = context.Boats.Where(d => d.BoatID == boatID).First();
-                Enum.TryParse(type, out Boat.BoatType MyType);
-                if (UpdateBoat != null)
-                {
-                    UpdateBoat.Name = name;
-                    UpdateBoat.Type = MyType;
-                    UpdateBoat.Weight = weight;
-                    UpdateBoat.Steering = steeringwheel;
-                    UpdateBoat.NumberOfRowers = rowers;
-                    UpdateBoat.UpdatedAt = DateTime.Now;
-
-                    context.SaveChanges();
-                }
-            }
-
         }
 
         public void AddDiploma(List<CheckBox> list)
@@ -192,5 +267,64 @@ namespace Controllers
             }
         }
 
+
+        public void Add_BoatDiploma(int diplomaID, int boatID)
+        {
+
+
+            using (DataBase context = new DataBase())
+            {
+
+                var BoatDiploma = new Models.Boat_Diploma
+                {
+                    DiplomaID = diplomaID,
+                    BoatID = boatID,
+                   
+
+                };
+
+                context.Boat_Diplomas.Add(BoatDiploma);
+                context.SaveChanges();
+
+
+            }
+        }
+
+        public void Delete_BoatDiploma(int boatID, int diplomaID)
+        {
+            using (DataBase context = new DataBase())
+            {
+
+                var delBoatDiploma = (from x in context.Boat_Diplomas
+                                        where x.BoatID == boatID && x.DiplomaID == diplomaID
+                                        select x).ToList();
+
+
+                context.Boat_Diplomas.RemoveRange(delBoatDiploma);
+
+                context.SaveChanges();
+
+            }
+
+        }
+
+
+        public List<Boat> GetBoatsReservableWithThisUsersDiplomas()
+        {
+            using (var context = new DataBase())
+            {
+                return
+                    (from boat in context.Boats
+                        join boatDiploma in context.Boat_Diplomas on boat.BoatID equals boatDiploma.BoatID
+                        join userDiploma in context.User_Diplomas on boatDiploma.DiplomaID equals userDiploma
+                         .DiplomaID
+                        where userDiploma.UserID == LoginView.UserId
+                        where boatDiploma.BoatID == boat.BoatID
+                        select boat).Distinct().Concat(
+                        from boat in context.Boats
+                        where (from boatDiploma in context.Boat_Diplomas where boatDiploma.BoatID == boat.BoatID select boatDiploma).Count() == 0
+                        select boat).ToList();
+            }
+        }
     }
 }

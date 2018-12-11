@@ -33,8 +33,11 @@ namespace Views
                                        select data).ToList();
 
                 var BoatInfo = (from data in context.Reservations
+                                join boats in context.Boats on data.BoatID equals boats.BoatID
                                 where data.Deleted == null
-                                select data.Boat).ToList();
+                                select boats).ToList();
+
+
                 if (ReservationInfo.Count > 0)
                 {
                     DataReservations.Visibility = Visibility.Visible;
@@ -43,7 +46,7 @@ namespace Views
             }
         }
 
-        private void LoginButton(object sender, RoutedEventArgs e)
+        public void LoginButton(object sender, RoutedEventArgs e)
         {
             if (LoginController.IsLoginDataValid(Username, Password, LoginError))
             {
@@ -52,11 +55,11 @@ namespace Views
                 {
                     var user = (
                         from data in context.Users
-                        where data.PersonID == username
+                        where data.UserID == username && data.DeletedAt == null
                         select data).Single();
 
-                    UserId = user.PersonID;
-
+                    UserId = user.UserID;
+                    Switcher.MenuMaker();
                     Switcher.Switch(new Dashboard());
                     user.LastLoggedIn = DateTime.Now;
                     context.SaveChanges();
@@ -72,7 +75,6 @@ namespace Views
             e.Handled = regex.IsMatch(e.Text);
         }
 
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new Register());
@@ -87,5 +89,6 @@ namespace Views
         {
             Switcher.Switch(new Register());
         }
+
     }
 }

@@ -6,6 +6,7 @@ using Controllers;
 using BataviaReseveringsSysteem.Database;
 using BataviaReseveringsSysteem;
 
+
 namespace UnitTestLoginRegister
 {
 
@@ -116,14 +117,16 @@ namespace UnitTestLoginRegister
         [Test]
         [TestCase(1,1,true)]
         [TestCase(8,1,false)]
-        public void AddMemberRole_MemberRole_Void(int role,int personID,bool answer)
+        public void AddUserRole_UserRole_Void(int role,int userID,bool answer)
+
         {
             //Arrage
             DataBaseController dbC = new DataBaseController();
             DataBase Db = new DataBase();
             //Act
-            dbC.Add_MemberRole(role, personID);
-            bool result = dbC.Get_MemberRole(role, personID);
+
+            dbC.Add_UserRole(role, userID);
+            bool result = dbC.Get_UserRole(role, userID);
             //Assert
             Assert.AreEqual(answer, result);
         }

@@ -6,6 +6,8 @@ using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Net.Mail;
+
 
 namespace Views
 {
@@ -16,9 +18,11 @@ namespace Views
     {
         DataBase context = new DataBase();
 
-        string reserved = null;
+
+        public string reserved { get; set; } = null;
         public BoatDamage()
         {
+          
             InitializeComponent();
 
             var NameBoats = (from data in context.Boats
@@ -53,14 +57,16 @@ namespace Views
 
                     switch (Melding)
                     {
-                        case MessageBoxResult.Yes:
+
+                    case MessageBoxResult.Yes:
 
                             var Boat = (from data in context.Boats
-                                        where data.Name == NameboatCombo.Text
+                                        where data.Name == NameboatCombo.Text && data.DeletedAt == null
                                         select data).Single();
 
-                            var Reservations = (from data in context.Reservations
-                                               where data.Boat.Name == NameboatCombo.Text
+                        var Reservations = (from data in context.Reservations
+                                            join boats in context.Boats on data.BoatID equals boats.BoatID
+                                            where boats.Name.Equals(NameboatCombo.Text)
                                                where data.Deleted == null
                                                select data).ToList();
 
@@ -95,6 +101,7 @@ namespace Views
             }
         }
 
+
         private void HeavyDamageRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             NotificationLabel.Visibility = Visibility.Visible;
@@ -121,7 +128,8 @@ namespace Views
         public void AlreadyReserved(string boat)
         {
             var Reservation = (from data in context.Reservations
-                        select data.Boat.Name).ToList();
+                               join boats in context.Boats on data.BoatID equals boats.BoatID
+                        select boats.Name).ToList();
             if (Reservation.Contains(boat))
             {
                 reserved = " Deze boot is in de toekomst gereserveerd.";

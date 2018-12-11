@@ -55,7 +55,7 @@ namespace Controllers
 
                         if (Username.Text != "")
                         {
-                            if (results.PersonID.Equals(int.Parse(Username.Text)))
+                            if (results.UserID.Equals(int.Parse(Username.Text)))
                             {
                                 if (Password.Password != "")
                                 {

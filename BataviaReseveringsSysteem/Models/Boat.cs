@@ -15,7 +15,6 @@ namespace Models
         public int NumberOfRowers { get; set;}
         public double Weight { get; set; }
         public bool Steering { get; set; }
-        public string Status { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }

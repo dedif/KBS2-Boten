@@ -1,21 +1,9 @@
-﻿using BataviaReseveringsSysteem;
-using BataviaReseveringsSysteem.Database;
+﻿using BataviaReseveringsSysteem.Database;
 using Controllers;
 using ScreenSwitcher;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Views
 {
@@ -75,13 +63,14 @@ namespace Views
         {
             Button b = (Button)sender;
             Switcher.Switch(new EditBoat((int)b.Tag));
+
         }
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
 
             DataBoatList.ItemsSource = (from x in context.Boats
-                                        where x.BoatID.ToString() == Search.Text || x.Name.Contains(Search.Text) || x.Type.ToString() == Search.Text || x.Weight.ToString() == Search.Text || x.NumberOfRowers.ToString() == Search.Text || x.Steering.ToString() == Search.Text || x.Status.Contains(Search.Text)  && x.DeletedAt == null
+                                        where (x.BoatID.ToString() == Search.Text || x.Name.Contains(Search.Text) || x.Type.ToString() == Search.Text || x.Weight.ToString() == Search.Text || x.NumberOfRowers.ToString() == Search.Text || x.Steering.ToString() == Search.Text) && x.DeletedAt == null
                                         select x).ToList();
 
 

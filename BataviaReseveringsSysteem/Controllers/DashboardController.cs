@@ -23,7 +23,9 @@ namespace Controllers
         {
             var DamagedBoatsOfUser = (from data in context.Damages
                                       join a in context.Reservations
-                                      on data.BoatID equals a.Boat.BoatID
+
+                                      on data.BoatID equals a.BoatID
+
                                       where data.TimeOfClaim > lastLogged
                                       where data.TimeOfClaim == a.Deleted
                                       where a.Deleted != null
@@ -32,7 +34,9 @@ namespace Controllers
                                       select data).ToList();
 
             var User = (from data in context.Users
-                        where data.PersonID == LoginView.UserId
+
+                        where data.UserID == LoginView.UserId
+
                         select data).Single();
 
           
@@ -75,7 +79,7 @@ namespace Controllers
                 var ReservationBoatID = (
                     from r in context.Reservations
                     where r.ReservationID == reservation.ReservationID
-                    select r.Boat.BoatID).Single();
+                    select r.BoatID).Single();
 
                 var Name =
                     (from boat in context.Boats
@@ -160,7 +164,7 @@ namespace Controllers
                 VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(x, y, 0, 0),
                 Height = 30,
-                Width = 160,
+                Width = 200,
                 FontSize = 16,
                 HorizontalContentAlignment = HorizontalAlignment.Left
             };
@@ -182,7 +186,7 @@ namespace Controllers
                 VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(x, y, 0, 0),
                 Height = 30,
-                Width = 160,
+                Width = 200,
                 FontSize = 16,
                 Tag = id,
                 HorizontalContentAlignment = HorizontalAlignment.Left

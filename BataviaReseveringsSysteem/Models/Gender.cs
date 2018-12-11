@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Model
+namespace Models
 {
-    class Gender
+    public class Gender
     {
         [Key]
         public int GenderID { get; set; }

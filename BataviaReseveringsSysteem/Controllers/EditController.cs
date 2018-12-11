@@ -148,6 +148,8 @@ namespace Controllers
             }if (validate && valDate && !hasPassword)
             {
                 u.Update_User((int)editID.Content, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+                Switcher.DeleteMenu();
+                Switcher.MenuMaker();
                 MessageBoxResult result = MessageBox.Show("Het account is bijgewerkt.");
                 Switcher.Switch(new Views.UserList());
                 return true;

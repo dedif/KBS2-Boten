@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 
 namespace Views
 {
+
     /// <summary>
     /// Interaction logic for EditUser.xaml
     /// </summary>
@@ -174,6 +175,7 @@ namespace Views
             throw new NotImplementedException();
         }
 
+
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             if (b.WhiteCheck(NameBox.Text, WeightBox.Text) == true)
@@ -217,6 +219,7 @@ namespace Views
             }
             NotificationLabel.Content = b.Notification();
             EditBoatDiploma();
+
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -232,21 +235,27 @@ namespace Views
             {
                 RowersCombo.SelectedIndex = 0;
                 RowersCombo.IsEnabled = false;
+
                 SteeringWheelToggle.IsChecked = false;
                 SteeringWheelToggle.IsEnabled = false;
+
             }
             else
             {
 
                 RowersCombo.IsEnabled = true;
+
                 SteeringWheelToggle.IsChecked = true;
                 SteeringWheelToggle.IsEnabled = true;
+
             }
 
         }
     }
 
-}
+
+  }
+
 
 
 

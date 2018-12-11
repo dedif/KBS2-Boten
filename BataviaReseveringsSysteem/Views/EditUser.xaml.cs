@@ -1,5 +1,6 @@
 ﻿using BataviaReseveringsSysteem;
 using BataviaReseveringsSysteem.Database;
+using Controllers;
 using ScreenSwitcher;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Views
 
 
             var users = from x in context.Users
-                        where x.PersonID == id
+                        where x.UserID == id
                         select x;
 
             foreach (var user in users)
@@ -81,31 +82,31 @@ namespace Views
                 
             }
 
-                var MemberRoles = from x in context.MemberRoles
-                              where x.PersonID == id && x.Deleted_at == null
+            var User_Roles = from x in context.User_Roles
+                              where x.UserID == id && x.DeletedAt == null
                               select x;
 
-            foreach (var memberRole in MemberRoles)
+            foreach (var userRole in User_Roles)
             {
-                if (memberRole.RoleID == int.Parse(Reparateur.Tag.ToString()))
+                if (userRole.RoleID == int.Parse(Reparateur.Tag.ToString()))
                 {
                     Reparateur.IsChecked = true;
                 }
 
-                if (memberRole.RoleID == int.Parse(Coach.Tag.ToString()))
+                if (userRole.RoleID == int.Parse(Coach.Tag.ToString()))
                 {
                     Coach.IsChecked = true;
                 }
 
-                if (memberRole.RoleID == int.Parse(Examinator.Tag.ToString()))
+                if (userRole.RoleID == int.Parse(Examinator.Tag.ToString()))
                 {
                     Examinator.IsChecked = true;
                 }
-                if (memberRole.RoleID == int.Parse(Commissaris.Tag.ToString()))
+                if (userRole.RoleID == int.Parse(Commissaris.Tag.ToString()))
                 {
                     Commissaris.IsChecked = true;
                 }
-                if (memberRole.RoleID == int.Parse(Administrator.Tag.ToString()))
+                if (userRole.RoleID == int.Parse(Administrator.Tag.ToString()))
                 {
                     Administrator.IsChecked = true;
                 }
@@ -157,11 +158,12 @@ namespace Views
                             //int.Parse(c.Tag.ToString());
 
 
-                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null && x.PersonID == (int)EditID.Content);
+                            var User_Roles = context.User_Roles.Any(x => x.RoleID == roleID && x.DeletedAt == null && x.UserID == (int)EditID.Content);
 
-                            if (!MemberRoles)
+                             if (!User_Roles)
                             {
-                            dbc.Add_MemberRole(roleID, (int)EditID.Content);
+                            dbc.Add_UserRole(roleID, (int)EditID.Content);
+
                             }
                            
 
@@ -173,11 +175,11 @@ namespace Views
 
                             int roleID = int.Parse(c.Tag.ToString());
 
-                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null && x.PersonID == (int)EditID.Content);
+                            var User_Roles = context.User_Roles.Any(x => x.RoleID == roleID && x.DeletedAt == null && x.UserID == (int)EditID.Content);
 
-                            if (MemberRoles)
+                            if (User_Roles)
                             {
-                                dbc.Delete_MemberRole((int)EditID.Content, roleID);
+                                dbc.Delete_UserRole((int)EditID.Content, roleID);
                             }
                             else
                             {

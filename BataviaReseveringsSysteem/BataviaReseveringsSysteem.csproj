@@ -86,19 +86,25 @@
     <Compile Include="Controllers\EditController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
-    <Compile Include="Databasecontroller.cs" />
+    <Compile Include="Controllers\Databasecontroller.cs" />
     <Compile Include="Models\Boat_Diploma.cs" />
     <Compile Include="Models\Damage.cs" />
     <Compile Include="Models\Diploma.cs" />
     <Compile Include="Models\Gender.cs" />
-    <Compile Include="Models\MemberRole.cs" />
-    <Compile Include="Models\Member_Diploma.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\User_Diploma.cs" />
+    <Compile Include="Models\User_Role.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Reservations\BoatTypeTabItemCalendar.cs" />
     <Compile Include="Views\BoatDamage.xaml.cs">
       <DependentUpon>BoatDamage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BoatDamageList.xaml.cs">
+      <DependentUpon>BoatDamageList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BoatDiplomaList.xaml.cs">
+      <DependentUpon>BoatDiplomaList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BoatList.xaml.cs">
       <DependentUpon>BoatList.xaml</DependentUpon>
@@ -111,8 +117,14 @@
     </Compile>
     <Compile Include="Reservations\BoatTypeTabItem.cs" />
     <Compile Include="Reservations\CalcSunTimes.cs" />
-    <Compile Include="Views\DiplomaList.xaml.cs">
-      <DependentUpon>DiplomaList.xaml</DependentUpon>
+    <Compile Include="Views\EditBoatDamage.xaml.cs">
+      <DependentUpon>EditBoatDamage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditBoatDiplomaView.xaml.cs">
+      <DependentUpon>EditBoatDiplomaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserDiplomaList.xaml.cs">
+      <DependentUpon>UserDiplomaList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
@@ -121,8 +133,8 @@
     <Compile Include="Views\EditBoat.xaml.cs">
       <DependentUpon>EditBoat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EditDiplomaView.xaml.cs">
-      <DependentUpon>EditDiplomaView.xaml</DependentUpon>
+    <Compile Include="Views\EditUserDiplomaView.xaml.cs">
+      <DependentUpon>EditUserDiplomaView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditUser.xaml.cs">
       <DependentUpon>EditUser.xaml</DependentUpon>
@@ -142,9 +154,6 @@
     <Compile Include="PageSwitcher.xaml.cs">
       <DependentUpon>PageSwitcher.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StartView.xaml.cs">
-      <DependentUpon>StartView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\UserList.xaml.cs">
       <DependentUpon>UserList.xaml</DependentUpon>
     </Compile>
@@ -152,11 +161,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\BoatDamageList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BoatDiplomaList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BoatList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DiplomaList.xaml">
+    <Page Include="Views\EditBoatDamage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EditBoatDiplomaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserDiplomaList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -164,7 +189,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\EditDiplomaView.xaml">
+    <Page Include="Views\EditUserDiplomaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -204,10 +229,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PageSwitcher.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\StartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

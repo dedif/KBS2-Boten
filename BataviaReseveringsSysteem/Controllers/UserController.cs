@@ -1,25 +1,23 @@
 using BataviaReseveringsSysteem.Database;
 using Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using Views;
 
 
 namespace Controllers
 {
     class UserController
     {
-        
+      
+        //Maak een nieuwe gebruiker aan
         public void Add_User(string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
         {
             using (DataBase context = new DataBase())
             {
-
-                // Use current timeDateTime dt = 
-
-                string mySqlTimestamp = "01-01-1900 00:00:00";
-                DateTime time = DateTime.Parse(mySqlTimestamp);
                 var user = new Models.User
                 {
 
@@ -34,12 +32,12 @@ namespace Controllers
                     Email = email,
                     GenderID = genderID,
                     Birthday = birthday,
-                    Created_at = DateTime.Now,
-                    Updated_at = null,
-                    Deleted_at = null
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = null,
+                    DeletedAt = null
 
                 };
-                int PersonID = user.PersonID;
+                int UserID = user.UserID;
                 context.Users.Add(user);
 
 
@@ -47,28 +45,47 @@ namespace Controllers
             }
 
         }
+        public void Add_Gender(string GenderName)
+        {
+            using (DataBase context = new DataBase())
+            {
+                var gender = new Models.Gender
+                {
 
-        public void Update_User(int personID, string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
+                    GenderName = GenderName,
+                  
+
+                };
+                context.Genders.Add(gender);
+
+
+                context.SaveChanges();
+            }
+
+        }
+
+        //Bewerk een gebruiker met wachtwoord
+        public void Update_User(int userID, string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
         {
             using (DataBase context = new DataBase())
             {
 
-                Models.User dep = context.Users.Where(d => d.PersonID == personID).First();
-                if (dep != null)
+                Models.User update = context.Users.Where(d => d.UserID == userID).First();
+                if (update != null)
                 {
-                    dep.Password = password;
-                    dep.Firstname = firstname;
-                    dep.Lastname = lastname;
-                    dep.Address = address;
-                    dep.Zipcode = zipcode;
-                    dep.City = city;
-                    dep.Phonenumber = phonenumber;
-                    dep.Email = email;
-                    dep.GenderID = genderID;
-                    dep.Birthday = birthday;
-                    dep.Middlename = middlename;
-                    dep.Updated_at = DateTime.Now;
-                    dep.Deleted_at = null;
+                    update.Password = password;
+                    update.Firstname = firstname;
+                    update.Lastname = lastname;
+                    update.Address = address;
+                    update.Zipcode = zipcode;
+                    update.City = city;
+                    update.Phonenumber = phonenumber;
+                    update.Email = email;
+                    update.GenderID = genderID;
+                    update.Birthday = birthday;
+                    update.Middlename = middlename;
+                    update.UpdatedAt= DateTime.Now;
+                    update.DeletedAt = null;
                     
                     context.SaveChanges();
                 }
@@ -76,27 +93,45 @@ namespace Controllers
 
         }
 
-
-        public void Update_User(int personID, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
+        //Bewerk een gebruiker zonder wachtwoord
+        public void Update_User(int userID, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
         {
             using (DataBase context = new DataBase())
             {
 
-                Models.User dep = context.Users.Where(d => d.PersonID == personID).First();
-                if (dep != null)
+                Models.User update = context.Users.Where(d => d.UserID == userID).First();
+                if (update != null)
                 {
-                    dep.Firstname = firstname;
-                    dep.Lastname = lastname;
-                    dep.Address = address;
-                    dep.Zipcode = zipcode;
-                    dep.City = city;
-                    dep.Phonenumber = phonenumber;
-                    dep.Email = email;
-                    dep.GenderID = genderID;
-                    dep.Birthday = birthday;
-                    dep.Middlename = middlename;
-                    dep.Updated_at = DateTime.Now;
-                    dep.Deleted_at = null;
+                    update.Firstname = firstname;
+                    update.Lastname = lastname;
+                    update.Address = address;
+                    update.Zipcode = zipcode;
+                    update.City = city;
+                    update.Phonenumber = phonenumber;
+                    update.Email = email;
+                    update.GenderID = genderID;
+                    update.Birthday = birthday;
+                    update.Middlename = middlename;
+                    update.UpdatedAt = DateTime.Now;
+                    update.DeletedAt = null;
+
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        //verwijder een gebruiker uit de userlist 
+        public void Delete_User(int userID)
+        {
+            using (DataBase context = new DataBase())
+            {
+
+                Models.User delUser = context.Users.Where(d => d.UserID == userID).First();
+
+                if (delUser != null)
+                {
+
+                    delUser.DeletedAt = DateTime.Now;
 
                     context.SaveChanges();
                 }
@@ -104,7 +139,8 @@ namespace Controllers
         }
 
 
-        public string PasswordHash(string rawData)
+        //Hash een gebruikers wachtwoord
+            public string PasswordHash(string rawData)
         {
             // Create a SHA256   
             using (SHA256 sha256Hash = SHA256.Create())
@@ -122,7 +158,7 @@ namespace Controllers
             }
         }
 
-
+        // Get een gebruiker
         public void GetUser()
         {
             using (DataBase context = new DataBase())
@@ -137,18 +173,19 @@ namespace Controllers
 
         }
 
+        //Get een gebruikers ID
         public int GetID()
         {
             using (DataBase context = new DataBase())
             {
 
-                var Id =(
+                var Id = (
                         from data in context.Users
-                         orderby data.PersonID descending
-                        select data.PersonID).First();
+                        orderby data.UserID descending
+                        select data.UserID).First();
                 return Id;
             }
-          
+
 
         }
 
@@ -159,19 +196,30 @@ namespace Controllers
             {
                 // Display all courses from the database
                 var users = (from s in context.Users
-                             orderby s.PersonID
+                             orderby s.UserID
                              select s).ToList<User>();
 
 
                 foreach (var boat in users)
                 {
 
-                    Console.WriteLine("ID: {0}, Voornaam: {1}, Achternaam: {2}, Address: {3}, Postcode: {4}, plaats: {5}, Telefoonnummer: {6}, Email: {7}", boat.PersonID, boat.Firstname, boat.Lastname, boat.Address, boat.Zipcode, boat.City, boat.Phonenumber, boat.Email);
+                    Console.WriteLine("ID: {0}, Voornaam: {1}, Achternaam: {2}, Address: {3}, Postcode: {4}, plaats: {5}, Telefoonnummer: {6}, Email: {7}", boat.UserID, boat.Firstname, boat.Lastname, boat.Address, boat.Zipcode, boat.City, boat.Phonenumber, boat.Email);
                 }
                 Console.ReadKey();
             }
         }
 
+        public List<Role> GetRolesFromLoggedInUser()
+        {
+            using (var context = new DataBase())
+                return (from user in context.Users
+                        where user.UserID == LoginView.UserId
+                        join userRole in context.User_Roles on user.UserID equals userRole.UserID
+                        join role in context.Roles on userRole.RoleID equals role.RoleID
+                        select role).ToList();
+        }
 
+        public bool LoggedInUserIsRaceCommissioner() =>
+            GetRolesFromLoggedInUser().Any(role => role.RoleName.Equals("Wedstrijd Commissaris"));
     }
 }

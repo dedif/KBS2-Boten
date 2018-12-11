@@ -8,6 +8,7 @@ using Controllers;
 using ScreenSwitcher;
 using BataviaReseveringsSysteem;
 using BataviaReseveringsSysteem.Database;
+using System.Collections.Generic;
 
 namespace Views
 {
@@ -17,6 +18,7 @@ namespace Views
     public partial class Register : UserControl
     {
 	    DataBaseController dbc = new DataBaseController();
+        UserController uc = new UserController();
 
         public Register()
         {
@@ -37,6 +39,13 @@ namespace Views
                     dbc.Add_Diploma("B3");
                 }
 
+                if (!context.Genders.Any(z => z.GenderName == "Man" || z.GenderName == "Vrouw" || z.GenderName == "Anders"))
+                {
+                    uc.Add_Gender("Man");
+                    uc.Add_Gender("Vrouw");
+                    uc.Add_Gender("Anders");
+                  
+                }
 
                 // als er nog geen rollen in de database staan maak dan deze rollen aan
                 if (!context.Roles.Any(z => z.RoleName == "Reparateur" || z.RoleName == "Coach" || z.RoleName == "Wedstrijd Commissaris" || z.RoleName == "Examinator" || z.RoleName == "Bestuur"))
@@ -96,15 +105,15 @@ namespace Views
              Switcher.Switch(new LoginView());
         }
 
-        //Register member of user
+        //Register user of user
         private void ButtonRegister(object sender, RoutedEventArgs e)
         {
             if (RegisterController.Register(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword))
             {
                 using (DataBase context = new DataBase()) {
-
+                    List<CheckBox> CheckBoxList = new List<CheckBox>() { Reparateur, Commissaris, Examinator, Coach, Administrator };
                   
-                    foreach (CheckBox c in RegisterLayout.Children.OfType<CheckBox>())
+                    foreach (CheckBox c in CheckBoxList)
                     {
                         if (c.IsChecked == true)
                         {
@@ -112,12 +121,12 @@ namespace Views
                             //int.Parse(c.Tag.ToString());
 
 
-                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null);
+                            var User_Roles = context.User_Roles.Any(x => x.RoleID == roleID && x.DeletedAt == null);
 
-                            var LastUserID = context.Users.Select(x => x.PersonID).ToList().Last();
-                            var max = context.Users.OrderByDescending(p => p.PersonID).FirstOrDefault().PersonID;
+                            var LastUserID = context.Users.Select(x => x.UserID).ToList().Last();
+                            var max = context.Users.OrderByDescending(p => p.UserID).FirstOrDefault().UserID;
 
-                            dbc.Add_MemberRole(roleID, max);
+                            dbc.Add_UserRole(roleID, max);
                            
 
 
@@ -125,7 +134,14 @@ namespace Views
                         }
                     }
                 }
+                try
+                {
                     Switcher.Switch(new Dashboard());
+                } catch
+                {
+                    Switcher.Switch(new LoginView());
+                }
+                    
             }
             else
             {

@@ -8,25 +8,17 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Boat_Diploma
+    public class User_Diploma
     {
-
-        [Key,ForeignKey("Boat") , Column(Order =0)]
-        public int BoatID { get; set; }
+        [Key,ForeignKey("User"), Column(Order =0)]
+        public int UserID { get; set; }
         [Key,ForeignKey("Diploma"), Column(Order =1)]
         public int DiplomaID { get; set; }
-        public Boat Boat { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
+
+        public User User { get; set; }
         public Diploma Diploma { get; set; }
-
-        public Boat_Diploma(int boatID, int diplomaID)
-        {
-            BoatID = boatID;
-            DiplomaID = diplomaID;
-        }
-
-        public Boat_Diploma()
-        {
-
-        }
     }
 }

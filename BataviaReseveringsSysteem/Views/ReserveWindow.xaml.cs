@@ -1,9 +1,12 @@
-﻿using Controllers;
+﻿using System;
+using Controllers;
 using Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using BataviaReseveringsSysteem.Reservations;
+using ScreenSwitcher;
 
 namespace Views
 {
@@ -15,21 +18,38 @@ namespace Views
         public ReserveWindow()
         {
             InitializeComponent();
-            var boats = new BoatController().BoatList();
-            var reservations = new ReservationController().GetReservations();
-            AddBoatTypeTabs(boats, reservations);
         }
 
-        // deze methode zorgt voor de tabbladen met de types boten bovenaan in het scherm
-        private void AddBoatTypeTabs(IReadOnlyCollection<Boat> boats, List<Reservation> reservations)
+        public void Populate()
         {
-            foreach (var boatType in GetDifferentBoatTypes(boats))
-                BoatTypeTabControl.Items.Add(new BoatTypeTabItem(boatType, reservations));
+            var boats = new BoatController().GetBoatsReservableWithThisUsersDiplomas();
+            Console.WriteLine(boats);
+            if (boats.Count == 0)
+            {
+                MessageBox.Show("Je kan met jouw diploma's geen enkele boot afschrijven");
+                Switcher.Switch(new Dashboard());
+                return;
+            }
+            var reservations = new ReservationController().GetReservations();
+            AddBoatTypeTabs(boats, reservations);
+		}
+		
+        // deze methode zorgt voor de tabbladen met de types boten bovenaan in het scherm
+        private void AddBoatTypeTabs(List<Boat> boats, List<Reservation> reservations)
+        {
+            BoatTypeTabControl.Items.Add(new BoatTypeTabItem(boats, reservations));
         }
+        
+       
         private IEnumerable<Boat.BoatType> GetDifferentBoatTypes(IEnumerable<Boat> boats) =>
             boats.Select(boat => boat.Type).Distinct();
 
         private IEnumerable<Boat> GetBoatsForBoatType(IEnumerable<Boat> allBoats, Boat.BoatType boatType) =>
             allBoats.Where(boat => boat.Type == boatType);
+
+        //        private List<Boat> GetBoatsReservableWithThisDiploma(List<Boat> allBoats)
+        //        {
+        //            
+        //        }
     }
 }

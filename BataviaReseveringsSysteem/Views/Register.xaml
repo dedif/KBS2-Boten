@@ -23,17 +23,17 @@
                   HorizontalAlignment="Left" Height="25" Margin="144,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140"/>
         <TextBox  x:Name="Middlename" 
                   materialDesign:HintAssist.Hint="Tussenvoegsel"
-                  HorizontalAlignment="Left" Height="25" Margin="345,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85"/>
+                  HorizontalAlignment="Left" Height="25" Margin="345,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="90"/>
         <TextBox x:Name="Lastname" 
                  materialDesign:HintAssist.Hint="Achternaam"
                  HorizontalAlignment="Left" Height="25" Margin="545,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Grid.ColumnSpan="2"/>
         <ComboBox x:Name="Gender" HorizontalAlignment="Left"
-                  materialDesign:HintAssist.Hint="Selecteer uw geslacht"
+                  materialDesign:HintAssist.Hint="Geslacht"
                   Margin="144,160,0,0" VerticalAlignment="Top" Width="140"   IsEditable="True" IsReadOnly="True">
 
             <ComboBoxItem x:Name="Men" Tag="1" >Man</ComboBoxItem>
             <ComboBoxItem x:Name="Woman" Tag="2">Vrouw</ComboBoxItem>
-            <ComboBoxItem x:Name="Something" Tag="3">Apache helicopter</ComboBoxItem>
+            <ComboBoxItem x:Name="Other" Tag="3">Anders</ComboBoxItem>
         </ComboBox>
         <TextBox PreviewTextInput="NumberValidationTextBox" 
                  materialDesign:HintAssist.Hint="01"

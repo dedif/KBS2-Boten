@@ -1,8 +1,19 @@
 ﻿using BataviaReseveringsSysteem.Database;
 using ScreenSwitcher;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace BataviaReseveringsSysteem.Views
 {
@@ -73,8 +84,8 @@ namespace BataviaReseveringsSysteem.Views
                 }
 
                 var MemberDiplomas = from x in context.MemberDiplomas
-                                     where x.PersonID == personID && x.Deleted_at == null
-                                     select x;
+                                  where x.PersonID == personID && x.Deleted_at == null
+                                  select x;
 
                 foreach (var memberRole in MemberDiplomas)
                 {
@@ -118,8 +129,7 @@ namespace BataviaReseveringsSysteem.Views
 
         private void ButtonConfirm(object sender, RoutedEventArgs e)
         {
-            using (DataBase context = new DataBase())
-            {
+            using(DataBase context = new DataBase()) {
                 foreach (CheckBox c in EditDiplomaLayout.Children.OfType<CheckBox>())
                 {
                     if (c.IsChecked == true)
@@ -165,7 +175,7 @@ namespace BataviaReseveringsSysteem.Views
 
             Switcher.Switch(new DiplomaList());
         }
-
+                
 
 
 
@@ -175,3 +185,5 @@ namespace BataviaReseveringsSysteem.Views
         }
     }
 }
+
+
