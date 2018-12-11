@@ -36,6 +36,7 @@ namespace Controllers
             {
                 var result = context.Users.Select(x => x).Where(x => x.DeletedAt == null).ToList();
 
+               
 
                 if (result.Count > 0)
                 {
@@ -52,7 +53,18 @@ namespace Controllers
                         LoginError.UpdateLayout();
                         Username.UpdateLayout();
                         Password.UpdateLayout();
+                        if(Username.Text == "" && Password.Password == "")
+                        {
+                            Password.BorderBrush = Brushes.Red;
+                            Password.BorderThickness = new Thickness(2);
 
+                            Username.BorderBrush = Brushes.Red;
+                            Username.BorderThickness = new Thickness(2);
+
+                            LoginError.Content = "De gegevens komen niet overeen.";
+                            LoginError.UpdateLayout();
+                            Password.UpdateLayout();
+                        }
                         if (Username.Text != "")
                         {
                             if (results.UserID.Equals(int.Parse(Username.Text)))
@@ -63,20 +75,20 @@ namespace Controllers
                                     {
                                         return true;
                                     }
-                                
-                                else
-                                {
 
-                                    Password.BorderBrush = Brushes.Red;
-                                    Password.BorderThickness = new Thickness(2);
+                                    else
+                                    {
 
-                                    LoginError.Content = "De gegevens komen niet overeen.";
-                                    Username.BorderBrush = Brushes.Red;
-                                    Username.BorderThickness = new Thickness(2);
-                                    LoginError.UpdateLayout();
-                                    Password.UpdateLayout();
-                                    return false;
-                                }
+                                        Password.BorderBrush = Brushes.Red;
+                                        Password.BorderThickness = new Thickness(2);
+
+                                        LoginError.Content = "De gegevens komen niet overeen.";
+                                        Username.BorderBrush = Brushes.Red;
+                                        Username.BorderThickness = new Thickness(2);
+                                        LoginError.UpdateLayout();
+                                        Password.UpdateLayout();
+                                        return false;
+                                    }
                                 }
                                 else
                                 {
@@ -108,6 +120,7 @@ namespace Controllers
                 else
                 {
                     MessageBox.Show("De gegevens komen niet overeen.");
+
                     return false;
                 }
 

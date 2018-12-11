@@ -53,7 +53,6 @@ namespace Views
                 int username = int.Parse(Username.Text);
                 using (DataBase context = new DataBase())
                 {
-
                     var user = (
                         from data in context.Users
                         where data.UserID == username 
@@ -65,10 +64,6 @@ namespace Views
                     user.LastLoggedIn = DateTime.Now;
                     context.SaveChanges();
                 }
-            }
-            else
-            {
-                Switcher.Switch(new LoginView());
             }
 
         }
