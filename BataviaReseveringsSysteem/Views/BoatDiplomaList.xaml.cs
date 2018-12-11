@@ -27,11 +27,11 @@ namespace Views
         public BoatDiplomaList()
         {
             InitializeComponent();
-            Load();
+            Load("");
         }
 
 
-        private void Load()
+        private void Load(string searchtext)
         {
 
 
@@ -39,7 +39,7 @@ namespace Views
             {
 
 
-                var boats = (from u in context.Boats
+                var boats = (from u in context.Boats where u.DeletedAt == null && u.Name.Contains(searchtext) 
                              select u).ToList();
 
                 foreach (Boat u in boats)
@@ -122,7 +122,11 @@ namespace Views
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            for (int i = 0; DataBoatList.Items.Count > i;)
+            {
+                DataBoatList.Items.RemoveAt(i);
+            }
+            Load(Search.Text);
 
         }
 
