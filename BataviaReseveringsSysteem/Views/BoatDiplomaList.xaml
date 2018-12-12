@@ -32,8 +32,8 @@
                 <DataGridTextColumn x:Name="BoatID" Width="auto"    Binding="{Binding BoatID}" Header="Bootnummer" IsReadOnly="true" />
                 <DataGridTextColumn x:Name="Name"    Binding="{Binding Name}" Header="Bootnaam" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Type"  Binding="{Binding  Type}" Header="Type" IsReadOnly="true"/>
-                <DataGridTextColumn x:Name="S1"  Binding="{Binding S1}" Header="S1" IsReadOnly="False"  />
-                <DataGridTextColumn x:Name="S2"  Binding="{Binding S2}" Header="S2" IsReadOnly="False"/>
+                <DataGridTextColumn x:Name="S1"  Binding="{Binding S1}" Header="S1" IsReadOnly="true"  />
+                <DataGridTextColumn x:Name="S2"  Binding="{Binding S2}" Header="S2" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="S3"  Binding="{Binding S3}" Header="S3" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="B1"  Binding="{Binding B1}" Header="B1" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="B2"  Binding="{Binding B2}" Header="B2" IsReadOnly="true"/>
