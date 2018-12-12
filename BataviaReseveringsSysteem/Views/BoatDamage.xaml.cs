@@ -135,5 +135,26 @@ namespace Views
                 reserved = " Deze boot is in de toekomst gereserveerd.";
             }
         }
+     
+        private void NameboatCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        
+            OtherDamages.Text = "Gemaakte schades:";
+            using (DataBase context = new DataBase())
+            {
+                var SelectedBoat = (
+                    from data in context.Damages
+                    join boats in context.Boats
+                    on data.BoatID equals boats.BoatID
+                    where boats.Name == (string)NameboatCombo.SelectedValue
+                    select data.Description).ToList();
+
+                foreach (string description in SelectedBoat)
+                {
+                    OtherDamages.Text += "\n- " + description + "\n";
+                }
+            }
+        }
+
     }
 }
