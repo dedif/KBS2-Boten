@@ -186,48 +186,53 @@ namespace Views
                 using (DataBase context = new DataBase())
                 {
 
-                    int BoatLocation = int.Parse(BoatLocationBox.Text);
-                   // bool boatLocationCheck = context.Boats.Where(y => y.BoatID != EditBoatID).Any(x => x.BoatLocation == BoatLocation && x.DeletedAt == null);
+
+                    // bool boatLocationCheck = context.Boats.Where(y => y.BoatID != EditBoatID).Any(x => x.BoatLocation == BoatLocation && x.DeletedAt == null);
 
                     if (b.WeightCheck(WeightBox.Text) == true)
                     {
-
-                        if (b.EditBoatLocationCheck(BoatLocation, EditBoatID) == true)
+                        if (b.LocationCheckIfInt(BoatLocationBox.Text))
                         {
+                            int BoatLocation = int.Parse(BoatLocationBox.Text);
 
-                            double Weight = double.Parse(WeightBox.Text);
-                            int Rowers = int.Parse(RowersCombo.Text);
-                            Boolean Steeringwheel = false;
 
-                            if (SteeringWheelToggle.IsChecked == true)
+                            if (b.EditBoatLocationCheck(BoatLocation, EditBoatID) == true)
                             {
-                                Steeringwheel = true;
-                            }
+
+                                double Weight = double.Parse(WeightBox.Text);
+                                int Rowers = int.Parse(RowersCombo.Text);
+                                Boolean Steeringwheel = false;
+
+                                if (SteeringWheelToggle.IsChecked == true)
+                                {
+                                    Steeringwheel = true;
+                                }
 
 
-                            // if (!boatLocationCheck)
-                            // {
+                                // if (!boatLocationCheck)
+                                // {
 
-                            b.UpdateBoat(EditBoatID, NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation);
-                            MessageBoxResult Succes = MessageBox.Show(
-                             "De boot is succesvol opgeslagen",
-                             "Melding",
-                             MessageBoxButton.OK,
-                             MessageBoxImage.Information);
+                                b.UpdateBoat(EditBoatID, NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation);
+                                MessageBoxResult Succes = MessageBox.Show(
+                                 "De boot is succesvol opgeslagen",
+                                 "Melding",
+                                 MessageBoxButton.OK,
+                                 MessageBoxImage.Information);
 
-                            switch (Succes)
-                            {
-                                case MessageBoxResult.OK:
-                                    Switcher.Switch(new BoatList());
-                                    break;
+                                switch (Succes)
+                                {
+                                    case MessageBoxResult.OK:
+                                        Switcher.Switch(new BoatList());
+                                        break;
 
+                                }
                             }
                         }
-                      //  }
-                     //   else 
-                     //   {
-                            
-                      //  }
+                        //  }
+                        //   else 
+                        //   {
+
+                        //  }
 
 
 
@@ -240,12 +245,12 @@ namespace Views
                         NotificationLabel.Content = b.Notification();
 
 
-                           
-                        
+
+
                     }
                 }
 
-                
+
 
             }
             NotificationLabel.Content = b.Notification();

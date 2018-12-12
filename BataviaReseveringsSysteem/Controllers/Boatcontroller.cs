@@ -53,6 +53,23 @@ namespace Controllers
             }
         }
 
+        public Boolean LocationCheckIfInt(string boatLocation)
+        {
+
+            try
+            {
+                int BoatLocation = int.Parse(boatLocation);
+                return true;
+            }
+            catch
+            {
+
+                notification = "De locatie moet een getal zijn";
+
+                return false;
+            }
+        }
+
         //Deze methode returnd true als naam niet voor komt (anders false)
         public Boolean NameCheck(string name)
         {
