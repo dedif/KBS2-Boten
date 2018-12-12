@@ -319,18 +319,14 @@ namespace Controllers
                      join userDiploma in context.User_Diplomas on boatDiploma.DiplomaID equals userDiploma.DiplomaID
                      where userDiploma.UserID == LoginView.UserId
                      where boatDiploma.BoatID == boat.BoatID
-                     where !(
-                         from damage in context.Damages
-                         where damage.BoatID == boat.BoatID
-                         where damage.Status.Equals("Zware schade")
-                         where !damage.TimeOfFix.HasValue
-                         select damage).Any()
+                     where boat.Broken == false
                      select boat).Distinct().Concat(
                         from boat in context.Boats
                         where !(
                             from boatDiploma in context.Boat_Diplomas
                             where boatDiploma.BoatID == boat.BoatID
                             select boatDiploma).Any()
+                        where boat.Broken == false
                         select boat).ToList();
             }
         }
