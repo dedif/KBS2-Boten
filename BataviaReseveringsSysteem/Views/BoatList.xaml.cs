@@ -28,7 +28,7 @@ namespace Views
         {
 
             //DataUserList.ItemsSource = context.Users.ToList();
-            var boat = (from x in context.Boats where x.DeletedAt == null select x).ToList();
+            var boat = (from x in context.Boats where x.DeletedAt == null where x.Deleted == false select x).ToList();
 
 
             DataBoatList.ItemsSource = boat;

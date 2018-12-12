@@ -19,6 +19,8 @@ namespace Models
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
         public bool Broken { get; set; } = false;
+        public bool Deleted { get; set; } 
+        public DateTime? DateOfDeleted { get; set; } 
 
         public Boat(string name, BoatType type, int numberOfRowers, double weight, bool steering, DateTime createdAt)
         {

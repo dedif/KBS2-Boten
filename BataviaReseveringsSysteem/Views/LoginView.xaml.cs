@@ -61,7 +61,7 @@ namespace Views
                     UserId = user.UserID;
                     Switcher.MenuMaker();
                     Switcher.Switch(new Dashboard());
-                    user.LastLoggedIn = DateTime.Now;
+                    BoatController.DeletedNotification(user.LastLoggedIn);
                     context.SaveChanges();
                 }
             }

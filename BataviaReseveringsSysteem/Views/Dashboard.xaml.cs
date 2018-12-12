@@ -67,7 +67,6 @@ namespace Views
             dashboardController.Notification(loggedUser.LastLoggedIn);
 
 
-
         }
 
    

@@ -3,6 +3,7 @@ using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using Views;
 
@@ -12,6 +13,43 @@ namespace Controllers
     {
         private string notification;
 
+        public static void DeletedNotification(DateTime lastLogged)
+        {
+            using (DataBase context = new DataBase())
+            {
+                //pakt alle reserveringen waarvan de boten verwijderd zijn
+                var DeletedBoats = (from data in context.Boats
+                                    join a in context.Reservations
+                                    on data.BoatID equals a.BoatID
+                                    where data.DateOfDeleted > lastLogged
+                                    where data.Deleted == true
+                                    where a.Deleted == null
+                                    select a).ToList();
+
+                var User = (from data in context.Users
+                            where data.UserID == LoginView.UserId
+                            select data).Single();
+
+                if (DeletedBoats.Count() == 1)
+                {
+                    MessageBoxResult DeletedNotification = MessageBox.Show(
+                        "Uw afschrijvingen zijn gewijzigd omdat een boot is verwijderd",
+                        "Melding",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
+                if (DeletedBoats.Count() > 1)
+                {
+                    MessageBoxResult DeletedNotification = MessageBox.Show(
+                        "Uw afschrijvingen zijn gewijzigd omdat meerdere boten zijn verwijderd",
+                        "Melding",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
+                User.LastLoggedIn = DateTime.Now;
+                context.SaveChanges();
+            }
+        }
         public string Notification()
         {
             return notification;
@@ -161,8 +199,26 @@ namespace Controllers
 
                 if (delBoat != null)
                 {
+                    var User = (from data in context.Users
+                                where data.UserID == LoginView.UserId
+                                select data).Single();
 
+                    var Reservations = (from data in context.Reservations
+                                        where data.BoatID == delBoat.BoatID
+                                        select data).ToList();
+
+                  
                     delBoat.DeletedAt = DateTime.Now;
+                    delBoat.Deleted = true;
+                    delBoat.DateOfDeleted = DateTime.Now;
+                    context.SaveChanges();
+                    BoatController.DeletedNotification(User.LastLoggedIn);
+                    User.LastLoggedIn = DateTime.Now;
+
+                    foreach (Reservation r in Reservations)
+                    {
+                        r.Deleted = DateTime.Now;
+                    }
 
                     context.SaveChanges();
                 }
