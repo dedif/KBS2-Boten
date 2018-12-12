@@ -35,8 +35,8 @@
                 <DataGridTextColumn x:Name="Firstname"    Binding="{Binding Firstname}" Header="Voornaam" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Middlename"  Binding="{Binding  Middlename}" Header="Tussenvoegsel" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Lastname"  Binding="{Binding Lastname}" Header="Achternaam" IsReadOnly="true"/>
-                <DataGridTextColumn x:Name="S1"  Binding="{Binding S1}" Header="S1" IsReadOnly="False"  />
-                <DataGridTextColumn x:Name="S2"  Binding="{Binding S2}" Header="S2" IsReadOnly="False"/>
+                <DataGridTextColumn x:Name="S1"  Binding="{Binding S1}" Header="S1" IsReadOnly="true"  />
+                <DataGridTextColumn x:Name="S2"  Binding="{Binding S2}" Header="S2" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="S3"  Binding="{Binding S3}" Header="S3" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="B1"  Binding="{Binding B1}" Header="B1" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="B2"  Binding="{Binding B2}" Header="B2" IsReadOnly="true"/>
