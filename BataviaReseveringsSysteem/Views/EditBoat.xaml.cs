@@ -187,11 +187,13 @@ namespace Views
                 {
 
                     int BoatLocation = int.Parse(BoatLocationBox.Text);
-                    bool boatLocationCheck = context.Boats.Where(y => y.BoatID != EditBoatID).Any(x => x.BoatLocation == BoatLocation && x.DeletedAt == null);
-                    var CheckIfExist = context.Boats.Where(x => x.BoatLocation == BoatLocation && x.DeletedAt == null).Select(z => z.BoatID);
+                   // bool boatLocationCheck = context.Boats.Where(y => y.BoatID != EditBoatID).Any(x => x.BoatLocation == BoatLocation && x.DeletedAt == null);
 
                     if (b.WeightCheck(WeightBox.Text) == true)
                     {
+
+                        if (b.EditBoatLocationCheck(BoatLocation, EditBoatID) == true)
+                        {
 
                             double Weight = double.Parse(WeightBox.Text);
                             int Rowers = int.Parse(RowersCombo.Text);
@@ -203,8 +205,8 @@ namespace Views
                             }
 
 
-                        if (!boatLocationCheck)
-                        {
+                            // if (!boatLocationCheck)
+                            // {
 
                             b.UpdateBoat(EditBoatID, NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation);
                             MessageBoxResult Succes = MessageBox.Show(
@@ -220,18 +222,19 @@ namespace Views
                                     break;
 
                             }
-
                         }
-                        else
-                        {
-                            NotificationLabel.Content = "De boot bestaat al";
-                        }
+                      //  }
+                     //   else 
+                     //   {
+                            
+                      //  }
 
 
 
 
 
-                      
+
+
 
 
                         NotificationLabel.Content = b.Notification();

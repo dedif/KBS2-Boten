@@ -13,6 +13,7 @@ namespace Views
         private Label WeightLabel { get; set; }
         private Label AmountOfRowersLabel { get; set; }
         private Label SteermanLabel { get; set; }
+        private Label BoatLocation { get; set; }
 
         public BoatView()
         {
@@ -24,9 +25,10 @@ namespace Views
             TypeLabel = new Label();
             WeightLabel = new Label();
             AmountOfRowersLabel = new Label();
+            BoatLocation = new Label();
             SteermanLabel = new Label();
             var marginTop = 0;
-            foreach (var label in new[] { NameLabel, TypeLabel, WeightLabel, AmountOfRowersLabel, SteermanLabel })
+            foreach (var label in new[] { NameLabel, TypeLabel, WeightLabel, AmountOfRowersLabel, SteermanLabel, BoatLocation })
             {
                 label.HorizontalAlignment = HorizontalAlignment.Left;
                 label.VerticalAlignment = VerticalAlignment.Top;
@@ -51,6 +53,7 @@ namespace Views
             AmountOfRowersLabel.Content = $"Aantal roeiers: {boat.NumberOfRowers}";
             SteermanLabel.Content = "Stuurman? ";
             SteermanLabel.Content += boat.Steering ? "Ja" : "Nee";
+            BoatLocation.Content = $"Locatie: {boat.BoatLocation}";
         }
     }
 }

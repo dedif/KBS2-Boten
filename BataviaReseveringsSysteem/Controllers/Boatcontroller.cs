@@ -107,9 +107,9 @@ namespace Controllers
             }
         }
 
-        public Boolean BoatLocationEditCheck(int boatLocation, int boatID)
+        public Boolean EditBoatLocationCheck(int boatLocation, int boatID)
         {
-            
+
             using (DataBase context = new DataBase())
 
             {
@@ -118,19 +118,19 @@ namespace Controllers
                                          where b.DeletedAt == null
                                          select b.BoatLocation).ToList();
 
-                var BoatLocation = context.Boats.Where(x => x.BoatID != boatID).Any(x => x.BoatLocation == boatLocation && x.DeletedAt == null);
+                bool boatLocationCheck = context.Boats.Where(y => y.BoatID != boatID).Any(x => x.BoatLocation == boatLocation && x.DeletedAt == null);
 
-
-                if (BoatLocation)
+                if (!boatLocationCheck)
                 {
-                    
+
                     return true;
 
-                } else
+                }
+                else
                 {
                     notification = "Deze boot locatie bestaat al";
                     return false;
-                } 
+                }
             }
 
         }
