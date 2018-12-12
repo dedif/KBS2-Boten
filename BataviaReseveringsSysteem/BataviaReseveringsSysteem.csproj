@@ -117,9 +117,6 @@
     <Compile Include="Views\EditBoatDiplomaView.xaml.cs">
       <DependentUpon>EditBoatDiplomaView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ReservationView.xaml.cs">
-      <DependentUpon>ReservationView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\UserDiplomaList.xaml.cs">
       <DependentUpon>UserDiplomaList.xaml</DependentUpon>
     </Compile>
@@ -175,10 +172,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\EditBoatDiplomaView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ReservationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

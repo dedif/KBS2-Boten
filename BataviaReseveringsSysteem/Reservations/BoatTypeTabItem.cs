@@ -177,7 +177,7 @@ namespace BataviaReseveringsSysteem.Reservations
                 HorizontalAlignment = HorizontalAlignment.Left,
                 Width = 120,
                 Height = 45,
-                Margin = new Thickness(285, 87, 0, 0),
+                Margin = new Thickness(285, 127, 0, 0),
                 SelectedIndex = 0,
                 FontSize = 16
  
@@ -216,7 +216,7 @@ namespace BataviaReseveringsSysteem.Reservations
             BoatNamesComboBox.Height = 45;
             BoatNamesComboBox.FontSize = 16;
             BoatNamesComboBox.HorizontalAlignment = HorizontalAlignment.Left;
-            BoatNamesComboBox.Margin = new Thickness(20, 87, 0, 0);
+            BoatNamesComboBox.Margin = new Thickness(20, 127, 0, 0);
             // De combobox selecteert bij openen van het scherm de eerste boot
             BoatNamesComboBox.SelectedIndex = 0;
             BoatNamesComboBox.DropDownClosed += OnBoatNamesComboBoxClicked;
@@ -237,7 +237,7 @@ namespace BataviaReseveringsSysteem.Reservations
             ReservationDurationComboBox.Height = 45;
             ReservationDurationComboBox.FontSize = 16;
             ReservationDurationComboBox.HorizontalAlignment = HorizontalAlignment.Left;
-            ReservationDurationComboBox.Margin = new Thickness(510, 87, 0, 0);
+            ReservationDurationComboBox.Margin = new Thickness(510, 127, 0, 0);
             ReservationDurationComboBox.SelectedIndex = 0;
             ReservationDurationComboBox.Items.Add("00:15");
             ReservationDurationComboBox.Items.Add("00:30");
