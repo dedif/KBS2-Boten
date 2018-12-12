@@ -84,33 +84,52 @@ namespace Views
 
             var User_Roles = from x in context.User_Roles
                               where x.UserID == id && x.DeletedAt == null
-                              select x;
+                              select x.RoleID;
+
+          
 
             foreach (var userRole in User_Roles)
             {
-                if (userRole.RoleID == int.Parse(Reparateur.Tag.ToString()))
+                if (userRole == int.Parse(Reparateur.Tag.ToString()))
                 {
                     Reparateur.IsChecked = true;
                 }
 
-                if (userRole.RoleID == int.Parse(Coach.Tag.ToString()))
+                if (userRole == int.Parse(Coach.Tag.ToString()))
                 {
                     Coach.IsChecked = true;
                 }
 
-                if (userRole.RoleID == int.Parse(Examinator.Tag.ToString()))
+                if (userRole == int.Parse(Examinator.Tag.ToString()))
                 {
                     Examinator.IsChecked = true;
                 }
-                if (userRole.RoleID == int.Parse(Commissaris.Tag.ToString()))
+                if (userRole == int.Parse(Commissaris.Tag.ToString()))
                 {
                     Commissaris.IsChecked = true;
                 }
-                if (userRole.RoleID == int.Parse(Administrator.Tag.ToString()))
+                if (userRole == int.Parse(Administrator.Tag.ToString()))
                 {
                     Administrator.IsChecked = true;
                 }
+
+              
             }
+
+            // check de rollen van de ingelogte gebruiker en zet rollen op hidden als de gebruiker de rechten niet heeft
+            var Login_User_Role = from x in context.User_Roles
+                                  where x.UserID == LoginView.UserId && x.DeletedAt == null
+                                  select x.RoleID;
+
+            if (!Login_User_Role.Contains(5))
+                {
+                    Reparateur.Visibility = Visibility.Hidden;
+                    Coach.Visibility = Visibility.Hidden;
+                    Examinator.Visibility = Visibility.Hidden;
+                    Commissaris.Visibility = Visibility.Hidden;
+                    Administrator.Visibility = Visibility.Hidden;
+                }
+            
         }
 
         public void UtilizeState(object state)
