@@ -1,0 +1,67 @@
+<UserControl x:Class="Views.NavigationView"        
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+         TextElement.FontWeight="Regular"
+         TextElement.FontSize="13"
+         TextOptions.TextFormattingMode="Ideal"
+         TextOptions.TextRenderingMode="Auto"
+         Background="{DynamicResource MaterialDesignPaper}"
+         FontFamily="{DynamicResource MaterialDesignFont}"
+        Height="50" Width="1024">
+    <Grid x:Name="switcherGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Menu Name="Menu" IsMainMenu="True"  DockPanel.Dock="Top" Grid.Row="0" Grid.Column="0">
+            <MenuItem Header="_Afschrijven">
+                <MenuItem Header="Afschrijvingen maken" x:Name="MakeReservationsBtn" Click="MakeReservationsBtn_Click"></MenuItem>
+                <MenuItem Header="Afschrijvingen inzien" x:Name="SeeReservationsBtn" Click="SeeReservationsBtn_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Schade">
+                <MenuItem Header="Schade melden" x:Name="ReportDamageaBtn" Click="ReportDamageaBtn_Click"></MenuItem>
+                <MenuItem Header="Schade lijst boten" x:Name="seeDamageList" Click="seeDamageListBtn_Click"></MenuItem>
+
+            </MenuItem>
+            <MenuItem Header="_Leden">
+                <MenuItem Header="Leden inzien" IsEnabled="False"  x:Name="SeeUsersBtn" Click="SeeUsersBtn_Click"></MenuItem>
+                <MenuItem Header="Leden toevoegen" IsEnabled="False"  x:Name="AddUsersBtn" Click="AddUsersBtn_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Diploma's">
+                <MenuItem Header="Gebruikers diploma's inzien" x:Name="SeeUserDiplomasBtn" IsEnabled="False" Click="SeeUserDiplomasBtn_Click"></MenuItem>
+                <MenuItem Header="Boot diploma's inzien" x:Name="SeeBoatDiplomasBtn" IsEnabled="False" Click="SeeBoatDiplomasBtn_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Boten">
+                <MenuItem Header="Boten inzien" IsEnabled="False" x:Name="SeeBoatsBtn" Click="SeeBoatsBtn_Click"></MenuItem>
+                <MenuItem Header="Boten toevoegen" IsEnabled="False"  x:Name="AddBoatsBtn" Click="AddBoatsBtn_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Visibility="Hidden" Header="_Nieuws">
+                <MenuItem Header="Wedstrijden"></MenuItem>
+                <MenuItem Header="Competitie"></MenuItem>
+                <MenuItem Header="Toernooien"></MenuItem>
+            </MenuItem>
+            <MenuItem  Visibility="Hidden" Header="_Help">
+                <MenuItem Header="Hulp bij afschrijven"></MenuItem>
+                <MenuItem Header="Hulp bij schade"></MenuItem>
+                <MenuItem Header="Hulp bij certificering"></MenuItem>
+                <MenuItem Header="Hulp bij inloggen"></MenuItem>
+            </MenuItem>
+        </Menu>
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,0" Width="181">
+
+            <Label x:Name="NameLabel" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Content="" Height="37" Width="120"/>
+            <materialDesign:PopupBox StaysOpen="False">
+                <StackPanel>
+                    <Button Content="Uitloggen" Click="LogOutBtn_Click" />
+                </StackPanel>
+            </materialDesign:PopupBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

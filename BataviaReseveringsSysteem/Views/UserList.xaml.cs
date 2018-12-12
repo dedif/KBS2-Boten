@@ -5,6 +5,11 @@ using System.Windows;
 using System.Windows.Controls;
 using ScreenSwitcher;
 using BataviaReseveringsSysteem;
+using BataviaReseveringsSysteem.Views;
+using Controllers;
+using Models;
+
+
 
 namespace Views
 {
@@ -15,8 +20,8 @@ namespace Views
     {
         public static DataGrid DataGrid;
 
-        private DataBase context = new DataBase();
-        private DataBaseController dbc = new DataBaseController();
+        
+        private UserController usc = new UserController();
 
         public UserList()
         {
@@ -24,7 +29,17 @@ namespace Views
             this.HorizontalAlignment = HorizontalAlignment.Center;
 
             Load();
+            using (DataBase context = new DataBase())
+            {
+                var rol = (from data in context.User_Roles
+                           where data.UserID == LoginView.UserId 
+                           select data.RoleID).ToList();
 
+
+
+
+            
+            }
 
         }
 
@@ -40,13 +55,21 @@ namespace Views
         {
 
             //DataUserList.ItemsSource = context.Users.ToList();
-            var user = (from x in context.Users
-                        where x.Deleted_at == null
-                        select x).ToList();
+            using (DataBase context = new DataBase())
+            {
+                var users = (from u in context.Users join g in context.Genders on u.GenderID equals g.GenderID
+                             where u.DeletedAt == null
+                             select new {u.UserID,Firstname = u.Firstname, Middlename = u.Middlename, Lastname = u.Lastname, Gender = g.GenderName , Birthday = u.Birthday, City = u.City, Address = u.Address, Zipcode = u.Zipcode, Phonenumber = u.Phonenumber, Email = u.Email }).ToList();
 
 
-            DataUserList.ItemsSource = user;
 
+
+
+                DataUserList.ItemsSource = users;
+              }
+
+
+            
 
             DataGrid = DataUserList;
 
@@ -60,7 +83,15 @@ namespace Views
         void ButtonDelete(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
-            dbc.Delete_User((int)b.Tag);
+            if (MessageBox.Show("Wilt u deze gebruiker definitief verwijderen?",
+                    "Bevestig verwijdering",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) !=
+                MessageBoxResult.Yes)
+                return;
+            usc.Delete_User((int)b.Tag);
+            
+            
             Switcher.Switch(new UserList());
         }
 
@@ -75,18 +106,16 @@ namespace Views
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
+            using (DataBase context = new DataBase())
+            {
+                DataUserList.ItemsSource = (from x in context.Users join g in context.Genders on x.GenderID equals g.GenderID
+                                            where x.UserID.ToString() == Search.Text || x.Firstname.Contains(Search.Text) || x.Lastname.Contains(Search.Text) || x.City.Contains(Search.Text) || x.Address.Contains(Search.Text) || x.City.Contains(Search.Text) || x.Zipcode.Contains(Search.Text) || x.Email.Contains(Search.Text) || x.Phonenumber.Contains(Search.Text) || x.Birthday.Day.ToString() == Search.Text || x.Birthday.Month.ToString() == Search.Text || x.Birthday.Year.ToString() == Search.Text || g.GenderName.Contains(Search.Text) && x.DeletedAt == null
+                                            select new { x.UserID, Firstname = x.Firstname, Middlename = x.Middlename, Lastname = x.Lastname, Gender = g.GenderName, Birthday = x.Birthday, City = x.City, Address = x.Address, Zipcode = x.Zipcode, Phonenumber = x.Phonenumber, Email = x.Email }).ToList();
 
-            DataUserList.ItemsSource = (from x in context.Users
-                                        where x.PersonID.ToString() == Search.Text || x.Firstname.Contains(Search.Text) || x.Lastname.Contains(Search.Text) || x.City.Contains(Search.Text) || x.Address.Contains(Search.Text) || x.City.Contains(Search.Text) || x.Zipcode.Contains(Search.Text) || x.Email.Contains(Search.Text) || x.Phonenumber.Contains(Search.Text) || x.Birthday.Day.ToString() == Search.Text || x.Birthday.Month.ToString() == Search.Text || x.Birthday.Year.ToString() == Search.Text && x.Deleted_at == null
-                                        select x).ToList();
 
 
-            DataGrid = DataUserList;
-        }
-
-        private void BackButton(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new Dashboard());
+                DataGrid = DataUserList;
+            }
         }
     }
 }

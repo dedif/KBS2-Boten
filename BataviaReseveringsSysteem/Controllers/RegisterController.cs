@@ -13,10 +13,14 @@ using Controllers;
 
 namespace Controllers
 {
+
+
     public class RegisterController
     {
-        //Register member of user
-        public static Boolean Registreren(TextBox Firstname, 
+
+        //Register user of user
+
+        public static Boolean Register(TextBox Firstname, 
                                      TextBox Middlename, 
                                      TextBox Lastname, 
                                      TextBox City,
@@ -54,7 +58,7 @@ namespace Controllers
                 }
                 if (item.Name == "Firstname" || item.Name == "Lastname" || item.Name == "Middlename" || item.Name == "City")
                 {
-                    if (!IsAllLetters(item.Text))
+                    if (!DoesletterOnlyTextboxContainNumber(item.Text))
                     {
                         ErrorAlert(item);
                         validate = false;
@@ -66,6 +70,12 @@ namespace Controllers
             Password.BorderThickness = new Thickness(1);
             ConfirmPassword.BorderBrush = Brushes.Gray;
             ConfirmPassword.BorderThickness = new Thickness(1);
+
+            //update gender layout
+            Gender.BorderBrush = Brushes.Gray;
+            Gender.BorderThickness = new Thickness(1);
+  
+
             // check if passwords are filled 
             if (Password.Password == "")
             {
@@ -106,7 +116,6 @@ namespace Controllers
                 valDate = false;
             }
 
-            int GenderID = int.Parse(((ComboBoxItem)Gender.SelectedItem).Tag.ToString());
 
             // email validation
             if (Email.Text != "" && !IsEmailValid(Email.Text))
@@ -122,6 +131,13 @@ namespace Controllers
                 dt = DateTime.ParseExact(BirthdayText, "dd-MM-yyyy", CultureInfo.InvariantCulture);
             }
 
+            // Checked of gender is geselecteerd
+              if (Gender.SelectedIndex == -1)
+            {
+                ErrorAlertGender(Gender);
+                validate = false;
+            }
+           
 
             // validate passwords
             if (Password.Password == "")
@@ -146,8 +162,8 @@ namespace Controllers
             // add user to database
             if (validate && valDate)
             {
-                
-                
+                int GenderID = int.Parse(((ComboBoxItem)Gender.SelectedItem).Tag.ToString());
+
                 u.Add_User(savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
                 MessageBoxResult result = MessageBox.Show("Het account is aangemaakt, het lidnummer is " + u.GetID());
                 return true;
@@ -159,7 +175,7 @@ namespace Controllers
            
         }
         // check if there are no numbers in inputbox
-        public static bool IsAllLetters(string s)
+        public static bool DoesletterOnlyTextboxContainNumber(string s)
         {
             foreach (char c in s)
             {
@@ -206,6 +222,13 @@ namespace Controllers
             T.BorderBrush = Brushes.Red;
             T.BorderThickness = new Thickness(2);
             T.UpdateLayout();
+        }
+
+        public static void ErrorAlertGender(ComboBox C)
+        {
+            C.BorderBrush = Brushes.Red;
+            C.BorderThickness = new Thickness(2);
+            C.UpdateLayout();
         }
         public static void ErrorAlertPassword(PasswordBox P)
         {

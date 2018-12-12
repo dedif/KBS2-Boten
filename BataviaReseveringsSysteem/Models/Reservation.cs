@@ -1,32 +1,39 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Views;
 
 namespace Models
 {
     public class Reservation
     {
+        //primaire sleutel voor de database
         [Key]
         public int ReservationID { get; set; }
 
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
-        public Boat Boat { get; set; }
-        public Member Member { get; set; }
-        public Boolean Deleted { get; set; } = false;
 
-        public Reservation(Boat boat, Member member, DateTime start, DateTime end)
+        [ForeignKey("Boat")]
+        public int BoatID { get; set; }
+        [ForeignKey("User")]
+        public int UserId { get; set; }
+        public DateTime? Deleted { get; set; }
+        public User User { get; set; }
+        public Boat Boat { get; set; }
+        public Reservation(Boat boat, DateTime start, DateTime end)
         {
-            Member = member;
-            Boat = boat;
+            UserId = LoginView.UserId;
+            BoatID = boat.BoatID;
             Start = start;
             End = end;
- 
+
         }
+
         public Reservation()
         {
 
         }
 
-       
     }
 }

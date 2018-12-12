@@ -8,6 +8,7 @@ using Controllers;
 using ScreenSwitcher;
 using BataviaReseveringsSysteem;
 using BataviaReseveringsSysteem.Database;
+using System.Collections.Generic;
 
 namespace Views
 {
@@ -16,29 +17,103 @@ namespace Views
     /// </summary>
     public partial class Register : UserControl
     {
-	DataBaseController dbc = new DataBaseController();
+	    DataBaseController dbc = new DataBaseController();
+        UserController uc = new UserController();
+
         public Register()
         {
             this.InitializeComponent();
             this.HorizontalAlignment = HorizontalAlignment.Center;
+            using (DataBase context = new DataBase())
+            {
+                // als er nog geen diploma's in de database staan maak dan deze diploma's aan.
+                if (!context.Diplomas.Any(z => z.DiplomaName == "S1" || z.DiplomaName == "S2" || z.DiplomaName == "S3" || z.DiplomaName == "P1" || z.DiplomaName == "P2" || z.DiplomaName == "B1" || z.DiplomaName == "B2" || z.DiplomaName == "B3"))
+                {
+                    dbc.Add_Diploma("S1");
+                    dbc.Add_Diploma("S2");
+                    dbc.Add_Diploma("S3");
+                    dbc.Add_Diploma("P1");
+                    dbc.Add_Diploma("P2");
+                    dbc.Add_Diploma("B1");
+                    dbc.Add_Diploma("B2");
+                    dbc.Add_Diploma("B3");
+                }
 
+                if (!context.Genders.Any(z => z.GenderName == "Man" || z.GenderName == "Vrouw" || z.GenderName == "Anders"))
+                {
+                    uc.Add_Gender("Man");
+                    uc.Add_Gender("Vrouw");
+                    uc.Add_Gender("Anders");
+                  
+                }
+
+                // als er nog geen rollen in de database staan maak dan deze rollen aan
+                if (!context.Roles.Any(z => z.RoleName == "Reparateur" || z.RoleName == "Coach" || z.RoleName == "Wedstrijd Commissaris" || z.RoleName == "Examinator" || z.RoleName == "Bestuur"))
+                {
+                    dbc.Add_Role("Reparateur");
+                    dbc.Add_Role("Coach");
+                    dbc.Add_Role("Wedstrijd Commissaris");
+                    dbc.Add_Role("Examinator");
+                    dbc.Add_Role("Bestuur");
+                }
+
+                var Roles = context.Roles.ToList();
+
+                foreach (var role in Roles)
+                {
+                    if("Reparateur" == role.RoleName)
+                    {
+                        Reparateur.Content = role.RoleName;
+                        Reparateur.Tag = role.RoleID;
+                    } 
+                    if("Coach" == role.RoleName)
+                    {
+                        Coach.Content = role.RoleName;
+                        Coach.Tag = role.RoleID;
+
+                    }
+                    if ("Wedstrijd Commissaris" == role.RoleName)
+                    {
+                        Commissaris.Content = role.RoleName;
+                        Commissaris.Tag = role.RoleID;
+
+                    }
+                    if ("Examinator" == role.RoleName)
+                    {
+                        Examinator.Content = role.RoleName;
+                        Examinator.Tag = role.RoleID;
+
+                    }
+                    if ("Bestuur" == role.RoleName)
+                    {
+                        Administrator.Content = role.RoleName;
+                        Administrator.Tag = role.RoleID;
+
+                    }
+                    //Reparateur.Content = role.RoleName[2];
+                    //Coach.Content = role.RoleName[3];
+                    //Commissaris.Content = role.RoleName[4];
+                    //Examinator.Content = role.RoleName[5];
+                    //Administrator.Content = role.RoleName[6];
+                }
+
+            }
         }
-
         //Redirect to DashBoard
         private void Login_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
              Switcher.Switch(new LoginView());
         }
 
-        //Register member of user
+        //Register user of user
         private void ButtonRegister(object sender, RoutedEventArgs e)
         {
-            if (RegisterController.Registreren(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword))
+            if (RegisterController.Register(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword))
             {
                 using (DataBase context = new DataBase()) {
-
-
-                    foreach (CheckBox c in RegisterLayout.Children.OfType<CheckBox>())
+                    List<CheckBox> CheckBoxList = new List<CheckBox>() { Reparateur, Commissaris, Examinator, Coach, Administrator };
+                  
+                    foreach (CheckBox c in CheckBoxList)
                     {
                         if (c.IsChecked == true)
                         {
@@ -46,12 +121,12 @@ namespace Views
                             //int.Parse(c.Tag.ToString());
 
 
-                            var MemberRoles = context.MemberRoles.Any(x => x.RoleID == roleID && x.Deleted_at == null);
+                            var User_Roles = context.User_Roles.Any(x => x.RoleID == roleID && x.DeletedAt == null);
 
-                            var LastUserID = context.Users.Select(x => x.PersonID).ToList().Last();
-                            var max = context.Users.OrderByDescending(p => p.PersonID).FirstOrDefault().PersonID;
+                            var LastUserID = context.Users.Select(x => x.UserID).ToList().Last();
+                            var max = context.Users.OrderByDescending(p => p.UserID).FirstOrDefault().UserID;
 
-                            dbc.Add_MemberRole(roleID, max);
+                            dbc.Add_UserRole(roleID, max);
                            
 
 
@@ -59,7 +134,14 @@ namespace Views
                         }
                     }
                 }
+                try
+                {
                     Switcher.Switch(new Dashboard());
+                } catch
+                {
+                    Switcher.Switch(new LoginView());
+                }
+                    
             }
             else
             {

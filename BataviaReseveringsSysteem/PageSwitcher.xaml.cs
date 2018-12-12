@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BataviaReseveringsSysteem.Database;
+using BataviaReseveringsSysteem.Views;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Views;
 
 namespace ScreenSwitcher
@@ -20,16 +11,56 @@ namespace ScreenSwitcher
     /// </summary>
     public partial class PageSwitcher : Window
     {
+        public Canvas switcherCanvas;
+
+
         public PageSwitcher()
         {
             InitializeComponent();
+            SwitcherContentCanvas();
             Switcher.pageSwitcher = this;
-            Switcher.Switch(new LoginView());
+            using (var context = new DataBase())
+            {
+                if (context.Database.Exists()) Switcher.Switch(new LoginView());
+                else Switcher.Switch(new Register());
+            }
+            
         }
+
+        public void SwitcherContentCanvas()
+        {
+            switcherCanvas = new Canvas
+            {
+
+                Width = 1024,
+                Height = 768,
+                //Margin = new Thickness(0, 100, 0, 0),
+                //HorizontalAlignment = HorizontalAlignment.Left,
+                //VerticalAlignment = VerticalAlignment.Top,
+            };
+            switcherGrid.Children.Add(switcherCanvas);
+        }
+
+
+
+        public void DeleteMenu()
+        {
+            switcherGrid.Children.RemoveAt(1);
+        }
+
+        public void MenuMaker()
+        {
+            NavigationView NavigationView = new NavigationView();
+            Canvas menuCanvas = new Canvas();
+            menuCanvas.Children.Add(NavigationView);
+            switcherGrid.Children.Add(menuCanvas);
+        }
+
 
         public void Navigate(UserControl nextPage)
         {
-            this.Content = nextPage;
+            this.switcherCanvas.Children.Clear();
+            this.switcherCanvas.Children.Add(nextPage);
         }
     }
 }

@@ -4,38 +4,60 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="920" d:DesignWidth="1080" Background="White">
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             Height="768" Width="1024">
     <UserControl.Resources>
         <CollectionViewSource x:Key="UserViewSource"></CollectionViewSource>
     </UserControl.Resources>
     <Grid>
-        <DataGrid x:Name="DataUserList"  CanUserAddRows="false" x:FieldModifier="public" DataContext="{StaticResource UserViewSource}" AutoGenerateColumns="false" HorizontalAlignment="Left" Height="469" Margin="87,80,0,0" VerticalAlignment="Top" Width="895">
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="2" Height="400" x:Name="DataUserList"  CanUserAddRows="false" x:FieldModifier="public" DataContext="{StaticResource UserViewSource}" AutoGenerateColumns="false" VerticalAlignment="Top">
+
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="PersonID" Width="auto"    Binding="{Binding PersonID}" Header="Lidnummer" IsReadOnly="true" />
+                <DataGridTextColumn x:Name="UserID" Width="auto"    Binding="{Binding UserID}" Header="Lidnummer" IsReadOnly="true" />
+
                 <DataGridTextColumn x:Name="Firstname"    Binding="{Binding Firstname}" Header="Voornaam" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Middlename"    Binding="{Binding Middlename}" Header="T.v." IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Lastname"  Binding="{Binding Lastname}" Header="Achternaam" IsReadOnly="true"/>
-                <!--<DataGridTextColumn x:Name="Gender" Binding="{Binding GenderID}" Header="Geslacht" IsReadOnly="true"/>-->
-                <DataGridTextColumn x:Name="Birthday"  Binding="{Binding Birthday, StringFormat=\{0:dd-MM-yyyy\}}" Header="Geboortedatum" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Birthday"  Binding="{Binding Birthday, StringFormat=\{0:dd-MM-yyyy\}}" Header="Geb.Datum" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="City"  Binding="{Binding City}" Header="Woonplaats" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Address"  Binding="{Binding Address}" Header="Adres" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Zipcode"  Binding="{Binding Zipcode}" Header="Postcode" IsReadOnly="true"/>
-                <DataGridTextColumn x:Name="Phonenumber"  Binding="{Binding Phonenumber}" Header="Telefoonnummer" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Phonenumber"  Binding="{Binding Phonenumber}" Header="Tel." IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Email"  Binding="{Binding Email}" Header="Email" IsReadOnly="true"/>
 
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.HeaderTemplate>
-                        
+
                         <DataTemplate>
                             <TextBlock Text="Bewerken" ></TextBlock>
-                            
+
                         </DataTemplate>
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Button x:Name="EditButton" Tag="{Binding PersonID}"  Click="ButtonEdit" Content="Bewerk"/>
-                            </StackPanel>
+
+                            <Button Height="30" Width="30"
+                                x:Name="EditButton" Tag="{Binding UserID}"  Click="ButtonEdit"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                ToolTip="Bewerken">
+                                <materialDesign:PackIcon
+                                Kind="Edit"
+                                Height="20"
+                                Width="15" />
+                            </Button>
+
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -46,22 +68,29 @@
 
                             <TextBlock Text="Verwijderen" ></TextBlock>
                         </DataTemplate>
-                       
+
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Button x:Name="DeleteButton"   Tag="{Binding PersonID}" Content="Delete" />
+                            <StackPanel>
+                                <Button Height="30" Width="30"
+                                    x:Name="DeleteButton"   Tag="{Binding UserID}" Click="ButtonDelete"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                                    ToolTip="Verwijderen">
+                                    <materialDesign:PackIcon
+                                    Kind="Bin"
+                                    Height="20"
+                                    Width="20" />
+                                </Button>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Nieuw lid" Click="RegisterUserButton" HorizontalAlignment="Left" Margin="170,38,0,0" VerticalAlignment="Top" Width="75"/>
-        <TextBox HorizontalAlignment="Left" x:Name="Search" TextChanged="Search_TextChanged" Height="23" Margin="856,38,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Terug" Click="BackButton" HorizontalAlignment="Left" Margin="87,38,0,0" VerticalAlignment="Top" Width="75"/>
-
+        <TextBox x:Name="Search" 
+            materialDesign:HintAssist.Hint="Zoeken"
+            HorizontalAlignment="Right" VerticalAlignment="Bottom" TextChanged="Search_TextChanged" Height="23" Margin="0,0,20,10" TextWrapping="Wrap" Width="120" Grid.Row="1"/>
     </Grid>
     
 </UserControl>

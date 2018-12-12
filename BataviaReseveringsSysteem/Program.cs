@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BataviaReseveringsSysteem.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +9,11 @@ namespace WpfApp13
 {
     class Program
     {
-        //static void Main(string[] args)
+        //private static void Main(string[] args)
         //{
-        //    using (var context = new Database())
+        //    using (var context = new DataBase())
         //    {
-        //        Console.WriteLine(context.Boats);
+        //        Console.WriteLine(context.Diplomas);
         //    }
         //}
     }

@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class MemberRole
+    public class Member_Diploma
     {
         [Key]
-        public int MemberRoleID { get; set; }
-        public int RoleID { get; set; }
+        public int MemberDiplomaID { get; set; }
         public int PersonID { get; set; }
+        public int DiplomaID { get; set; }
         public DateTime Created_at { get; set; }
         public DateTime? Updated_at { get; set; }
         public DateTime? Deleted_at { get; set; }

@@ -9,22 +9,41 @@ namespace Controllers
 {
     public class LoginController
     {
-
-        public static Boolean Login(TextBox Username,PasswordBox Password,Label LoginError){
-
-            UserController u = new UserController();
-
+        public void DeleteOldReservations()
+        {
             using (DataBase context = new DataBase())
             {
-                var Result = context.Users.ToList();
-               
-                
-                if (Result.Count > 0)
+                var Reservations = (from data in context.Reservations
+                                    where data.End < DateTime.Now
+                                    select data).ToList();
+
+                foreach (var r in Reservations)
                 {
-                    foreach (var results in Result)
+                    r.Deleted = DateTime.Now;
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public static Boolean IsLoginDataValid(TextBox Username, PasswordBox Password, Label LoginError)
+        {
+
+
+
+            var u = new UserController();
+
+            using (var context = new DataBase())
+            {
+                var result = context.Users.Select(x => x).Where(x => x.DeletedAt == null).ToList();
+
+               
+
+                if (result.Count > 0)
+                {
+                    foreach (var results in result)
                     {
-                        
-                        string hashedPassword = u.PasswordHash(Password.Password);
+
+                        var hashedPassword = u.PasswordHash(Password.Password);
 
                         Username.BorderBrush = Brushes.Gray;
                         Password.BorderBrush = Brushes.Gray;
@@ -34,16 +53,27 @@ namespace Controllers
                         LoginError.UpdateLayout();
                         Username.UpdateLayout();
                         Password.UpdateLayout();
+                        if(Username.Text == "" && Password.Password == "")
+                        {
+                            Password.BorderBrush = Brushes.Red;
+                            Password.BorderThickness = new Thickness(2);
 
+                            Username.BorderBrush = Brushes.Red;
+                            Username.BorderThickness = new Thickness(2);
+
+                            LoginError.Content = "De gegevens komen niet overeen.";
+                            LoginError.UpdateLayout();
+                            Password.UpdateLayout();
+                        }
                         if (Username.Text != "")
                         {
-                            if (results.PersonID.Equals(int.Parse(Username.Text)))
+                            if (results.UserID.Equals(int.Parse(Username.Text)))
                             {
                                 if (Password.Password != "")
                                 {
                                     if (results.Password.Equals(hashedPassword))
                                     {
-                                       return true;
+                                        return true;
                                     }
 
                                     else
@@ -81,7 +111,7 @@ namespace Controllers
                                 LoginError.Content = "De gegevens komen niet overeen.";
                                 LoginError.UpdateLayout();
                                 Password.UpdateLayout();
-                             
+
                             }
 
                         }
@@ -90,6 +120,7 @@ namespace Controllers
                 else
                 {
                     MessageBox.Show("De gegevens komen niet overeen.");
+
                     return false;
                 }
 

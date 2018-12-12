@@ -17,7 +17,7 @@ using System.Diagnostics;
 
 internal sealed class SunTimes
 {
-    #region Private Data Members
+    #region Private Data Users
 
     private object mLock = new object();
 

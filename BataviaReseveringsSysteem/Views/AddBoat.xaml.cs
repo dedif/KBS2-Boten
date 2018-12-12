@@ -3,6 +3,7 @@ using ScreenSwitcher;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Collections.Generic;
 
 namespace Views
 {
@@ -11,7 +12,7 @@ namespace Views
     /// </summary>
     public partial class AddBoat : UserControl
     {
-        Boatcontroller b = new Boatcontroller();
+        BoatController b = new BoatController();
 
         public AddBoat()
         {
@@ -23,7 +24,7 @@ namespace Views
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new Dashboard());
+            Switcher.Switch(new BoatList());
         }
         //Deze methode checkt op whitespace in de textvelden, de uniekheid van de Naam die is ingevoerd en dat gewicht juist is ingevoerd
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -42,13 +43,18 @@ namespace Views
                         int Rowers = int.Parse(RowersCombo.Text);
                         Boolean Steeringwheel = false;
 
-                        if (SteeringWheelCheckbox.IsChecked == true)
+                        if (SteeringWheelToggle.IsChecked == true)
                         {
                             Steeringwheel = true;
                         }
+                        List<CheckBox> listDiplomaCheckBox = new List<CheckBox> { S1CheckBox, S2CheckBox, S3CheckBox, B1CheckBox, B2CheckBox, B3CheckBox, P1CheckBox, P2CheckBox };
 
+                        //De methode AddBoat wordt aangeroepen om een nieuwe boot toe te voegen aan de database
                         b.AddBoat(NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel);
+                        b.AddDiploma(listDiplomaCheckBox);
 
+
+                        //Als de boot succesvol is toegevoegd aan de database, laat de applicatie een pop-up scherm zien. 
                         NotificationLabel.Content = b.Notification();
 
                         MessageBoxResult Succes = MessageBox.Show(
@@ -71,6 +77,7 @@ namespace Views
             NotificationLabel.Content = b.Notification();
         }
 
+
         private void TypCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
            
@@ -78,21 +85,18 @@ namespace Views
                 {
                 RowersCombo.SelectedIndex = 0;
                 RowersCombo.IsEnabled = false;
-                SteeringWheelCheckbox.IsChecked = false;
-                SteeringWheelCheckbox.IsEnabled = false;
+                SteeringWheelToggle.IsChecked = false;
+                SteeringWheelToggle.IsEnabled = false;
                 SkiffLabel.Visibility = Visibility.Visible;
                 }
             else 
             {
            
                 RowersCombo.IsEnabled = true;
-                SteeringWheelCheckbox.IsChecked = true;
-                SteeringWheelCheckbox.IsEnabled = true;
+                SteeringWheelToggle.IsEnabled = true;
                 SkiffLabel.Visibility = Visibility.Hidden;
             }
         }
-
-      
     }
 }
 
