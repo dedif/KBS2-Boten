@@ -118,6 +118,12 @@ namespace Views
 
         }
 
+        private void EditUserBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new EditUser(LoginView.UserId));
+
+        }
+
         private void MakeReservationsBtn_Click(object sender, RoutedEventArgs e)
         {
             var reserveWindow = new ReserveWindow();
