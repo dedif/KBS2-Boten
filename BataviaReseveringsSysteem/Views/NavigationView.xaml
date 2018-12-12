@@ -56,8 +56,10 @@
         </Menu>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,-675,0" Width="865">
             <Label x:Name="NameLabel" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Content="" Height="37" Width="120"/>
-            <materialDesign:PopupBox StaysOpen="False">
+            <materialDesign:PopupBox Width="120" StaysOpen="False">
                 <StackPanel>
+                    <Button Content="Account"/>
+                    <Separator/>
                     <Button Content="Uitloggen" Click="LogOutBtn_Click" />
                 </StackPanel>
             </materialDesign:PopupBox>

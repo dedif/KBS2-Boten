@@ -15,7 +15,6 @@
     <Grid x:Name="RegisterLayout">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TextBox  x:Name="Firstname" 

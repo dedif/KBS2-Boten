@@ -55,7 +55,7 @@ namespace Views
                 {
                     var user = (
                         from data in context.Users
-                        where data.UserID == username && data.DeletedAt == null
+                        where data.UserID == username 
                         select data).Single();
 
                     UserId = user.UserID;
