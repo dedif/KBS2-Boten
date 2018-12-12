@@ -22,7 +22,7 @@ namespace Views
 
         public void Populate()
         {
-            var boats = new BoatController().GetBoatsReservableWithThisUsersDiplomas();
+            var boats = new BoatController().GetBoatsReservableWithThisUsersDiplomasThatAreNotBroken();
             Console.WriteLine(boats);
             if (boats.Count == 0)
             {

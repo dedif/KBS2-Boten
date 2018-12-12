@@ -109,7 +109,7 @@ namespace Controllers
 
             {
                 var BoatExists = (from b in context.Boats
-                                  where b.BoatID == boatID && b.Name == name && b.Type .ToString() == type && b.NumberOfRowers == rowers && b.Weight == weight && b.Steering == steering
+                                  where b.BoatID == boatID && b.Name == name && b.Type.ToString() == type && b.NumberOfRowers == rowers && b.Weight == weight && b.Steering == steering
                                   select b).ToList<Boat>();
                 if (BoatExists.Count > 0)
                 {
@@ -170,14 +170,14 @@ namespace Controllers
 
 
         }
- 
 
-        public void UpdateBoat(int boatID, string name,string type, int rowers, double weight, bool steeringwheel)
+
+        public void UpdateBoat(int boatID, string name, string type, int rowers, double weight, bool steeringwheel)
         {
             using (DataBase context = new DataBase())
             {
                 Boat UpdateBoat = context.Boats.Where(d => d.BoatID == boatID).First();
-                  Enum.TryParse(type, out Boat.BoatType MyType);
+                Enum.TryParse(type, out Boat.BoatType MyType);
                 if (UpdateBoat != null)
                 {
                     UpdateBoat.Name = name;
@@ -217,7 +217,7 @@ namespace Controllers
 
         }
 
-  
+
 
 
         public List<Boat> BoatList()
@@ -280,7 +280,7 @@ namespace Controllers
                 {
                     DiplomaID = diplomaID,
                     BoatID = boatID,
-                   
+
 
                 };
 
@@ -297,8 +297,8 @@ namespace Controllers
             {
 
                 var delBoatDiploma = (from x in context.Boat_Diplomas
-                                        where x.BoatID == boatID && x.DiplomaID == diplomaID
-                                        select x).ToList();
+                                      where x.BoatID == boatID && x.DiplomaID == diplomaID
+                                      select x).ToList();
 
 
                 context.Boat_Diplomas.RemoveRange(delBoatDiploma);
@@ -310,20 +310,24 @@ namespace Controllers
         }
 
 
-        public List<Boat> GetBoatsReservableWithThisUsersDiplomas()
+        public List<Boat> GetBoatsReservableWithThisUsersDiplomasThatAreNotBroken()
         {
             using (var context = new DataBase())
             {
                 return
                     (from boat in context.Boats
-                        join boatDiploma in context.Boat_Diplomas on boat.BoatID equals boatDiploma.BoatID
-                        join userDiploma in context.User_Diplomas on boatDiploma.DiplomaID equals userDiploma
-                         .DiplomaID
-                        where userDiploma.UserID == LoginView.UserId
-                        where boatDiploma.BoatID == boat.BoatID
-                        select boat).Distinct().Concat(
+                     join boatDiploma in context.Boat_Diplomas on boat.BoatID equals boatDiploma.BoatID
+                     join userDiploma in context.User_Diplomas on boatDiploma.DiplomaID equals userDiploma.DiplomaID
+                     where userDiploma.UserID == LoginView.UserId
+                     where boatDiploma.BoatID == boat.BoatID
+                     where boat.Broken == false
+                     select boat).Distinct().Concat(
                         from boat in context.Boats
-                        where (from boatDiploma in context.Boat_Diplomas where boatDiploma.BoatID == boat.BoatID select boatDiploma).Count() == 0
+                        where !(
+                            from boatDiploma in context.Boat_Diplomas
+                            where boatDiploma.BoatID == boat.BoatID
+                            select boatDiploma).Any()
+                        where boat.Broken == false
                         select boat).ToList();
             }
         }
