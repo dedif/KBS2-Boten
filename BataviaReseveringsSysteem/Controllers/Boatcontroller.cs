@@ -21,7 +21,7 @@ namespace Controllers
                 var DeletedBoats = (from data in context.Boats
                                     join a in context.Reservations
                                     on data.BoatID equals a.BoatID
-                                    where data.DateOfDeleted > lastLogged
+                                    where data.DeletedAt > lastLogged
                                     where data.Deleted == true
                                     where a.Deleted == null
                                     select a).ToList();
@@ -210,7 +210,6 @@ namespace Controllers
                   
                     delBoat.DeletedAt = DateTime.Now;
                     delBoat.Deleted = true;
-                    delBoat.DateOfDeleted = DateTime.Now;
                     context.SaveChanges();
                     BoatController.DeletedNotification(User.LastLoggedIn);
                     User.LastLoggedIn = DateTime.Now;
