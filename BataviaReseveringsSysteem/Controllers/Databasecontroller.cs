@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-
+using Views;
 
 namespace Controllers
 {
@@ -78,15 +78,20 @@ namespace Controllers
 
                 context.User_Roles.Add(UserRole);
                 context.SaveChanges();
-                Switcher.DeleteMenu();
-                Switcher.MenuMaker();
+
+                var isEditedUserLoggedIn = LoginView.UserId != null && LoginView.UserId == userID;
+                if (isEditedUserLoggedIn)
+                {
+                    Switcher.DeleteMenu();
+                    Switcher.MenuMaker();
+                }
 
 
 
 
-               
-               
-                
+
+
+
 
             }
         }

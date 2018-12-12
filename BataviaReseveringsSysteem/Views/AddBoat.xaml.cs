@@ -30,45 +30,48 @@ namespace Views
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
 
-            if (b.WhiteCheck(NameBox.Text, WeightBox.Text) == true)
+            if (b.WhiteCheck(NameBox.Text, WeightBox.Text, BoatLocationBox.Text) == true)
             {
 
                 if (b.NameCheck(NameBox.Text) == true)
                 {
                     if (b.WeightCheck(WeightBox.Text) == true)
                     {
-
-
-                        double Weight = double.Parse(WeightBox.Text);
-                        int Rowers = int.Parse(RowersCombo.Text);
-                        Boolean Steeringwheel = false;
-
-                        if (SteeringWheelToggle.IsChecked == true)
+                        int BoatLocation = int.Parse(BoatLocationBox.Text);
+                        if (b.BoatLocationCheck(BoatLocation) == true)
                         {
-                            Steeringwheel = true;
-                        }
-                        List<CheckBox> listDiplomaCheckBox = new List<CheckBox> { S1CheckBox, S2CheckBox, S3CheckBox, B1CheckBox, B2CheckBox, B3CheckBox, P1CheckBox, P2CheckBox };
 
-                        //De methode AddBoat wordt aangeroepen om een nieuwe boot toe te voegen aan de database
-                        b.AddBoat(NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel);
-                        b.AddDiploma(listDiplomaCheckBox);
+                            double Weight = double.Parse(WeightBox.Text);
+                            int Rowers = int.Parse(RowersCombo.Text);
+                            Boolean Steeringwheel = false;
+
+                            if (SteeringWheelToggle.IsChecked == true)
+                            {
+                                Steeringwheel = true;
+                            }
+                            List<CheckBox> listDiplomaCheckBox = new List<CheckBox> { S1CheckBox, S2CheckBox, S3CheckBox, B1CheckBox, B2CheckBox, B3CheckBox, P1CheckBox, P2CheckBox };
+
+                            //De methode AddBoat wordt aangeroepen om een nieuwe boot toe te voegen aan de database
+                            b.AddBoat(NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation);
+                            b.AddDiploma(listDiplomaCheckBox);
 
 
-                        //Als de boot succesvol is toegevoegd aan de database, laat de applicatie een pop-up scherm zien. 
-                        NotificationLabel.Content = b.Notification();
+                            //Als de boot succesvol is toegevoegd aan de database, laat de applicatie een pop-up scherm zien. 
+                            NotificationLabel.Content = b.Notification();
 
-                        MessageBoxResult Succes = MessageBox.Show(
-                            "De boot is succesvol opgeslagen",
-                            "Melding",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Information);
+                            MessageBoxResult Succes = MessageBox.Show(
+                                "De boot is succesvol opgeslagen",
+                                "Melding",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
 
-                        switch (Succes)
-                        {
-                            case MessageBoxResult.OK:
-                                Switcher.Switch(new Dashboard());
-                                break;
+                            switch (Succes)
+                            {
+                                case MessageBoxResult.OK:
+                                    Switcher.Switch(new Dashboard());
+                                    break;
 
+                            }
                         }
                     }
 

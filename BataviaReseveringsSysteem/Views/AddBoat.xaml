@@ -58,8 +58,8 @@
                       Margin="95,0,0,0"/>
         <Label Grid.Row="5" Grid.Column="1" Content="Stuur?" Foreground="Gray" Margin="68,30,140,29.667" VerticalAlignment="Center"/>
 
-        <Button Grid.Row="6" Grid.Column="1" x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="SaveButton_Click"/>
-        <Button Grid.Row="6" Grid.Column="1" x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="CancelButton_Click"/>
+        <Button Grid.Row="7" Grid.Column="1" x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="SaveButton_Click" Margin="10,21,0,0"/>
+        <Button Grid.Row="7" Grid.Column="1" x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="CancelButton_Click" Margin="0,21,0,0"/>
         <Label  x:Name="NotificationLabel" Content="&#xD;&#xA;" HorizontalAlignment="Left" Margin="25,19,0,0" VerticalAlignment="Top" Width="290" Grid.Row="4" FontSize="16" Grid.Column="2" Foreground="#DDFF0000"/>
         <Label Grid.Row="2" Grid.Column="2" x:Name="SkiffLabel" Foreground="Red" Content="Een skiff boot heeft altijd één roeier en geen stuur" Visibility="Visible" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left" Width="480" Grid.ColumnSpan="2" Margin="0,28"/>
         <Label Grid.Row="3" Grid.Column="2" Content="Benodigd diploma:"/>
@@ -118,5 +118,8 @@
                 </DockPanel>
             </CheckBox>
         </StackPanel>
+        <TextBox Grid.Row="6" Grid.Column="1" x:Name="BoatLocationBox" 
+            materialDesign:HintAssist.Hint="Boot locatie"
+            VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25" FontSize="14" Margin="94,10,94,54"/>
     </Grid>
 </UserControl>

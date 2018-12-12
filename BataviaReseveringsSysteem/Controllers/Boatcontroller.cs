@@ -2,6 +2,8 @@
 using Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Controls;
 using Views;
@@ -18,7 +20,7 @@ namespace Controllers
         }
         //Deze methode returnt true als naam en gewicht zijn ingevoerd (anders false)
 
-        public Boolean WhiteCheck(string name, string weight)
+        public Boolean WhiteCheck(string name, string weight, string boatLocation)
         {
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(weight))
             {
@@ -77,6 +79,62 @@ namespace Controllers
             }
         }
 
+        public Boolean BoatLocationCheck(int boatLocation)
+        {
+
+            using (DataBase context = new DataBase())
+
+            {
+                var CountBoatLocation = (from b in context.Boats
+                                  where b.BoatLocation ==boatLocation
+                                  where b.DeletedAt == null
+                                  select b).ToList<Boat>();
+
+               
+
+                if (CountBoatLocation.Count > 0 )
+                {
+                    notification = "Deze boot locatie bestaat al";
+
+
+                    return false;
+
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        public Boolean BoatLocationEditCheck(int boatLocation, int boatID)
+        {
+            
+            using (DataBase context = new DataBase())
+
+            {
+                var CountBoatLocation = (from b in context.Boats
+                                         where b.BoatLocation == boatLocation
+                                         where b.DeletedAt == null
+                                         select b.BoatLocation).ToList();
+
+                var BoatLocation = context.Boats.Where(x => x.BoatID != boatID).Any(x => x.BoatLocation == boatLocation && x.DeletedAt == null);
+
+
+                if (BoatLocation)
+                {
+                    
+                    return true;
+
+                } else
+                {
+                    notification = "Deze boot locatie bestaat al";
+                    return false;
+                } 
+            }
+
+        }
+
         public Boolean BootExist(int boatID)
         {
 
@@ -127,7 +185,7 @@ namespace Controllers
         }
 
         //Deze methode voegt een boot toe aan de database
-        public void AddBoat(string name, string type, int rowers, double weight, bool steeringwheel)
+        public void AddBoat(string name, string type, int rowers, double weight, bool steeringwheel, int boatLocation)
         {
             notification = "";
 
@@ -138,7 +196,7 @@ namespace Controllers
 
                 Enum.TryParse(type, out Boat.BoatType MyType);
                 DateTime CreatedAt = DateTime.Now;
-                Boat boot1 = new Boat(name, MyType, rowers, weight, steeringwheel, CreatedAt);
+                Boat boot1 = new Boat(name, MyType, rowers, weight, steeringwheel, boatLocation, CreatedAt);
 
                 context.Boats.Add(boot1);
 
@@ -172,7 +230,7 @@ namespace Controllers
         }
 
 
-        public void UpdateBoat(int boatID, string name, string type, int rowers, double weight, bool steeringwheel)
+        public void UpdateBoat(int boatID, string name, string type, int rowers, double weight, bool steeringwheel, int boatLocation)
         {
             using (DataBase context = new DataBase())
             {
@@ -186,8 +244,21 @@ namespace Controllers
                     UpdateBoat.Steering = steeringwheel;
                     UpdateBoat.NumberOfRowers = rowers;
                     UpdateBoat.UpdatedAt = DateTime.Now;
+                    UpdateBoat.BoatLocation = boatLocation;
+                    try
+                    {
 
-                    context.SaveChanges();
+
+                        context.SaveChanges();
+
+
+                    }
+                    catch (SqlException ex) when (ex.InnerException is SqlException sqlException && (sqlException.Number == 2627 || sqlException.Number == 2601))
+                    {
+
+                    }
+                    
+                    
                 }
             }
 

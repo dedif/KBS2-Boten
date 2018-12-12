@@ -59,7 +59,7 @@
             <Label x:Name="NameLabel" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Content="" Height="37" Width="120"/>
             <materialDesign:PopupBox StaysOpen="False">
                 <StackPanel>
-                    <Button Content="Account"/>
+                    <Button Content="Account" Click="EditUserBtn_Click"/>
                     <Separator/>
                     <Button Content="Uitloggen" Click="LogOutBtn_Click" />
                 </StackPanel> </materialDesign:PopupBox>            
