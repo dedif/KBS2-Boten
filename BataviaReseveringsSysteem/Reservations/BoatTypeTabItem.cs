@@ -68,6 +68,7 @@ namespace BataviaReseveringsSysteem.Reservations
  
             // Maak de grid waar alles in komt
             Grid = new Grid();
+            Grid.Margin = new Thickness(0,50,0,0);
  
             // Maak de "Afschrijven"-knop
             MakeRegisterBtn();
@@ -87,7 +88,7 @@ namespace BataviaReseveringsSysteem.Reservations
                 Content = "Boot:",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(300, 450, 0, 0),
+                Margin = new Thickness(10, 340, 0, 0),
                 FontSize = 16
             });
  
@@ -110,8 +111,8 @@ namespace BataviaReseveringsSysteem.Reservations
                 Content = "Duur reservering:",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(580, 340, 0, 0),
-                FontSize = 26
+                Margin = new Thickness(500, 340, 0, 0),
+                FontSize = 16
             });
  
             var annulerenButton = new Button
@@ -167,18 +168,17 @@ namespace BataviaReseveringsSysteem.Reservations
             {
                 Content = "Starttijd:",
                 HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(300, 340, 0, 0),
-                FontSize = 26
+                Margin = new Thickness(275, 340, 0, 0),
+                FontSize = 16
             });
             _reservationStartComboBox = new ComboBox
             {
                 HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Width = 245,
-                Margin = new Thickness(310, 380, 0, 0),
+                Width = 120,
+                Height = 45,
+                Margin = new Thickness(285, 87, 0, 0),
                 SelectedIndex = 0,
-                FontSize = 26
+                FontSize = 16
  
             };
  
@@ -211,10 +211,11 @@ namespace BataviaReseveringsSysteem.Reservations
         public void FillComboNames(List<Boat> boats)
         {
             BoatNamesComboBox.Name = "ComboBoatName";
-            BoatNamesComboBox.Width = 120;
-            BoatNamesComboBox.Height = 25;
+            BoatNamesComboBox.Width = 150;
+            BoatNamesComboBox.Height = 45;
+            BoatNamesComboBox.FontSize = 16;
             BoatNamesComboBox.HorizontalAlignment = HorizontalAlignment.Left;
-            BoatNamesComboBox.Margin = new Thickness(10, 0, 0, 0);
+            BoatNamesComboBox.Margin = new Thickness(20, 87, 0, 0);
             // De combobox selecteert bij openen van het scherm de eerste boot
             BoatNamesComboBox.SelectedIndex = 0;
             BoatNamesComboBox.DropDownClosed += OnBoatNamesComboBoxClicked;
@@ -233,9 +234,9 @@ namespace BataviaReseveringsSysteem.Reservations
             ReservationDurationComboBox.Height = 25;
             ReservationDurationComboBox.Width = 245;
             ReservationDurationComboBox.Height = 45;
-            ReservationDurationComboBox.FontSize = 26;
+            ReservationDurationComboBox.FontSize = 16;
             ReservationDurationComboBox.HorizontalAlignment = HorizontalAlignment.Left;
-            ReservationDurationComboBox.Margin = new Thickness(600, 37, 0, 0);
+            ReservationDurationComboBox.Margin = new Thickness(510, 87, 0, 0);
             ReservationDurationComboBox.SelectedIndex = 0;
             ReservationDurationComboBox.Items.Add("00:15");
             ReservationDurationComboBox.Items.Add("00:30");
@@ -517,7 +518,7 @@ namespace BataviaReseveringsSysteem.Reservations
             _okButton = new Button { Name = "okBtn", Content = "Afschrijven", Width = 120, Height = 25, IsEnabled = false };
             _okButton.Click += OkBtn_Click;
             _okButton.HorizontalAlignment = HorizontalAlignment.Left;
-            _okButton.Margin = new Thickness(150, 120, 0, 0);
+            _okButton.Margin = new Thickness(510, 237, 0, 0);
             Grid.Children.Add(_okButton);
  
         }
