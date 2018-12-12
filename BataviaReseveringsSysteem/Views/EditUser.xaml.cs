@@ -205,7 +205,18 @@ namespace Views
 
                             }
                         }
+
+                        // check als de gebruiker de rollen nodige rollen heeft, anders ga dan terug naar het dashboard
+                     var Login_User_Role = from x in context.User_Roles
+                                          where x.UserID == LoginView.UserId && x.DeletedAt == null
+                                          select x.RoleID;
+                    if (Login_User_Role.Contains(5))
+                    {
                         Switcher.Switch(new UserList());
+                    } else
+                    {
+                        Switcher.Switch(new Dashboard());
+                    }
                     }
                 }
                 else
@@ -218,8 +229,18 @@ namespace Views
     
 
     private void ButtonCancel(object sender, RoutedEventArgs e)
-    {
-        Switcher.Switch(new UserList());
+        {
+            // check als de gebruiker de rollen nodige rollen heeft, anders ga dan terug naar het dashboard
+            var Login_User_Role = from x in context.User_Roles
+                                  where x.UserID == LoginView.UserId && x.DeletedAt == null
+                                  select x.RoleID;
+            if (Login_User_Role.Contains(5))
+            {
+                Switcher.Switch(new UserList());
+            } else
+            {
+                Switcher.Switch(new Dashboard());
+            }
     }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
