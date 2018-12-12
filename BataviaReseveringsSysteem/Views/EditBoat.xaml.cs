@@ -187,8 +187,8 @@ namespace Views
                 {
 
                     int BoatLocation = int.Parse(BoatLocationBox.Text);
-                    bool boatLocationCheck = context.Boats.Any(x => x.BoatID == EditBoatID && x.DeletedAt == null && x.BoatLocation == BoatLocation);
-                    var test = context.Boats.Where(x => x.BoatLocation == BoatLocation && x.DeletedAt == null).Select(z => z.BoatID).Where(y => y != EditBoatID);
+                    bool boatLocationCheck = context.Boats.Where(y => y.BoatID != EditBoatID).Any(x => x.BoatLocation == BoatLocation && x.DeletedAt == null);
+                    var CheckIfExist = context.Boats.Where(x => x.BoatLocation == BoatLocation && x.DeletedAt == null).Select(z => z.BoatID);
 
                     if (b.WeightCheck(WeightBox.Text) == true)
                     {
@@ -202,20 +202,16 @@ namespace Views
                                 Steeringwheel = true;
                             }
 
-                       
 
-
-                       
+                        if (!boatLocationCheck)
+                        {
 
                             b.UpdateBoat(EditBoatID, NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation);
-                         
-                     
-
-                             MessageBoxResult Succes = MessageBox.Show(
-                               "De boot is succesvol opgeslagen",
-                               "Melding",
-                               MessageBoxButton.OK,
-                               MessageBoxImage.Information);
+                            MessageBoxResult Succes = MessageBox.Show(
+                             "De boot is succesvol opgeslagen",
+                             "Melding",
+                             MessageBoxButton.OK,
+                             MessageBoxImage.Information);
 
                             switch (Succes)
                             {
@@ -224,6 +220,18 @@ namespace Views
                                     break;
 
                             }
+
+                        }
+                        else
+                        {
+                            NotificationLabel.Content = "De boot bestaat al";
+                        }
+
+
+
+
+
+                      
 
 
                         NotificationLabel.Content = b.Notification();
