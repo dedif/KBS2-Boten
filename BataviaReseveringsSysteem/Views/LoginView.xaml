@@ -42,7 +42,7 @@
                 <DataGridTextColumn x:Name="BoatName" Width="auto"  Binding="{Binding Boat.Name}"    Header="Bootnaam" IsReadOnly="true" />
                 <DataGridTextColumn x:Name="BoatType"  Width="auto"  Binding="{Binding Boat.Type}" Header="Type" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="NumberOfRowers"  Width="auto"   Binding="{Binding Boat.NumberOfRowers}" Header="Aantal roeiers" IsReadOnly="true"/>
-                <DataGridTextColumn x:Name="Date"  Width="auto"   Binding="{Binding Start, StringFormat=\{0:MM/dd/yyyy\}}" Header="Datum" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Date"  Width="auto"   Binding="{Binding Start, StringFormat=\{0:dd/MM/yyyy\}}" Header="Datum" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="DateStart" Width="auto"    Binding="{Binding Start, StringFormat=hh:mm}" Header="Starttijd" IsReadOnly="true" />
                 <DataGridTextColumn x:Name="DateEnd"   Width="auto"   Binding="{Binding End, StringFormat=hh:mm}" Header="Eindtijd" IsReadOnly="true"/>
             </DataGrid.Columns>
