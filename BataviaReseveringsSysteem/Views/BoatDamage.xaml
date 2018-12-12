@@ -16,7 +16,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="400"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -27,8 +27,8 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <ComboBox x:Name="NameboatCombo" Grid.Row="1" FontSize="16" materialDesign:HintAssist.Hint="Bootnaam" HorizontalAlignment="Left" Width="245" Grid.Column="1"/>
-
+        <ComboBox x:Name="NameboatCombo" Grid.Row="1" FontSize="16" materialDesign:HintAssist.Hint="Bootnaam" HorizontalAlignment="Left" Width="245" Grid.Column="1" SelectionChanged="NameboatCombo_SelectionChanged"/>
+        <TextBox x:Name="OtherDamages" IsReadOnly="True" Grid.Row="3" Grid.Column="1" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Height="112" Width="390" Margin="0,82,0,0" Grid.RowSpan="2"/>
         <StackPanel Grid.Row="2" Grid.Column="1">
             <TextBox
                 Grid.Row="2" Grid.Column="1"
@@ -42,19 +42,20 @@
                 materialDesign:HintAssist.Hint="Beschrijving"
                 IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextFieldTextBoxEnabledComboBox}" />
         </StackPanel>
-        
+
 
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-            <RadioButton x:Name="HeavyDamageRadioButton" HorizontalAlignment="Left" FontSize="16" Content="Zware schade" Checked="HeavyDamageRadioButton_Checked"/>
-            <RadioButton x:Name="LightDamageRadioButton" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="16" Margin="250,0,0,0" Content="Lichte schade" Checked="LightDamageRadioButton_Checked"/>
+            <RadioButton x:Name="HeavyDamageRadioButton" HorizontalAlignment="Left" FontSize="16" Content="Zware schade" Checked="HeavyDamageRadioButton_Checked" Margin="0,0,0,134"/>
+            <RadioButton x:Name="LightDamageRadioButton" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="16" Margin="150,0,0,0" Content="Lichte schade" Checked="LightDamageRadioButton_Checked"/>
         </StackPanel>
         <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
             <Button x:Name="SaveButton" Content="Opslaan" FontSize="16" Width="120" Click="SaveButton_Click"/>
-            <Button x:Name="CancelButton" Content="Annuleren" FontSize="16" Width="120" Margin="260,0,0,0" Click="CancelButton_Click"/>
+            <Button x:Name="CancelButton" Content="Annuleren" FontSize="16" Width="120" Margin="160,0,0,0" Click="CancelButton_Click"/>
         </StackPanel>
-        <StackPanel Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom">
+        <StackPanel Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom">
             <Label x:Name="MessageLabel" Visibility="Hidden" HorizontalAlignment="Left" Content="U heeft geen beschrijving ingevuld" Width="313" FontSize="16" Foreground="Red" />
             <Label x:Name="NotificationLabel" Visibility="Hidden"  HorizontalAlignment="Left" Content="De boot wordt uit de vaart genomen bij zware schade" FontSize="16" Foreground="Red"/>
         </StackPanel>
+        <Label x:Name="DamagesLabel" Grid.Row="3" Grid.Column="1" FontWeight="Bold" FontSize="16" Content="Gemaakte schades:" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.85,0.577"/>
     </Grid>
 </UserControl>
