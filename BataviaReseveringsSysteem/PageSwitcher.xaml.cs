@@ -21,7 +21,7 @@ namespace ScreenSwitcher
             Switcher.pageSwitcher = this;
             using (var context = new DataBase())
             {
-                if (context.Database.Exists()) Switcher.Switch(new LoginView());
+                if (context.Database.Exists()) Switcher.Switch(new Register());
                 else Switcher.Switch(new Register());
             }
             
