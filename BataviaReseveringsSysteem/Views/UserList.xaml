@@ -23,7 +23,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <DataGrid Grid.Row="2" Height="400" x:Name="DataUserList"  CanUserAddRows="false" x:FieldModifier="public" DataContext="{StaticResource UserViewSource}" AutoGenerateColumns="false" VerticalAlignment="Top">
-            
+
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="UserID" Width="auto"    Binding="{Binding UserID}" Header="Lidnummer" IsReadOnly="true" />
 
@@ -39,10 +39,10 @@
 
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.HeaderTemplate>
-                        
+
                         <DataTemplate>
                             <TextBlock Text="Bewerken" ></TextBlock>
-                            
+
                         </DataTemplate>
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
@@ -68,7 +68,7 @@
 
                             <TextBlock Text="Verwijderen" ></TextBlock>
                         </DataTemplate>
-                       
+
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -88,13 +88,9 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center">
-            <Button Content="Nieuw lid" Click="RegisterUserButton" Width="120"/>
-            <TextBox x:Name="Search" 
-                     materialDesign:HintAssist.Hint="Zoeken"
-                     TextChanged="Search_TextChanged" Text="" Margin="125,0,0,0"  Width="240" RenderTransformOrigin="0.77,0.615"/>
-
-        </StackPanel>
+        <TextBox x:Name="Search" 
+            materialDesign:HintAssist.Hint="Zoeken"
+            HorizontalAlignment="Right" VerticalAlignment="Bottom" TextChanged="Search_TextChanged" Height="23" Margin="0,0,20,10" TextWrapping="Wrap" Width="120" Grid.Row="1"/>
     </Grid>
     
 </UserControl>

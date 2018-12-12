@@ -13,21 +13,22 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Width="1024" Height="868">
+        Height="768" Width="1024">
 
     <Grid x:Name="loginLayout">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="100"/>
             <RowDefinition/>
-            <RowDefinition Height="700" />
-
+            <RowDefinition Height="300"/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="570"/>
+            <ColumnDefinition Width="700"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
             <TextBox x:Name="Username" 
                  materialDesign:HintAssist.Hint="Lidnummer"
                  Height="25" Width="120" PreviewTextInput="NumberValidationTextBox"/>
@@ -35,13 +36,13 @@
                      materialDesign:HintAssist.Hint="Password" Margin="70,0,0,0"  Height="25" Width="120" PasswordChar="•" />
             <Button Content="Login" IsDefault="True" Width="120" Click="LoginButton" Margin="130,0,0,0" Height="35" FontSize="20"/>
         </StackPanel>
-        <Label Grid.Row="1" Grid.Column="1" Content="" x:Name="LoginError" Foreground="Red" VerticalAlignment="Top" Height="25" Width="245"/>
+        <Label Grid.Row="0" Grid.Column="1" Content="" x:Name="LoginError" HorizontalAlignment="Left"  Foreground="Red" VerticalAlignment="Center" Height="25" Width="245"/>
         <DataGrid Grid.Row="2" Grid.Column="1" x:Name="DataReservations" FontSize="14" Visibility="Hidden" CanUserAddRows="false" x:FieldModifier="public"  AutoGenerateColumns="false" HorizontalAlignment="Left"  VerticalAlignment="Top" >
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="BoatName" Width="auto"  Binding="{Binding Boat.Name}"    Header="Bootnaam" IsReadOnly="true" />
                 <DataGridTextColumn x:Name="BoatType"  Width="auto"  Binding="{Binding Boat.Type}" Header="Type" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="NumberOfRowers"  Width="auto"   Binding="{Binding Boat.NumberOfRowers}" Header="Aantal roeiers" IsReadOnly="true"/>
-                <DataGridTextColumn x:Name="Date"  Width="auto"   Binding="{Binding Start, StringFormat=\{0:MM/dd/yyyy\}}" Header="Datum" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Date"  Width="auto"   Binding="{Binding Start, StringFormat=\{0:dd/MM/yyyy\}}" Header="Datum" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="DateStart" Width="auto"    Binding="{Binding Start, StringFormat=hh:mm}" Header="Starttijd" IsReadOnly="true" />
                 <DataGridTextColumn x:Name="DateEnd"   Width="auto"   Binding="{Binding End, StringFormat=hh:mm}" Header="Eindtijd" IsReadOnly="true"/>
             </DataGrid.Columns>

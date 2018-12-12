@@ -89,7 +89,7 @@ namespace BataviaReseveringsSysteem.Reservations
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(300, 450, 0, 0),
-                FontSize = 26
+                FontSize = 16
             });
  
             // Dit label staat boven de boatview en fungeert als een kopje
@@ -99,7 +99,7 @@ namespace BataviaReseveringsSysteem.Reservations
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(300, 150, 0, 0),
-                FontSize = 26
+                FontSize = 16
             });
  
             // De boatview is een paar regels terug al aangemaakt.
@@ -730,6 +730,7 @@ namespace BataviaReseveringsSysteem.Reservations
             return selectedDate.Date.Equals(latestDateThatThisUserMayReserve);
         }
  
+
         // Voeg slots die voorbij zijn toe aan de geclaimde slots
         private List<DateTime> GetClaimedAndPastSlots(List<DateTime> claimedSlots, DateTime now, DateTime earliestSlot,
             DateTime firstDarknessSlot)

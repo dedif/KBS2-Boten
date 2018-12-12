@@ -12,7 +12,7 @@
          TextOptions.TextRenderingMode="Auto"
          Background="{DynamicResource MaterialDesignPaper}"
          FontFamily="{DynamicResource MaterialDesignFont}"
-        Height="50" Width="1624">
+        Height="50" Width="1024">
     <Grid x:Name="switcherGrid">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -54,7 +54,8 @@
                 <MenuItem Header="Hulp bij inloggen"></MenuItem>
             </MenuItem>
         </Menu>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,-711,0" Width="865">
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,0" Width="181">
+
             <Label x:Name="NameLabel" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Content="" Height="37" Width="120"/>
             <materialDesign:PopupBox StaysOpen="False">
                 <StackPanel>

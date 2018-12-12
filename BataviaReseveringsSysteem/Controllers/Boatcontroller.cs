@@ -60,6 +60,7 @@ namespace Controllers
             {
                 var CountNames = (from b in context.Boats
                                   where b.Name == name
+                                  where b.DeletedAt == null
                                   select b).ToList<Boat>();
                 if (CountNames.Count > 0)
                 {

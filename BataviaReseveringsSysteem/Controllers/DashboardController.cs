@@ -108,7 +108,7 @@ namespace Controllers
                 content = "Naam : " + Name;
                 content += "\nBegintijd: " + StartDate.Hour + ":" + Minutes;
                 content += "\nDuur: " + Duration.Hours + ":" + Duration.Minutes;
-                content += "\nDatum: " + StartDate.Month + "/" + StartDate.Day + "/" + StartDate.Year;
+                content += "\nDatum: "  + StartDate.Day + "/" + StartDate.Month + "/" + StartDate.Year;
 
                 return content;
             }
