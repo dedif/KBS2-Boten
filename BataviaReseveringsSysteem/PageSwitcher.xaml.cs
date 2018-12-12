@@ -22,7 +22,7 @@ namespace ScreenSwitcher
             using (var context = new DataBase())
             {
                 if (context.Database.Exists()) Switcher.Switch(new LoginView());
-                else Switcher.Switch(new Register());
+                else Switcher.Switch(new LoginView());
             }
             
         }
