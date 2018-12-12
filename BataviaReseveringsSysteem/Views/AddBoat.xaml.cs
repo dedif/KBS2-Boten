@@ -37,40 +37,43 @@ namespace Views
                 {
                     if (b.WeightCheck(WeightBox.Text) == true)
                     {
-                        int BoatLocation = int.Parse(BoatLocationBox.Text);
-                        if (b.BoatLocationCheck(BoatLocation) == true)
+                        if (b.LocationCheckIfInt(BoatLocationBox.Text))
                         {
-
-                            double Weight = double.Parse(WeightBox.Text);
-                            int Rowers = int.Parse(RowersCombo.Text);
-                            Boolean Steeringwheel = false;
-
-                            if (SteeringWheelToggle.IsChecked == true)
+                            int BoatLocation = int.Parse(BoatLocationBox.Text);
+                            if (b.BoatLocationCheck(BoatLocation) == true)
                             {
-                                Steeringwheel = true;
-                            }
-                            List<CheckBox> listDiplomaCheckBox = new List<CheckBox> { S1CheckBox, S2CheckBox, S3CheckBox, B1CheckBox, B2CheckBox, B3CheckBox, P1CheckBox, P2CheckBox };
 
-                            //De methode AddBoat wordt aangeroepen om een nieuwe boot toe te voegen aan de database
-                            b.AddBoat(NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation);
-                            b.AddDiploma(listDiplomaCheckBox);
+                                double Weight = double.Parse(WeightBox.Text);
+                                int Rowers = int.Parse(RowersCombo.Text);
+                                Boolean Steeringwheel = false;
+
+                                if (SteeringWheelToggle.IsChecked == true)
+                                {
+                                    Steeringwheel = true;
+                                }
+                                List<CheckBox> listDiplomaCheckBox = new List<CheckBox> { S1CheckBox, S2CheckBox, S3CheckBox, B1CheckBox, B2CheckBox, B3CheckBox, P1CheckBox, P2CheckBox };
+
+                                //De methode AddBoat wordt aangeroepen om een nieuwe boot toe te voegen aan de database
+                                b.AddBoat(NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation);
+                                b.AddDiploma(listDiplomaCheckBox);
 
 
-                            //Als de boot succesvol is toegevoegd aan de database, laat de applicatie een pop-up scherm zien. 
-                            NotificationLabel.Content = b.Notification();
+                                //Als de boot succesvol is toegevoegd aan de database, laat de applicatie een pop-up scherm zien. 
+                                NotificationLabel.Content = b.Notification();
 
-                            MessageBoxResult Succes = MessageBox.Show(
-                                "De boot is succesvol opgeslagen",
-                                "Melding",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information);
+                                MessageBoxResult Succes = MessageBox.Show(
+                                    "De boot is succesvol opgeslagen",
+                                    "Melding",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Information);
 
-                            switch (Succes)
-                            {
-                                case MessageBoxResult.OK:
-                                    Switcher.Switch(new Dashboard());
-                                    break;
+                                switch (Succes)
+                                {
+                                    case MessageBoxResult.OK:
+                                        Switcher.Switch(new Dashboard());
+                                        break;
 
+                                }
                             }
                         }
                     }
@@ -83,18 +86,18 @@ namespace Views
 
         private void TypCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
+
             if (TypCombo.SelectedIndex == 1)
-                {
+            {
                 RowersCombo.SelectedIndex = 0;
                 RowersCombo.IsEnabled = false;
                 SteeringWheelToggle.IsChecked = false;
                 SteeringWheelToggle.IsEnabled = false;
                 SkiffLabel.Visibility = Visibility.Visible;
-                }
-            else 
+            }
+            else
             {
-           
+
                 RowersCombo.IsEnabled = true;
                 SteeringWheelToggle.IsEnabled = true;
                 SkiffLabel.Visibility = Visibility.Hidden;
