@@ -28,7 +28,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <ComboBox x:Name="NameboatCombo" Grid.Row="1" FontSize="16" materialDesign:HintAssist.Hint="Bootnaam" HorizontalAlignment="Left" Width="245" Grid.Column="1" SelectionChanged="NameboatCombo_SelectionChanged"/>
-        <TextBox x:Name="OtherDamages" IsReadOnly="True" Grid.Row="3" Grid.Column="1" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Height="100" Width="390" Margin="0,45,0,0"/>
+        <TextBox x:Name="OtherDamages" IsReadOnly="True" Grid.Row="3" Grid.Column="1" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Height="112" Width="390" Margin="0,82,0,0" Grid.RowSpan="2"/>
         <StackPanel Grid.Row="2" Grid.Column="1">
             <TextBox
                 Grid.Row="2" Grid.Column="1"
@@ -45,7 +45,7 @@
 
 
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-            <RadioButton x:Name="HeavyDamageRadioButton" HorizontalAlignment="Left" FontSize="16" Content="Zware schade" Checked="HeavyDamageRadioButton_Checked"/>
+            <RadioButton x:Name="HeavyDamageRadioButton" HorizontalAlignment="Left" FontSize="16" Content="Zware schade" Checked="HeavyDamageRadioButton_Checked" Margin="0,0,0,134"/>
             <RadioButton x:Name="LightDamageRadioButton" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="16" Margin="150,0,0,0" Content="Lichte schade" Checked="LightDamageRadioButton_Checked"/>
         </StackPanel>
         <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
@@ -56,5 +56,6 @@
             <Label x:Name="MessageLabel" Visibility="Hidden" HorizontalAlignment="Left" Content="U heeft geen beschrijving ingevuld" Width="313" FontSize="16" Foreground="Red" />
             <Label x:Name="NotificationLabel" Visibility="Hidden"  HorizontalAlignment="Left" Content="De boot wordt uit de vaart genomen bij zware schade" FontSize="16" Foreground="Red"/>
         </StackPanel>
+        <Label x:Name="DamagesLabel" Grid.Row="3" Grid.Column="1" FontWeight="Bold" FontSize="16" Content="Gemaakte schades:" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.85,0.577"/>
     </Grid>
 </UserControl>

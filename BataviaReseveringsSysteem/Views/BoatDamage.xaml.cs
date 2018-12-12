@@ -1,13 +1,10 @@
 ﻿using BataviaReseveringsSysteem.Database;
-using Controllers;
 using Models;
 using ScreenSwitcher;
 using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Net.Mail;
-
 
 namespace Views
 {
@@ -138,10 +135,11 @@ namespace Views
      
         private void NameboatCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-        
-            OtherDamages.Text = "Gemaakte schades:";
-            using (DataBase context = new DataBase())
+            //Aan het begin wordt de textblock Otherdamages leeg gemaakt.
+            OtherDamages.Text = "";
+              using (DataBase context = new DataBase())
             {
+                //Dit selecteerd alle beschrijvingen van de schade's van de geselecteerde boot
                 var SelectedBoat = (
                     from data in context.Damages
                     join boats in context.Boats
@@ -151,8 +149,21 @@ namespace Views
 
                 foreach (string description in SelectedBoat)
                 {
-                    OtherDamages.Text += "\n- " + description + "\n";
+                    //De schade van de geselecteerde boot worden in het textblock OtherDamages gezet
+                    OtherDamages.Text += "\n" + description + "\n";
                 }
+                if(SelectedBoat.Count < 1)
+                {
+                    //Als er een schade's zijn voor de geselecteerde boot word de Label en textblock niet getoond op het scherm
+                    DamagesLabel.Visibility = Visibility.Hidden;
+                    OtherDamages.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    DamagesLabel.Visibility = Visibility.Visible;
+                    OtherDamages.Visibility = Visibility.Visible;
+                }
+
             }
         }
 
