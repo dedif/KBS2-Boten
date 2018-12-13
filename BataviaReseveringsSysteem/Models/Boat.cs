@@ -18,13 +18,14 @@ namespace Models
         public bool Steering { get; set; }
         [Index(IsUnique = true)]
         public int BoatLocation { get; set; }
+        public DateTime AvailableAt { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
         public bool Broken { get; set; } = false;
-        public bool Deleted { get; set; } 
+        public bool Deleted { get; set; }
 
-        public Boat(string name, BoatType type, int numberOfRowers, double weight, bool steering, int boatLocation, DateTime createdAt)
+        public Boat(string name, BoatType type, int numberOfRowers, double weight, bool steering, int boatLocation, DateTime createdAt, DateTime availableAt)
         {
             Name = name;
             Type = type;
@@ -33,6 +34,7 @@ namespace Models
             Steering = steering;
             BoatLocation = boatLocation;
             CreatedAt = createdAt;
+            AvailableAt = availableAt;
 
 
         }

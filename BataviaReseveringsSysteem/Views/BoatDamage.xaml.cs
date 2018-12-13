@@ -26,7 +26,8 @@ namespace Views
             InitializeComponent();
 
             var NameBoats = (from data in context.Boats
-                            select data.Name).ToList();
+                             where data.AvailableAt <= DateTime.Now
+                             select data.Name).ToList();
 
             foreach (string name in NameBoats) {
                 NameboatCombo.Items.Add(name);

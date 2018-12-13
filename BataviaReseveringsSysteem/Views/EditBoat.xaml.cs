@@ -53,6 +53,7 @@ namespace Views
                     TypCombo.SelectedItem = boat.Type;
                     TypCombo.Text = boat.Type.ToString();
                     BoatLocationBox.Text = boat.BoatLocation.ToString();
+                    AvailableAt.SelectedDate = boat.AvailableAt;
                     if (boat.Steering == true)
                     {
                         SteeringWheelToggle.IsChecked = true;
@@ -212,7 +213,7 @@ namespace Views
                                 // if (!boatLocationCheck)
                                 // {
 
-                                b.UpdateBoat(EditBoatID, NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation);
+                                b.UpdateBoat(EditBoatID, NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation,AvailableAt.SelectedDate.Value);
                                 MessageBoxResult Succes = MessageBox.Show(
                                  "De boot is succesvol opgeslagen",
                                  "Melding",
@@ -228,20 +229,7 @@ namespace Views
                                 }
                             }
                         }
-                        //  }
-                        //   else 
-                        //   {
-
-                        //  }
-
-
-
-
-
-
-
-
-
+                       
                         NotificationLabel.Content = b.Notification();
 
 

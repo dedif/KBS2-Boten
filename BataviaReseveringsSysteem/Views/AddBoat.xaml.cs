@@ -54,7 +54,7 @@ namespace Views
                                 List<CheckBox> listDiplomaCheckBox = new List<CheckBox> { S1CheckBox, S2CheckBox, S3CheckBox, B1CheckBox, B2CheckBox, B3CheckBox, P1CheckBox, P2CheckBox };
 
                                 //De methode AddBoat wordt aangeroepen om een nieuwe boot toe te voegen aan de database
-                                b.AddBoat(NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation);
+                                b.AddBoat(NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation, AvailableAt.SelectedDate.Value);
                                 b.AddDiploma(listDiplomaCheckBox);
 
 
