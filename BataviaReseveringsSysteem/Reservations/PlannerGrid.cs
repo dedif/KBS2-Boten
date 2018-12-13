@@ -11,7 +11,7 @@ namespace BataviaReseveringsSysteem.Reservations
     // Het reserveringstabelletje
     public class PlannerGrid : Canvas
     {
-        private bool _selectsDuration;
+       
         // Elke kolom is 50 pixels breed
         private const int PlannerGridColumnWidth = 50;
 

@@ -103,7 +103,6 @@
     <Compile Include="Views\BoatList.xaml.cs">
       <DependentUpon>BoatList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\BoatView.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Switcher.cs" />
     <Compile Include="Views\AddBoat.xaml.cs">

@@ -5,12 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
 		Height="768" Width="1024">
-    <Grid>
+    <Grid x:Name="ReserveGrid">
+        <ComboBox x:Name="BoatNamesComboBox" HorizontalAlignment="Left" Margin="284,256,0,0" VerticalAlignment="Top" Width="120"/>
 
-        <TabControl x:Name="BoatTypeTabControl" Margin="10,60,20,0" RenderTransformOrigin="0.5,0.5">
-        </TabControl>
-        <Button Visibility="Hidden" x:Name="AfschrijvenBtn" Content="Afschrijven" HorizontalAlignment="Left" Margin="391,321,0,0" VerticalAlignment="Top" Height="25" Width="120"/>
-        <ComboBox Visibility="Hidden" x:Name="TimeCombo" HorizontalAlignment="Left" Margin="226,321,0,0" VerticalAlignment="Top" Height="25"  Width="120" SelectedIndex="0">
+        <Button x:Name="AfschrijvenBtn" Content="Afschrijven" HorizontalAlignment="Left" Margin="829,692,0,0" VerticalAlignment="Top" Height="25" Width="120"/>
+        <ComboBox  x:Name="TimeCombo" HorizontalAlignment="Left" Margin="222,473,0,0" VerticalAlignment="Top" Height="25"  Width="120" SelectedIndex="0" SelectionChanged="TimeCombo_SelectionChanged">
             <ComboBoxItem Content="00:15"/>
             <ComboBoxItem Content="00:30" IsSelected="True"/>
             <ComboBoxItem Content="00:45"/>
@@ -20,5 +19,8 @@
             <ComboBoxItem Content="01:45"/>
             <ComboBoxItem Content="02:00"/>
         </ComboBox>
+        <Label x:Name="_noSlotsAvailableLabel" Content="Er zijn geen boten meer afschrijfbaar vandaag" HorizontalAlignment="Left" Margin="132,352,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.206,13.154"/>
+       <Button x:Name="_okButton" Content = "Afschrijven" Width = "120" Height = "25" HorizontalAlignment="Left" Margin="770,359,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.16,14.312" Click="OkBtn_Click"/>
+        <ComboBox x:Name="_reservationStartComboBox" FontSize="16" SelectedIndex="0" HorizontalAlignment="Left" Margin="562,256,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="_reservationStartComboBox_SelectionChanged"/>
     </Grid>
 </UserControl>

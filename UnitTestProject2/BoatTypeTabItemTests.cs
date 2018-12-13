@@ -25,7 +25,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                 boats,
-                new List<Reservation>());
+                new List<Reservation>(), new Views.ReserveWindow());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstLightSlot(time1200);
@@ -45,7 +45,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstLightSlot(time1200);
@@ -65,7 +65,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstLightSlot(time1201);
@@ -85,7 +85,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(),new Views.ReserveWindow());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstLightSlot(time1201);
@@ -105,7 +105,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstLightSlot(time1159);
@@ -125,7 +125,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstLightSlot(time1159);
@@ -149,7 +149,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1200);
@@ -169,7 +169,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1200);
@@ -189,7 +189,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1201);
@@ -209,7 +209,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1201);
@@ -229,7 +229,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1159);
@@ -249,7 +249,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1159);
@@ -269,7 +269,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1215);
@@ -289,7 +289,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
 
                 // Act
                 var actual = boatTypeTabItem.GetFirstDarknessSlot(time1215);
@@ -317,7 +317,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
                 var time1200 = GetDateTimeWithGivenHoursAndMinutes(12, 00);
 
                 // Act
@@ -336,7 +336,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
                 var time0000 = GetDateTimeWithGivenHoursAndMinutes(00, 00);
 
                 // Act
@@ -355,7 +355,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
                 var time2345 = GetDateTimeWithGivenHoursAndMinutes(23, 45);
 
                 // Act
@@ -374,7 +374,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
                 var time2345 = GetDateTimeWithGivenHoursAndMinutes(23, 45);
 
                 // Act
@@ -400,7 +400,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
                 var now = DateTime.Now;
                 var dayQuarter48 = 48;
 
@@ -420,7 +420,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
                 var now = DateTime.Now;
                 var dayQuarter00 = 00;
 
@@ -440,7 +440,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boats,
-                        new List<Reservation>());
+                        new List<Reservation>(), new Views.ReserveWindow());
                 var now = DateTime.Now;
                 var dayQuarter95 = 95;
 

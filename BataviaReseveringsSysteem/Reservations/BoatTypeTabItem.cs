@@ -19,9 +19,7 @@ namespace BataviaReseveringsSysteem.Reservations
     // Alles (kalender, tijdsslotgrid, knoppen) wordt op deze tabjes geschreven en niet op de tabcontrol op het reserveringsscherm
     public class BoatTypeTabItem : TabItem
     {
-        // Het grid waar alles op wordt geplaatst
-        public Grid Grid { get; set; }
- 
+
         // De kalender
         public BoatTypeTabItemCalendar BoatTypeTabItemCalendar { get; set; }
  
@@ -29,229 +27,93 @@ namespace BataviaReseveringsSysteem.Reservations
         public PlannerGrid PlannerGrid { get; set; }
         public List<Reservation> Reservations { get; set; }
  
-        // Een statusdisplay van de boten
-        public BoatView BoatView { get; set; }
-        public int User { get; set; }
-        public List<Boat> Boats { get; set; }
- 
+
         // Aangezien een BoatTypeTabItem een TabItem is waarop je alle boten van een bepaald type kan weergeven, is het handig dat het BoatType erin staat
- 
-        // Dropdown voor de tijdsduur van je afschrijving
-        public ComboBox ReservationDurationComboBox = new ComboBox();
-        public ComboBox BoatNamesComboBox = new ComboBox();
- 
-        // Dropdown voor de eerste tijdsslot (dus de start) van je afschrijving
-        private ComboBox _reservationStartComboBox;
-        private Button _okButton;
- 
+
+        private ReserveWindow ReserveWindow;
         // Je mag maximaal 2 uur lang = 8 kwartier reserveren. In deze variabele staat opgenomen hoeveel kwartieren je mag reserveren (8 dus)
         private const int AmountOfAvailableQuarters = 8;
  
         // Als het te laat is om vandaag nog te afschrijven,
         // of als het nog donker is, waardoor je geen enkele slot van overmorgen mag afschrijven,
         // dan wordt dit label met de melding dat er geen slots beschikbaar zijn, zichtbaar
-        private Label _noSlotsAvailableLabel;
-        private bool _selectsDuration;
- 
-        public BoatTypeTabItem(List<Boat> boats, List<Reservation> reservations)
+          private bool _selectsDuration;
+
+        public BoatTypeTabItem(List<Boat> boats, List<Reservation> reservations, ReserveWindow reserveWindow)
         {
-            _noSlotsAvailableLabel = new Label
-            {
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Content = "Er zijn geen boten meer afschrijfbaar vandaag",
-                Visibility = Visibility.Hidden
-            };
- 
-            BoatView = new BoatView();
- 
+
+
+            ReserveWindow = reserveWindow;
             Reservations = reservations;
- 
-            // Maak de grid waar alles in komt
-            Grid = new Grid();
-            Grid.Margin = new Thickness(0,50,0,0);
- 
-            // Maak de "Afschrijven"-knop
-            MakeRegisterBtn();
- 
-            // Vul de combobox met namen
-            FillComboNames(boats);
- 
+
+
             BoatTypeTabItemCalendar = new BoatTypeTabItemCalendar();
- 
-            // Als er een andere datum wordt geselecteerd, roep dan OnCalendarClicked() aan
+
+            //// Als er een andere datum wordt geselecteerd, roep dan OnCalendarClicked() aan
+
             BoatTypeTabItemCalendar.SelectedDatesChanged += OnCalendarClicked;
-            Grid.Children.Add(BoatTypeTabItemCalendar);
- 
-            // Dit label staat boven de bootnaamcombobox en fungeert als een kopje
-            Grid.Children.Add(new Label
-            {
-                Content = "Boot:",
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(10, 340, 0, 0),
-                FontSize = 16
-            });
- 
-            // Dit label staat boven de boatview en fungeert als een kopje
-            Grid.Children.Add(new Label
-            {
-                Content = "Eigenschappen boot:",
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(300, 150, 0, 0),
-                FontSize = 16
-            });
- 
-            // De boatview is een paar regels terug al aangemaakt.
-            Grid.Children.Add(BoatView);
- 
-            // Dit label staat boven de reservationdurationcombobox en fungeert als een kopje
-            Grid.Children.Add(new Label
-            {
-                Content = "Duur reservering:",
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(500, 340, 0, 0),
-                FontSize = 16
-            });
- 
-            var annulerenButton = new Button
-            {
-                Content = "Annuleren",
-                Width = 120,
-                Height = 25,
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(290, 784, 0, 0),
-            };
- 
-            // Als je op "Annuleren" klikt, dan ga je weer terug naar het dashboard
-            annulerenButton.Click += (sender, e) => Switcher.Switch(new Dashboard());
-            Grid.Children.Add(annulerenButton);
- 
+
             PlannerGrid = new PlannerGrid();
             PlannerGrid.MouseDown += OnPlannerGridClick;
- 
-            // Nu worden de plannergrid, de dropdowns, de kalender en de boatview geïnitialiseerd.
-            // Als je dit niet zou doen,
-            // dan zouden al deze dingen leeg zijn als je het reserveringsscherm net opent en nog niets hebt aangeklikt.
-            var sunriseAndSunsetTimes = GetSunriseAndSunsetTimes(DateTime.Now);
- 
-            // De eerste slot waar het licht is. Komt de zon op om 6.24, dan is de eerste slot van 6.30 tot 6.45
-            var earliestSlot = GetFirstLightSlot(sunriseAndSunsetTimes[0]);
- 
-            // De laatste slot waar het licht is. Gaat de zon onder om 20.08, dan is de laatste slot van 19.45 tot 20.00
-            var firstDarknessSlot = GetFirstDarknessSlot(sunriseAndSunsetTimes[1]);
- 
-            var selectedBoatString = (string)BoatNamesComboBox.SelectedValue;
- 
-            // Haal alle slots op
-            // 1) waarbij de geselecteerde boot (we openen het reserveringsscherm net, dus de eerste boot in de botencombobox is de geselecteerde boot) al afgeschreven is
-            // 2) al voorbij zijn (maar waar de zon al wel op was)
-            // 3) te ver in de toekomst zijn om geclaimd te kunnen worden (maar waar de zon nog niet onder is)
-            var now = DateTime.Now;
-            var claimedPastAndTooDistantSlotsForThisDayAndBoat =
-                GetClaimedBrokenPastAndTooDistantSlotsForThisDayAndBoat(now, now, selectedBoatString, earliestSlot,
-                    firstDarknessSlot);
- 
-            // Weergeef de eigenschappen van de geselecteerde boot (wederom de eerste in de botencombobox)
-            BoatView.UpdateView(new BoatController().GetBoatWithName(selectedBoatString));
- 
-            // Vul de PlannerGrid met de slots voor deze dag.
-            // Alles vòòr de eerste en na de laatste slot wordt donkerblauw.
-            // Alle slots die al geclaimd zijn, voorbij zijn of nog niet gereserveerd mogen worden, worden grijs
-            PlannerGrid.Populate(earliestSlot, firstDarknessSlot, claimedPastAndTooDistantSlotsForThisDayAndBoat);
-            Grid.Children.Add(PlannerGrid);
- 
-            // Staat boven de reservationstartcombobox. Fungeert als kopje.
-            Grid.Children.Add(new Label
-            {
-                Content = "Starttijd:",
-                HorizontalAlignment = HorizontalAlignment.Left,
-                Margin = new Thickness(275, 340, 0, 0),
-                FontSize = 16
-            });
-            _reservationStartComboBox = new ComboBox
-            {
-                HorizontalAlignment = HorizontalAlignment.Left,
-                Width = 120,
-                Height = 45,
-                Margin = new Thickness(285, 127, 0, 0),
-                SelectedIndex = 0,
-                FontSize = 16
- 
-            };
- 
-            // DropDownClosed wordt getriggerd bij inklappen van de grid.
-            _reservationStartComboBox.DropDownClosed += OnStartComboBoxClick;
- 
-            // Vul de reservationstartcombobox met de beschikbare starttijden voor een afschrijving.
-            // Om een starttijd te mogen kiezen, moet de slot van de starttijd aan de volgende voorwaarden voldoen:
-            // 1) Het slot moet na zonsopgang zijn
-            // 2) Het slot moet vòòr zonsondergang zijn
-            // 3) Het slot is nog niet afgeschreven
-            // 4) Het slot begint niet in het verleden
-            PopulateStartTimeComboBox(DateTime.Now, earliestSlot, firstDarknessSlot, claimedPastAndTooDistantSlotsForThisDayAndBoat);
-            Grid.Children.Add(_reservationStartComboBox);
- 
-            // Weergeef de grid
-            Content = Grid;
- 
-            FillComboTimes();
- 
-            // Kijk of je wel acht kwartier mag afschrijven of dat er afschrijving binnen die acht kwartier geclaimd is.
-            OnStartComboBoxClick(null, null);
- 
-            ReservationDurationComboBox.DropDownClosed += OnDurationComboBoxClick;
- 
-            Grid.Children.Add(_noSlotsAvailableLabel);
+
+
         }
- 
+        //public void Constructor() { 
+        //    // Nu worden de plannergrid, de dropdowns, de kalender en de boatview geïnitialiseerd.
+        //    // Als je dit niet zou doen,
+        //    // dan zouden al deze dingen leeg zijn als je het reserveringsscherm net opent en nog niets hebt aangeklikt.
+        //    var sunriseAndSunsetTimes = GetSunriseAndSunsetTimes(DateTime.Now);
+
+        //    //// De eerste slot waar het licht is. Komt de zon op om 6.24, dan is de eerste slot van 6.30 tot 6.45
+        //    var earliestSlot = GetFirstLightSlot(sunriseAndSunsetTimes[0]);
+
+        //    //// De laatste slot waar het licht is. Gaat de zon onder om 20.08, dan is de laatste slot van 19.45 tot 20.00
+        //    var firstDarknessSlot = GetFirstDarknessSlot(sunriseAndSunsetTimes[1]);
+
+        //    // Haal alle slots op
+        //    // 1) waarbij de geselecteerde boot (we openen het reserveringsscherm net, dus de eerste boot in de botencombobox is de geselecteerde boot) al afgeschreven is
+        //    // 2) al voorbij zijn (maar waar de zon al wel op was)
+        //    // 3) te ver in de toekomst zijn om geclaimd te kunnen worden (maar waar de zon nog niet onder is)
+
+        //    var claimedPastAndTooDistantSlotsForThisDayAndBoat =
+        //        GetClaimedBrokenPastAndTooDistantSlotsForThisDayAndBoat(DateTime.Now, DateTime.Now, (string)ReserveWindow.BoatNamesComboBox.SelectedValue, earliestSlot,
+        //            firstDarknessSlot);
+
+        //    // Vul de PlannerGrid met de slots voor deze dag.
+        //    // Alles vòòr de eerste en na de laatste slot wordt donkerblauw.
+        //    // Alle slots die al geclaimd zijn, voorbij zijn of nog niet gereserveerd mogen worden, worden grijs
+
+        //    PlannerGrid.Populate(earliestSlot, firstDarknessSlot, claimedPastAndTooDistantSlotsForThisDayAndBoat);
+        //    ReserveWindow.ReserveGrid.Children.Add(PlannerGrid);
+
+
+
+
+        //    // Vul de reservationstartcombobox met de beschikbare starttijden voor een afschrijving.
+        //    // Om een starttijd te mogen kiezen, moet de slot van de starttijd aan de volgende voorwaarden voldoen:
+        //    // 1) Het slot moet na zonsopgang zijn
+        //    // 2) Het slot moet vòòr zonsondergang zijn
+        //    // 3) Het slot is nog niet afgeschreven
+        //    // 4) Het slot begint niet in het verleden
+
+        //    PopulateStartTimeComboBox(DateTime.Now, earliestSlot, firstDarknessSlot, claimedPastAndTooDistantSlotsForThisDayAndBoat);
+
+        //}
+
         // Vul de bootnaamcombobox
-        public void FillComboNames(List<Boat> boats)
+        public void FillComboNames(List<Boat> boats, ComboBox NameCombobox)
         {
-            BoatNamesComboBox.Name = "ComboBoatName";
-            BoatNamesComboBox.Width = 150;
-            BoatNamesComboBox.Height = 45;
-            BoatNamesComboBox.FontSize = 16;
-            BoatNamesComboBox.HorizontalAlignment = HorizontalAlignment.Left;
-            BoatNamesComboBox.Margin = new Thickness(20, 127, 0, 0);
-            // De combobox selecteert bij openen van het scherm de eerste boot
-            BoatNamesComboBox.SelectedIndex = 0;
-            BoatNamesComboBox.DropDownClosed += OnBoatNamesComboBoxClicked;
-            Grid.Children.Add(BoatNamesComboBox);
+            //// De combobox selecteert bij openen van het scherm de eerste boot
+            //NameCombobox.SelectedIndex = 0;
+           
             // Vul de combobox met boten uit de database die corresponderen met dit type
-            //            using (var context = new DataBase())
-            foreach (var item in boats)
-                BoatNamesComboBox.Items.Add(item.Name);
+               foreach (var item in boats)
+                NameCombobox.Items.Add(item.Name);
         }
- 
-        // Initialiseer de afschrijvingsduur-combobox met acht opties (één tot acht kwartier na de starttijd)
-        public void FillComboTimes()
-        {
-            ReservationDurationComboBox.Name = "ComboTimes";
-            ReservationDurationComboBox.Width = 120;
-            ReservationDurationComboBox.Height = 25;
-            ReservationDurationComboBox.Width = 245;
-            ReservationDurationComboBox.Height = 45;
-            ReservationDurationComboBox.FontSize = 16;
-            ReservationDurationComboBox.HorizontalAlignment = HorizontalAlignment.Left;
-            ReservationDurationComboBox.Margin = new Thickness(510, 127, 0, 0);
-            ReservationDurationComboBox.SelectedIndex = 0;
-            ReservationDurationComboBox.Items.Add("00:15");
-            ReservationDurationComboBox.Items.Add("00:30");
-            ReservationDurationComboBox.Items.Add("00:45");
-            ReservationDurationComboBox.Items.Add("01:00");
-            ReservationDurationComboBox.Items.Add("01:15");
-            ReservationDurationComboBox.Items.Add("01:30");
-            ReservationDurationComboBox.Items.Add("01:45");
-            ReservationDurationComboBox.Items.Add("02:00");
-            Grid.Children.Add(ReservationDurationComboBox);
-        }
+
  
         // De methode wanneer je een tijdsduur voor afschrijving kiest
-        private void OnDurationComboBoxClick(object sender, EventArgs e)
+        public void OnDurationComboBoxClick()
         {
             // Als er op de afschrijvingslengte-combobox wordt geklikt, dan wordt de plannergrid opnieuw gerenderd.
  
@@ -267,7 +129,7 @@ namespace BataviaReseveringsSysteem.Reservations
             // Genereer de slots die al voorbij zijn, te ver weg zijn of al geclaimd zijn
             var claimedPastAndTooDistantSlotsForThisDayAndBoat =
                 GetClaimedBrokenPastAndTooDistantSlotsForThisDayAndBoat(DateTime.Now, selectedDateValue,
-                    (string)BoatNamesComboBox.SelectedValue, earliestSlot, firstDarknessSlot);
+                    (string)ReserveWindow.BoatNamesComboBox.SelectedValue, earliestSlot, firstDarknessSlot);
  
             // Genereer de slots die je wil claimen
             // (wordt bekeken aan de hand van de start- en de afschrijvingsduur-comboboxes
@@ -282,7 +144,7 @@ namespace BataviaReseveringsSysteem.Reservations
         }
  
         // De methode voor wanneer je een starttijd kiest
-        private void OnStartComboBoxClick(object sender, EventArgs eventArgs)
+        public void OnStartComboBoxClick()
         {
             // Als de startcombobox wordt gesloten, refresh dan de afschrijvingslengte-combobox en de plannergrid
  
@@ -298,7 +160,7 @@ namespace BataviaReseveringsSysteem.Reservations
             // Genereer de slots die al voorbij zijn, te ver weg zijn of al geclaimd zijn
             var claimedPastAndTooDistantSlotsForThisDayAndBoat =
                 GetClaimedBrokenPastAndTooDistantSlotsForThisDayAndBoat(DateTime.Now, selectedDateValue,
-                    (string)BoatNamesComboBox.SelectedValue, earliestSlot, firstDarknessSlot);
+                    (string)ReserveWindow.BoatNamesComboBox.SelectedValue, earliestSlot, firstDarknessSlot);
  
             // De afschrijvingsduur-combobox moet worden ververst.
             // Als er om 13 uur een reservering staat en je hebt eerst 11 uur aangeklikt als start en nu 12 uur,
@@ -326,8 +188,8 @@ namespace BataviaReseveringsSysteem.Reservations
             {
                 // Als er op deze dag niets afgeschreven mag worden, zijn de startcombobox en de duurcombobox blanco.
                 // Ze kunnen dan niet uitgelezen worden
-                startSlot = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
-                DateTime.Parse(ReservationDurationComboBox.SelectedValue.ToString());
+                startSlot = DateTime.Parse(ReserveWindow._reservationStartComboBox.SelectedValue.ToString());
+                DateTime.Parse(ReserveWindow._reservationStartComboBox.SelectedValue.ToString());
             }
             catch (FormatException)
             {
@@ -354,7 +216,7 @@ namespace BataviaReseveringsSysteem.Reservations
             {
                 // Als er op deze dag niets afgeschreven mag worden, is de startcombobox.
                 // Hij kan dan niet uitgelezen worden
-                startSlotDayQuarter = DateTimeToDayQuarter(DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString()));
+                startSlotDayQuarter = DateTimeToDayQuarter(DateTime.Parse(ReserveWindow._reservationStartComboBox.SelectedValue.ToString()));
             }
             catch (FormatException)
             {
@@ -384,9 +246,9 @@ namespace BataviaReseveringsSysteem.Reservations
         // Vul de afschrijvingsduur-combobox
         private void PopulateDurationTimeComboBox(int amountOfSlotsToNextUnclaimableSlot)
         {
-            var itemsInComboBox = ReservationDurationComboBox.Items;
+            var itemsInComboBox = ReserveWindow._reservationStartComboBox.Items;
             // Verkrijg het item dat nu geselecteerd is
-            var oldSelectedIndex = ReservationDurationComboBox.SelectedIndex;
+            var oldSelectedIndex = ReserveWindow._reservationStartComboBox.SelectedIndex;
             if (oldSelectedIndex < 0) oldSelectedIndex = 0;
             itemsInComboBox.Clear();
             // Aantal claimbare slots is het aantal slots tot het volgende onclaimbare slot met een maximum van 8
@@ -399,7 +261,7 @@ namespace BataviaReseveringsSysteem.Reservations
             // Als de dag helemaal vol zit, dan is het aantal duurstrings 0
             if (amountOfItems == 0)
             {
-                ReservationDurationComboBox.SelectedValue = "(geen slots meer reserveerbaar vandaag)";
+                ReserveWindow._reservationStartComboBox.SelectedValue = "(geen slots meer reserveerbaar vandaag)";
             }
             else
             {
@@ -408,7 +270,7 @@ namespace BataviaReseveringsSysteem.Reservations
                 // tenzij de vorige geselecteerde index te hoog is
                 // omdat de bijbehorende string niet meer in de combobox zit
                 var highestSelectableIndex = amountOfItems - 1;
-                ReservationDurationComboBox.SelectedIndex = new[] { oldSelectedIndex, highestSelectableIndex }.Min();
+                ReserveWindow._reservationStartComboBox.SelectedIndex = new[] { oldSelectedIndex, highestSelectableIndex }.Min();
             }
         }
  
@@ -434,7 +296,7 @@ namespace BataviaReseveringsSysteem.Reservations
             try
             {
                 // Als de starttijd niet kan worden gelezen...
-                startSlot = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
+                startSlot = DateTime.Parse(ReserveWindow._reservationStartComboBox.SelectedValue.ToString());
             }
             catch (FormatException)
             {
@@ -456,28 +318,29 @@ namespace BataviaReseveringsSysteem.Reservations
         }
  
         // Vul de afschrijvingsstartcombobox
-        private void PopulateStartTimeComboBox(DateTime selectedDate, DateTime earliestSlot, DateTime firstDarknessSlot,
+        public void PopulateStartTimeComboBox(DateTime selectedDate, DateTime earliestSlot, DateTime firstDarknessSlot,
             List<DateTime> claimedSlotsForThisDay)
         {
-            _reservationStartComboBox.Items.Clear();
+          
+           ReserveWindow._reservationStartComboBox.Items.Clear();
             // Maak claimbare startslots op basis van de geselecteerde datum.
             // Zorg er daarbij voor dat alles vóór en na het donker en de geclaimde slots niet geselecteerd kunnen worden:
             // deze startslots worden ook niet gemaakt
             GenerateClaimableStartSlots(selectedDate, earliestSlot, firstDarknessSlot, claimedSlotsForThisDay)
-                .ForEach(claimableStartSlot => _reservationStartComboBox.Items.Add(claimableStartSlot.ToString("t")));
+                .ForEach(claimableStartSlot => ReserveWindow._reservationStartComboBox.Items.Add(claimableStartSlot.ToString("t")));
             // Als er niets in zit,
-            if (_reservationStartComboBox.Items.Count == 0)
+            if (ReserveWindow._reservationStartComboBox.Items.Count == 0)
             {
                 // dan is de hele dag dus al gevuld.
-                _reservationStartComboBox.SelectedValue = "(geen slots beschikbaar)";
-                _noSlotsAvailableLabel.Visibility = Visibility.Visible;
-                _okButton.IsEnabled = false;
+                ReserveWindow._reservationStartComboBox.SelectedValue = "(geen slots beschikbaar)";
+                ReserveWindow._noSlotsAvailableLabel.Visibility = Visibility.Visible;
+                
             }
             else
             {
-                _reservationStartComboBox.SelectedIndex = 0;
-                _noSlotsAvailableLabel.Visibility = Visibility.Hidden;
-                _okButton.IsEnabled = true;
+                ReserveWindow._reservationStartComboBox.SelectedIndex = 0;
+                ReserveWindow._noSlotsAvailableLabel.Visibility = Visibility.Hidden;
+            
             }
         }
  
@@ -513,44 +376,26 @@ namespace BataviaReseveringsSysteem.Reservations
         // Rond een tijdstip naar beneden af op kwartieren
         private DateTime BottomRoundTimeToSlot(DateTime time) => time.AddMinutes(-(time.Minute % 15));
  
-        // Maak de registreerknop. Standaard staat ie op onklikbaar
-        public void MakeRegisterBtn()
-        {
-            _okButton = new Button { Name = "okBtn", Content = "Afschrijven", Width = 120, Height = 25, IsEnabled = false };
-            _okButton.Click += OkBtn_Click;
-            _okButton.HorizontalAlignment = HorizontalAlignment.Left;
-            _okButton.Margin = new Thickness(510, 237, 0, 0);
-            Grid.Children.Add(_okButton);
- 
-        }
- 
+  
         // Tel de tijdsduur bij de starttijd op en genereer zo de eindtijd
         public DateTime GenerateEndTime(DateTime startTime) => startTime
-            .AddHours(int.Parse(ReservationDurationComboBox.SelectedValue.ToString()[1].ToString()))
-            .AddMinutes(int.Parse(ReservationDurationComboBox.SelectedValue.ToString().Substring(3)));
+            .AddHours(int.Parse(ReserveWindow._reservationStartComboBox.SelectedValue.ToString()[1].ToString()))
+            .AddMinutes(int.Parse(ReserveWindow._reservationStartComboBox.SelectedValue.ToString().Substring(3)));
  
         // Zodra de OkBtn is aangeklikt zal de boot worden afgeschreven na messagebox dialoog bevestiging
-        private void OkBtn_Click(object sender, RoutedEventArgs e)
+        public void AddReservation()
         {
-            // Toon een popup.
-            // Als de gebruiker de afschrijving toch niet definitief wil maken, dan gaan we weer naar het afschrijvenscherm
-            if (MessageBox.Show("Wilt u uw afschrijving definitief maken?",
-                    "Afschrijving bevestigen",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) !=
-                MessageBoxResult.Yes)
-                return;
- 
+      
             // Zo nee, dan gaan we de afschrijving in de database zetten
             using (var context = new DataBase())
             {
                 // Pak de boot die je wil afschrijven
                 var boat = (from db in context.Boats
-                            where db.Name.Equals((string)BoatNamesComboBox.SelectedValue)
+                            where db.Name.Equals((string)ReserveWindow.BoatNamesComboBox.SelectedValue)
                             select db).First();
                 // Pak de start- en eindtijd
                 var selectedDate = BoatTypeTabItemCalendar.SelectedDate.Value.Date;
-                var selectedTime = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
+                var selectedTime = DateTime.Parse(ReserveWindow._reservationStartComboBox.SelectedValue.ToString());
                 var startTime = selectedDate.AddHours(selectedTime.Hour).AddMinutes(selectedTime.Minute);
                 var endTime = GenerateEndTime(startTime);
  
@@ -566,16 +411,16 @@ namespace BataviaReseveringsSysteem.Reservations
         }
  
         // Als er op de combobox voor de bootnamen wordt geklikt...
-        private void OnBoatNamesComboBoxClicked(object sender, EventArgs e)
-        {
-            // Ververs de plannergrid, de afschrijvingsstart-combobox en de -duurcombobox
-            FullRefresh();
+        //private void OnBoatNamesComboBoxClicked(object sender, EventArgs e)
+        //{
+        //    // Ververs de plannergrid, de afschrijvingsstart-combobox en de -duurcombobox
+        //    FullRefresh();
  
-            // Werk de boatview bij met data uit deze boot
-            var selectedBoatString = (string)BoatNamesComboBox.SelectedValue;
-            var selectedBoat = new BoatController().GetBoatWithName(selectedBoatString);
-            BoatView.UpdateView(selectedBoat);
-        }
+        //    // Werk de boatview bij met data uit deze boot
+        //    var selectedBoatString = (string)ReserveWindow.BoatNamesComboBox.SelectedValue;
+        //    var selectedBoat = new BoatController().GetBoatWithName(selectedBoatString);
+          
+        //}
  
         // Verkrijg de zonsopgangs- en zonsondergangstijden voor een geselecteerde datum
         // De applicatie gaat er vanuit dat de roeivereniging zich in hartje Zwolle bevindt
@@ -641,7 +486,7 @@ namespace BataviaReseveringsSysteem.Reservations
  
             var firstDarknessSlot = GetFirstDarknessSlot(sunriseAndSunsetTimes[1]);
  
-            var selectedBoat = (string)BoatNamesComboBox.SelectedValue;
+            var selectedBoat = (string)ReserveWindow.BoatNamesComboBox.SelectedValue;
             var claimedSlotsForThisDayAndBoat =
                 GetClaimedBrokenPastAndTooDistantSlotsForThisDayAndBoat(DateTime.Now, selectedDateValue, selectedBoat,
                     earliestSlot, firstDarknessSlot);
@@ -678,18 +523,18 @@ namespace BataviaReseveringsSysteem.Reservations
             var claimedSlots = new List<DateTime>();
  
             // Verkrijg de reserveringen voor de geselecteerde boot.
-            var boat = new BoatController().GetBoatWithName(selectedBoatString);
-            new ReservationController()
-                .GetReservationsForDayAndBoatThatAreNotDeleted(selectedDate,
-                    boat).ForEach(reservation =>
+            //var boat = new BoatController().GetBoatWithName(selectedBoatString);
+            //new ReservationController()
+            //    .GetReservationsForDayAndBoatThatAreNotDeleted(selectedDate,
+            //        boat).ForEach(reservation =>
  
-                    // Zet de reserveringen in de database om in slots
-                    {
-                        for (var i = DateTimeToDayQuarter(reservation.Start);
-                        i < DateTimeToDayQuarter(reservation.End);
-                        i++)
-                            claimedSlots.Add(DayQuarterToDateTime(selectedDate, i));
-                    });
+            //        // Zet de reserveringen in de database om in slots
+            //        {
+            //            for (var i = DateTimeToDayQuarter(reservation.Start);
+            //            i < DateTimeToDayQuarter(reservation.End);
+            //            i++)
+            //                claimedSlots.Add(DayQuarterToDateTime(selectedDate, i));
+            //        });
             var datePartOfDateTimeNow = now.Date;
 
 //            var isBroken = new DamageController().IsThisBoatBrokenToday(boat, selectedDate);
@@ -810,7 +655,7 @@ namespace BataviaReseveringsSysteem.Reservations
             var position = e.GetPosition(PlannerGrid);
             var x = position.X;
             var y = position.Y;
-            if (x >= 0 && x < 200 && y >= 0 && _reservationStartComboBox.SelectedIndex >= 0 && ReservationDurationComboBox.SelectedIndex >= 0)
+            if (x >= 0 && x < 200 && y >= 0 && ReserveWindow._reservationStartComboBox.SelectedIndex >= 0 && ReserveWindow._reservationStartComboBox.SelectedIndex >= 0)
             {
                 var minutes = PlannerGrid.GetMinutesFromX(x);
                 var hour = PlannerGrid.GetHourFromY(y);
@@ -821,19 +666,19 @@ namespace BataviaReseveringsSysteem.Reservations
                     var selectedIndex = SelectStart(hour, minutes);
                     if (selectedIndex.HasValue)
                     {
-                        ReservationDurationComboBox.SelectedIndex = 0;
-                        _reservationStartComboBox.SelectedIndex = selectedIndex.Value;
-                        OnStartComboBoxClick(null, null);
+                        ReserveWindow._reservationStartComboBox.SelectedIndex = 0;
+                        ReserveWindow._reservationStartComboBox.SelectedIndex = selectedIndex.Value;
+                        OnStartComboBoxClick();
                     }
                 }
                 else
                 {
 //                    MessageBox.Show($"{DateTime.Today.AddHours(hour).AddMinutes(minutes).ToLongTimeString()}, selecteert begin");
-                    var selectedIndex = SelectDuration(hour, minutes, DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString()));
+                    var selectedIndex = SelectDuration(hour, minutes, DateTime.Parse(ReserveWindow._reservationStartComboBox.SelectedValue.ToString()));
                     if (selectedIndex.HasValue)
                     {
-                        ReservationDurationComboBox.SelectedIndex = selectedIndex.Value;
-                        OnDurationComboBoxClick(null, null);
+                        ReserveWindow._reservationStartComboBox.SelectedIndex = selectedIndex.Value;
+                        OnDurationComboBoxClick();
                     }
                 }
  
@@ -846,7 +691,7 @@ namespace BataviaReseveringsSysteem.Reservations
  
         private int? SelectDuration(int hour, int minutes, DateTime selectedStartSlot)
         {
-            var items = ReservationDurationComboBox.Items;
+            var items = ReserveWindow._reservationStartComboBox.Items;
             for (int i = 0; i < items.Count; i++)
             {
                 var item = items[i];
@@ -864,7 +709,7 @@ namespace BataviaReseveringsSysteem.Reservations
  
         private int? SelectStart(int hour, int minutes)
         {
-            var items = _reservationStartComboBox.Items;
+            var items = ReserveWindow._reservationStartComboBox.Items;
             for (var i = 0; i < items.Count; i++)
             {
                 var item = items[i];

@@ -321,6 +321,7 @@ namespace Controllers
                      where userDiploma.UserID == LoginView.UserId
                      where boatDiploma.BoatID == boat.BoatID
                      where boat.Broken == false
+                     where boat.DeletedAt == null
                      select boat).Distinct().Concat(
                         from boat in context.Boats
                         where !(
