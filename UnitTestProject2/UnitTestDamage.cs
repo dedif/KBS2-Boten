@@ -40,7 +40,7 @@ namespace UnitTestProject2
             //maak databse
             DataBase context = new DataBase();
             //maak boot
-            Boat boatTest = new Boat(boatName, Boat.BoatType.Board, 2, 2, false, DateTime.Now);
+            Boat boatTest = new Boat(boatName, Boat.BoatType.Board, 2, 2, false, 110, DateTime.Now);
             context.Boats.Add(boatTest);
             //maak reservering met toegevoegde boot
             Reservation reservationTest = new Reservation(boatTest, DateTime.Now, DateTime.Now);
@@ -65,7 +65,7 @@ namespace UnitTestProject2
         public void Notification_OneReservationAndLastLoggedInBeforeDamage_NotificationIsOne()
         {
             //Arrange
-            Boat boatTest = new Boat("bootTest", Boat.BoatType.Board, 2, 2, false, DateTime.Now);
+            Boat boatTest = new Boat("bootTest", Boat.BoatType.Board, 2, 2, false, 123, DateTime.Now);
             Reservation reservationTest = new Reservation(boatTest, DateTime.Now, new DateTime());
             Damage damage = new Damage(2, boatTest.BoatID, "boot kapot", "Lichte schade");
             DateTime dateTest = new DateTime(2025, 2, 10);
