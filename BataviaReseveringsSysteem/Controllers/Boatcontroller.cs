@@ -240,7 +240,7 @@ namespace Controllers
         }
 
         //Deze methode voegt een boot toe aan de database
-        public void AddBoat(string name, string type, int rowers, double weight, bool steeringwheel, int boatLocation)
+        public void AddBoat(string name, string type, int rowers, double weight, bool steeringwheel, int boatLocation, DateTime availableAt)
         {
             notification = "";
 
@@ -251,7 +251,7 @@ namespace Controllers
 
                 Enum.TryParse(type, out Boat.BoatType MyType);
                 DateTime CreatedAt = DateTime.Now;
-                Boat boot1 = new Boat(name, MyType, rowers, weight, steeringwheel, boatLocation, CreatedAt);
+                Boat boot1 = new Boat(name, MyType, rowers, weight, steeringwheel, boatLocation, CreatedAt, availableAt);
 
                 context.Boats.Add(boot1);
 
@@ -302,7 +302,7 @@ namespace Controllers
         }
 
 
-        public void UpdateBoat(int boatID, string name, string type, int rowers, double weight, bool steeringwheel, int boatLocation)
+        public void UpdateBoat(int boatID, string name, string type, int rowers, double weight, bool steeringwheel, int boatLocation, DateTime availableAt)
         {
             using (DataBase context = new DataBase())
             {
@@ -317,6 +317,7 @@ namespace Controllers
                     UpdateBoat.NumberOfRowers = rowers;
                     UpdateBoat.UpdatedAt = DateTime.Now;
                     UpdateBoat.BoatLocation = boatLocation;
+                    UpdateBoat.AvailableAt = availableAt;
                     try
                     {
 
@@ -463,6 +464,7 @@ namespace Controllers
                      join userDiploma in context.User_Diplomas on boatDiploma.DiplomaID equals userDiploma.DiplomaID
                      where userDiploma.UserID == LoginView.UserId
                      where boatDiploma.BoatID == boat.BoatID
+                     where boat.AvailableAt <= DateTime.Now
                      where boat.Broken == false
                      select boat).Distinct().Concat(
                         from boat in context.Boats

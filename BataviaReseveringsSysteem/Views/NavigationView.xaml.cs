@@ -54,7 +54,7 @@ namespace Views
 
                 }
                 // Als de user een examinator is: 
-                if (RolID.Contains(4) )
+                if (RolID.Contains(4) || RolID.Contains(5) )
                 {
                     //Mag die diploma's toevoegen
                     SeeUserDiplomasBtn.IsEnabled = true;
