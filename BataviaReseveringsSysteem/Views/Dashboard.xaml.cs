@@ -31,7 +31,7 @@ namespace Views
         {
             InitializeComponent();
 
-            UserTimeOutController utoc = new UserTimeOutController(System.Windows.Input.FocusManager.GetFocusedElement(this), 100);
+            UserTimeOutController utoc = new UserTimeOutController(System.Windows.Input.FocusManager.GetFocusedElement(this), 90);
 
           
             var loggedUser = (from data in context.Users
