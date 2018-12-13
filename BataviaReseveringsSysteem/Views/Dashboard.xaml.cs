@@ -8,7 +8,7 @@ using ScreenSwitcher;
 using System;
 using Controllers;
 using BataviaReseveringsSysteem.Views;
-
+using BataviaReseveringsSysteem.Controllers;
 
 namespace Views
 {
@@ -31,6 +31,9 @@ namespace Views
         {
             InitializeComponent();
 
+            UserTimeOutController utoc = new UserTimeOutController(System.Windows.Input.FocusManager.GetFocusedElement(this), 90);
+
+          
             var loggedUser = (from data in context.Users
                               where data.UserID == LoginView.UserId
                               select data).Single();
