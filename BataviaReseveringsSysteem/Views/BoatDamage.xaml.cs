@@ -135,5 +135,38 @@ namespace Views
                 reserved = " Deze boot is in de toekomst gereserveerd.";
             }
         }
+
+
+        private void NameboatCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //Aan het begin wordt de textblock Otherdamages leeg gemaakt.	
+            OtherDamages.Text = "";
+            using (DataBase context = new DataBase())
+            {
+                //Dit selecteerd alle beschrijvingen van de schade's van de geselecteerde boot	
+                var SelectedBoat = (
+                    from data in context.Damages
+                    join boats in context.Boats
+                    on data.BoatID equals boats.BoatID
+                    where boats.Name == (string)NameboatCombo.SelectedValue
+                    select data.Description).ToList();
+                foreach (string description in SelectedBoat)
+                {
+                    //De schade van de geselecteerde boot worden in het textblock OtherDamages gezet	
+                    OtherDamages.Text += "\n" + description + "\n";
+                }
+                if (SelectedBoat.Count < 1)
+                {
+                    //Als er een schade's zijn voor de geselecteerde boot word de Label en textblock niet getoond op het scherm	
+                    DamagesLabel.Visibility = Visibility.Hidden;
+                    OtherDamages.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    DamagesLabel.Visibility = Visibility.Visible;
+                    OtherDamages.Visibility = Visibility.Visible;
+                }
+            }
+        }
     }
 }
