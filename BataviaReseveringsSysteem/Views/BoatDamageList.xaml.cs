@@ -41,7 +41,7 @@ namespace BataviaReseveringsSysteem.Views
                              join d in context.Damages on b.BoatID equals d.BoatID
                              join u in context.Users on d.UserID equals u.UserID
                              where b.DeletedAt == null
-                             select new { b.BoatID, BoatName = b.Name, TimeOfClaim = d.TimeOfClaim, TimeOfFix = d.TimeOfFix, Description = d.Description, Status = d.Status, FirstName = u.Firstname, LastName = u.Lastname, MiddleName = u.Middlename }).ToList();
+                             select new { b.BoatID, BoatName = b.Name, TimeOfClaim = d.TimeOfClaim, TimeOfAccupyForFix = d.TimeOfAccupyForFix, TimeOfFix = d.TimeOfFix, Description = d.Description, Status = d.Status, FirstName = u.Firstname, LastName = u.Lastname, MiddleName = u.Middlename }).ToList();
 
 
                 DataGrid = DataBoatDamageList;
