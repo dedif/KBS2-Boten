@@ -47,6 +47,8 @@ namespace BataviaReseveringsSysteem.Controllers
             _inactiveMousePosition = Mouse.GetPosition(_inputElement);
             _activityTimer.Stop();
             IsIdle?.Invoke(this, new EventArgs());
+            LoginView.UserId = 0;
+            Switcher.DeleteMenu();
             Switcher.Switch(new LoginView());
 
         }
