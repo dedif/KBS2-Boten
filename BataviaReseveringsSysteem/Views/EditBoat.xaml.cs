@@ -46,6 +46,7 @@ namespace Views
                 foreach (var boat in boats)
                 {
                     NameBox.Text = boat.Name;
+                    NameBox.IsEnabled = false;
                     RowersCombo.SelectedItem = boat.NumberOfRowers;
                     RowersCombo.Text = boat.NumberOfRowers.ToString();
                     WeightBox.Text = boat.Weight.ToString();
@@ -198,36 +199,33 @@ namespace Views
 
                             if (b.EditBoatLocationCheck(BoatLocation, EditBoatID) == true)
                             {
-                                if (b.EditBoatNameCheck(NameBox.Text, EditBoatID) == true)
+
+                                double Weight = double.Parse(WeightBox.Text);
+                                int Rowers = int.Parse(RowersCombo.Text);
+                                Boolean Steeringwheel = false;
+
+                                if (SteeringWheelToggle.IsChecked == true)
                                 {
-
-                                    double Weight = double.Parse(WeightBox.Text);
-                                    int Rowers = int.Parse(RowersCombo.Text);
-                                    Boolean Steeringwheel = false;
-
-                                    if (SteeringWheelToggle.IsChecked == true)
-                                    {
-                                        Steeringwheel = true;
-                                    }
+                                    Steeringwheel = true;
+                                }
 
 
-                                    // if (!boatLocationCheck)
-                                    // {
+                                // if (!boatLocationCheck)
+                                // {
 
-                                    b.UpdateBoat(EditBoatID, NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation);
-                                    MessageBoxResult Succes = MessageBox.Show(
-                                     "De boot is succesvol opgeslagen",
-                                     "Melding",
-                                     MessageBoxButton.OK,
-                                     MessageBoxImage.Information);
+                                b.UpdateBoat(EditBoatID, NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation,AvailableAt.SelectedDate.Value);
+                                MessageBoxResult Succes = MessageBox.Show(
+                                 "De boot is succesvol opgeslagen",
+                                 "Melding",
+                                 MessageBoxButton.OK,
+                                 MessageBoxImage.Information);
 
-                                    switch (Succes)
-                                    {
-                                        case MessageBoxResult.OK:
-                                            Switcher.Switch(new BoatList());
-                                            break;
+                                switch (Succes)
+                                {
+                                    case MessageBoxResult.OK:
+                                        Switcher.Switch(new BoatList());
+                                        break;
 
-                                    }
                                 }
                             }
                         }

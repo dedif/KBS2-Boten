@@ -190,34 +190,6 @@ namespace Controllers
 
         }
 
-        public Boolean EditBoatNameCheck(string name, int boatID)
-        {
-
-            using (DataBase context = new DataBase())
-
-            {
-                var CountBoatLocation = (from b in context.Boats
-                                         where b.Name == name
-                                         where b.DeletedAt == null
-                                         select b.BoatLocation).ToList();
-
-                bool boatLocationCheck = context.Boats.Where(y => y.BoatID != boatID).Any(x => x.Name == name && x.DeletedAt == null);
-
-                if (!boatLocationCheck)
-                {
-
-                    return true;
-
-                }
-                else
-                {
-                    notification = "Deze bootnaam bestaat al";
-                    return false;
-                }
-            }
-
-        }
-
         public Boolean BootExist(int boatID)
         {
 

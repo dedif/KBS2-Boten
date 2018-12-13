@@ -16,12 +16,12 @@ namespace UnitTest
         [TestCase("dino", "", false)]//return false omdat er whitespace is
         [TestCase("Shark", "33", true)]//return true omdat er geen whitespace is
 
-        public void WhiteCheck_WithOrWithoutWhiteSpace_ReturnBool(string Name, string Weight, string Location, bool answer)
+        public void WhiteCheck_WithOrWithoutWhiteSpace_ReturnBool(string Name, string Weight, bool answer)
         {
             //Arrange
             BoatController boot = new BoatController();
             //Act
-            bool result = boot.WhiteCheck(Name, Weight, Location);
+            bool result = boot.WhiteCheck(Name, Weight);
             //Assert
             Assert.AreEqual(answer, result);
         }
@@ -53,25 +53,9 @@ namespace UnitTest
         {
             //Arrange
             BoatController boot = new BoatController();
-            boot.AddBoat("pizza", "scull", 3, 23, false,110);
+            boot.AddBoat("pizza", "scull", 3, 23, false);
             //Act
             bool result = boot.NameCheck(name);
-            //Assert
-            Assert.AreEqual(answer, result);
-        }
-
-
-        [Test]
-        [TestCase(100, true)]
-        [TestCase(34, false)]
-
-        public void LocationCheck_LocationExistOrNot_ReturnBool(int location, bool answer)
-        {
-            //Arrange
-            BoatController boot = new BoatController();
-            boot.AddBoat("pizza", "scull", 3, 23, false, 110);
-            //Act
-            bool result = boot.BoatLocationCheck(location);
             //Assert
             Assert.AreEqual(answer, result);
         }

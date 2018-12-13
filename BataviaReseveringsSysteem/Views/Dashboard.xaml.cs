@@ -9,8 +9,6 @@ using System;
 using Controllers;
 using BataviaReseveringsSysteem.Views;
 using BataviaReseveringsSysteem.Controllers;
-using System.Net.Mail;
-using System.Text;
 
 namespace Views
 {
@@ -70,7 +68,6 @@ namespace Views
             //De reservaties van de gebruiker worden met deze methode getoond op het scherm
             ShowReservations();
             dashboardController.Notification(loggedUser.LastLoggedIn);
-
 
 
         }
