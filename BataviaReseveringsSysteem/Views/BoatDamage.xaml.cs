@@ -26,16 +26,33 @@ namespace Views
             InitializeComponent();
 
             var NameBoats = (from data in context.Boats
-                             where data.AvailableAt <= DateTime.Now
+                             where data.DeletedAt == null
+                             where data.Deleted == null
                              select data.Name).ToList();
 
-            foreach (string name in NameBoats) {
+            if (NameBoats.Count < 1)
+            {
+                //Als er geen boten zijn dan laat de applicatie dat zien
+                NameboatCombo.IsEnabled = false;
+                DescriptionBox.IsEnabled = false;
+                HeavyDamageRadioButton.IsEnabled = false;
+                LightDamageRadioButton.IsEnabled = false;
+                SaveButton.IsEnabled = false;
+                MessageLabel.Content = "Er zijn geen boten beschikbaar om schade voor te melden.";
+                MessageLabel.Visibility = Visibility.Visible;
+                DamagesLabel.Visibility = Visibility.Hidden;
+                OtherDamages.Visibility = Visibility.Hidden;
+            }
+
+            foreach (string name in NameBoats)
+            {
                 NameboatCombo.Items.Add(name);
-           }
+            }
             NameboatCombo.SelectedIndex = 0;
 
             LightDamageRadioButton.IsChecked = true;
-        }
+ 
+    }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
