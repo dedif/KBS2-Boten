@@ -72,8 +72,8 @@ namespace Views
             dashboardController.Notification(loggedUser.LastLoggedIn);
 
             // send email test
-            //string Message = $"Hallo  {loggedUser.Firstname}, {Environment.NewLine}{Environment.NewLine}  De boot moet vanwege zware schade worden gerepareerd.{Environment.NewLine}{Environment.NewLine}  Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}  Omar en de gang";
-            //EmailController sendMail = new EmailController("loggedUser.Email", "Uw reserveringen zijn gewijzigd omdat de boot uit de vaart is genomen.", Message);
+            //string Message = $"Hallo {loggedUser.Firstname},{Environment.NewLine}{Environment.NewLine}De boot moet vanwege zware schade worden gerepareerd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}Omar en de gang";
+            //EmailController sendMail = new EmailController("ltzpatrick@hotmail.nl", "Uw reserveringen zijn gewijzigd omdat de boot uit de vaart is genomen.", Message);
 
         }
 
