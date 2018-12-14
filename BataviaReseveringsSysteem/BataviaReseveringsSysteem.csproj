@@ -103,6 +103,12 @@
     <Compile Include="Views\BoatList.xaml.cs">
       <DependentUpon>BoatList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\BoatReservationView.xaml.cs">
+      <DependentUpon>BoatReservationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BoatSelectionView.xaml.cs">
+      <DependentUpon>BoatSelectionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BoatView.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Switcher.cs" />
@@ -164,6 +170,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BoatList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BoatReservationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BoatSelectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
