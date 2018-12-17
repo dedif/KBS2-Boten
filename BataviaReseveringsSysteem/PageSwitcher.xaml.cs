@@ -1,5 +1,4 @@
 ﻿using BataviaReseveringsSysteem.Database;
-using BataviaReseveringsSysteem.Views;
 using System.Windows;
 using System.Windows.Controls;
 using Views;

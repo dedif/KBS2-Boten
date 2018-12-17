@@ -27,10 +27,9 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <ComboBox x:Name="NameboatCombo" Grid.Row="1" FontSize="16" materialDesign:HintAssist.Hint="Bootnaam" HorizontalAlignment="Left" Width="245" Grid.Column="1" SelectionChanged="NameboatCombo_SelectionChanged"/>
+        <ComboBox x:Name="NameboatCombo" Grid.Row="2" FontSize="16" materialDesign:HintAssist.Hint="Bootnaam" HorizontalAlignment="Left" Width="245" Grid.Column="1" SelectionChanged="NameboatCombo_SelectionChanged" Height="35"/>
         <TextBox x:Name="OtherDamages" IsReadOnly="True" Grid.Row="3" Grid.Column="1" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Height="112" Width="490" Margin="0,85,0,0" Grid.RowSpan="2"/>
         <Label x:Name="DamagesLabel" Grid.Row="3" Grid.Column="1" FontWeight="Bold" FontSize="16" Content="Gemaakte schades:" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.85,0.577"/>
-        <StackPanel Grid.Row="2" Grid.Column="1">
         <Canvas 
             Width="1024"
                 Height="50"
@@ -41,8 +40,6 @@
                 FontSize="26"
                 Canvas.Left="384" Canvas.Top="5" Width="208"/>
         </Canvas>
-        <ComboBox x:Name="NameboatCombo" Grid.Row="2" FontSize="16" materialDesign:HintAssist.Hint="Bootnaam" HorizontalAlignment="Left" Width="245" Grid.Column="1"/>
-
         <StackPanel Grid.Row="3" Grid.Column="1">
             <TextBox
                 Grid.Row="2" Grid.Column="1"

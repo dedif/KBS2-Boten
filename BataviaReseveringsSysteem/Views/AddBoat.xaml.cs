@@ -25,7 +25,7 @@ namespace Views
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new BoatList());
+            Switcher.Switch(new Dashboard());
         }
         //Deze methode checkt op whitespace in de textvelden, de uniekheid van de Naam die is ingevoerd en dat gewicht juist is ingevoerd
         private void SaveButton_Click(object sender, RoutedEventArgs e)
