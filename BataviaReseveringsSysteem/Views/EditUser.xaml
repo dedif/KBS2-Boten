@@ -17,16 +17,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Canvas 
-            Width="1024"
-                Height="50"
-            Background="#673ab7" Margin="0,50,0,1000">
-            <Label
-                Content="Gegevens wijzigen"
-                Foreground="White"
-                FontSize="26"
-                Canvas.Left="384" Canvas.Top="5" Width="223"/>
-        </Canvas>
         <TextBox  x:Name="Firstname" 
                   materialDesign:HintAssist.Hint="Voornaam"
                   HorizontalAlignment="Left" Height="25" Margin="144,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140"/>
@@ -51,10 +41,10 @@
         <TextBox PreviewTextInput="NumberValidationTextBox" 
                  materialDesign:HintAssist.Hint="01"
                  x:Name="Month" MaxLength="2" HorizontalAlignment="Left" Height="25" Margin="637,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" RenderTransformOrigin="-0.352,0.358" Grid.ColumnSpan="2"/>
-        <Label Content="/"  HorizontalAlignment="Left" Margin="705,160,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.538,0.493"/>
+        <Label Content="/"  HorizontalAlignment="Left" Margin="26.333,160,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.538,0.493" Grid.Column="1"/>
         <TextBox PreviewTextInput="NumberValidationTextBox" 
                  materialDesign:HintAssist.Hint="1991"
-                 x:Name="Year" MaxLength="4"  HorizontalAlignment="Left" Height="25" Margin="726,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" RenderTransformOrigin="-0.552,0.438"/>
+                 x:Name="Year" MaxLength="4"  HorizontalAlignment="Left" Height="25" Margin="47.333,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" RenderTransformOrigin="-0.552,0.438" Grid.Column="1"/>
 
         <TextBox x:Name="Address" HorizontalAlignment="Left" 
                  materialDesign:HintAssist.Hint="Adres"
@@ -82,7 +72,7 @@
         <Label Content="" Foreground="Red"  x:Name="RegisterError" HorizontalAlignment="Left" Margin="293,41,0,0" VerticalAlignment="Top"/>
 
         <Button x:Name="EditButton" Content="Bewerken" HorizontalAlignment="Left" Margin="545,410,0,0" VerticalAlignment="Top" Width="140" Height="35" Click="ButtonEdit" Grid.ColumnSpan="2"/>
-
+        
         <Button x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Left" Margin="144,410,0,0" VerticalAlignment="Top" Width="140" Height="35" Click="CancelButton_Click"/>
         <CheckBox x:Name="Reparateur"  HorizontalAlignment="Left" Margin="364,260,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="Coach"   HorizontalAlignment="Left" Margin="364,304,0,0" VerticalAlignment="Top"/>

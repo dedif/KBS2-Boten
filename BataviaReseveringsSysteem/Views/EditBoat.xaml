@@ -32,27 +32,17 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Canvas 
-            Width="1024"
-                Height="50"
-            Background="#673ab7" Margin="0,50,0,1000">
-            <Label
-                Content="Boten bewerken"
-                Foreground="White"
-                FontSize="26"
-                Canvas.Left="384" Canvas.Top="5" Width="208"/>
-        </Canvas>
-        <TextBox Grid.Row="1" Grid.Column="1" x:Name="NameBox" 
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="NameBox" 
                materialDesign:HintAssist.Hint="Bootnaam"
                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25" />
-        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="TypCombo" 
+        <ComboBox Grid.Row="1" Grid.Column="1" x:Name="TypCombo" 
                   materialDesign:HintAssist.Hint="Boottype"
                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25"  SelectionChanged="TypCombo_SelectionChanged">
             <ComboBoxItem Content="Scull"/>
             <ComboBoxItem  Content="Skiff"/>
             <ComboBoxItem Content="Board"/>
         </ComboBox>
-        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="RowersCombo" 
+        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="RowersCombo" 
                   materialDesign:HintAssist.Hint="Aantal roeiers"
                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25">
             <ComboBoxItem Content="1"/>
@@ -60,15 +50,17 @@
             <ComboBoxItem Content="4"/>
             <ComboBoxItem Content="8"/>
         </ComboBox>
-        <TextBox Grid.Row="4" Grid.Column="1" x:Name="WeightBox" 
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="WeightBox" 
                  materialDesign:HintAssist.Hint="Gewicht (kg)"
                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25" FontSize="14"/>
-        <ToggleButton Grid.Row="5" Grid.Column="1" x:Name="SteeringWheelToggle"
+        <ToggleButton Grid.Row="4" Grid.Column="1" x:Name="SteeringWheelToggle"
               Style="{StaticResource MaterialDesignSwitchToggleButton}"
               ToolTip="Default ToggleButton Style"/>
-        <Label Grid.Row="5" Grid.Column="1" Content="Stuur?" Margin="50,0,150,0" VerticalAlignment="Center"/>
-        <Button Grid.Row="6" Grid.Column="1" x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="SaveButton_Click"/>
-        <Button Grid.Row="6" Grid.Column="1" x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="140" Height="35" FontSize="16" Click="CancelButton_Click"/>
+        <Label Grid.Row="4" Grid.Column="1" Content="Stuur?" Margin="50,0,150,0" VerticalAlignment="Center"/>
+
+        <Button Grid.Row="6" x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="SaveButton_Click" Grid.ColumnSpan="2" Margin="0,10,145,0"/>
+        <Button Grid.Row="6" Grid.Column="1" x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="140" Height="35" FontSize="16" Click="CancelButton_Click" Margin="0,0,0,40"/>
+
         <Label x:Name="NotificationLabel" Content="&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="290" Grid.Row="4" FontSize="16" Grid.ColumnSpan="2"/>
         <Label Grid.Row="1" Grid.Column="2" x:Name="SkiffLabel" Content="Een skiff boot heeft altijd één roeier en geen stuur" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Left" Width="331"/>
         <Label Grid.Row="2" Grid.Column="2" Content="Benodigd diploma:"/>

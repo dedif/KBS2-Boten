@@ -4,8 +4,8 @@ using System.Linq;
 using System.Collections.Generic;
 using Models;
 using BataviaReseveringsSysteem.Database;
-using BataviaReseveringsSysteem.Views;
 using ScreenSwitcher;
+using System;
 using Controllers;
 using BataviaReseveringsSysteem.Views;
 using BataviaReseveringsSysteem.Controllers;
@@ -17,11 +17,11 @@ namespace Views
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Dashboard
+    public partial class Dashboard : UserControl
     {
         public int YLeft = 100;
         public int YRight = 100;
-        public int Count;
+        public int Count = 0;
         public int MaxReservationUser = 2;
         //Deze lijsten, bevatten alle buttens en labels
         public List<Label> LabelList = new List<Label>();
@@ -81,11 +81,11 @@ namespace Views
 
         public void ShowReservations()
         {
-            using (var context = new DataBase())
+            using (DataBase context = new DataBase())
             {
 
                 //Geeft de reserveringen van de user
-                var reservations = (
+                var Reservations = (
                     from data in context.Reservations
                     where data.Deleted == null
                     where data.UserId == LoginView.UserId
@@ -93,7 +93,7 @@ namespace Views
 
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
 
-                if (!reservations.Any())
+                if (Reservations.Count() == 0)
 
                 {
                     NoReservationLabel.Visibility = Visibility.Visible;
@@ -104,7 +104,7 @@ namespace Views
                 }
 
                 //Als de gebruiker het maximale aantal afschrijvingen heeft bereikt, mag hij geen boten meer afschrijven
-                if (reservations.Count >= MaxReservationUser)
+                if (Reservations.Count() >= MaxReservationUser)
 
                 {
                     MaxReservations.Visibility = Visibility.Visible;
@@ -117,14 +117,14 @@ namespace Views
                     AddReservationButton.IsEnabled = true;
                     navigationview.MakeAddReservationInvisible(true);
                 }
-            foreach (var r in reservations)
+            foreach (Reservation r in Reservations)
 
                 {
                     if (Count % 2 == 0)
                     {
 
                         //Dit is voor de label aan de linkerkant van de twee rijen
-                        var l = new Label
+                        Label l = new Label()
                         {
                             Content = dashboardController.ReservationContent(r),
                             Margin = new Thickness(20, YLeft, 50, 50),
@@ -133,8 +133,8 @@ namespace Views
                             VerticalAlignment = VerticalAlignment.Top,
                         };
                         LabelList.Add(l);
-                        var deleteButton = dashboardController.AddDeleteButton(20, YLeft + 130, r.ReservationID);
-                        var changeButton = dashboardController.AddChangeButton(20, YLeft + 170);
+                        Button deleteButton = dashboardController.AddDeleteButton(20, YLeft + 130, r.ReservationID);
+                        Button changeButton = dashboardController.AddChangeButton(20, YLeft + 170);
                         ButtonList.Add(deleteButton);
                         ButtonList.Add(changeButton);
 
@@ -148,7 +148,7 @@ namespace Views
                     else if (Count % 2 != 0)
                     {
                         //Hiermee maak je een label
-                        var l2 = new Label
+                        Label l2 = new Label()
                         {
                             Content = dashboardController.ReservationContent(r),
                             Margin = new Thickness(500, YRight, 50, 50),
@@ -157,8 +157,8 @@ namespace Views
                             VerticalAlignment = VerticalAlignment.Top,
                         };
                         LabelList.Add(l2);
-                        var deleteButton = dashboardController.AddDeleteButton(500, YRight + 130, r.ReservationID);
-                        var changeButton = dashboardController.AddChangeButton(500, YRight + 170);
+                        Button deleteButton = dashboardController.AddDeleteButton(500, YRight + 130, r.ReservationID);
+                        Button changeButton = dashboardController.AddChangeButton(500, YRight + 170);
                         ButtonList.Add(deleteButton);
                         ButtonList.Add(changeButton);
 
@@ -198,14 +198,13 @@ namespace Views
         //Deze methode verwijderd alle controls
         public void DeleteAllControls()
         {
-            foreach (var t in LabelList)
+            for (int i = 0; i < LabelList.Count; i++)
             {
-                GridDashboard.Children.Remove(t);
+                GridDashboard.Children.Remove(LabelList[i]);
             }
-
-            foreach (var t in ButtonList)
+            for (int i = 0; i < ButtonList.Count; i++)
             {
-                GridDashboard.Children.Remove(t);
+                GridDashboard.Children.Remove(ButtonList[i]);
             }
         }
 
@@ -213,7 +212,7 @@ namespace Views
 
         public void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            var b = (Button)sender;
+            Button b = (Button)sender;
             dashboardController.DeleteReservation((int)b.Tag);
         }
 
@@ -222,10 +221,11 @@ namespace Views
             Switcher.Switch(new Dashboard());
         }
 
-        //            var reserveWindow = new ReserveWindow();
-        //            Switcher.Switch(reserveWindow);
-        //            reserveWindow.Populate();
-        private void AddReservationButton_Click(object sender, RoutedEventArgs e) =>
-            Switcher.Switch(new BoatSelectionView());
+        private void AddReservationButton_Click(object sender, RoutedEventArgs e)
+        {
+            var reserveWindow = new ReserveWindow();
+            Switcher.Switch(reserveWindow);
+            reserveWindow.Populate();
+        }
     }
 }

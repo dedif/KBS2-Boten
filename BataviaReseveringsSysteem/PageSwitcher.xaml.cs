@@ -1,4 +1,5 @@
 ﻿using BataviaReseveringsSysteem.Database;
+using BataviaReseveringsSysteem.Views;
 using System.Windows;
 using System.Windows.Controls;
 using Views;
@@ -11,6 +12,7 @@ namespace ScreenSwitcher
     public partial class PageSwitcher : Window
     {
         public Canvas switcherCanvas;
+
 
         public PageSwitcher()
         {
@@ -32,9 +34,14 @@ namespace ScreenSwitcher
 
                 Width = 1024,
                 Height = 768,
+                //Margin = new Thickness(0, 100, 0, 0),
+                //HorizontalAlignment = HorizontalAlignment.Left,
+                //VerticalAlignment = VerticalAlignment.Top,
             };
             switcherGrid.Children.Add(switcherCanvas);
         }
+
+
 
         public void DeleteMenu()
         {
@@ -52,8 +59,8 @@ namespace ScreenSwitcher
 
         public void Navigate(UserControl nextPage)
         {
-            switcherCanvas.Children.Clear();
-            switcherCanvas.Children.Add(nextPage);
+            this.switcherCanvas.Children.Clear();
+            this.switcherCanvas.Children.Add(nextPage);
         }
     }
 }

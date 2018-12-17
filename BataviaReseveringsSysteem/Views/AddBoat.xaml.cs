@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
 
-
 namespace Views
 {
     /// <summary>
@@ -25,7 +24,7 @@ namespace Views
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new Dashboard());
+            Switcher.Switch(new BoatList());
         }
         //Deze methode checkt op whitespace in de textvelden, de uniekheid van de Naam die is ingevoerd en dat gewicht juist is ingevoerd
         private void SaveButton_Click(object sender, RoutedEventArgs e)
