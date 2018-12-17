@@ -32,40 +32,67 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBox Grid.Row="1" Grid.Column="1" x:Name="NameBox" 
+        <Canvas 
+            Width="1024"
+                Height="50"
+            Background="#673ab7" Margin="0,50,0,1000">
+            <Label
+                Content="Boten toevoegen"
+                Foreground="White"
+                FontSize="26"
+                Canvas.Left="384" Canvas.Top="5" Width="208"/>
+        </Canvas>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="NameBox" 
                 materialDesign:HintAssist.Hint="Bootnaam"
-                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25" />
-        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="TypCombo" 
+                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" FontSize="16" Height="35" />
+        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="TypCombo" 
                   materialDesign:HintAssist.Hint="Boot type"
-                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25"  SelectionChanged="TypCombo_SelectionChanged">
+                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16" SelectionChanged="TypCombo_SelectionChanged">
             <ComboBoxItem Content="Scull"/>
             <ComboBoxItem  Content="Skiff"/>
             <ComboBoxItem Content="Board"/>
         </ComboBox>
-        <ComboBox Grid.Row="4" Grid.Column="1" x:Name="RowersCombo"
+        <ComboBox Grid.Row="5" 
+                  Grid.Column="1" 
+                  x:Name="RowersCombo"
                   materialDesign:HintAssist.Hint="Aantal roeiers"
-                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25">
+                  VerticalAlignment="Center" 
+                  HorizontalAlignment="Center" 
+                  Width="120" 
+                  Height="35"
+                  FontSize="16">
             <ComboBoxItem Content="1"/>
             <ComboBoxItem Content="2"/>
             <ComboBoxItem Content="4"/>
             <ComboBoxItem Content="8"/>
         </ComboBox>
-        <TextBox Grid.Row="3" Grid.Column="1" x:Name="WeightBox" 
+        <TextBox Grid.Row="4" Grid.Column="1" x:Name="WeightBox" 
                  materialDesign:HintAssist.Hint="Gewicht (kg)"
-                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25" FontSize="14"/>
-        <ToggleButton Grid.Row="5" Grid.Column="1" x:Name="SteeringWheelToggle"
-              Style="{StaticResource MaterialDesignSwitchToggleButton}"
-              ToolTip="Default ToggleButton Style"
-                      Margin="95,0,0,0"/>
-        <Label Grid.Row="5" Grid.Column="1" Content="Stuur?" Foreground="Gray" Margin="94,31,140,31" VerticalAlignment="Center"/>
-
-        <Button Grid.Row="7" Grid.Column="1" x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="SaveButton_Click" Margin="10,21,0,0"/>
-        <Button Grid.Row="7" Grid.Column="1" x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="CancelButton_Click" Margin="0,21,0,0"/>
+                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16"/>
+        <ToggleButton 
+            Grid.Row="7"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            Margin="60,0,0,0"
+            Width="40"
+            x:Name="SteeringWheelToggle"
+            Style="{StaticResource MaterialDesignSwitchToggleButton}"
+            ToolTip="Default ToggleButton Style"/>
+        <Label 
+            Grid.Row="7"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            Content="Stuur?" 
+            FontSize="16"
+            Foreground="Gray" 
+            Width="55" Margin="-65,0,0,0"/>
+        <Button Grid.Row="8" Grid.Column="1" x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="SaveButton_Click"/>
+        <Button Grid.Row="8" Grid.Column="2" x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="CancelButton_Click"/>
         <Label  x:Name="NotificationLabel" Content="&#xD;&#xA;" HorizontalAlignment="Left" Margin="25,19,0,0" VerticalAlignment="Top" Width="290" Grid.Row="4" FontSize="16" Grid.Column="2" Foreground="#DDFF0000"/>
-        <Label Grid.Row="2" Grid.Column="2" x:Name="SkiffLabel" Foreground="Red" Content="Een skiff boot heeft altijd één roeier en geen stuur" Visibility="Visible" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left" Width="480" Grid.ColumnSpan="2" Margin="0,28"/>
-        <Label Grid.Row="3" Grid.Column="2" Content="Benodigd diploma:"/>
+        <Label Grid.Row="3" Grid.Column="2" x:Name="SkiffLabel" Foreground="Red" Content="Een skiff boot heeft altijd één roeier en geen stuur" Visibility="Visible" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left" Width="480" Grid.ColumnSpan="2" Margin="0,28"/>
+        <Label Grid.Row="4" Grid.Column="2" Content="Benodigd diploma:" FontSize="16" Foreground="Gray"/>
 
-        <StackPanel Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+        <StackPanel Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <CheckBox x:Name="S1CheckBox" Tag="1">
                 <DockPanel Height="16">
                     <Image DockPanel.Dock="Left" />
@@ -85,7 +112,7 @@
                 </DockPanel>
             </CheckBox>
         </StackPanel>
-        <StackPanel Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+        <StackPanel Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">
             <CheckBox x:Name="B1CheckBox" Tag="6">
                 <DockPanel Height="16">
                     <Image DockPanel.Dock="Left" />
@@ -105,7 +132,7 @@
                 </DockPanel>
             </CheckBox>
         </StackPanel>
-        <StackPanel Grid.Row="3" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <StackPanel Grid.Row="4" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <CheckBox x:Name="P1CheckBox" Tag="4">
                 <DockPanel Height="16">
                     <Image DockPanel.Dock="Left" />
@@ -121,9 +148,22 @@
         </StackPanel>
         <TextBox Grid.Row="6" Grid.Column="1" x:Name="BoatLocationBox" 
             materialDesign:HintAssist.Hint="Boot locatie"
-            VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25" FontSize="14" Margin="94,10,94,54"/>
-        <DatePicker x:Name="AvailableAt" SelectedDate="{x:Static sys:DateTime.Now}"  materialDesign:HintAssist.Hint="Ingangs datum" Grid.Column="2" HorizontalAlignment="Left" Margin="136,38,0,0" Grid.Row="1" VerticalAlignment="Top" Width="152"  Focusable="False"/>
-
-        <Label Content="Ingangsdatum:" Grid.Column="2" HorizontalAlignment="Left" Margin="0,38,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+            VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16"/>
+        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+            <Label 
+                Content="Ingangsdatum:" 
+                Width="120"
+                FontSize="16"
+                Foreground="Gray"/>
+            <DatePicker 
+                x:Name="AvailableAt"
+                SelectedDate="{x:Static sys:DateTime.Now}"  
+                materialDesign:HintAssist.Hint="Ingangs datum" 
+                Width="110"  
+                Focusable="False"
+                Foreground="Gray"
+                FontSize="16"
+                Margin="70,0,0,0"/>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -127,6 +127,13 @@ namespace Views
             Switcher.Switch(new BoatSelectionView());
 
         private void SeeReservationsBtn_Click(object sender, RoutedEventArgs e) => Switcher.Switch(new Dashboard());
+		
+        private void MakeReservationsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //var reserveWindow = new ReserveWindow();
+            Switcher.Switch(new BoatSelectionView());
+            //reserveWindow.Populate();
+		}
 
         private void ReportDamageaBtn_Click(object sender, RoutedEventArgs e) => Switcher.Switch(new BoatDamage());
 

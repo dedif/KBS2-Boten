@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using Controllers;
 using ScreenSwitcher;
 using Views;
+using System.Windows;
 
 namespace BataviaReseveringsSysteem.Views
 {
@@ -23,7 +24,7 @@ namespace BataviaReseveringsSysteem.Views
 
         private Boat _boat;
 
-        private void TypeChecked(object sender, System.Windows.RoutedEventArgs e)
+        private void TypeChecked(object sender, RoutedEventArgs e)
         {
             BoatCombo.Items.Clear();
             SteeringToggle.IsEnabled = Equals(sender, Scull) || Equals(sender, Board);
@@ -43,29 +44,29 @@ namespace BataviaReseveringsSysteem.Views
             }
         }
 
-        private void SteeringToggle_Checked(object sender, System.Windows.RoutedEventArgs e) => Refresh();
+        private void SteeringToggle_Checked(object sender, RoutedEventArgs e) => Refresh();
 
-        private void SteeringToggle_Unchecked(object sender, System.Windows.RoutedEventArgs e) => Refresh();
+        private void SteeringToggle_Unchecked(object sender, RoutedEventArgs e) => Refresh();
 
         private void Refresh()
         {
             foreach (var type in Types.Children)
-            {
-                var radioButton = (RadioButton)type;
-                if (radioButton.IsChecked == true) TypeChecked(radioButton, new System.Windows.RoutedEventArgs());
+            {				
+                RadioButton radioButton = (RadioButton)type;
+                if (radioButton.IsChecked == true) TypeChecked(radioButton, new RoutedEventArgs());
             }
         }
 
         private void RowersCombo_SelectionChanged(object sender, SelectionChangedEventArgs e) => Refresh();
 
-        private void AnnulerenBtn_Click(object sender, System.Windows.RoutedEventArgs e) =>
-            Switcher.Switch(new Dashboard());
+        private void AnnulerenBtn_Click(object sender, RoutedEventArgs e) => Switcher.Switch(new Dashboard());
 
-        private void BevestigenBtn_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void BevestigenBtn_Click(object sender, RoutedEventArgs e)
         {
             var reserveWindow = new ReserveWindow();
             Switcher.Switch(reserveWindow);
             reserveWindow.Populate(_boat);
+
 
         }
 

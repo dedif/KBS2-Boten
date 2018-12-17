@@ -76,6 +76,7 @@
     </ApplicationDefinition>
     <Compile Include="Controllers\DamageController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\EditController.cs" />
     <Compile Include="Controllers\LoginController.cs" />

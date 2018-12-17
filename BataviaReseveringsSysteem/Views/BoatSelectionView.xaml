@@ -28,6 +28,15 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <Canvas 
+            Width="1024" 
+            Background="#673ab7" Margin="0,0,0,50" Grid.ColumnSpan="3" Grid.Row="1">
+            <Label
+                Content="Boot selecteren"
+                Foreground="White"
+                FontSize="26"
+                Canvas.Left="417" Canvas.Top="4" Width="190"/>
+        </Canvas>
         <StackPanel x:Name="Types" Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
             <RadioButton
                 Width="55"

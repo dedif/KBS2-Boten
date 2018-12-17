@@ -27,7 +27,6 @@ namespace Views
 
             var NameBoats = (from data in context.Boats
                              where data.DeletedAt == null
-                             where data.Deleted == null
                              select data.Name).ToList();
 
             if (NameBoats.Count < 1)
