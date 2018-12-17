@@ -87,6 +87,7 @@
     <Compile Include="Models\Damage.cs" />
     <Compile Include="Models\Diploma.cs" />
     <Compile Include="Models\Gender.cs" />
+    <Compile Include="Models\Mail.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\User_Diploma.cs" />
@@ -104,9 +105,6 @@
     </Compile>
     <Compile Include="Views\BoatList.xaml.cs">
       <DependentUpon>BoatList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\BoatReservationView.xaml.cs">
-      <DependentUpon>BoatReservationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BoatSelectionView.xaml.cs">
       <DependentUpon>BoatSelectionView.xaml</DependentUpon>
@@ -172,10 +170,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BoatList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\BoatReservationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

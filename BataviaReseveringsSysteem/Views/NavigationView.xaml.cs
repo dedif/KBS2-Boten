@@ -117,64 +117,33 @@ namespace Views
 
         }
 
-        private void EditUserBtn_Click(object sender, RoutedEventArgs e)
-        {
+        private void EditUserBtn_Click(object sender, RoutedEventArgs e) =>
             Switcher.Switch(new EditUser(LoginView.UserId));
 
-        }
-
-        private void MakeReservationsBtn_Click(object sender, RoutedEventArgs e)
-        {
-            //var reserveWindow = new ReserveWindow();
+        //            var reserveWindow = new ReserveWindow();
+        //            Switcher.Switch(reserveWindow);
+        //            reserveWindow.Populate();
+        private void MakeReservationsBtn_Click(object sender, RoutedEventArgs e) =>
             Switcher.Switch(new BoatSelectionView());
-            //reserveWindow.Populate();
 
-        }
+        private void SeeReservationsBtn_Click(object sender, RoutedEventArgs e) => Switcher.Switch(new Dashboard());
 
-        private void SeeReservationsBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new Dashboard());
-        }
+        private void ReportDamageaBtn_Click(object sender, RoutedEventArgs e) => Switcher.Switch(new BoatDamage());
 
-        private void ReportDamageaBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new BoatDamage());
-        }
+        private void seeDamageListBtn_Click(object sender, RoutedEventArgs e) => Switcher.Switch(new BoatDamageList());
 
-        private void seeDamageListBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new BoatDamageList());
-        }
+        private void SeeBoatsBtn_Click(object sender, RoutedEventArgs e) => Switcher.Switch(new BoatList());
 
+        private void AddBoatsBtn_Click(object sender, RoutedEventArgs e) => Switcher.Switch(new AddBoat());
 
-        private void SeeBoatsBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new BoatList());
-        }
+        private void SeeUsersBtn_Click(object sender, RoutedEventArgs e) => Switcher.Switch(new UserList());
 
-        private void AddBoatsBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new AddBoat());
-        }
+        private void AddUsersBtn_Click(object sender, RoutedEventArgs e) => Switcher.Switch(new Register());
 
-        private void SeeUsersBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new UserList());
-        }
-
-        private void AddUsersBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new Register());
-        }
-
-        private void SeeUserDiplomasBtn_Click(object sender, RoutedEventArgs e)
-        {
+        private void SeeUserDiplomasBtn_Click(object sender, RoutedEventArgs e) =>
             Switcher.Switch(new UserDiplomaList());
-        }
-        private void SeeBoatDiplomasBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new BoatDiplomaList());
 
-        }
+        private void SeeBoatDiplomasBtn_Click(object sender, RoutedEventArgs e) =>
+            Switcher.Switch(new BoatDiplomaList());
     }
 }

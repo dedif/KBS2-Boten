@@ -52,8 +52,8 @@ namespace ScreenSwitcher
 
         public void Navigate(UserControl nextPage)
         {
-            this.switcherCanvas.Children.Clear();
-            this.switcherCanvas.Children.Add(nextPage);
+            switcherCanvas.Children.Clear();
+            switcherCanvas.Children.Add(nextPage);
         }
     }
 }
