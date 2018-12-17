@@ -88,7 +88,7 @@
             Width="55" Margin="-65,0,0,0"/>
         <Button Grid.Row="8" Grid.Column="1" x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="SaveButton_Click"/>
         <Button Grid.Row="8" Grid.Column="2" x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="CancelButton_Click"/>
-        <Label  x:Name="NotificationLabel" Content="&#xD;&#xA;" HorizontalAlignment="Left" Margin="25,19,0,0" VerticalAlignment="Top" Width="290" Grid.Row="4" FontSize="16" Grid.Column="2" Foreground="#DDFF0000"/>
+        <Label  x:Name="NotificationLabel" Content="&#xD;&#xA;" HorizontalAlignment="Left" Margin="25,19,0,0" VerticalAlignment="Top" Width="290" Grid.Row="5" FontSize="16" Grid.Column="2" Foreground="#DDFF0000"/>
         <Label Grid.Row="3" Grid.Column="2" x:Name="SkiffLabel" Foreground="Red" Content="Een skiff boot heeft altijd één roeier en geen stuur" Visibility="Visible" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left" Width="480" Grid.ColumnSpan="2" Margin="0,28"/>
         <Label Grid.Row="4" Grid.Column="2" Content="Benodigd diploma:" FontSize="16" Foreground="Gray"/>
 

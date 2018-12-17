@@ -39,9 +39,11 @@
         </Canvas>
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <TextBox x:Name="Username" 
+                 FontSize="16" 
                  materialDesign:HintAssist.Hint="Lidnummer"
                  Height="25" Width="120" PreviewTextInput="NumberValidationTextBox"/>
             <PasswordBox x:Name="Password" 
+                         FontSize="16" 
                      materialDesign:HintAssist.Hint="Password" Margin="70,0,0,0"  Height="25" Width="120" PasswordChar="•" />
             <Button Content="Login" IsDefault="True" Width="120" Click="LoginButton" Margin="130,0,0,0" Height="35" FontSize="20"/>
         </StackPanel>
