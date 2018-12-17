@@ -39,7 +39,7 @@
                 FontSize="26"
                 Canvas.Left="384" Canvas.Top="5" Width="208"/>
         </Canvas>
-            <TextBox  
+        <TextBox  
                 Grid.Row="2"
                 Grid.Column="1"
                 x:Name="Firstname" 
@@ -50,7 +50,7 @@
                 TextWrapping="Wrap" 
                 Width="140"
                 FontSize="16"/>
-            <ComboBox 
+        <ComboBox 
                 Grid.Row="2"
                 Grid.Column="1"
                 x:Name="Gender"
@@ -61,20 +61,26 @@
                 IsEditable="True" 
                 IsReadOnly="True"
                 FontSize="16">
-                <ComboBoxItem x:Name="Men" Tag="1" Content="Man" />
-                <ComboBoxItem x:Name="Woman" Tag="2" Content="Vrouw"/>
-                <ComboBoxItem x:Name="Other" Tag="3" Content="Anders"/>
-            </ComboBox>
+            <ComboBoxItem x:Name="Men" Tag="1" Content="Man" />
+            <ComboBoxItem x:Name="Woman" Tag="2" Content="Vrouw"/>
+            <ComboBoxItem x:Name="Other" Tag="3" Content="Anders"/>
+        </ComboBox>
         <StackPanel Grid.Row="2" Grid.Column="2">
             <TextBox  
-                x:Name="Middlename" 
+                x:Name="Middlename"
+                HorizontalAlignment="Left"
                 materialDesign:HintAssist.Hint="Tussenvoegsel"
-                HorizontalAlignment="Left" 
                 Height="35" 
                 TextWrapping="Wrap" 
-                VerticalAlignment="Top" 
-                Width="110"
+                Width="115"
                 FontSize="16"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom">
+            <Label 
+                Content="Geboorte datum" 
+                Foreground="Gray" 
+                FontSize="16"
+                Height="25"/>
         </StackPanel>
         <TextBox 
             Grid.Row="2" 
@@ -122,7 +128,7 @@
                 FontSize="16"
                 Foreground="Gray"
                 Height="35"
-                Width="25"/>            
+                Width="25"/>
             <TextBox 
                 PreviewTextInput="NumberValidationTextBox" 
                 materialDesign:HintAssist.Hint="1991"
@@ -166,7 +172,8 @@
             Height="35" 
             TextWrapping="Wrap" 
             VerticalAlignment="Center" 
-            Width="120"/>
+            Width="120"
+            FontSize="16"/>
         <TextBox 
             Grid.Row="4"
             Grid.Column="1"
@@ -196,7 +203,7 @@
             Grid.Row="5"
             Grid.Column="1"
             x:Name="Password" 
-            materialDesign:HintAssist.Hint="Password"
+            materialDesign:HintAssist.Hint="Wachtwoord"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Height="35"
@@ -207,13 +214,13 @@
             x:Name="ConfirmPassword" 
             Grid.Row="5"
             Grid.Column="2"
-            materialDesign:HintAssist.Hint="Bevestig password"
+            materialDesign:HintAssist.Hint="Bevestig wachtwoord"
             PasswordChar="*" 
             HorizontalAlignment="Left" 
             Height="35" 
             FontSize="16"
             VerticalAlignment="Center" 
-            Width="140"/>
+            Width="160"/>
         <Label 
             Content="" 
             Grid.Row="6"

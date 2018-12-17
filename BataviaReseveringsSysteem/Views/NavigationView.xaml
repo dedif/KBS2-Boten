@@ -20,7 +20,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Menu Grid.Row="0" Name="Menu" IsMainMenu="True"  DockPanel.Dock="Top" Grid.Column="0">
+        <Menu Grid.Row="0" Name="Menu" IsMainMenu="True"  DockPanel.Dock="Top" Grid.Column="0" FontSize="16">
             <MenuItem Header="_Afschrijven">
                 <MenuItem Header="Afschrijvingen maken" x:Name="MakeReservationsBtn" Click="MakeReservationsBtn_Click">
                     <MenuItem.Icon>
@@ -31,7 +31,7 @@
                 <MenuItem Header="Afschrijvingen inzien" x:Name="SeeReservationsBtn" Click="SeeReservationsBtn_Click">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon
-                        Kind="CalendarText" />
+                        Kind="CalendarText"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>

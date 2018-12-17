@@ -38,6 +38,7 @@ namespace BataviaReseveringsSysteem.Views
                              where data.Type == type
                              where data.Steering == SteeringToggle.IsChecked
                              where data.NumberOfRowers == amountOfRowersFromCombo
+                             where data.AvailableAt <= DateTime.Now
                              select data).ToList();
 
                 foreach (var item in boats) BoatCombo.Items.Add(item.Name);
@@ -66,8 +67,6 @@ namespace BataviaReseveringsSysteem.Views
             var reserveWindow = new ReserveWindow();
             Switcher.Switch(reserveWindow);
             reserveWindow.Populate(_boat);
-
-
         }
 
         private void BoatCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)

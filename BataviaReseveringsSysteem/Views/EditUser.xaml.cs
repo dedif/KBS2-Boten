@@ -20,11 +20,13 @@ namespace Views
     {
         private DataBase context = new DataBase();
         private DataBaseController dbc = new DataBaseController();
+        public int EditID;
         public EditUser(int id)
         {
             InitializeComponent();
             this.HorizontalAlignment = HorizontalAlignment.Center;
-            EditID.Content = id;
+            EditID = id;
+            UserID.Content = id;
 
 
             var users = from x in context.Users
@@ -75,8 +77,8 @@ namespace Views
                         Examinator.Tag = role.RoleID;
                         break;
                     case "Bestuur":
-                        Administrator.Content = role.RoleName;
-                        Administrator.Tag = role.RoleID;
+                        Bestuur.Content = role.RoleName;
+                        Bestuur.Tag = role.RoleID;
                         break;
                 }
                 
@@ -108,9 +110,9 @@ namespace Views
                 {
                     Commissaris.IsChecked = true;
                 }
-                if (userRole == int.Parse(Administrator.Tag.ToString()))
+                if (userRole == int.Parse(Bestuur.Tag.ToString()))
                 {
-                    Administrator.IsChecked = true;
+                    Bestuur.IsChecked = true;
                 }
 
               
@@ -127,7 +129,7 @@ namespace Views
                     Coach.Visibility = Visibility.Hidden;
                     Examinator.Visibility = Visibility.Hidden;
                     Commissaris.Visibility = Visibility.Hidden;
-                    Administrator.Visibility = Visibility.Hidden;
+                    Bestuur.Visibility = Visibility.Hidden;
                 }
             
         }
@@ -163,87 +165,6 @@ namespace Views
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void ButtonEdit(object sender, RoutedEventArgs e)
-        {
-            
-                if (Controllers.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, EditID))
-                {
-
-                    foreach (CheckBox c in RegisterLayout.Children.OfType<CheckBox>())
-                    {
-                        if (c.IsChecked == true)
-                        {
-                            int roleID = int.Parse(c.Tag.ToString());
-                            //int.Parse(c.Tag.ToString());
-
-
-                            var User_Roles = context.User_Roles.Any(x => x.RoleID == roleID && x.DeletedAt == null && x.UserID == (int)EditID.Content);
-
-                             if (!User_Roles)
-                            {
-                            dbc.Add_UserRole(roleID, (int)EditID.Content);
-
-                            }
-                           
-
-
-
-                        }
-                        else if (c.IsChecked == false)
-                        {
-
-                            int roleID = int.Parse(c.Tag.ToString());
-
-                            var User_Roles = context.User_Roles.Any(x => x.RoleID == roleID && x.DeletedAt == null && x.UserID == (int)EditID.Content);
-
-                            if (User_Roles)
-                            {
-                                dbc.Delete_UserRole((int)EditID.Content, roleID);
-                            }
-                            else
-                            {
-
-                            }
-                        }
-
-                    var Login_User_Role = from x in context.User_Roles
-                                          where x.UserID == LoginView.UserId && x.DeletedAt == null
-                                          select x.RoleID;
-                    if (Login_User_Role.Contains(5))
-                    {
-                        Switcher.Switch(new UserList());
-                    }
-                    else
-                    {
-                        Switcher.Switch(new Dashboard());
-                    }
-                   
-                    }
-                }
-                else
-                {
-                    RegisterError.Content = "Controleer uw gegevens!";
-                    RegisterError.UpdateLayout();
-                }
-            
-        }
-    
-
-    private void ButtonCancel(object sender, RoutedEventArgs e)
-    {
-            var Login_User_Role = from x in context.User_Roles
-                                  where x.UserID == LoginView.UserId && x.DeletedAt == null
-                                  select x.RoleID;
-            if (Login_User_Role.Contains(5))
-            {
-                Switcher.Switch(new UserList());
-            }
-            else
-            {
-                Switcher.Switch(new Dashboard());
-            }
-        }
-
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             var Login_User_Role = from x in context.User_Roles
@@ -256,6 +177,69 @@ namespace Views
             else
             {
                 Switcher.Switch(new Dashboard());
+            }
+        }
+
+        private void BewerkBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (Controllers.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, UserID))
+            {
+
+                foreach (CheckBox c in RegisterLayout.Children.OfType<CheckBox>())
+                {
+                    if (c.IsChecked == true)
+                    {
+                        int roleID = int.Parse(c.Tag.ToString());
+                        //int.Parse(c.Tag.ToString());
+
+
+                        var User_Roles = context.User_Roles.Any(x => x.RoleID == roleID && x.DeletedAt == null && x.UserID == EditID);
+
+                        if (!User_Roles)
+                        {
+                            dbc.Add_UserRole(roleID, EditID);
+
+                        }
+
+
+
+
+                    }
+                    else if (c.IsChecked == false)
+                    {
+
+                        int roleID = int.Parse(c.Tag.ToString());
+
+                        var User_Roles = context.User_Roles.Any(x => x.RoleID == roleID && x.DeletedAt == null && x.UserID == EditID);
+
+                        if (User_Roles)
+                        {
+                            dbc.Delete_UserRole(EditID, roleID);
+                        }
+                        else
+                        {
+
+                        }
+                    }
+
+                    var Login_User_Role = from x in context.User_Roles
+                                          where x.UserID == LoginView.UserId && x.DeletedAt == null
+                                          select x.RoleID;
+                    if (Login_User_Role.Contains(5))
+                    {
+                        Switcher.Switch(new UserList());
+                    }
+                    else
+                    {
+                        Switcher.Switch(new Dashboard());
+                    }
+
+                }
+            }
+            else
+            {
+                RegisterError.Content = "Controleer uw gegevens!";
+                RegisterError.UpdateLayout();
             }
         }
     }

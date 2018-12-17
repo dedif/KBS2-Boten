@@ -128,7 +128,7 @@ namespace Views
                         {
                             Content = dashboardController.ReservationContent(r),
                             Margin = new Thickness(20, YLeft, 50, 50),
-                           FontSize = 16,
+                            FontSize = 16,
                             HorizontalAlignment = HorizontalAlignment.Left,
                             VerticalAlignment = VerticalAlignment.Top,
                         };

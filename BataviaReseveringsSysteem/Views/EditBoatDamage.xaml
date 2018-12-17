@@ -60,16 +60,16 @@
             <RadioButton x:Name="LightDamageRadioButton" Margin="15,0,0,0" FontSize="14" Content="Lichte schade" Checked="NoDamageRadioButton_Checked"/>
             <RadioButton x:Name="NoDamageRadioButton" Margin="14,0,0,0" FontSize="14" Content="Hersteld" Checked="NoDamageRadioButton_Checked"/>
         </StackPanel>
-        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
+        <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
             <Button x:Name="CancelButton" Content="Annuleren" FontSize="16" Width="120" Click="CancelButton_Click"/>
             <Button x:Name="SaveButton" Content="Opslaan" FontSize="16" Width="120" Margin="100,0,0,0" Click="SaveButton_Click"/>
         </StackPanel>
         <Label x:Name="NotificationLabel" Visibility="Hidden" Content="De boot wordt uit de vaart genomen bij zware schade" FontSize="16" HorizontalAlignment="Left" Margin="46,246,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.237,0" Foreground="Red"/>
         <Label x:Name="MessageLabel" Visibility="Hidden" Content="U heeft geen beschrijving ingevuld" HorizontalAlignment="Left" Margin="53,1,0,0" VerticalAlignment="Top" Width="313" FontSize="16" Foreground="#FFF70505"/>
-        <Label Content="Uit vaart:" Grid.Column="1" HorizontalAlignment="Left" Margin="10.4,30.6,0,0" Grid.Row="5" VerticalAlignment="Top" Height="26" Width="79" FontSize="14"/>
-        <DatePicker x:Name="TimeOfAccupyForFixDate" Grid.Column="1" HorizontalAlignment="Left" Margin="126.4,31.6,0,0" Grid.Row="5" VerticalAlignment="Top"/>
-        <Label Content="Hersteld:" Grid.Column="1" HorizontalAlignment="Left" Margin="10.4,30.6,0,0" Grid.Row="6" VerticalAlignment="Top" Height="26" Width="79" FontSize="14"/>
-        <DatePicker x:Name="TimeOfFixDate" Grid.Column="1" HorizontalAlignment="Left" Margin="126.4,32.6,0,0" Grid.Row="6" VerticalAlignment="Top" RenderTransformOrigin="0.616,4.366"/>
+        <Label Content="Uit vaart:" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Bottom" Height="26" Width="79" FontSize="14"/>
+        <DatePicker x:Name="TimeOfAccupyForFixDate" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Bottom" Height="25"/>
+        <Label Content="Hersteld:" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="6" VerticalAlignment="Center" Height="26" Width="79" FontSize="14"/>
+        <DatePicker x:Name="TimeOfFixDate" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="6" VerticalAlignment="Center" Height="25"/>
 
     </Grid>
 </UserControl>

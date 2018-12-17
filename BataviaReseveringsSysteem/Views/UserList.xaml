@@ -32,7 +32,7 @@
                 FontSize="26"
                 Canvas.Left="384" Canvas.Top="5" Width="208"/>
         </Canvas>
-        <DataGrid Grid.Row="2" Height="400" x:Name="DataUserList"  CanUserAddRows="false" x:FieldModifier="public" DataContext="{StaticResource UserViewSource}" AutoGenerateColumns="false" VerticalAlignment="Top">
+        <DataGrid Grid.Row="2" x:Name="DataUserList"  CanUserAddRows="false" x:FieldModifier="public" DataContext="{StaticResource UserViewSource}" AutoGenerateColumns="false" VerticalAlignment="Top">
 
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="UserID" Width="auto"    Binding="{Binding UserID}" Header="Lidnummer" IsReadOnly="true" />
