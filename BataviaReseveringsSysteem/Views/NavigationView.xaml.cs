@@ -125,9 +125,9 @@ namespace Views
 
         private void MakeReservationsBtn_Click(object sender, RoutedEventArgs e)
         {
-            var reserveWindow = new ReserveWindow();
-            Switcher.Switch(reserveWindow);
-            reserveWindow.Populate();
+            //var reserveWindow = new ReserveWindow();
+            Switcher.Switch(new BoatSelectionView());
+            //reserveWindow.Populate();
 
         }
 

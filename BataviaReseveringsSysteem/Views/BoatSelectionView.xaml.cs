@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Controls;
 using ScreenSwitcher;
 using Views;
+using System.Windows;
 
 namespace BataviaReseveringsSysteem.Views
 {
@@ -22,10 +23,10 @@ namespace BataviaReseveringsSysteem.Views
 
         public List<Boat> boatLijst = new List<Boat>();
 
-        private void TypeChecked(object sender, System.Windows.RoutedEventArgs e)
+        private void TypeChecked(object sender, RoutedEventArgs e)
         {
             BoatCombo.Items.Clear();
-            if (sender == Scull) SteeringToggle.IsEnabled = true;
+            SteeringToggle.IsEnabled = Equals(sender, Scull) || Equals(sender, Board);
 
             var type = sender == Scull ? Boat.BoatType.Scull : (sender == Skiff ? Boat.BoatType.Skiff : Boat.BoatType.Board);
 
@@ -42,25 +43,26 @@ namespace BataviaReseveringsSysteem.Views
             }
         }
 
-        private void SteeringToggle_Checked(object sender, System.Windows.RoutedEventArgs e) => Refresh();
+        private void SteeringToggle_Checked(object sender, RoutedEventArgs e) => Refresh();
 
-        private void SteeringToggle_Unchecked(object sender, System.Windows.RoutedEventArgs e) => Refresh();
+        private void SteeringToggle_Unchecked(object sender, RoutedEventArgs e) => Refresh();
 
         private void Refresh()
         {
             foreach (var type in Types.Children)
             {
                 RadioButton radioButton = (RadioButton)type;
-                if (radioButton.IsChecked == true) TypeChecked(radioButton, new System.Windows.RoutedEventArgs());
+                if (radioButton.IsChecked == true) TypeChecked(radioButton, new RoutedEventArgs());
             }
         }
 
         private void RowersCombo_SelectionChanged(object sender, SelectionChangedEventArgs e) => Refresh();
 
-        private void AnnulerenBtn_Click(object sender, System.Windows.RoutedEventArgs e) => Switcher.Switch(new Dashboard());
+        private void AnnulerenBtn_Click(object sender, RoutedEventArgs e) => Switcher.Switch(new Dashboard());
 
-        private void BevestigenBtn_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void BevestigenBtn_Click(object sender, RoutedEventArgs e)
         {
+
 
         }
     }

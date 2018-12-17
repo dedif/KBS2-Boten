@@ -13,7 +13,6 @@ namespace ScreenSwitcher
     {
         public Canvas switcherCanvas;
 
-
         public PageSwitcher()
         {
             InitializeComponent();
@@ -34,14 +33,9 @@ namespace ScreenSwitcher
 
                 Width = 1024,
                 Height = 768,
-                //Margin = new Thickness(0, 100, 0, 0),
-                //HorizontalAlignment = HorizontalAlignment.Left,
-                //VerticalAlignment = VerticalAlignment.Top,
             };
             switcherGrid.Children.Add(switcherCanvas);
         }
-
-
 
         public void DeleteMenu()
         {
