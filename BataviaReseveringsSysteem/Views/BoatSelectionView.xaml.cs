@@ -28,6 +28,13 @@ namespace BataviaReseveringsSysteem.Views
         {
             BoatCombo.Items.Clear();
             SteeringToggle.IsEnabled = Equals(sender, Scull) || Equals(sender, Board);
+            if(Equals(sender, Scull) || Equals(sender, Board))
+            {
+                oneRower.IsEnabled = false;
+            } else
+            {
+                oneRower.IsEnabled = true;
+            }
 
             var type = Equals(sender, Scull) ? Boat.BoatType.Scull : Equals(sender, Skiff) ? Boat.BoatType.Skiff : Boat.BoatType.Board;
 
