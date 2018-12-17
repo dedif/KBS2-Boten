@@ -28,7 +28,16 @@
             <ColumnDefinition Width="700"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Canvas 
+            Width="1024" 
+            Background="#673ab7" Margin="0,0,0,50" Grid.ColumnSpan="3">
+            <Label
+                Content="Inloggen"
+                Foreground="White"
+                FontSize="26"
+                Canvas.Left="457" Canvas.Top="4" Width="110"/>
+        </Canvas>
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
             <TextBox x:Name="Username" 
                  materialDesign:HintAssist.Hint="Lidnummer"
                  Height="25" Width="120" PreviewTextInput="NumberValidationTextBox"/>
@@ -36,7 +45,7 @@
                      materialDesign:HintAssist.Hint="Password" Margin="70,0,0,0"  Height="25" Width="120" PasswordChar="•" />
             <Button Content="Login" IsDefault="True" Width="120" Click="LoginButton" Margin="130,0,0,0" Height="35" FontSize="20"/>
         </StackPanel>
-        <Label Grid.Row="0" Grid.Column="1" Content="" x:Name="LoginError" HorizontalAlignment="Left"  Foreground="Red" VerticalAlignment="Center" Height="25" Width="245"/>
+        <Label Grid.Row="1" Grid.Column="1" Content="" x:Name="LoginError" HorizontalAlignment="Left"  Foreground="Red" VerticalAlignment="Center" Height="25" Width="245"/>
         <DataGrid Grid.Row="2" Grid.Column="1" x:Name="DataReservations" FontSize="14" Visibility="Hidden" CanUserAddRows="false" x:FieldModifier="public"  AutoGenerateColumns="false" HorizontalAlignment="Left"  VerticalAlignment="Top" >
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="BoatName" Width="auto"  Binding="{Binding Boat.Name}"    Header="Bootnaam" IsReadOnly="true" />
