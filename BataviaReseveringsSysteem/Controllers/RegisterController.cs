@@ -33,7 +33,8 @@ namespace Controllers
                                      TextBox Year,
                                      ComboBox Gender,
                                      PasswordBox Password,
-                                     PasswordBox ConfirmPassword)
+                                     PasswordBox ConfirmPassword,
+                                     DatePicker EndofSub)
         {
             bool validate = true;
             bool valDate = true;
@@ -70,7 +71,9 @@ namespace Controllers
             Password.BorderThickness = new Thickness(1);
             ConfirmPassword.BorderBrush = Brushes.Gray;
             ConfirmPassword.BorderThickness = new Thickness(1);
-
+            EndofSub.BorderBrush = Brushes.Gray;
+            EndofSub.BorderThickness = new Thickness(1);
+            EndofSub.UpdateLayout();
             //update gender layout
             Gender.BorderBrush = Brushes.Gray;
             Gender.BorderThickness = new Thickness(1);
@@ -82,12 +85,24 @@ namespace Controllers
                 ErrorAlertPassword(Password);
                 validate = false;
             }
+
             if (ConfirmPassword.Password == "")
             {
                 ErrorAlertPassword(ConfirmPassword);
                 validate = false;
             }
 
+            if (EndofSub.SelectedDate.Value != null)
+            {
+                if (EndofSub.SelectedDate.Value < DateTime.Now)
+                {
+                    EndofSub.BorderBrush = Brushes.Red;
+                    EndofSub.BorderThickness = new Thickness(2);
+                    EndofSub.UpdateLayout();
+                    validate = false;
+                }
+
+            }
             UserController u = new UserController(); // Get database
 
             string savedPasswordHash = u.PasswordHash(Password.Password); // Hash password
@@ -164,7 +179,7 @@ namespace Controllers
             {
                 int GenderID = int.Parse(((ComboBoxItem)Gender.SelectedItem).Tag.ToString());
 
-                u.Add_User(savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+                u.Add_User(savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt,EndofSub.SelectedDate.Value);
                 MessageBoxResult result = MessageBox.Show("Het account is aangemaakt, het lidnummer is " + u.GetID());
                 return true;
             }

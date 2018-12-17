@@ -90,11 +90,7 @@ namespace Views
                         Administrator.Tag = role.RoleID;
 
                     }
-                    //Reparateur.Content = role.RoleName[2];
-                    //Coach.Content = role.RoleName[3];
-                    //Commissaris.Content = role.RoleName[4];
-                    //Examinator.Content = role.RoleName[5];
-                    //Administrator.Content = role.RoleName[6];
+                  
                 }
 
             }
@@ -108,7 +104,7 @@ namespace Views
         //Register user of user
         private void ButtonRegister(object sender, RoutedEventArgs e)
         {
-            if (RegisterController.Register(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword))
+            if (RegisterController.Register(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword,EndOfSubscription))
             {
                 using (DataBase context = new DataBase()) {
                     List<CheckBox> CheckBoxList = new List<CheckBox>() { Reparateur, Commissaris, Examinator, Coach, Administrator };
@@ -118,7 +114,7 @@ namespace Views
                         if (c.IsChecked == true)
                         {
                             int roleID = int.Parse(c.Tag.ToString());
-                            //int.Parse(c.Tag.ToString());
+                            
 
 
                             var User_Roles = context.User_Roles.Any(x => x.RoleID == roleID && x.DeletedAt == null);

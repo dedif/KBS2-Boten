@@ -25,7 +25,8 @@ namespace Controllers
                                     ComboBox Gender,
                                     PasswordBox Password,
                                     PasswordBox ConfirmPassword,
-                                    Label editID)
+                                    Label editID,
+                                    DatePicker EndOfSub)
         {
             bool validate = true;
             bool valDate = true;
@@ -64,6 +65,8 @@ namespace Controllers
             Password.BorderThickness = new Thickness(1);
             ConfirmPassword.BorderBrush = Brushes.Gray;
             ConfirmPassword.BorderThickness = new Thickness(1);
+            EndOfSub.BorderBrush = Brushes.Gray;
+            EndOfSub.BorderThickness = new Thickness(1);
 
             // check if passwords are filled 
             if (Password.Password == "" && ConfirmPassword.Password == "")
@@ -80,7 +83,17 @@ namespace Controllers
                 AlertPassword(ConfirmPassword);
                 validate = false;
             }
+            if (EndOfSub.SelectedDate.Value != null)
+            {
+                if (EndOfSub.SelectedDate.Value < DateTime.Now)
+                {
+                    EndOfSub.BorderBrush = Brushes.Red;
+                    EndOfSub.BorderThickness = new Thickness(2);
+                    EndOfSub.UpdateLayout();
+                    validate = false;
+                }
 
+            }
             UserController u = new UserController(); // Get database
             if (hasPassword)
             {
@@ -122,6 +135,7 @@ namespace Controllers
                 TextBoxAlert(Email);
             }
 
+            
 
             if (valDate && validate)
             {
@@ -141,13 +155,13 @@ namespace Controllers
             // add user to database
             if (validate && valDate && hasPassword)
             {
-                u.Update_User((int)editID.Content, savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+                u.Update_User((int)editID.Content, savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt,EndOfSub.SelectedDate.Value);
                 MessageBoxResult result = MessageBox.Show("Het account is bijgewerkt.");
                 Switcher.Switch(new Views.UserList());
                 return true;
             }if (validate && valDate && !hasPassword)
             {
-                u.Update_User((int)editID.Content, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+                u.Update_User((int)editID.Content, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt, EndOfSub.SelectedDate.Value);
                 Switcher.DeleteMenu();
                 Switcher.MenuMaker();
                 MessageBoxResult result = MessageBox.Show("Het account is bijgewerkt.");

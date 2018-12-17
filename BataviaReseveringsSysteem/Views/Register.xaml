@@ -12,7 +12,7 @@
          TextOptions.TextRenderingMode="Auto"
          FontFamily="{DynamicResource MaterialDesignFont}"
         Height="768" Width="1024">
-    <Grid x:Name="RegisterLayout">
+    <Grid x:Name="RegisterLayout" >
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -72,12 +72,13 @@
                      PasswordChar="*" HorizontalAlignment="Left" Height="25" Margin="345,360,0,0"  VerticalAlignment="Top" Width="120"/>
         <Label Content="" Foreground="Red"  x:Name="RegisterError" HorizontalAlignment="Left" Margin="293,41,0,0" VerticalAlignment="Top"/>
 
-        <Button x:Name="buttonRegister" Content="Registreren" HorizontalAlignment="Left" Margin="545,410,0,0" VerticalAlignment="Top" Width="140" Height="35" Click="ButtonRegister" Grid.ColumnSpan="2"/>
-        <Button x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Left" Margin="144,410,0,0" VerticalAlignment="Top" Width="140" Height="35" Click="CancelButton_Click"/>
+        <Button x:Name="buttonRegister" Content="Registreren" HorizontalAlignment="Left" Margin="545,460,0,0" VerticalAlignment="Top" Width="140" Height="35" Click="ButtonRegister"/>
+        <Button x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Left" Margin="144,460,0,0" VerticalAlignment="Top" Width="140" Height="35" Click="CancelButton_Click"/>
         <CheckBox x:Name="Reparateur"  HorizontalAlignment="Left" Margin="364,260,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="Coach"   HorizontalAlignment="Left" Margin="364,304,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="Commissaris"   HorizontalAlignment="Left" Margin="470,260,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="Examinator"    HorizontalAlignment="Left" Margin="469,304,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="Administrator"  HorizontalAlignment="Left" Margin="564,304,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="EndOfSubscription" materialDesign:HintAssist.Hint="Einddatum Abonnement" HorizontalAlignment="Left" Margin="144,415,0,0" VerticalAlignment="Top" Width="176"  Focusable="False"/>
     </Grid>
 </UserControl>

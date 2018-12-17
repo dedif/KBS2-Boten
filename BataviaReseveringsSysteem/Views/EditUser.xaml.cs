@@ -42,6 +42,7 @@ namespace Views
                 Email.Text = user.Email;
                 Phonenumber.Text = user.Phonenumber;
                 Gender.SelectedIndex = user.GenderID - 1;
+                EndOfSubscription.SelectedDate = user.EndOfSubscription;
 
                 string myString = user.Birthday.ToString("dd-MM-yyyy"); // From Database
            
@@ -166,7 +167,7 @@ namespace Views
         private void ButtonEdit(object sender, RoutedEventArgs e)
         {
             
-                if (Controllers.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, EditID))
+                if (Controllers.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, EditID,EndOfSubscription))
                 {
 
                     foreach (CheckBox c in RegisterLayout.Children.OfType<CheckBox>())

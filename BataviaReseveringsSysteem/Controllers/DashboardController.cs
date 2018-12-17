@@ -17,7 +17,8 @@ namespace Controllers
 
         public DashboardController(Dashboard dashboard)
         {
-            Dashboard = dashboard;
+            Dashboard = dashboard
+            UserController.CheckSubscription();
         }
         //deze methode kijkt of wanneer je het laatst bent ingelogd en geeft een melding wanneer je reserveringen zijn veranderd
            public void Notification(DateTime lastLogged)

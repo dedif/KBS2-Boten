@@ -10,11 +10,11 @@ using Views;
 
 namespace Controllers
 {
-    class UserController
+     class UserController
     {
       
         //Maak een nieuwe gebruiker aan
-        public void Add_User(string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
+        public void Add_User(string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday,DateTime endOfSub)
         {
             using (DataBase context = new DataBase())
             {
@@ -34,7 +34,8 @@ namespace Controllers
                     Birthday = birthday,
                     CreatedAt = DateTime.Now,
                     UpdatedAt = null,
-                    DeletedAt = null
+                    DeletedAt = null,
+                    EndOfSubscription = endOfSub
 
                 };
                 int UserID = user.UserID;
@@ -65,7 +66,7 @@ namespace Controllers
         }
 
         //Bewerk een gebruiker met wachtwoord
-        public void Update_User(int userID, string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
+        public void Update_User(int userID, string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday,DateTime endOfSub)
         {
             using (DataBase context = new DataBase())
             {
@@ -86,6 +87,7 @@ namespace Controllers
                     update.Middlename = middlename;
                     update.UpdatedAt= DateTime.Now;
                     update.DeletedAt = null;
+                    update.EndOfSubscription = endOfSub;
                     
                     context.SaveChanges();
                 }
@@ -94,7 +96,7 @@ namespace Controllers
         }
 
         //Bewerk een gebruiker zonder wachtwoord
-        public void Update_User(int userID, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
+        public void Update_User(int userID, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday,DateTime endOfSub)
         {
             using (DataBase context = new DataBase())
             {
@@ -114,7 +116,7 @@ namespace Controllers
                     update.Middlename = middlename;
                     update.UpdatedAt = DateTime.Now;
                     update.DeletedAt = null;
-
+                    update.EndOfSubscription = endOfSub;
                     context.SaveChanges();
                 }
             }
@@ -221,5 +223,39 @@ namespace Controllers
 
         public bool LoggedInUserIsRaceCommissioner() =>
             GetRolesFromLoggedInUser().Any(role => role.RoleName.Equals("Wedstrijd Commissaris"));
+
+        public static void CheckSubscription()
+        {
+            using (DataBase context = new DataBase())
+            {
+                var users = (from s in context.Users
+                             where s.EndOfSubscription != null
+                             where s.DeletedAt == null
+                             select s).ToList<User>();
+                if (users != null)
+                {
+
+
+                    foreach (var user in users)
+                    {
+                        if (user.EndOfSubscription <= DateTime.Now)
+                        {
+                            User dep = context.Users.Where(d => d.UserID == user.UserID).First();
+                            dep.City = null;
+                            dep.Address = null;
+                            dep.Birthday = DateTime.MaxValue;
+                            dep.Gender = null;
+                            dep.Password = null;
+                            dep.Zipcode = null;
+                            dep.Phonenumber = null;
+                            dep.Email = null;
+                            dep.DeletedAt = DateTime.Now;
+
+                        }
+                    }
+                    context.SaveChanges();
+                }
+            }
+        }
     }
 }
