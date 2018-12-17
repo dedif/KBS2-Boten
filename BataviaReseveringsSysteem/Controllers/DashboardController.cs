@@ -43,10 +43,7 @@ namespace Controllers
           
             if (DamagedBoatsOfUser.Count > 1 ) {
                 //melding met meerdere veranderingen
-                string sendMessage = $"Hallo {User.Firstname},{Environment.NewLine}{Environment.NewLine}De boot moet vanwege zware schade worden gerepareerd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}Omar en de gang";
-
-                EmailController sendMail = new EmailController($"{User.Email}", "Uw reserveringen zijn gewijzigd omdat de boot uit de vaart is genomen.", sendMessage);
-                MessageBoxResult Notification = MessageBox.Show(
+              MessageBoxResult Notification = MessageBox.Show(
                                "Uw reserveringen zijn gewijzigd omdat de boot uit de vaart is genomen",
                                "Melding",
                                MessageBoxButton.OK,
@@ -57,10 +54,7 @@ namespace Controllers
 
             if (DamagedBoatsOfUser.Count == 1)
             {
-                string sendMessage = $"Hallo {User.Firstname},{Environment.NewLine}{Environment.NewLine}De boot moet vanwege zware schade worden gerepareerd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}Omar en de gang";
-
-                EmailController sendMail = new EmailController($"{User.Email}", "Uw reservering is gewijzigd omdat de boot uit de vaart is genomen.", sendMessage);
-                MessageBoxResult Notification = MessageBox.Show(
+                    MessageBoxResult Notification = MessageBox.Show(
                     //melding met 1 verandering
                                "Uw reservering is gewijzigd omdat de boot uit de vaart is genomen",
                                "Melding",

@@ -87,6 +87,7 @@
     <Compile Include="Models\Damage.cs" />
     <Compile Include="Models\Diploma.cs" />
     <Compile Include="Models\Gender.cs" />
+    <Compile Include="Models\Mail.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\User_Diploma.cs" />
