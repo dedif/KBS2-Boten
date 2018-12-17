@@ -22,25 +22,75 @@
         </Grid.ColumnDefinitions>
         <Menu Grid.Row="0" Name="Menu" IsMainMenu="True"  DockPanel.Dock="Top" Grid.Column="0">
             <MenuItem Header="_Afschrijven">
-                <MenuItem Header="Afschrijvingen maken" x:Name="MakeReservationsBtn" Click="MakeReservationsBtn_Click"></MenuItem>
-                <MenuItem Header="Afschrijvingen inzien" x:Name="SeeReservationsBtn" Click="SeeReservationsBtn_Click"></MenuItem>
+                <MenuItem Header="Afschrijvingen maken" x:Name="MakeReservationsBtn" Click="MakeReservationsBtn_Click">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon
+                        Kind="CalendarPlus" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Afschrijvingen inzien" x:Name="SeeReservationsBtn" Click="SeeReservationsBtn_Click">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon
+                        Kind="CalendarText" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="_Schade">
-                <MenuItem Header="Schade melden" x:Name="ReportDamageaBtn" Click="ReportDamageaBtn_Click"></MenuItem>
-                <MenuItem Header="Schade lijst boten" x:Name="seeDamageList" Click="seeDamageListBtn_Click"></MenuItem>
+                <MenuItem Header="Schade melden" x:Name="ReportDamageaBtn" Click="ReportDamageaBtn_Click">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon
+                        Kind="Build" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Schade lijst boten" x:Name="seeDamageList" Click="seeDamageListBtn_Click">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon
+                        Kind="CardText" />
+                    </MenuItem.Icon>
+                </MenuItem>
 
             </MenuItem>
             <MenuItem Header="_Leden">
-                <MenuItem Header="Leden inzien" IsEnabled="False"  x:Name="SeeUsersBtn" Click="SeeUsersBtn_Click"></MenuItem>
-                <MenuItem Header="Leden toevoegen" IsEnabled="False"  x:Name="AddUsersBtn" Click="AddUsersBtn_Click"></MenuItem>
+                <MenuItem Header="Leden inzien" IsEnabled="False"  x:Name="SeeUsersBtn" Click="SeeUsersBtn_Click">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon
+                        Kind="UserSearch" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Leden toevoegen" IsEnabled="False"  x:Name="AddUsersBtn" Click="AddUsersBtn_Click">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon
+                        Kind="PersonAdd" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="_Diploma's">
-                <MenuItem Header="Gebruikers diploma's inzien" x:Name="SeeUserDiplomasBtn" IsEnabled="False" Click="SeeUserDiplomasBtn_Click"></MenuItem>
-                <MenuItem Header="Boot diploma's inzien" x:Name="SeeBoatDiplomasBtn" IsEnabled="False" Click="SeeBoatDiplomasBtn_Click"></MenuItem>
+                <MenuItem Header="Gebruikers diploma's inzien" x:Name="SeeUserDiplomasBtn" IsEnabled="False" Click="SeeUserDiplomasBtn_Click">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon
+                        Kind="Certificate" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Boot diploma's inzien" x:Name="SeeBoatDiplomasBtn" IsEnabled="False" Click="SeeBoatDiplomasBtn_Click">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon
+                        Kind="Certificate" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="_Boten">
-                <MenuItem Header="Boten inzien" IsEnabled="False" x:Name="SeeBoatsBtn" Click="SeeBoatsBtn_Click"></MenuItem>
-                <MenuItem Header="Boten toevoegen" IsEnabled="False"  x:Name="AddBoatsBtn" Click="AddBoatsBtn_Click"></MenuItem>
+                <MenuItem Header="Boten inzien" IsEnabled="False" x:Name="SeeBoatsBtn" Click="SeeBoatsBtn_Click">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon
+                        Kind="Boat" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Boten toevoegen" IsEnabled="False"  x:Name="AddBoatsBtn" Click="AddBoatsBtn_Click">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon
+                        Kind="AddBox" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Visibility="Hidden" Header="_Nieuws">
                 <MenuItem Header="Wedstrijden"></MenuItem>
@@ -54,13 +104,22 @@
                 <MenuItem Header="Hulp bij inloggen"></MenuItem>
             </MenuItem>
         </Menu>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,0" Width="181">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Width="181">
             <Label x:Name="NameLabel" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Content="" Height="37" Width="120"/>
             <materialDesign:PopupBox StaysOpen="False">
                 <StackPanel>
-                    <Button Content="Account" Click="EditUserBtn_Click"/>
-                    <Separator/>
-                    <Button Content="Uitloggen" Click="LogOutBtn_Click" />
+                    <MenuItem Header="Account" Click="EditUserBtn_Click">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon
+                        Kind="Cog" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Uitloggen" Click="LogOutBtn_Click">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon
+                        Kind="Logout" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </StackPanel>
             </materialDesign:PopupBox>
         </StackPanel>
