@@ -119,34 +119,32 @@ namespace Controllers
         {
             using (DataBase context = new DataBase())
             {
-                var Delete = (
+                var delete = (
                     from r in context.Reservations
                     where r.ReservationID == id
                     select r).Single();
                 //De gebruiker krijgt een controle melding.
-                MessageBoxResult confirm = MessageBox.Show(
+                var confirm = MessageBox.Show(
                                 "Weet u zeker dat u de volgende afschrijving wilt verwijderen:\n"
-                                + ReservationContent(Delete),
+                                + ReservationContent(delete),
                                 "Melding",
                                 MessageBoxButton.YesNo,
                                 MessageBoxImage.Information);
 
                 //Als de gebruiker de reservering wilt verwijderen.
-                if (confirm == MessageBoxResult.Yes)
-                {
-                    //De reservering wordt uit de database verwijderd. 
-                    //context.Reservations.Remove(Delete);
+                if (confirm != MessageBoxResult.Yes) return;
+                //De reservering wordt uit de database verwijderd. 
+                //context.Reservations.Remove(Delete);
 
-                    Delete.Deleted = DateTime.Now;
-                    context.SaveChanges();
-                    //Alle oude knoppen en labels worden verwijderd van het scherm.
-                    Dashboard.DeleteAllControls();
-                    Dashboard.YLeft = 50;
-                    Dashboard.YRight = 50;
-                    Dashboard.Count = 0;
-                    //De nieuwe reserveringen worden op het scherm getoond. 
-                    Dashboard.ShowReservations();
-                }
+                delete.Deleted = DateTime.Now;
+                context.SaveChanges();
+                //Alle oude knoppen en labels worden verwijderd van het scherm.
+                Dashboard.DeleteAllControls();
+                Dashboard.YLeft = 50;
+                Dashboard.YRight = 50;
+                Dashboard.Count = 0;
+                //De nieuwe reserveringen worden op het scherm getoond. 
+                Dashboard.ShowReservations();
 
             }
         }

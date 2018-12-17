@@ -1,8 +1,9 @@
-﻿using BataviaReseveringsSysteem.Database;
+﻿using System;
+using BataviaReseveringsSysteem.Database;
 using Models;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
+using Controllers;
 using ScreenSwitcher;
 using Views;
 
@@ -11,7 +12,7 @@ namespace BataviaReseveringsSysteem.Views
     /// <summary>
     /// Interaction logic for BoatSelectionView.xaml
     /// </summary>
-    public partial class BoatSelectionView : UserControl
+    public partial class BoatSelectionView
     {
 
         public BoatSelectionView()
@@ -20,18 +21,18 @@ namespace BataviaReseveringsSysteem.Views
             Scull.IsChecked = true;
         }
 
-        public List<Boat> boatLijst = new List<Boat>();
+        private Boat _boat;
 
         private void TypeChecked(object sender, System.Windows.RoutedEventArgs e)
         {
             BoatCombo.Items.Clear();
-            if (sender == Scull) SteeringToggle.IsEnabled = true;
+            SteeringToggle.IsEnabled = Equals(sender, Scull) || Equals(sender, Board);
 
-            var type = sender == Scull ? Boat.BoatType.Scull : (sender == Skiff ? Boat.BoatType.Skiff : Boat.BoatType.Board);
+            var type = Equals(sender, Scull) ? Boat.BoatType.Scull : Equals(sender, Skiff) ? Boat.BoatType.Skiff : Boat.BoatType.Board;
 
-            using (DataBase context = new DataBase())
+            using (var context = new DataBase())
             {
-                int amountOfRowersFromCombo = RowersCombo.SelectedIndex == -1 ? 0 : int.Parse(((ComboBoxItem)RowersCombo.SelectedItem).Content.ToString());
+                var amountOfRowersFromCombo = RowersCombo.SelectedIndex == -1 ? 0 : int.Parse(((ComboBoxItem)RowersCombo.SelectedItem).Content.ToString());
                 var boats = (from data in context.Boats
                              where data.Type == type
                              where data.Steering == SteeringToggle.IsChecked
@@ -50,18 +51,43 @@ namespace BataviaReseveringsSysteem.Views
         {
             foreach (var type in Types.Children)
             {
-                RadioButton radioButton = (RadioButton)type;
+                var radioButton = (RadioButton)type;
                 if (radioButton.IsChecked == true) TypeChecked(radioButton, new System.Windows.RoutedEventArgs());
             }
         }
 
         private void RowersCombo_SelectionChanged(object sender, SelectionChangedEventArgs e) => Refresh();
 
-        private void AnnulerenBtn_Click(object sender, System.Windows.RoutedEventArgs e) => Switcher.Switch(new Dashboard());
+        private void AnnulerenBtn_Click(object sender, System.Windows.RoutedEventArgs e) =>
+            Switcher.Switch(new Dashboard());
 
         private void BevestigenBtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            var reserveWindow = new ReserveWindow();
+            Switcher.Switch(reserveWindow);
+            reserveWindow.Populate(_boat);
 
         }
+
+        private void BoatCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (IsBoatSelected())
+            {
+                BevestigenBtn.IsEnabled = true;
+                _boat = GetBoatFromBoatComboBox();
+            }
+            else
+            {
+                BevestigenBtn.IsEnabled = false;
+                _boat = null;
+            }
+        }
+
+        private Boat GetBoatFromBoatComboBox() =>
+            new BoatController().GetBoatWithName(BoatCombo.SelectedItem.ToString());
+
+        private bool IsBoatSelected() => BoatCombo.SelectedIndex != -1;
+
+        private void EnableConfirmButtonIfBoatIsSelected() => BevestigenBtn.IsEnabled = BoatCombo.SelectedIndex != -1;
     }
 }

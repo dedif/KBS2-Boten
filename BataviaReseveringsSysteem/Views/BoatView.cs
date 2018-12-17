@@ -6,20 +6,20 @@ namespace Views
 {
     public class BoatView : Grid
     {
-        private const int LabelMarginTop = 15;
+        private const int LabelMarginTop = 30;
 
-        private Label NameLabel { get; set; }
+        private Label NameLabel { get; }
         public Label TypeLabel { get; set; }
-        private Label WeightLabel { get; set; }
-        private Label AmountOfRowersLabel { get; set; }
-        private Label SteermanLabel { get; set; }
+        private Label WeightLabel { get; }
+        private Label AmountOfRowersLabel { get; }
+        private Label SteermanLabel { get; }
 
         public BoatView()
         {
 
             HorizontalAlignment = HorizontalAlignment.Left;
             VerticalAlignment = VerticalAlignment.Top;
-            Margin = new Thickness(350, 210, 0, 0);
+            Margin = new Thickness(0, 30, 0, 0);
             NameLabel = new Label();
             TypeLabel = new Label();
             WeightLabel = new Label();
@@ -31,6 +31,7 @@ namespace Views
                 label.HorizontalAlignment = HorizontalAlignment.Left;
                 label.VerticalAlignment = VerticalAlignment.Top;
                 label.Margin = new Thickness(10, marginTop, 10, 10);
+                label.FontSize = 16;
                 Children.Add(label);
                 marginTop += LabelMarginTop;
             }

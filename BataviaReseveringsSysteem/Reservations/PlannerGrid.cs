@@ -16,7 +16,7 @@ namespace BataviaReseveringsSysteem.Reservations
         private const int PlannerGridColumnWidth = 50;
 
         // en 20 pixels hoog
-        private const int PlannerGridRowHeight = 20;
+        private const int PlannerGridRowHeight = 40;
 
         // De totale breedte is 200 pixels
         private const int PlannerGridWidth = 200;
@@ -34,6 +34,7 @@ namespace BataviaReseveringsSysteem.Reservations
         // dan wordt ie groen
         private readonly Brush _slotAboutToBeClaimedColor = new SolidColorBrush(Colors.Green);
         private int _earliestHourOnPlanningGrid;
+        private const int LabelFontSize = 16;
 
         public PlannerGrid()
         {
@@ -42,14 +43,14 @@ namespace BataviaReseveringsSysteem.Reservations
             Width = PlannerGridWidth;
 
             // Schuif de tabel de grootte van een halve tekstlabel naar beneden
-            var l = new Label { Content = "X" };
+            var l = new Label { Content = "X", FontSize = LabelFontSize };
             l.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             var margin = l.Margin;
             margin.Top = l.DesiredSize.Height;
             Margin = margin;
         }
 
-        
+
 
         // Maak de horizontale lijnen 
         private List<Line> MakePlannerGridColumnDividers(int plannerGridHeight)
@@ -164,7 +165,7 @@ namespace BataviaReseveringsSysteem.Reservations
             var plannerSideLabels = new List<Label>();
             for (var i = earliestHourOnPlanningGrid; i <= latestHourOnPlanningGrid; i++)
             {
-                var hourLabel = new Label { Content = $"{i}.00" };
+                var hourLabel = new Label { Content = $"{i}.00", FontSize = LabelFontSize };
 
                 // Zorg ervoor dat de label mooi is uitgelijnd
                 hourLabel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
@@ -186,7 +187,7 @@ namespace BataviaReseveringsSysteem.Reservations
             var minutes = 0;
             for (var i = 0; i <= PlannerGridWidth; i += PlannerGridColumnWidth)
             {
-                var quarterHourLabel = new Label { Content = $"xx:{minutes}" };
+                var quarterHourLabel = new Label { Content = $"xx:{minutes}", FontSize = LabelFontSize };
                 minutes += 15;
                 quarterHourLabel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
                 var margin = quarterHourLabel.Margin;
@@ -279,14 +280,8 @@ namespace BataviaReseveringsSysteem.Reservations
                 0)
         };
 
-        public int GetHourFromY(double y)
-        {
-            return ((int)y / PlannerGridRowHeight) + _earliestHourOnPlanningGrid;
-        }
+        public int GetHourFromY(double y) => (int)y / PlannerGridRowHeight + _earliestHourOnPlanningGrid;
 
-        public int GetMinutesFromX(double x)
-        {
-            return (int)x / PlannerGridColumnWidth * 15;
-        }
+        public int GetMinutesFromX(double x) => (int)x / PlannerGridColumnWidth * 15;
     }
 }
