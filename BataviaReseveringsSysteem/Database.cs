@@ -17,6 +17,7 @@ namespace BataviaReseveringsSysteem.Database
         public virtual DbSet<Reservation> Reservations { get; set; }
         public virtual DbSet<User_Role> User_Roles { get; set; }
         public virtual DbSet<Damage> Damages { get; set; }
+        public virtual DbSet<News_Message> News_Messages { get; set; }
 
     }
 }

@@ -42,6 +42,10 @@
                 <MenuItem Header="Boten inzien" IsEnabled="False" x:Name="SeeBoatsBtn" Click="SeeBoatsBtn_Click"></MenuItem>
                 <MenuItem Header="Boten toevoegen" IsEnabled="False"  x:Name="AddBoatsBtn" Click="AddBoatsBtn_Click"></MenuItem>
             </MenuItem>
+            <MenuItem Header="_Nieuws">
+                <MenuItem Header="Nieuws berichten inzien" IsEnabled="False" x:Name="SeeNewsBtn" Click="SeeNewsBtn_Click"></MenuItem>
+                <MenuItem Header="Nieuws berichten toevoegen" IsEnabled="False"  x:Name="AddNewsMessageBtn" Click="AddNewsMessageBtn_Click"></MenuItem>
+            </MenuItem>
             <MenuItem Visibility="Hidden" Header="_Nieuws">
                 <MenuItem Header="Wedstrijden"></MenuItem>
                 <MenuItem Header="Competitie"></MenuItem>

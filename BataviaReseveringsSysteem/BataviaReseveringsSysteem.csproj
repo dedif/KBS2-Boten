@@ -77,6 +77,7 @@
     <Compile Include="Controllers\DamageController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
+    <Compile Include="Controllers\NewsMessageController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\EditController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -87,12 +88,16 @@
     <Compile Include="Models\Damage.cs" />
     <Compile Include="Models\Diploma.cs" />
     <Compile Include="Models\Gender.cs" />
+    <Compile Include="Models\News_Message.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\User_Diploma.cs" />
     <Compile Include="Models\User_Role.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Reservations\BoatTypeTabItemCalendar.cs" />
+    <Compile Include="Views\AddNewsMessage.xaml.cs">
+      <DependentUpon>AddNewsMessage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BoatDamage.xaml.cs">
       <DependentUpon>BoatDamage.xaml</DependentUpon>
     </Compile>
@@ -118,6 +123,12 @@
     </Compile>
     <Compile Include="Views\EditBoatDiplomaView.xaml.cs">
       <DependentUpon>EditBoatDiplomaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditNewsMessage.xaml.cs">
+      <DependentUpon>EditNewsMessage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NewsMessageList.xaml.cs">
+      <DependentUpon>NewsMessageList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserDiplomaList.xaml.cs">
       <DependentUpon>UserDiplomaList.xaml</DependentUpon>
@@ -153,6 +164,10 @@
     <Compile Include="Views\UserList.xaml.cs">
       <DependentUpon>UserList.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AddNewsMessage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BoatDamage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -174,6 +189,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\EditBoatDiplomaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditNewsMessage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NewsMessageList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

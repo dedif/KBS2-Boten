@@ -36,6 +36,8 @@ namespace Views
                     //Mag die boten inzien en toevoegen
                     SeeBoatsBtn.IsEnabled = true;
                     AddBoatsBtn.IsEnabled = true;
+                    AddNewsMessageBtn.IsEnabled = true;
+                    SeeNewsBtn.IsEnabled = true;
                 }
                 else
                 {
@@ -175,6 +177,16 @@ namespace Views
         {
             Switcher.Switch(new BoatDiplomaList());
 
+        }
+
+        private void SeeNewsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new NewsMessageList());
+        }
+
+        private void AddNewsMessageBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new AddNewsMessage());
         }
     }
 }

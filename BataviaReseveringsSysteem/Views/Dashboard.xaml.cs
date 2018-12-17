@@ -172,7 +172,26 @@ namespace Views
 
 
                     Count++;
+
+                    var getNewsMessage = (from data in context.News_Messages
+                                          where data.DeletedAt == null
+                                          select data).ToList();
+                    int top = 10;
+                    foreach (var news in getNewsMessage)
+                    {
+                        Label l3 = new Label()
+                        {
+                            Content = $"{news.Title} {news.CreatedAt}",
+                            Margin = new Thickness(0, top, 0, 0),
+                            FontSize = 16,
+                            HorizontalAlignment = HorizontalAlignment.Left,
+                            VerticalAlignment = VerticalAlignment.Top,
+                        };
+                        NewsList.Children.Add(l3);
+                        top += 10;
+                    }
                 }
+           
             }
         }
 
