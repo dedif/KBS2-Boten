@@ -70,8 +70,8 @@
         <Label Grid.Row="6" Grid.Column="1" Content="Stuur?" Margin="50,0,150,0" VerticalAlignment="Center" FontSize="16" Foreground="Gray"/>
         <Button Grid.Row="7" Grid.Column="1" x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="SaveButton_Click"/>
         <Button Grid.Row="7" Grid.Column="2" x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="CancelButton_Click"/>
-        <Label x:Name="NotificationLabel" Content="&#xD;&#xA;" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Top" Width="290" Grid.Row="4" FontSize="16" Grid.ColumnSpan="2"/>
-        <Label Grid.Row="2" Grid.Column="2" x:Name="SkiffLabel" Foreground="Red" Content="Een skiff boot heeft altijd één roeier en geen stuur" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Left" Width="331"/>
+        <Label x:Name="NotificationLabel" Content="&#xD;&#xA;" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Top" Width="290" Grid.Row="4" FontSize="16" Grid.ColumnSpan="1"/>
+        <TextBlock  Grid.Row="2" Grid.Column="2" x:Name="SkiffLabel" FontSize="16" TextWrapping="Wrap" Text="Een skiff boot heeft altijd één roeier en geen stuur" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Left" Width="331"/>
         <Label Grid.Row="3" Grid.Column="2" Content="Benodigd diploma:" FontSize="16" Foreground="Gray"/>
 
         <StackPanel Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Bottom">
