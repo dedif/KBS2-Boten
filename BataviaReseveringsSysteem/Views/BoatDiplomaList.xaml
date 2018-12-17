@@ -20,11 +20,20 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="100"/>
             <RowDefinition/>
-            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <Canvas 
+            Width="1024"
+                Height="50"
+            Background="#673ab7" Margin="0,50,0,1000">
+            <Label
+                Content="Boot diploma's"
+                Foreground="White"
+                FontSize="26"
+                Canvas.Left="384" Canvas.Top="5" Width="203"/>
+        </Canvas>
         <DataGrid Grid.Row="2"
             x:Name="DataBoatList"  CanUserAddRows="false"   ItemsSource="{Binding Boats}" x:FieldModifier="public" AutoGenerateColumns="false" Height="469" Margin="0,0,10,149" Grid.RowSpan="2">
 

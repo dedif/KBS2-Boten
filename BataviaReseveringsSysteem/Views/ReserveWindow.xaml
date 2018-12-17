@@ -7,8 +7,8 @@
 		Height="768" Width="1024">
     <Grid>
 
-        <TabControl x:Name="BoatTypeTabControl" Margin="10,60,20,0" RenderTransformOrigin="0.5,0.5">
-        </TabControl>
+        <Grid x:Name="BoatTypeTabControl" Margin="297,60,20,0" RenderTransformOrigin="0.5,0.5">
+        </Grid>
         <Button Visibility="Hidden" x:Name="AfschrijvenBtn" Content="Afschrijven" HorizontalAlignment="Left" Margin="391,321,0,0" VerticalAlignment="Top" Height="25" Width="120"/>
         <ComboBox Visibility="Hidden" x:Name="TimeCombo" HorizontalAlignment="Left" Margin="226,321,0,0" VerticalAlignment="Top" Height="25"  Width="120" SelectedIndex="0">
             <ComboBoxItem Content="00:15"/>
@@ -20,5 +20,6 @@
             <ComboBoxItem Content="01:45"/>
             <ComboBoxItem Content="02:00"/>
         </ComboBox>
+        <Calendar x:Name="Calendar" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>
