@@ -71,15 +71,8 @@ namespace BataviaReseveringsSysteem.Controllers
                         context.Mails.Add(Mail);
                         context.SaveChanges();
                     }
-
-
                 }
-
-
             }
-
-
-
         }
 
 
