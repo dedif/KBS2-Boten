@@ -4,6 +4,8 @@ using Controllers;
 using ScreenSwitcher;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,12 +46,13 @@ namespace Views
                 foreach (var boat in boats)
                 {
                     NameBox.Text = boat.Name;
-                    NameBox.IsEnabled = false;
                     RowersCombo.SelectedItem = boat.NumberOfRowers;
                     RowersCombo.Text = boat.NumberOfRowers.ToString();
                     WeightBox.Text = boat.Weight.ToString();
                     TypCombo.SelectedItem = boat.Type;
                     TypCombo.Text = boat.Type.ToString();
+                    BoatLocationBox.Text = boat.BoatLocation.ToString();
+                    AvailableAt.SelectedDate = boat.AvailableAt;
                     if (boat.Steering == true)
                     {
                         SteeringWheelToggle.IsChecked = true;
@@ -102,7 +105,7 @@ namespace Views
                     {
                         P2CheckBox.Content = diploma.DiplomaName;
                         P2CheckBox.Tag = diploma.DiplomaID;
-                        
+
 
                     }
                     if ("B1" == diploma.DiplomaName)
@@ -126,8 +129,8 @@ namespace Views
                 }
 
                 var BoatDiplomas = from x in context.Boat_Diplomas
-                                     where x.BoatID == EditBoatID 
-                                     select x;
+                                   where x.BoatID == EditBoatID
+                                   select x;
 
                 foreach (var memberRole in BoatDiplomas)
                 {
@@ -178,42 +181,66 @@ namespace Views
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (b.WhiteCheck(NameBox.Text, WeightBox.Text) == true)
+            if (b.WhiteCheck(NameBox.Text, WeightBox.Text, BoatLocationBox.Text) == true)
             {
-
-
-                if (b.WeightCheck(WeightBox.Text) == true)
+                using (DataBase context = new DataBase())
                 {
 
 
-                    double Weight = double.Parse(WeightBox.Text);
-                    int Rowers = int.Parse(RowersCombo.Text);
-                    Boolean Steeringwheel = false;
+                    // bool boatLocationCheck = context.Boats.Where(y => y.BoatID != EditBoatID).Any(x => x.BoatLocation == BoatLocation && x.DeletedAt == null);
 
-                    if (SteeringWheelToggle.IsChecked == true)
+                    if (b.WeightCheck(WeightBox.Text) == true)
                     {
-                        Steeringwheel = true;
-                    }
-
-                    b.UpdateBoat(EditBoatID, NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel);
-
-                    NotificationLabel.Content = b.Notification();
+                        if (b.LocationCheckIfInt(BoatLocationBox.Text))
+                        {
+                            int BoatLocation = int.Parse(BoatLocationBox.Text);
 
 
-                    MessageBoxResult Succes = MessageBox.Show(
-                        "De boot is succesvol opgeslagen",
-                        "Melding",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information);
+                            if (b.EditBoatLocationCheck(BoatLocation, EditBoatID) == true)
+                            {
+                                if (b.EditBoatNameCheck(NameBox.Text, EditBoatID) == true)
+                                {
 
-                    switch (Succes)
-                    {
-                        case MessageBoxResult.OK:
-                            Switcher.Switch(new BoatList());
-                            break;
+                                    double Weight = double.Parse(WeightBox.Text);
+                                    int Rowers = int.Parse(RowersCombo.Text);
+                                    Boolean Steeringwheel = false;
+
+                                    if (SteeringWheelToggle.IsChecked == true)
+                                    {
+                                        Steeringwheel = true;
+                                    }
+
+
+                                    // if (!boatLocationCheck)
+                                    // {
+
+                                    b.UpdateBoat(EditBoatID, NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation, AvailableAt.SelectedDate.Value);
+                                    MessageBoxResult Succes = MessageBox.Show(
+                                     "De boot is succesvol opgeslagen",
+                                     "Melding",
+                                     MessageBoxButton.OK,
+                                     MessageBoxImage.Information);
+
+
+                                    switch (Succes)
+                                    {
+                                        case MessageBoxResult.OK:
+                                            Switcher.Switch(new BoatList());
+                                            break;
+
+                                    }
+                                }
+                            }
+                        }
+
+                        NotificationLabel.Content = b.Notification();
+
+
+
 
                     }
                 }
+
 
 
             }
@@ -254,7 +281,7 @@ namespace Views
     }
 
 
-  }
+}
 
 
 

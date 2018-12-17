@@ -28,7 +28,7 @@ namespace Views
         {
 
             //DataUserList.ItemsSource = context.Users.ToList();
-            var boat = (from x in context.Boats where x.DeletedAt == null select x).ToList();
+            var boat = (from x in context.Boats where x.DeletedAt == null where x.Deleted == false select x).ToList();
 
 
             DataBoatList.ItemsSource = boat;
@@ -70,7 +70,7 @@ namespace Views
         {
 
             DataBoatList.ItemsSource = (from x in context.Boats
-                                        where (x.BoatID.ToString() == Search.Text || x.Name.Contains(Search.Text) || x.Type.ToString() == Search.Text || x.Weight.ToString() == Search.Text || x.NumberOfRowers.ToString() == Search.Text || x.Steering.ToString() == Search.Text) && x.DeletedAt == null
+                                        where (x.BoatID.ToString() == Search.Text || x.Name.Contains(Search.Text) || x.Type.ToString() == Search.Text || x.Weight.ToString() == Search.Text || x.NumberOfRowers.ToString() == Search.Text || x.Steering.ToString() == Search.Text || x.BoatLocation.ToString() == Search.Text) && x.DeletedAt == null
                                         select x).ToList();
 
 

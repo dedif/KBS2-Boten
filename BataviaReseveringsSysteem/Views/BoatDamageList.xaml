@@ -35,7 +35,8 @@
                 <DataGridTextColumn x:Name="Boatname"    Binding="{Binding BoatName}" Header="Bootnaam" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="description"  Binding="{Binding  Description}" Header="Omschrijving" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="timeofclaim"  Binding="{Binding TimeOfClaim, StringFormat=\{0:dd-MM-yyyy hh:mm:ss\}}" Header="Tijd van schade" IsReadOnly="true"/>
-                <DataGridTextColumn x:Name="timeoffix"  Binding="{Binding TimeOfFix, StringFormat=\{0:dd-MM-yyyy hh:mm:ss\}}" Header="Tijd van herstel" IsReadOnly="true"  />
+                <DataGridTextColumn x:Name="timeofaccupyforfix"  Binding="{Binding TimeOfAccupyForFix, StringFormat=\{0:dd-MM-yyyy hh:mm:ss\}}" Header="Uit vaart" IsReadOnly="true"  />
+                <DataGridTextColumn x:Name="timeoffix"  Binding="{Binding TimeOfFix, StringFormat=\{0:dd-MM-yyyy hh:mm:ss\}}" Header="Hersteld" IsReadOnly="true"  />
                 <DataGridTextColumn x:Name="status"  Binding="{Binding Status}" Header="Status" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="firstname"  Binding="{Binding FirstName}" Header="Voornaam" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="middlename"  Binding="{Binding MiddleName}" Header="" IsReadOnly="true"  />

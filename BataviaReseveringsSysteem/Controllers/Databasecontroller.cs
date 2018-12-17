@@ -5,16 +5,16 @@ using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-
+using Views;
 
 namespace Controllers
 {
 
-   public class DataBaseController
-  {
+    public class DataBaseController
+    {
         public void Add_Role(string roleName)
         {
-            
+
             using (DataBase context = new DataBase())
             {
 
@@ -28,7 +28,7 @@ namespace Controllers
                 context.Roles.Add(role);
 
                 context.SaveChanges();
-                
+
             }
 
         }
@@ -62,12 +62,12 @@ namespace Controllers
                 context.SaveChanges();
             }
         }
-    public void Add_UserRole(int roleID, int userID)
+        public void Add_UserRole(int roleID, int userID)
         {
-            
+
             using (DataBase context = new DataBase())
             {
-              var UserRole = new Models.User_Role
+                var UserRole = new Models.User_Role
                 {
                     RoleID = roleID,
                     UserID = userID,
@@ -78,34 +78,40 @@ namespace Controllers
 
                 context.User_Roles.Add(UserRole);
                 context.SaveChanges();
-                Switcher.DeleteMenu();
-                Switcher.MenuMaker();
+
+
+                var isEditedUserLoggedIn = LoginView.UserId != null && LoginView.UserId == userID;
+                if (isEditedUserLoggedIn)
+                {
+                    Switcher.DeleteMenu();
+                    Switcher.MenuMaker();
+                }
 
 
 
 
-               
-               
-                
+
+
+
 
             }
         }
-		
+
         public bool Get_UserRole(int roleID, int userID)
         {
             try
             {
                 using (DataBase context = new DataBase())
                 {
-                   bool hasUserRole = context.User_Roles.Any(cus => cus.User.UserID == userID && cus.Role.RoleID == roleID);
+                    bool hasUserRole = context.User_Roles.Any(cus => cus.User.UserID == userID && cus.Role.RoleID == roleID);
                     return hasUserRole;
 
                 }
-               
+
             }
-            catch(NullReferenceException)
+            catch (NullReferenceException)
             { return false; }
-            
+
         }
 
         public void Delete_UserRole(int userID, int rolID)
@@ -113,11 +119,11 @@ namespace Controllers
             using (DataBase context = new DataBase())
             {
 
-             var deleteUserRole = (from x in context.User_Roles
-                                     where x.User.UserID == userID && x.DeletedAt == null && x.Role.RoleID == rolID
-                                     select x).ToList();
+                var deleteUserRole = (from x in context.User_Roles
+                                      where x.User.UserID == userID && x.DeletedAt == null && x.Role.RoleID == rolID
+                                      select x).ToList();
 
-              
+
 
 
                 context.User_Roles.RemoveRange(deleteUserRole);
@@ -135,29 +141,29 @@ namespace Controllers
             using (DataBase context = new DataBase())
             {
 
-              var delUserDiploma = (from x in context.User_Diplomas
-                                     where x.User.UserID == userID && x.DeletedAt == null && x.Diploma.DiplomaID == diplomaID
-                                     select x).ToList();
+                var delUserDiploma = (from x in context.User_Diplomas
+                                      where x.User.UserID == userID && x.DeletedAt == null && x.Diploma.DiplomaID == diplomaID
+                                      select x).ToList();
 
 
                 context.User_Diplomas.RemoveRange(delUserDiploma);
 
 
                 context.SaveChanges();
-                
+
             }
 
         }
 
-        public void Add_User(string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID,DateTime birthday)
+        public void Add_User(string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
         {
             using (DataBase context = new DataBase())
             {
 
                 // Use current timeDateTime dt = 
-             
+
                 string mySqlTimestamp = "01-01-1900 00:00:00";
-               DateTime time = DateTime.Parse(mySqlTimestamp);
+                DateTime time = DateTime.Parse(mySqlTimestamp);
 
 
                 var user = new Models.User
@@ -177,7 +183,7 @@ namespace Controllers
                     CreatedAt = DateTime.Now,
                     UpdatedAt = null,
                     DeletedAt = null
-                    
+
                 };
                 int UserID = user.UserID;
                 context.Users.Add(user);
@@ -193,13 +199,13 @@ namespace Controllers
             using (DataBase context = new DataBase())
             {
 
-               Models.User delUser = context.Users.Where(d => d.UserID == userID).First();
-            
+                Models.User delUser = context.Users.Where(d => d.UserID == userID).First();
+
                 if (delUser != null)
                 {
 
                     delUser.DeletedAt = DateTime.Now;
-                   
+
                     context.SaveChanges();
                 }
             }
@@ -231,13 +237,13 @@ namespace Controllers
 
                     context.SaveChanges();
                 }
-                
+
             }
 
         }
 
 
-        public void Update_User(int userID,  string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
+        public void Update_User(int userID, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
         {
             using (DataBase context = new DataBase())
             {
@@ -247,7 +253,7 @@ namespace Controllers
 
                 if (dep != null)
                 {
-                    
+
                     dep.Firstname = firstname;
                     dep.Lastname = lastname;
                     dep.Address = address;
@@ -260,7 +266,7 @@ namespace Controllers
                     dep.Middlename = middlename;
                     dep.UpdatedAt = DateTime.Now;
                     dep.DeletedAt = null;
-                    
+
 
                     context.SaveChanges();
                 }

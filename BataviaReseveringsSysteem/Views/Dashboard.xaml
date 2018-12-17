@@ -13,7 +13,11 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Height="768" Width="1024">
+        Height="768" Width="1024"
+        Focusable="True"
+        
+             >
+    
 
     <ScrollViewer>
         <Grid Name="GridDashboard">

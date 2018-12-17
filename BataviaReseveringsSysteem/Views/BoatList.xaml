@@ -37,7 +37,7 @@
                 <DataGridTextColumn x:Name="Weight"  Binding="{Binding Weight}" Header="Gewicht" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Steering"  Binding="{Binding Steering}" Header="Stuur" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="Status"  Binding="{Binding Status}" Header="Status" IsReadOnly="true"/>
-
+                <DataGridTextColumn x:Name="BoatLocation"  Binding="{Binding BoatLocation}" Header="Boot locatie" IsReadOnly="true"/>
 
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.HeaderTemplate>

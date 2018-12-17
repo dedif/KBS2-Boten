@@ -81,6 +81,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\Databasecontroller.cs" />
+    <Compile Include="Controllers\UserTimeOutController.cs" />
     <Compile Include="Models\Boat_Diploma.cs" />
     <Compile Include="Models\Damage.cs" />
     <Compile Include="Models\Diploma.cs" />

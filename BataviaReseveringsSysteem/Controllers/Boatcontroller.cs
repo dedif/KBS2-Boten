@@ -2,7 +2,10 @@
 using Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using Views;
 
@@ -12,13 +15,50 @@ namespace Controllers
     {
         private string notification;
 
+        public static void DeletedNotification(DateTime lastLogged)
+        {
+            using (DataBase context = new DataBase())
+            {
+                //pakt alle reserveringen waarvan de boten verwijderd zijn
+                var DeletedBoats = (from data in context.Boats
+                                    join a in context.Reservations
+                                    on data.BoatID equals a.BoatID
+                                    where data.DeletedAt > lastLogged
+                                    where data.Deleted == true
+                                    where a.Deleted == null
+                                    select a).ToList();
+
+                var User = (from data in context.Users
+                            where data.UserID == LoginView.UserId
+                            select data).Single();
+
+                if (DeletedBoats.Count() == 1)
+                {
+                    MessageBoxResult DeletedNotification = MessageBox.Show(
+                        "Uw afschrijvingen zijn gewijzigd omdat een boot is verwijderd",
+                        "Melding",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
+                if (DeletedBoats.Count() > 1)
+                {
+                    MessageBoxResult DeletedNotification = MessageBox.Show(
+                        "Uw afschrijvingen zijn gewijzigd omdat meerdere boten zijn verwijderd",
+                        "Melding",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
+                User.LastLoggedIn = DateTime.Now;
+                context.SaveChanges();
+            }
+        }
         public string Notification()
         {
             return notification;
         }
         //Deze methode returnt true als naam en gewicht zijn ingevoerd (anders false)
 
-        public Boolean WhiteCheck(string name, string weight)
+        public Boolean WhiteCheck(string name, string weight, string boatLocation)
         {
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(weight))
             {
@@ -51,6 +91,23 @@ namespace Controllers
             }
         }
 
+        public Boolean LocationCheckIfInt(string boatLocation)
+        {
+
+            try
+            {
+                int BoatLocation = int.Parse(boatLocation);
+                return true;
+            }
+            catch
+            {
+
+                notification = "De locatie moet een getal zijn";
+
+                return false;
+            }
+        }
+
         //Deze methode returnd true als naam niet voor komt (anders false)
         public Boolean NameCheck(string name)
         {
@@ -75,6 +132,90 @@ namespace Controllers
                     return true;
                 }
             }
+        }
+
+        public Boolean BoatLocationCheck(int boatLocation)
+        {
+
+            using (DataBase context = new DataBase())
+
+            {
+                var CountBoatLocation = (from b in context.Boats
+                                  where b.BoatLocation ==boatLocation
+                                  where b.DeletedAt == null
+                                  select b).ToList<Boat>();
+
+               
+
+                if (CountBoatLocation.Count > 0 )
+                {
+                    notification = "Deze boot locatie bestaat al";
+
+
+                    return false;
+
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        public Boolean EditBoatLocationCheck(int boatLocation, int boatID)
+        {
+
+            using (DataBase context = new DataBase())
+
+            {
+                var CountBoatLocation = (from b in context.Boats
+                                         where b.BoatLocation == boatLocation
+                                         where b.DeletedAt == null
+                                         select b.BoatLocation).ToList();
+
+                bool boatLocationCheck = context.Boats.Where(y => y.BoatID != boatID).Any(x => x.BoatLocation == boatLocation && x.DeletedAt == null);
+
+                if (!boatLocationCheck)
+                {
+
+                    return true;
+
+                }
+                else
+                {
+                    notification = "Deze boot locatie bestaat al";
+                    return false;
+                }
+            }
+
+        }
+
+        public Boolean EditBoatNameCheck(string name, int boatID)
+        {
+
+            using (DataBase context = new DataBase())
+
+            {
+                var CountBoatLocation = (from b in context.Boats
+                                         where b.Name == name
+                                         where b.DeletedAt == null
+                                         select b.BoatLocation).ToList();
+
+                bool boatLocationCheck = context.Boats.Where(y => y.BoatID != boatID).Any(x => x.Name == name && x.DeletedAt == null);
+
+                if (!boatLocationCheck)
+                {
+
+                    return true;
+
+                }
+                else
+                {
+                    notification = "Deze bootnaam bestaat al";
+                    return false;
+                }
+            }
+
         }
 
         public Boolean BootExist(int boatID)
@@ -127,7 +268,7 @@ namespace Controllers
         }
 
         //Deze methode voegt een boot toe aan de database
-        public void AddBoat(string name, string type, int rowers, double weight, bool steeringwheel)
+        public void AddBoat(string name, string type, int rowers, double weight, bool steeringwheel, int boatLocation, DateTime availableAt)
         {
             notification = "";
 
@@ -138,7 +279,7 @@ namespace Controllers
 
                 Enum.TryParse(type, out Boat.BoatType MyType);
                 DateTime CreatedAt = DateTime.Now;
-                Boat boot1 = new Boat(name, MyType, rowers, weight, steeringwheel, CreatedAt);
+                Boat boot1 = new Boat(name, MyType, rowers, weight, steeringwheel, boatLocation, CreatedAt, availableAt);
 
                 context.Boats.Add(boot1);
 
@@ -161,8 +302,25 @@ namespace Controllers
 
                 if (delBoat != null)
                 {
+                    var User = (from data in context.Users
+                                where data.UserID == LoginView.UserId
+                                select data).Single();
 
+                    var Reservations = (from data in context.Reservations
+                                        where data.BoatID == delBoat.BoatID
+                                        select data).ToList();
+
+                  
                     delBoat.DeletedAt = DateTime.Now;
+                    delBoat.Deleted = true;
+                    context.SaveChanges();
+                    BoatController.DeletedNotification(User.LastLoggedIn);
+                    User.LastLoggedIn = DateTime.Now;
+
+                    foreach (Reservation r in Reservations)
+                    {
+                        r.Deleted = DateTime.Now;
+                    }
 
                     context.SaveChanges();
                 }
@@ -172,7 +330,7 @@ namespace Controllers
         }
 
 
-        public void UpdateBoat(int boatID, string name, string type, int rowers, double weight, bool steeringwheel)
+        public void UpdateBoat(int boatID, string name, string type, int rowers, double weight, bool steeringwheel, int boatLocation, DateTime availableAt)
         {
             using (DataBase context = new DataBase())
             {
@@ -186,8 +344,22 @@ namespace Controllers
                     UpdateBoat.Steering = steeringwheel;
                     UpdateBoat.NumberOfRowers = rowers;
                     UpdateBoat.UpdatedAt = DateTime.Now;
+                    UpdateBoat.BoatLocation = boatLocation;
+                    UpdateBoat.AvailableAt = availableAt;
+                    try
+                    {
 
-                    context.SaveChanges();
+
+                        context.SaveChanges();
+
+
+                    }
+                    catch (SqlException ex) when (ex.InnerException is SqlException sqlException && (sqlException.Number == 2627 || sqlException.Number == 2601))
+                    {
+
+                    }
+                    
+                    
                 }
             }
 
@@ -320,6 +492,7 @@ namespace Controllers
                      join userDiploma in context.User_Diplomas on boatDiploma.DiplomaID equals userDiploma.DiplomaID
                      where userDiploma.UserID == LoginView.UserId
                      where boatDiploma.BoatID == boat.BoatID
+                     where boat.AvailableAt <= DateTime.Now
                      where boat.Broken == false
                      select boat).Distinct().Concat(
                         from boat in context.Boats

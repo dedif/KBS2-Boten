@@ -98,6 +98,11 @@ namespace Controllers
 
                 var Duration = EndDate - StartDate;
 
+                var BoatLocation =
+            (from r in context.Reservations 
+             where r.ReservationID == reservation.ReservationID
+             select r.Boat.BoatLocation).Single();
+
                 string Minutes = StartDate.Minute.ToString();
                 if (StartDate.Minute < 10)
                 {
@@ -109,6 +114,7 @@ namespace Controllers
                 content += "\nBegintijd: " + StartDate.Hour + ":" + Minutes;
                 content += "\nDuur: " + Duration.Hours + ":" + Duration.Minutes;
                 content += "\nDatum: "  + StartDate.Day + "/" + StartDate.Month + "/" + StartDate.Year;
+                content += "\nLocatie: " + BoatLocation;
 
                 return content;
             }

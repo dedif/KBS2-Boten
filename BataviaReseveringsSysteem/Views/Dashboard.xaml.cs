@@ -7,7 +7,8 @@ using BataviaReseveringsSysteem.Database;
 using BataviaReseveringsSysteem.Views;
 using ScreenSwitcher;
 using Controllers;
-
+using BataviaReseveringsSysteem.Views;
+using BataviaReseveringsSysteem.Controllers;
 
 namespace Views
 {
@@ -30,6 +31,9 @@ namespace Views
         {
             InitializeComponent();
 
+            UserTimeOutController utoc = new UserTimeOutController(System.Windows.Input.FocusManager.GetFocusedElement(this), 90);
+
+          
             var loggedUser = (from data in context.Users
                               where data.UserID == LoginView.UserId
                               select data).Single();
@@ -64,7 +68,6 @@ namespace Views
             //De reservaties van de gebruiker worden met deze methode getoond op het scherm
             ShowReservations();
             dashboardController.Notification(loggedUser.LastLoggedIn);
-
 
 
         }
