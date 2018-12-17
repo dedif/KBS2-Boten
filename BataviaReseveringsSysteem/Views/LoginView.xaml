@@ -37,7 +37,7 @@
                 FontSize="26"
                 Canvas.Left="457" Canvas.Top="4" Width="110"/>
         </Canvas>
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <TextBox x:Name="Username" 
                  materialDesign:HintAssist.Hint="Lidnummer"
                  Height="25" Width="120" PreviewTextInput="NumberValidationTextBox"/>
