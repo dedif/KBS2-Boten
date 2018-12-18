@@ -16,7 +16,7 @@ namespace BataviaReseveringsSysteem.Reservations
         private const int PlannerGridColumnWidth = 50;
 
         // en 20 pixels hoog
-        private const int PlannerGridRowHeight = 40;
+        private const int PlannerGridRowHeight = 20;
 
         // De totale breedte is 200 pixels
         private const int PlannerGridWidth = 200;
