@@ -116,6 +116,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
         "Release"
@@ -140,6 +148,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
     }
@@ -382,7 +398,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:BataviaReserveringsSysteem"
         "ProductCode" = "8:{7E164917-F690-4D03-A5B3-56972FCCEDAD}"
-        "PackageCode" = "8:{6BBA235B-47B4-4504-9D51-E139E803B6A3}"
+        "PackageCode" = "8:{2FA7ACCE-8B6B-4F0C-9F94-C61F6E0A7287}"
         "UpgradeCode" = "8:{F4AC4052-EB89-4736-B0C6-F6B536387E62}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -502,6 +518,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_38BEA7B407CC457C8789C0F2E1E9EB05"
+            {
+            "Name" = "8:BataviaReserveringsSysteem"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_58A24DE24564447F83FC93E7FF293E48"
+            "Folder" = "8:_7C286296782148C8AC45F791F2E0B6DF"
+            "WorkingFolder" = "8:_DBC6D6DE654C488A8CF9C1F390382070"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {

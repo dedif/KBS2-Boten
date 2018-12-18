@@ -15,7 +15,8 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Boot reserverings Systeem" Height="768" Width="1024"
         ResizeMode="NoResize"  
-        WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        WindowStartupLocation="CenterScreen"
+        MouseDown="PageSwitcher_OnMouseDown">
     <Grid x:Name="switcherGrid">
         
     </Grid>
