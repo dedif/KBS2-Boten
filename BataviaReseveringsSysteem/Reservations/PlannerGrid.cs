@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -14,8 +15,8 @@ namespace BataviaReseveringsSysteem.Reservations
         // Elke kolom is 50 pixels breed
         private const int PlannerGridColumnWidth = 50;
 
-        // en 30 pixels hoog
-        private const int PlannerGridRowHeight = 30;
+        // en 20 pixels hoog
+        private const int PlannerGridRowHeight = 20;
 
         // De totale breedte is 200 pixels
         private const int PlannerGridWidth = 200;

@@ -60,7 +60,7 @@ namespace BataviaReseveringsSysteem.Views
         {
             foreach (var type in Types.Children)
             {				
-                var radioButton = (RadioButton)type;
+                RadioButton radioButton = (RadioButton)type;
                 if (radioButton.IsChecked == true) TypeChecked(radioButton, new RoutedEventArgs());
             }
         }
