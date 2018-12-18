@@ -1,6 +1,7 @@
 ﻿using BataviaReseveringsSysteem.Database;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Views;
 
 namespace ScreenSwitcher
@@ -54,5 +55,9 @@ namespace ScreenSwitcher
             switcherCanvas.Children.Clear();
             switcherCanvas.Children.Add(nextPage);
         }
+
+        private void PageSwitcher_OnMouseDown(object sender, MouseButtonEventArgs e) => DetectClick?.Invoke(sender, e);
+
+        public static event MouseButtonEventHandler DetectClick;
     }
 }

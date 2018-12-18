@@ -93,7 +93,6 @@
     <Compile Include="Models\User_Diploma.cs" />
     <Compile Include="Models\User_Role.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Reservations\BoatTypeTabItemCalendar.cs" />
     <Compile Include="Views\BoatDamage.xaml.cs">
       <DependentUpon>BoatDamage.xaml</DependentUpon>
     </Compile>
