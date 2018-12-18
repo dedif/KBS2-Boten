@@ -61,7 +61,7 @@
                   Width="120" 
                   Height="35"
                   FontSize="16">
-            <ComboBoxItem Content="1"/>
+            <!--<ComboBoxItem Content="1"/>-->
             <ComboBoxItem Content="2"/>
             <ComboBoxItem Content="4"/>
             <ComboBoxItem Content="8"/>
