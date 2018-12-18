@@ -130,6 +130,9 @@
     <Compile Include="Views\NewsMessageList.xaml.cs">
       <DependentUpon>NewsMessageList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ShowNewsMessage.xaml.cs">
+      <DependentUpon>ShowNewsMessage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserDiplomaList.xaml.cs">
       <DependentUpon>UserDiplomaList.xaml</DependentUpon>
     </Compile>
@@ -197,6 +200,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NewsMessageList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShowNewsMessage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
