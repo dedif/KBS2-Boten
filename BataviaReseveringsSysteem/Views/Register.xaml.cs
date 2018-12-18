@@ -86,8 +86,8 @@ namespace Views
                     }
                     if ("Bestuur" == role.RoleName)
                     {
-                        Bestuur.Content = role.RoleName;
-                        Bestuur.Tag = role.RoleID;
+                        Administrator.Content = role.RoleName;
+                        Administrator.Tag = role.RoleID;
 
                     }
                     //Reparateur.Content = role.RoleName[2];
@@ -111,7 +111,7 @@ namespace Views
             if (RegisterController.Register(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword))
             {
                 using (DataBase context = new DataBase()) {
-                    List<CheckBox> CheckBoxList = new List<CheckBox>() { Reparateur, Commissaris, Examinator, Coach, Bestuur };
+                    List<CheckBox> CheckBoxList = new List<CheckBox>() { Reparateur, Commissaris, Examinator, Coach, Administrator };
                   
                     foreach (CheckBox c in CheckBoxList)
                     {

@@ -39,5 +39,14 @@
             <Button x:Name="AddReservationButton" Content="+ Afschrijving toevoegen" Width="120" Click="AddReservationButton_Click" Margin="279,119,607.667,929"/>
             <Label x:Name="NoReservationLabel"  Content="U heeft nog geen afschrijvingen"  Visibility="Hidden" FontSize="30" HorizontalAlignment="Left" Height="86" Width="518" Margin="228,201,0,793"/>
         <Label x:Name="MaxReservations" Visibility="Hidden" Foreground="#FFFF0909" Content="U heeft het maximaal aantal afschrijvingen bereikt" HorizontalAlignment="Left" Margin="468,49,0,0" VerticalAlignment="Top" Width="323"/>
-    </Grid>
+            <ListView x:Name="NewsMessageBox" HorizontalAlignment="Left" Height="100" Margin="789,187,0,0" VerticalAlignment="Top" Width="100" ItemsSource="{Binding}">
+                <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBox Text="{Binding Title}" Tag="{Binding NewsMessageID}"
+                  GotFocus="TextBox_GotFocus"/>
+                </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+   
+   </Grid>
 </UserControl>

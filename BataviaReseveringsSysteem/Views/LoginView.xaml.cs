@@ -4,7 +4,9 @@ using System.Text.RegularExpressions;
 using Controllers;
 using System.Linq;
 using BataviaReseveringsSysteem.Database;
+using Models;
 using ScreenSwitcher;
+using BataviaReseveringsSysteem;
 using System;
 
 namespace Views

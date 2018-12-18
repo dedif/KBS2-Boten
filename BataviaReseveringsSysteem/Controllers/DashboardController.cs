@@ -43,7 +43,10 @@ namespace Controllers
           
             if (DamagedBoatsOfUser.Count > 1 ) {
                 //melding met meerdere veranderingen
-              MessageBoxResult Notification = MessageBox.Show(
+                string sendMessage = $"Hallo {User.Firstname},{Environment.NewLine}{Environment.NewLine}De boot moet vanwege zware schade worden gerepareerd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}Omar en de gang";
+
+                EmailController sendMail = new EmailController($"{User.Email}", "Uw reserveringen zijn gewijzigd omdat de boot uit de vaart is genomen.", sendMessage);
+                MessageBoxResult Notification = MessageBox.Show(
                                "Uw reserveringen zijn gewijzigd omdat de boot uit de vaart is genomen",
                                "Melding",
                                MessageBoxButton.OK,
@@ -54,7 +57,10 @@ namespace Controllers
 
             if (DamagedBoatsOfUser.Count == 1)
             {
-                    MessageBoxResult Notification = MessageBox.Show(
+                string sendMessage = $"Hallo {User.Firstname},{Environment.NewLine}{Environment.NewLine}De boot moet vanwege zware schade worden gerepareerd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}Omar en de gang";
+
+                EmailController sendMail = new EmailController($"{User.Email}", "Uw reservering is gewijzigd omdat de boot uit de vaart is genomen.", sendMessage);
+                MessageBoxResult Notification = MessageBox.Show(
                     //melding met 1 verandering
                                "Uw reservering is gewijzigd omdat de boot uit de vaart is genomen",
                                "Melding",
@@ -129,32 +135,34 @@ namespace Controllers
         {
             using (DataBase context = new DataBase())
             {
-                var delete = (
+                var Delete = (
                     from r in context.Reservations
                     where r.ReservationID == id
                     select r).Single();
                 //De gebruiker krijgt een controle melding.
-                var confirm = MessageBox.Show(
+                MessageBoxResult confirm = MessageBox.Show(
                                 "Weet u zeker dat u de volgende afschrijving wilt verwijderen:\n"
-                                + ReservationContent(delete),
+                                + ReservationContent(Delete),
                                 "Melding",
                                 MessageBoxButton.YesNo,
                                 MessageBoxImage.Information);
 
                 //Als de gebruiker de reservering wilt verwijderen.
-                if (confirm != MessageBoxResult.Yes) return;
-                //De reservering wordt uit de database verwijderd. 
-                //context.Reservations.Remove(Delete);
+                if (confirm == MessageBoxResult.Yes)
+                {
+                    //De reservering wordt uit de database verwijderd. 
+                    //context.Reservations.Remove(Delete);
 
-                delete.Deleted = DateTime.Now;
-                context.SaveChanges();
-                //Alle oude knoppen en labels worden verwijderd van het scherm.
-                Dashboard.DeleteAllControls();
-                Dashboard.YLeft = 50;
-                Dashboard.YRight = 50;
-                Dashboard.Count = 0;
-                //De nieuwe reserveringen worden op het scherm getoond. 
-                Dashboard.ShowReservations();
+                    Delete.Deleted = DateTime.Now;
+                    context.SaveChanges();
+                    //Alle oude knoppen en labels worden verwijderd van het scherm.
+                    Dashboard.DeleteAllControls();
+                    Dashboard.YLeft = 50;
+                    Dashboard.YRight = 50;
+                    Dashboard.Count = 0;
+                    //De nieuwe reserveringen worden op het scherm getoond. 
+                    Dashboard.ShowReservations();
+                }
 
             }
         }

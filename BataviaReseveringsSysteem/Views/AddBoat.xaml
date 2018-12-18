@@ -32,41 +32,25 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Canvas 
-            Width="1024"
-                Height="50"
-            Background="#673ab7" Margin="0,50,0,1000">
-            <Label
-                Content="Boten toevoegen"
-                Foreground="White"
-                FontSize="26"
-                Canvas.Left="384" Canvas.Top="5" Width="208"/>
-        </Canvas>
-        <TextBox Grid.Row="2" Grid.Column="1" x:Name="NameBox" 
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="NameBox" 
                 materialDesign:HintAssist.Hint="Bootnaam"
-                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" FontSize="16" Height="35" />
-        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="TypCombo" 
+                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25" />
+        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="TypCombo" 
                   materialDesign:HintAssist.Hint="Boot type"
-                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16" SelectionChanged="TypCombo_SelectionChanged">
+                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25"  SelectionChanged="TypCombo_SelectionChanged">
             <ComboBoxItem Content="Scull"/>
             <ComboBoxItem  Content="Skiff"/>
             <ComboBoxItem Content="Board"/>
         </ComboBox>
-        <ComboBox Grid.Row="5" 
-                  Grid.Column="1" 
-                  x:Name="RowersCombo"
+        <ComboBox Grid.Row="4" Grid.Column="1" x:Name="RowersCombo"
                   materialDesign:HintAssist.Hint="Aantal roeiers"
-                  VerticalAlignment="Center" 
-                  HorizontalAlignment="Center" 
-                  Width="120" 
-                  Height="35"
-                  FontSize="16">
+                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25">
             <ComboBoxItem Content="1"/>
             <ComboBoxItem Content="2"/>
             <ComboBoxItem Content="4"/>
             <ComboBoxItem Content="8"/>
         </ComboBox>
-        <TextBox Grid.Row="4" Grid.Column="1" x:Name="WeightBox" 
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="WeightBox" 
                  materialDesign:HintAssist.Hint="Gewicht (kg)"
                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16"/>
         <ToggleButton 
@@ -111,7 +95,6 @@
                     <TextBlock DockPanel.Dock="Top" Text="S3" />
                 </DockPanel>
             </CheckBox>
-        </StackPanel>
         <StackPanel Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">
             <CheckBox x:Name="B1CheckBox" Tag="6" FontSize="16" >
                 <DockPanel Height="16">
@@ -148,22 +131,9 @@
         </StackPanel>
         <TextBox Grid.Row="6" Grid.Column="1" x:Name="BoatLocationBox" 
             materialDesign:HintAssist.Hint="Boot locatie"
-            VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16"/>
-        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-            <Label 
-                Content="Ingangsdatum:" 
-                Width="120"
-                FontSize="16"
-                Foreground="Gray"/>
-            <DatePicker 
-                x:Name="AvailableAt"
-                SelectedDate="{x:Static sys:DateTime.Now}"  
-                materialDesign:HintAssist.Hint="Ingangs datum" 
-                Width="110"  
-                Focusable="False"
-                Foreground="Gray"
-                FontSize="16"
-                Margin="70,0,0,0"/>
-        </StackPanel>
+            VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="25" FontSize="14" Margin="94,10,94,54"/>
+        <DatePicker x:Name="AvailableAt" SelectedDate="{x:Static sys:DateTime.Now}"  materialDesign:HintAssist.Hint="Ingangs datum" Grid.Column="2" HorizontalAlignment="Left" Margin="136,38,0,0" Grid.Row="1" VerticalAlignment="Top" Width="152"  Focusable="False"/>
+
+        <Label Content="Ingangsdatum:" Grid.Column="2" HorizontalAlignment="Left" Margin="0,38,0,0" Grid.Row="1" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>

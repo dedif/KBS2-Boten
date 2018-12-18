@@ -7,7 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Net.Mail;
-using BataviaReseveringsSysteem.Controllers;
+
 
 namespace Views
 {
@@ -17,7 +17,7 @@ namespace Views
     public partial class BoatDamage : UserControl
     {
         DataBase context = new DataBase();
-        DamageController damageController = new DamageController();
+
 
         public string reserved { get; set; } = null;
         public BoatDamage()
@@ -27,6 +27,7 @@ namespace Views
 
             var NameBoats = (from data in context.Boats
                              where data.DeletedAt == null
+                             where data.Deleted == null
                              select data.Name).ToList();
 
             if (NameBoats.Count < 1)
@@ -97,14 +98,11 @@ namespace Views
                             {
                                 status = "Zware schade";
                                 Boat.Broken = true;
-                            //De methode om mails te sturen, wordt aangeroepen
-                            damageController.SendingMail(Reservations);
                             //voor elke reservering met zware schade wordt deleted vadaag
-                            foreach (Reservation r in Reservations)
+                                foreach (Reservation r in Reservations)
                                 {
                                  r.Deleted = DateTime.Now;
-                            
-                            }
+                                }
                             }
                             
                             Damage damage = new Damage(LoginView.UserId, Boat.BoatID, DescriptionBox.Text, status);

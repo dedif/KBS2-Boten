@@ -52,7 +52,6 @@ namespace Views
                     MessageBoxImage.Question) !=
                 MessageBoxResult.Yes)
                 return;
-            bc.SendingMail((int)b.Tag);
             bc.DeleteBoat((int)b.Tag);
             Switcher.Switch(new BoatList());
         }
