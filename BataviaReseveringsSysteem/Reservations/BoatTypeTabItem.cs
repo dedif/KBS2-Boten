@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using BataviaReseveringsSysteem.Database;
 using Controllers;
 using Models;
@@ -62,6 +63,9 @@ namespace BataviaReseveringsSysteem.Reservations
             {
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
+                FontSize = 16,
+                Margin = new Thickness(0,300,0,0),
+                Foreground = new SolidColorBrush(Colors.Red),
                 Content = "Er zijn geen boten meer afschrijfbaar vandaag",
                 Visibility = Visibility.Hidden
             };
