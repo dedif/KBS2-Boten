@@ -11,7 +11,7 @@
          TextOptions.TextFormattingMode="Ideal"
          TextOptions.TextRenderingMode="Auto"
          FontFamily="{DynamicResource MaterialDesignFont}"
-        Height="768" Width="1024" Background="White">
+        Height="768" Width="1024">
     <Grid x:Name="RegisterLayout">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -24,6 +24,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
+
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -34,33 +35,38 @@
                 Height="50"
             Background="#673ab7" Margin="0,50,0,1000">
             <Label
-                Content="Leden toevoegen"
+                Content="Lid toevoegen"
                 Foreground="White"
                 FontSize="26"
-                Canvas.Left="384" Canvas.Top="5" Width="208"/>
+                Canvas.Left="384" Canvas.Top="5" Width="232"/>
         </Canvas>
+        <Label 
+            Content="Naam:"
+            Margin="0,10,0,0"
+            Grid.Row="2"
+            Height="25"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Right"/>
         <TextBox  
                 Grid.Row="2"
                 Grid.Column="1"
                 x:Name="Firstname" 
-                materialDesign:HintAssist.Hint="Voornaam"
+                materialDesign:HintAssist.Hint="Jan"
                 VerticalAlignment="Top"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Right"
                 Height="35" 
                 TextWrapping="Wrap" 
-                Width="140"
-                FontSize="16"/>
+                Width="140"/>
         <ComboBox 
                 Grid.Row="2"
                 Grid.Column="1"
                 x:Name="Gender"
                 VerticalAlignment="Bottom"
-                HorizontalAlignment="Left"
-                materialDesign:HintAssist.Hint="Geslacht"
+                HorizontalAlignment="Right"
+                materialDesign:HintAssist.Hint="Selecteer"
                 Width="140"   
                 IsEditable="True" 
-                IsReadOnly="True"
-                FontSize="16">
+                IsReadOnly="True">
             <ComboBoxItem x:Name="Men" Tag="1" Content="Man" />
             <ComboBoxItem x:Name="Woman" Tag="2" Content="Vrouw"/>
             <ComboBoxItem x:Name="Other" Tag="3" Content="Anders"/>
@@ -68,49 +74,44 @@
         <StackPanel Grid.Row="2" Grid.Column="2">
             <TextBox  
                 x:Name="Middlename"
-                HorizontalAlignment="Left"
-                materialDesign:HintAssist.Hint="Tussenvoegsel"
+                HorizontalAlignment="Right"
+                materialDesign:HintAssist.Hint="de"
                 Height="35" 
                 TextWrapping="Wrap" 
-                Width="115"
-                FontSize="16"/>
+                Width="115"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom">
+        <StackPanel Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <Label 
                 Content="Geboorte datum" 
                 Foreground="Gray" 
-                FontSize="16"
                 Height="25"/>
         </StackPanel>
         <TextBox 
             Grid.Row="2" 
             Grid.Column="3"
             x:Name="Lastname" 
-            materialDesign:HintAssist.Hint="Achternaam"
-            HorizontalAlignment="Left"
+            materialDesign:HintAssist.Hint="Jager"
+            HorizontalAlignment="Right"
             VerticalAlignment="Top"
             Height="35" 
             TextWrapping="Wrap" 
-            Width="120"
-            FontSize="16"/>
+            Width="120"/>
         <StackPanel 
             Grid.Row="2"
             Grid.Column="3"
             Orientation="Horizontal"
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Right"
             VerticalAlignment="Bottom">
             <TextBox 
                 PreviewTextInput="NumberValidationTextBox" 
                 materialDesign:HintAssist.Hint="01"
                 x:Name="Day" 
-                MaxLength="2"
-                FontSize="16"
-                Height="35" 
-                TextWrapping="Wrap" 
-                Width="25" />
+                MaxLength="2" 
+                Height="35"
+                TextWrapping="Wrap"
+                Width="25"/>
             <Label 
                 Content="/"
-                FontSize="16"
                 Foreground="Gray"
                 Height="35"
                 Width="25"/>
@@ -121,11 +122,9 @@
                 MaxLength="2" 
                 Height="35"
                 TextWrapping="Wrap"
-                Width="25"
-                FontSize="16"/>
+                Width="25"/>
             <Label 
                 Content="/"
-                FontSize="16"
                 Foreground="Gray"
                 Height="35"
                 Width="25"/>
@@ -136,17 +135,15 @@
                 MaxLength="4"
                 TextWrapping="Wrap" 
                 Width="45"
-                Height="35"
-                FontSize="16"/>
+                Height="35"/>
         </StackPanel>
         <TextBox 
             x:Name="Address" 
             Grid.Row="3"
             Grid.Column="1"
-            HorizontalAlignment="Left" 
-            materialDesign:HintAssist.Hint="Adres"
+            HorizontalAlignment="Right" 
+            materialDesign:HintAssist.Hint="Marijnstraat 76"
             Height="35" 
-            FontSize="16"
             TextWrapping="Wrap" 
             VerticalAlignment="Center" 
             Width="140"/>
@@ -155,35 +152,32 @@
             Grid.Column="2"
             x:Name="Zipcode"
             PreviewTextInput="ZipcodeValidationTextBox" 
-            materialDesign:HintAssist.Hint="Postcode"
-            HorizontalAlignment="Left" 
+            materialDesign:HintAssist.Hint="7662CX"
+            HorizontalAlignment="Right" 
             Height="35" 
             TextWrapping="Wrap" 
             VerticalAlignment="Center" 
             Width="90" 
-            MaxLength="7"
-            FontSize="16"/>
+            MaxLength="7"/>
         <TextBox  
             Grid.Row="3"
             Grid.Column="3"
             x:Name="City" 
-            materialDesign:HintAssist.Hint="Woonplaats"
-            HorizontalAlignment="Left" 
+            materialDesign:HintAssist.Hint="Amsterdam"
+            HorizontalAlignment="Right" 
             Height="35" 
             TextWrapping="Wrap" 
             VerticalAlignment="Center" 
-            Width="120"
-            FontSize="16"/>
+            Width="120"/>
         <TextBox 
             Grid.Row="4"
             Grid.Column="1"
             PreviewTextInput="NumberValidationTextBox" 
             x:Name="Phonenumber" 
             materialDesign:TransitionAssist.DisableTransitions="True"
-            materialDesign:HintAssist.Hint="Telefoonnummer"
-            HorizontalAlignment="Left" 
+            materialDesign:HintAssist.Hint="020-2345678"
+            HorizontalAlignment="Right" 
             Height="35" 
-            FontSize="16"
             MaxLength="14" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
@@ -192,11 +186,10 @@
             x:Name="Email"
             Grid.Row="4"
             Grid.Column="1"
-            materialDesign:HintAssist.Hint="Email"
-            HorizontalAlignment="Left" 
+            materialDesign:HintAssist.Hint="jan.de.jager@email.com"
+            HorizontalAlignment="Right" 
             Height="35" 
             TextWrapping="Wrap" 
-            FontSize="16"
             VerticalAlignment="Bottom" 
             Width="140"/>
         <PasswordBox 
@@ -204,10 +197,9 @@
             Grid.Column="1"
             x:Name="Password" 
             materialDesign:HintAssist.Hint="Wachtwoord"
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Height="35"
-            FontSize="16"
             PasswordChar="*" 
             Width="140"/>
         <PasswordBox 
@@ -216,11 +208,9 @@
             Grid.Column="2"
             materialDesign:HintAssist.Hint="Bevestig wachtwoord"
             PasswordChar="*" 
-            HorizontalAlignment="Left" 
+            HorizontalAlignment="Right" 
             Height="35" 
-            FontSize="16"
-            VerticalAlignment="Center" 
-            Width="160"/>
+            VerticalAlignment="Center"/>
         <Label 
             Content="" 
             Grid.Row="6"
@@ -230,11 +220,11 @@
             HorizontalAlignment="Left" 
             VerticalAlignment="Top"/>
         <Button 
-            x:Name="buttonRegister" 
+            x:Name="BewerkBtn" 
             Grid.Row="6"
-            Grid.Column="1"
+            Grid.Column="3"
             HorizontalAlignment="Left"            
-            Content="Registreren" 
+            Content="Opslaan" 
             Width="140" 
             Height="35" 
             FontSize="16"
@@ -242,7 +232,7 @@
         <Button 
             x:Name="CancelButton" 
             Grid.Row="6"
-            Grid.Column="3"
+            Grid.Column="1"
             HorizontalAlignment="Left"
             Content="Annuleren" 
             Width="140" 
@@ -253,9 +243,10 @@
             x:Name="Reparateur"  
             Grid.Row="4"
             Grid.Column="2"
+            Width="100"
             VerticalAlignment="Top"
-            Foreground="Gray"
-            FontSize="16">
+            HorizontalAlignment="Right"
+            Foreground="Gray">
             <DockPanel Height="20">
                 <Image DockPanel.Dock="Left" />
                 <TextBlock DockPanel.Dock="Top" Text="Reparateur" />
@@ -265,9 +256,10 @@
             x:Name="Coach"  
             Grid.Row="4"
             Grid.Column="2"
+            Width="100"
+            HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Foreground="Gray"
-            FontSize="16">
+            Foreground="Gray">
             <DockPanel Height="20">
                 <Image DockPanel.Dock="Left" />
                 <TextBlock DockPanel.Dock="Top" Text="Coach" />
@@ -277,9 +269,10 @@
             x:Name="Commissaris"  
             Grid.Row="4"
             Grid.Column="2"
+            Width="100"
+            HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Foreground="Gray"
-            FontSize="16">
+            Foreground="Gray">
             <DockPanel Height="20">
                 <Image DockPanel.Dock="Left" />
                 <TextBlock DockPanel.Dock="Top" Text="Commissaris" />
@@ -290,8 +283,9 @@
             Grid.Row="4"
             Grid.Column="3"
             VerticalAlignment="Top"
-            Foreground="Gray"
-            FontSize="16">
+            Width="100"
+            HorizontalAlignment="Right"
+            Foreground="Gray">
             <DockPanel Height="20">
                 <Image DockPanel.Dock="Left" />
                 <TextBlock DockPanel.Dock="Top" Text="Examinator" />
@@ -301,13 +295,68 @@
             x:Name="Bestuur"  
             Grid.Row="4"
             Grid.Column="3"
+            Width="100"
             VerticalAlignment="Center"
-            Foreground="Gray"
-            FontSize="16">
+            HorizontalAlignment="Right"
+            Foreground="Gray">
             <DockPanel Height="20">
                 <Image DockPanel.Dock="Left" />
                 <TextBlock DockPanel.Dock="Top" Text="Bestuur" />
             </DockPanel>
         </CheckBox>
+        <Label 
+            x:Name="UserID"
+            Content="" Tag="{Binding UserID}" Visibility="Hidden"></Label>
+        <Label 
+            Content="Geslacht:"
+            Grid.Row="2"
+            Height="25"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Right"/>
+        <Label 
+            Content="Geslacht:"
+            Grid.Row="3"
+            Height="25"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"/>
+        <Label 
+            Content="Adres:"
+            Grid.Row="4"
+            Height="25"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Right"/>
+        <Label 
+            Content="Emailadres:"
+            Grid.Row="4"
+            Height="25"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Right"/>
+        <Label 
+            Content="Wachtwoord:"
+            Grid.Row="5"
+            Height="25"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"/>
+        <Label 
+            Content="Account:"
+            Grid.Row="4"
+            Grid.Column="2"
+            Height="25"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"/>
+        <Label 
+            Content="Postcode:"
+            Grid.Row="3"
+            Grid.Column="2"
+            Height="25"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"/>
+        <Label 
+            Content="Plaats:"
+            Grid.Row="3"
+            Grid.Column="3"
+            Height="25"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left" Margin="0,49.5"/>
     </Grid>
 </UserControl>

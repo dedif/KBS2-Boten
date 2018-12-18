@@ -1,4 +1,5 @@
 ﻿using BataviaReseveringsSysteem.Database;
+using Controllers;
 using ScreenSwitcher;
 using System;
 using System.Collections.Generic;
@@ -83,7 +84,7 @@ namespace BataviaReseveringsSysteem.Views
                     }
                 }
 
-                var MemberDiplomas = from x in context.MemberDiplomas
+                var MemberDiplomas = from x in context.Member_Diplomas
                                   where x.PersonID == personID && x.Deleted_at == null
                                   select x;
 
@@ -138,7 +139,7 @@ namespace BataviaReseveringsSysteem.Views
                         //int.Parse(c.Tag.ToString());
 
 
-                        var MemberDiplomas = context.MemberDiplomas.Any(x => x.DiplomaID == diplomaID && x.Deleted_at == null && x.PersonID == DiplomaUsersID);
+                        var MemberDiplomas = context.Member_Diplomas.Any(x => x.DiplomaID == diplomaID && x.Deleted_at == null && x.PersonID == DiplomaUsersID);
 
                         if (MemberDiplomas)
                         {
@@ -146,7 +147,7 @@ namespace BataviaReseveringsSysteem.Views
                         }
                         else
                         {
-                            dbc.Add_MemberDiploma(diplomaID, DiplomaUsersID);
+                            dbc.Add_UserDiploma(diplomaID, DiplomaUsersID);
                         }
 
 
@@ -157,11 +158,11 @@ namespace BataviaReseveringsSysteem.Views
 
                         int diplomaID = int.Parse(c.Tag.ToString());
 
-                        var MemberDiplomas = context.MemberDiplomas.Any(x => x.DiplomaID == diplomaID && x.Deleted_at == null && x.PersonID == DiplomaUsersID);
+                        var MemberDiplomas = context.Member_Diplomas.Any(x => x.DiplomaID == diplomaID && x.Deleted_at == null && x.PersonID == DiplomaUsersID);
 
                         if (MemberDiplomas)
                         {
-                            dbc.Delete_MemberDiploma(DiplomaUsersID, diplomaID);
+                            dbc.Delete_UserDiploma(DiplomaUsersID, diplomaID);
                         }
                         else
                         {

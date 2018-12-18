@@ -20,7 +20,6 @@ namespace Views
             InitializeComponent();
             this.HorizontalAlignment = HorizontalAlignment.Center;
             this.VerticalAlignment = VerticalAlignment.Center;
-            TypCombo.SelectedIndex = 1;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -33,7 +32,6 @@ namespace Views
 
             if (b.WhiteCheck(NameBox.Text, WeightBox.Text, BoatLocationBox.Text) == true)
             {
-
                 if (b.NameCheck(NameBox.Text) == true)
                 {
                     if (b.WeightCheck(WeightBox.Text) == true)
@@ -43,7 +41,6 @@ namespace Views
                             int BoatLocation = int.Parse(BoatLocationBox.Text);
                             if (b.BoatLocationCheck(BoatLocation) == true)
                             {
-
                                 double Weight = double.Parse(WeightBox.Text);
                                 int Rowers = int.Parse(RowersCombo.Text);
                                 Boolean Steeringwheel = false;
@@ -73,7 +70,6 @@ namespace Views
                                     case MessageBoxResult.OK:
                                         Switcher.Switch(new Dashboard());
                                         break;
-
                                 }
                             }
                         }
@@ -83,7 +79,6 @@ namespace Views
             }
             NotificationLabel.Content = b.Notification();
         }
-
 
         private void TypCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -98,8 +93,8 @@ namespace Views
             }
             else
             {
-
                 RowersCombo.IsEnabled = true;
+                oneRower.IsEnabled = false;
                 SteeringWheelToggle.IsEnabled = true;
                 SkiffLabel.Visibility = Visibility.Hidden;
             }

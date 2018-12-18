@@ -48,18 +48,18 @@
         <ComboBox Grid.Row="2" Grid.Column="1" x:Name="TypCombo" 
                   materialDesign:HintAssist.Hint="Boottype"
                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16" SelectionChanged="TypCombo_SelectionChanged">
-            <ComboBoxItem Content="Scull"/>
-            <ComboBoxItem  Content="Skiff"/>
-            <ComboBoxItem Content="Board"/>
+            <ComboBoxItem x:Name="scullItem" Content="Scull"/>
+            <ComboBoxItem x:Name="skiffItem" Content="Skiff"/>
+            <ComboBoxItem x:Name="boardItem" Content="Board"/>
         </ComboBox>
         <ComboBox Grid.Row="3" Grid.Column="1" x:Name="RowersCombo" 
                   materialDesign:HintAssist.Hint="Aantal roeiers"
                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35"
                   FontSize="16">
-            <ComboBoxItem Content="1"/>
-            <ComboBoxItem Content="2"/>
-            <ComboBoxItem Content="4"/>
-            <ComboBoxItem Content="8"/>
+            <ComboBoxItem x:Name="oneRower" Content="1"/>
+            <ComboBoxItem x:Name="twoRowers" Content="2"/>
+            <ComboBoxItem x:Name="fourRower" Content="4"/>
+            <ComboBoxItem x:Name="eightRower" Content="8"/>
         </ComboBox>
         <TextBox Grid.Row="4" Grid.Column="1" x:Name="WeightBox" 
                  materialDesign:HintAssist.Hint="Gewicht (kg)"

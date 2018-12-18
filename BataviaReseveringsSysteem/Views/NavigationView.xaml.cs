@@ -145,5 +145,10 @@ namespace Views
 
         private void SeeBoatDiplomasBtn_Click(object sender, RoutedEventArgs e) =>
             Switcher.Switch(new BoatDiplomaList());
+
+        private void nieuwsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new AddNewsMessage());
+        }
     }
 }

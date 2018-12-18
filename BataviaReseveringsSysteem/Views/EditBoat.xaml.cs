@@ -1,23 +1,10 @@
-﻿using BataviaReseveringsSysteem;
-using BataviaReseveringsSysteem.Database;
+﻿using BataviaReseveringsSysteem.Database;
 using Controllers;
 using ScreenSwitcher;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity.Core;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Views
 {
@@ -36,7 +23,6 @@ namespace Views
             this.HorizontalAlignment = HorizontalAlignment.Center;
             EditBoatID = id;
 
-
             using (DataBase context = new DataBase())
             {
                 var boats = from x in context.Boats
@@ -45,8 +31,19 @@ namespace Views
 
                 foreach (var boat in boats)
                 {
+                    if (TypCombo.SelectedItem == skiffItem)
+                    {
+                        RowersCombo.IsEnabled = false;
+                        boat.NumberOfRowers = 1;
+                    }
+                    else if (TypCombo.SelectedItem != skiffItem)
+                    {
+                        RowersCombo.IsEnabled = true;
+                        oneRower.Visibility = Visibility.Hidden;
+                        RowersCombo.SelectedItem = boat.NumberOfRowers;
+                    }
+
                     NameBox.Text = boat.Name;
-                    RowersCombo.SelectedItem = boat.NumberOfRowers;
                     RowersCombo.Text = boat.NumberOfRowers.ToString();
                     WeightBox.Text = boat.Weight.ToString();
                     TypCombo.SelectedItem = boat.Type;
@@ -57,17 +54,8 @@ namespace Views
                     {
                         SteeringWheelToggle.IsChecked = true;
                     }
-
-
-
                 }
-
-
             }
-
-
-
-
         }
 
         public void EditBoatDiploma()
@@ -227,26 +215,16 @@ namespace Views
                                         case MessageBoxResult.OK:
                                             Switcher.Switch(new BoatList());
                                             break;
-
                                     }
                                 }
                             }
                         }
-
                         NotificationLabel.Content = b.Notification();
-
-
-
-
                     }
                 }
-
-
-
             }
             NotificationLabel.Content = b.Notification();
             EditBoatDiploma();
-
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -254,33 +232,23 @@ namespace Views
             Switcher.Switch(new BoatList());
         }
 
-
-
         private void TypCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (TypCombo.SelectedIndex == 1)
             {
                 RowersCombo.SelectedIndex = 0;
                 RowersCombo.IsEnabled = false;
-
                 SteeringWheelToggle.IsChecked = false;
                 SteeringWheelToggle.IsEnabled = false;
-
             }
             else
             {
-
                 RowersCombo.IsEnabled = true;
-
                 SteeringWheelToggle.IsChecked = true;
                 SteeringWheelToggle.IsEnabled = true;
-
             }
-
         }
     }
-
-
 }
 
 
