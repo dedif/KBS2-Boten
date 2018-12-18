@@ -87,9 +87,10 @@ namespace Views
 
         private void TypCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            //Als Skiff is gekozen dan is het aantal roeiers 1 en de de toggle is uit. 
             if (TypCombo.SelectedIndex == 1)
             {
+                RowersCombo.Items.Insert(0, "1");
                 RowersCombo.SelectedIndex = 0;
                 RowersCombo.IsEnabled = false;
                 SteeringWheelToggle.IsChecked = false;
@@ -98,7 +99,9 @@ namespace Views
             }
             else
             {
-
+                //Bij scull en board is het aantal roeiers altijd meer dan 1 en de gebruiker kan zelf kiezen of hij een stuur wilt
+                RowersCombo.Items.Remove("1");
+                RowersCombo.SelectedIndex = 0;
                 RowersCombo.IsEnabled = true;
                 SteeringWheelToggle.IsEnabled = true;
                 SkiffLabel.Visibility = Visibility.Hidden;
