@@ -169,7 +169,9 @@ namespace Views
                     join boats in context.Boats
                     on data.BoatID equals boats.BoatID
                     where boats.Name == (string)NameboatCombo.SelectedValue
+                    where data.Status != "Hersteld"
                     select data.Description).ToList();
+
                 foreach (string description in SelectedBoat)
                 {
                     //De schade van de geselecteerde boot worden in het textblock OtherDamages gezet	
