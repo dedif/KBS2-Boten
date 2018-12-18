@@ -11,7 +11,7 @@ namespace ScreenSwitcher
     public partial class PageSwitcher : Window
     {
         public Canvas switcherCanvas;
-
+        Canvas menuCanvas = new Canvas();
         public PageSwitcher()
         {
             InitializeComponent();
@@ -38,13 +38,12 @@ namespace ScreenSwitcher
 
         public void DeleteMenu()
         {
-            switcherGrid.Children.RemoveAt(1);
+            switcherGrid.Children.Remove(menuCanvas);
         }
 
         public void MenuMaker()
         {
             NavigationView NavigationView = new NavigationView();
-            Canvas menuCanvas = new Canvas();
             menuCanvas.Children.Add(NavigationView);
             switcherGrid.Children.Add(menuCanvas);
         }
