@@ -1,6 +1,5 @@
 ﻿using Controllers;
 using NUnit.Framework;
-using System;
 using Assert = NUnit.Framework.Assert;
 
 namespace UnitTest
@@ -17,12 +16,12 @@ namespace UnitTest
         [TestCase("dino", "", false)]//return false omdat er whitespace is
         [TestCase("Shark", "33", true)]//return true omdat er geen whitespace is
 
-        public void WhiteCheck_WithOrWithoutWhiteSpace_ReturnBool(string Name, string Weight, string boatLocation, bool answer)
+        public void WhiteCheck_WithOrWithoutWhiteSpace_ReturnBool(string Name, string Weight, bool answer)
         {
             //Arrange
             BoatController boot = new BoatController();
             //Act
-            bool result = boot.WhiteCheck(Name, Weight, boatLocation);
+            bool result = boot.WhiteCheck(Name, Weight);
             //Assert
             Assert.AreEqual(answer, result);
         }
@@ -54,7 +53,7 @@ namespace UnitTest
         {
             //Arrange
             BoatController boot = new BoatController();
-            boot.AddBoat("pizza", "scull", 3, 23, false,10, DateTime.Now);
+            boot.AddBoat("pizza", "scull", 3, 23, false);
             //Act
             bool result = boot.NameCheck(name);
             //Assert

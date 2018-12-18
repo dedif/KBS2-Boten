@@ -57,7 +57,7 @@
             <RadioButton x:Name="HeavyDamageRadioButton" HorizontalAlignment="Left" FontSize="16" Content="Zware schade" Checked="HeavyDamageRadioButton_Checked"/>
             <RadioButton x:Name="LightDamageRadioButton" HorizontalAlignment="Right" FontSize="16" Margin="250,0,0,0" Content="Lichte schade" Checked="LightDamageRadioButton_Checked"/>
         </StackPanel>
-        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+        <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
             <Button x:Name="SaveButton" Content="Opslaan" FontSize="16" Width="120" Click="SaveButton_Click"/>
             <Button x:Name="CancelButton" Content="Annuleren" FontSize="16" Width="120" Margin="260,0,0,0" Click="CancelButton_Click"/>
         </StackPanel>

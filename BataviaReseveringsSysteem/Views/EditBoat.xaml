@@ -32,7 +32,17 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBox Grid.Row="0" Grid.Column="1" x:Name="NameBox" 
+        <Canvas 
+            Width="1024"
+                Height="50"
+            Background="#673ab7" Margin="0,50,0,1000">
+            <Label
+                Content="Boten bewerken"
+                Foreground="White"
+                FontSize="26"
+                Canvas.Left="384" Canvas.Top="5" Width="208"/>
+        </Canvas>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="NameBox" 
                materialDesign:HintAssist.Hint="Bootnaam"
                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" FontSize="16" Height="35" />
         <ComboBox Grid.Row="2" Grid.Column="1" x:Name="TypCombo" 
@@ -42,7 +52,7 @@
             <ComboBoxItem  Content="Skiff"/>
             <ComboBoxItem Content="Board"/>
         </ComboBox>
-        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="RowersCombo" 
+        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="RowersCombo" 
                   materialDesign:HintAssist.Hint="Aantal roeiers"
                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35"
                   FontSize="16">
@@ -51,7 +61,7 @@
             <ComboBoxItem Content="4"/>
             <ComboBoxItem Content="8"/>
         </ComboBox>
-        <TextBox Grid.Row="3" Grid.Column="1" x:Name="WeightBox" 
+        <TextBox Grid.Row="4" Grid.Column="1" x:Name="WeightBox" 
                  materialDesign:HintAssist.Hint="Gewicht (kg)"
                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16"/>
         <ToggleButton Grid.Row="6" Grid.Column="1" x:Name="SteeringWheelToggle"
@@ -63,6 +73,7 @@
         <Label x:Name="NotificationLabel" Content="&#xD;&#xA;" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Top" Width="290" Grid.Row="4" FontSize="16" Grid.ColumnSpan="1"/>
         <TextBlock  Grid.Row="2" Grid.Column="2" x:Name="SkiffLabel" FontSize="16" TextWrapping="Wrap" Text="Een skiff boot heeft altijd één roeier en geen stuur" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Left" Width="331"/>
         <Label Grid.Row="3" Grid.Column="2" Content="Benodigd diploma:" FontSize="16" Foreground="Gray"/>
+
         <StackPanel Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <CheckBox x:Name="S1CheckBox" Tag="1" FontSize="16" Foreground="Gray">
                 <DockPanel Height="16">

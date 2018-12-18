@@ -30,9 +30,19 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ComboBox x:Name="NameboatCombo" materialDesign:HintAssist.Hint="Bootnaam" Grid.Row="1" Grid.Column="1"  FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120"/>
+        <Canvas 
+            Width="1024"
+                Height="50"
+            Background="#673ab7" Margin="0,50,0,1000">
+            <Label
+                Content="Schade bewerken"
+                Foreground="White"
+                FontSize="26"
+                Canvas.Left="384" Canvas.Top="5" Width="212"/>
+        </Canvas>
+        <ComboBox x:Name="NameboatCombo" materialDesign:HintAssist.Hint="Bootnaam" Grid.Row="2" Grid.Column="1"  FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120"/>
         <TextBox
-                Grid.Row="2"
+                Grid.Row="3"
                 Grid.Column="1"
                 FontSize="16"
                 x:Name="DescriptionBox"
@@ -45,7 +55,7 @@
                 materialDesign:HintAssist.Hint="Beschrijving"
                 Height="80">
         </TextBox>
-        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+        <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
             <RadioButton x:Name="HeavyDamageRadioButton" FontSize="14" Content="Zware schade" Checked="HeavyDamageRadioButton_Checked"/>
             <RadioButton x:Name="LightDamageRadioButton" Margin="15,0,0,0" FontSize="14" Content="Lichte schade" Checked="NoDamageRadioButton_Checked"/>
             <RadioButton x:Name="NoDamageRadioButton" Margin="14,0,0,0" FontSize="14" Content="Hersteld" Checked="NoDamageRadioButton_Checked"/>

@@ -11,11 +11,22 @@
          TextOptions.TextFormattingMode="Ideal"
          TextOptions.TextRenderingMode="Auto"
          FontFamily="{DynamicResource MaterialDesignFont}"
-        Height="768" Width="1024">
+        Height="768" Width="1024" Background="White">
     <Grid x:Name="RegisterLayout">
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Canvas 
@@ -189,6 +200,8 @@
             VerticalAlignment="Bottom" 
             Width="140"/>
         <PasswordBox 
+            Grid.Row="5"
+            Grid.Column="1"
             x:Name="Password" 
             materialDesign:HintAssist.Hint="Wachtwoord"
             HorizontalAlignment="Left"

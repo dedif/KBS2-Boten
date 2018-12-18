@@ -4,25 +4,24 @@ using System.Linq;
 using System.Collections.Generic;
 using Models;
 using BataviaReseveringsSysteem.Database;
+using BataviaReseveringsSysteem.Views;
 using ScreenSwitcher;
-using System;
 using Controllers;
 using BataviaReseveringsSysteem.Views;
 using BataviaReseveringsSysteem.Controllers;
 using System.Net.Mail;
 using System.Text;
-using System.Windows.Input;
 
 namespace Views
 {
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Dashboard : UserControl
+    public partial class Dashboard
     {
         public int YLeft = 100;
         public int YRight = 100;
-        public int Count = 0;
+        public int Count;
         public int MaxReservationUser = 2;
         //Deze lijsten, bevatten alle buttens en labels
         public List<Label> LabelList = new List<Label>();
@@ -76,30 +75,17 @@ namespace Views
             //string Message = $"Hallo {loggedUser.Firstname},{Environment.NewLine}{Environment.NewLine}De boot moet vanwege zware schade worden gerepareerd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}Omar en de gang";
             //EmailController sendMail = new EmailController("ltzpatrick@hotmail.nl", "Uw reserveringen zijn gewijzigd omdat de boot uit de vaart is genomen.", Message);
 
-
-          
-
-            var getNewsMessage = (from data in context.News_Messages
-                                  where data.DeletedAt == null
-                                  select data).ToList();
-
-             NewsMessageBox.ItemsSource = getNewsMessage;
-          
         }
 
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new ShowNewsMessage((int)(sender as TextBox).Tag));
-        }
-
+   
 
         public void ShowReservations()
         {
-            using (DataBase context = new DataBase())
+            using (var context = new DataBase())
             {
 
                 //Geeft de reserveringen van de user
-                var Reservations = (
+                var reservations = (
                     from data in context.Reservations
                     where data.Deleted == null
                     where data.UserId == LoginView.UserId
@@ -107,7 +93,7 @@ namespace Views
 
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
 
-                if (Reservations.Count() == 0)
+                if (!reservations.Any())
 
                 {
                     NoReservationLabel.Visibility = Visibility.Visible;
@@ -118,7 +104,7 @@ namespace Views
                 }
 
                 //Als de gebruiker het maximale aantal afschrijvingen heeft bereikt, mag hij geen boten meer afschrijven
-                if (Reservations.Count() >= MaxReservationUser)
+                if (reservations.Count >= MaxReservationUser)
 
                 {
                     MaxReservations.Visibility = Visibility.Visible;
@@ -131,14 +117,14 @@ namespace Views
                     AddReservationButton.IsEnabled = true;
                     navigationview.MakeAddReservationInvisible(true);
                 }
-            foreach (Reservation r in Reservations)
+            foreach (var r in reservations)
 
                 {
                     if (Count % 2 == 0)
                     {
 
                         //Dit is voor de label aan de linkerkant van de twee rijen
-                        Label l = new Label()
+                        var l = new Label
                         {
                             Content = dashboardController.ReservationContent(r),
                             Margin = new Thickness(20, YLeft, 50, 50),
@@ -147,8 +133,8 @@ namespace Views
                             VerticalAlignment = VerticalAlignment.Top,
                         };
                         LabelList.Add(l);
-                        Button deleteButton = dashboardController.AddDeleteButton(20, YLeft + 130, r.ReservationID);
-                        Button changeButton = dashboardController.AddChangeButton(20, YLeft + 170);
+                        var deleteButton = dashboardController.AddDeleteButton(20, YLeft + 130, r.ReservationID);
+                        var changeButton = dashboardController.AddChangeButton(20, YLeft + 170);
                         ButtonList.Add(deleteButton);
                         ButtonList.Add(changeButton);
 
@@ -162,7 +148,7 @@ namespace Views
                     else if (Count % 2 != 0)
                     {
                         //Hiermee maak je een label
-                        Label l2 = new Label()
+                        var l2 = new Label
                         {
                             Content = dashboardController.ReservationContent(r),
                             Margin = new Thickness(500, YRight, 50, 50),
@@ -171,8 +157,8 @@ namespace Views
                             VerticalAlignment = VerticalAlignment.Top,
                         };
                         LabelList.Add(l2);
-                        Button deleteButton = dashboardController.AddDeleteButton(500, YRight + 130, r.ReservationID);
-                        Button changeButton = dashboardController.AddChangeButton(500, YRight + 170);
+                        var deleteButton = dashboardController.AddDeleteButton(500, YRight + 130, r.ReservationID);
+                        var changeButton = dashboardController.AddChangeButton(500, YRight + 170);
                         ButtonList.Add(deleteButton);
                         ButtonList.Add(changeButton);
 
@@ -186,24 +172,21 @@ namespace Views
 
 
                     Count++;
-
-
-                   
                 }
-           
             }
         }
 
         //Deze methode verwijderd alle controls
         public void DeleteAllControls()
         {
-            for (int i = 0; i < LabelList.Count; i++)
+            foreach (var t in LabelList)
             {
-                GridDashboard.Children.Remove(LabelList[i]);
+                GridDashboard.Children.Remove(t);
             }
-            for (int i = 0; i < ButtonList.Count; i++)
+
+            foreach (var t in ButtonList)
             {
-                GridDashboard.Children.Remove(ButtonList[i]);
+                GridDashboard.Children.Remove(t);
             }
         }
 
@@ -211,7 +194,7 @@ namespace Views
 
         public void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            Button b = (Button)sender;
+            var b = (Button)sender;
             dashboardController.DeleteReservation((int)b.Tag);
         }
 
@@ -220,16 +203,10 @@ namespace Views
             Switcher.Switch(new Dashboard());
         }
 
-        private void AddReservationButton_Click(object sender, RoutedEventArgs e)
-        {
-            var reserveWindow = new ReserveWindow();
-            Switcher.Switch(reserveWindow);
-            reserveWindow.Populate();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new ShowNewsMessage(1));
-        }
+        //            var reserveWindow = new ReserveWindow();
+        //            Switcher.Switch(reserveWindow);
+        //            reserveWindow.Populate();
+        private void AddReservationButton_Click(object sender, RoutedEventArgs e) =>
+            Switcher.Switch(new BoatSelectionView());
     }
 }
