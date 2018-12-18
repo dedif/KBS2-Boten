@@ -71,7 +71,7 @@ namespace BataviaReseveringsSysteem.Reservations
             Reservations = reservations;
 
             // Maak de grid waar alles in komt
-            Grid = new Grid { Margin = new Thickness(0, 50, 0, 0) };
+            Grid = new Grid { Margin = new Thickness(0, 50, 0, 0), Name = "MainGrid" };
 
             // Maak de "Afschrijven"-knop
             MakeRegisterBtn();
@@ -105,7 +105,8 @@ namespace BataviaReseveringsSysteem.Reservations
             MakeCancelButton();
 
             PlannerGrid = new PlannerGrid();
-            PlannerGrid.MouseDown += OnPlannerGridClick;
+            PageSwitcher.DetectClick += OnPageClick;
+            //            PlannerGrid.MouseDown += OnPageClick;
 
             // Nu worden de plannergrid, de dropdowns, de kalender en de boatview geïnitialiseerd.
             // Als je dit niet zou doen,
@@ -143,6 +144,7 @@ namespace BataviaReseveringsSysteem.Reservations
             {
                 Content = "Starttijd:",
                 HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(0, 270, 0, 0),
                 FontSize = 16
             });
@@ -356,9 +358,7 @@ namespace BataviaReseveringsSysteem.Reservations
             var amountOfItems = itemsInComboBox.Count;
             // Als de dag helemaal vol zit, dan is het aantal duurstrings 0
             if (amountOfItems == 0)
-            {
                 ReservationDurationComboBox.SelectedValue = "(geen slots meer reserveerbaar vandaag)";
-            }
             else
             {
                 // Zo nee, stel dan de geselecteerde index opnieuw in.
@@ -366,7 +366,7 @@ namespace BataviaReseveringsSysteem.Reservations
                 // tenzij de vorige geselecteerde index te hoog is
                 // omdat de bijbehorende string niet meer in de combobox zit
                 var highestSelectableIndex = amountOfItems - 1;
-                ReservationDurationComboBox.SelectedIndex = new[] { oldSelectedIndex, highestSelectableIndex }.Min();
+                ReservationDurationComboBox.SelectedIndex = new[] {oldSelectedIndex, highestSelectableIndex}.Min();
             }
         }
 
@@ -510,10 +510,6 @@ namespace BataviaReseveringsSysteem.Reservations
             // Zo nee, dan gaan we de afschrijving in de database zetten
             using (var context = new DataBase())
             {
-                // Pak de boot die je wil afschrijven
-                //                var boat = (from db in context.Boats
-                //                            where db.Name.Equals(_bo)
-                //                            select db).First();
                 // Pak de start- en eindtijd
                 var selectedDate = _calendar.SelectedDate.Value.Date;
                 var selectedTime = DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString());
@@ -546,17 +542,9 @@ namespace BataviaReseveringsSysteem.Reservations
             // Met de booleans doen we niets, ze worden alleen gebruikt omdat dat nodig is voor de methode
             SunTimes.Instance.CalculateSunRiseSetTimes(
                 // Breedtegraad voor Zwolle
-                new SunTimes.LatitudeCoords(
-                    52,
-                    31,
-                    0,
-                    SunTimes.LatitudeCoords.Direction.North),
+                new SunTimes.LatitudeCoords(52, 31, 0, SunTimes.LatitudeCoords.Direction.North),
                 // Lengtegraad voor Zwolle
-                new SunTimes.LongitudeCoords(
-                    6,
-                    4,
-                    58,
-                    SunTimes.LongitudeCoords.Direction.East),
+                new SunTimes.LongitudeCoords(6, 4, 58, SunTimes.LongitudeCoords.Direction.East),
                 selectedDate,
                 ref sunrise,
                 ref sunset,
@@ -654,7 +642,6 @@ namespace BataviaReseveringsSysteem.Reservations
             // dan moeten er ook nog slots die te ver weg zijn worden grijs gemaakt
             // Voeg slots die te ver weg zijn aan de geclaimde slots
             // In de andere gevallen, retourneer alleen de geclaimde slots
-
             if (selectedDate.Date.Equals(datePartOfDateTimeNow))
                 return GetClaimedAndPastSlots(claimedSlots, now, earliestSlot, firstDarknessSlot);
             else if (DateIsLastReservableDate(new UserController().LoggedInUserIsRaceCommissioner(),
@@ -742,44 +729,45 @@ namespace BataviaReseveringsSysteem.Reservations
             dayQuarter % 4 * 15,
             00);
 
-        private void OnPlannerGridClick(object sender, MouseButtonEventArgs e)
+        private void OnPageClick(object sender, MouseButtonEventArgs e)
         {
+            if (!PlannerGrid.IsMouseOver)
+            {
+                _selectsStart = true;
+                return;
+            }
             var position = e.GetPosition(PlannerGrid);
             var x = position.X;
             var y = position.Y;
-            if (x >= 0 && x < 200 && y >= 0 && _reservationStartComboBox.SelectedIndex >= 0 &&
-                ReservationDurationComboBox.SelectedIndex >= 0)
+            if (!(x >= 0) || !(x < 200) || !(y >= 0) || _reservationStartComboBox.SelectedIndex < 0 ||
+                ReservationDurationComboBox.SelectedIndex < 0)
             {
-                var minutes = PlannerGrid.GetMinutesFromX(x);
-                var hour = PlannerGrid.GetHourFromY(y);
-                if (_selectsStart)
-                {
-                    //                    MessageBox.Show($"{DateTime.Today.AddHours(hour).AddMinutes(minutes).ToLongTimeString()}, selecteert duur");
-                    var selectedIndex = SelectStart(hour, minutes);
-                    if (selectedIndex.HasValue)
-                    {
-                        ReservationDurationComboBox.SelectedIndex = 0;
-                        _reservationStartComboBox.SelectedIndex = selectedIndex.Value;
-                        OnStartComboBoxClick(null, null);
-                        _selectsStart = false;
-                    }
-                }
-                else
-                {
-                    _selectsStart = true;
-
-                    //                    MessageBox.Show($"{DateTime.Today.AddHours(hour).AddMinutes(minutes).ToLongTimeString()}, selecteert begin");
-                    var selectedIndex = SelectDuration(hour, minutes,
-                        DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString()));
-                    if (selectedIndex.HasValue)
-                    {
-                        ReservationDurationComboBox.SelectedIndex = selectedIndex.Value;
-                        OnDurationComboBoxClick(null, null);
-                    }
-                    else OnPlannerGridClick(sender, e);
-                }
+                _selectsStart = true;
+                return;
             }
-            else _selectsStart = true;
+            var minutes = PlannerGrid.GetMinutesFromX(x);
+            var hour = PlannerGrid.GetHourFromY(y);
+            if (_selectsStart)
+            {
+                var selectedIndex = SelectStart(hour, minutes);
+                if (!selectedIndex.HasValue) return;
+                ReservationDurationComboBox.SelectedIndex = 0;
+                _reservationStartComboBox.SelectedIndex = selectedIndex.Value;
+                OnStartComboBoxClick(null, null);
+                _selectsStart = false;
+            }
+            else
+            {
+                _selectsStart = true;
+                var selectedIndex = SelectDuration(hour, minutes,
+                    DateTime.Parse(_reservationStartComboBox.SelectedValue.ToString()));
+                if (selectedIndex.HasValue)
+                {
+                    ReservationDurationComboBox.SelectedIndex = selectedIndex.Value;
+                    OnDurationComboBoxClick(null, null);
+                }
+                else OnPageClick(sender, e);
+            }
         }
 
         private int? SelectDuration(int hour, int minutes, DateTime selectedStartSlot)

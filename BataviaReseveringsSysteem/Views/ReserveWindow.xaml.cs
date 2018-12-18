@@ -34,8 +34,11 @@ namespace Views
 		}
 		
         // deze methode zorgt voor de tabbladen met de types boten bovenaan in het scherm
-        private void AddBoatTypeTabs(Boat boat, List<Reservation> reservations) =>
-            BoatTypeTabControl.Children.Add(new BoatTypeTabItem(boat, reservations, Calendar));
+        private void AddBoatTypeTabs(Boat boat, List<Reservation> reservations)
+        {
+            var boatTypeTabItem = new BoatTypeTabItem(boat, reservations, Calendar);
+            BoatTypeTabControl.Children.Add(boatTypeTabItem);
+        }
 
 
         private IEnumerable<Boat.BoatType> GetDifferentBoatTypes(IEnumerable<Boat> boats) =>
