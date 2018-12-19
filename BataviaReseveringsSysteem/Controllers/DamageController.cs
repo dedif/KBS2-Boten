@@ -31,7 +31,7 @@ namespace BataviaReseveringsSysteem.Controllers
                         select damage).Any();
             }
         }
-
+        
 //        public DateTime GetTimeOfClaimForBoat(Boat boat)
 //        {
 //            using (var context = new DataBase())

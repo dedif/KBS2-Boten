@@ -336,25 +336,27 @@ namespace Controllers
 
         }
 
-        public void UpdateBoatDamage(int boatID, string description, string status)
+        public void UpdateBoatDamage(int DamageID, string description, DateTime timeOfAccupyForFix, DateTime timeOfFix, string status)
         {
             using (DataBase context = new DataBase())
             {
-                Damage UpdateDamageBoat = context.Damages.Where(d => d.BoatID == boatID).First();
+                var UpdateDamageBoat = (from data in context.Damages
+                                        where data.DamageID == DamageID
+                                        select data).Single();
 
                 if (UpdateDamageBoat != null)
                 {
                     UpdateDamageBoat.Description = description;
                     UpdateDamageBoat.Status = status;
+                    UpdateDamageBoat.TimeOfOccupyForFix = timeOfAccupyForFix;
+                    UpdateDamageBoat.TimeOfFix = timeOfFix;
+
                     if (UpdateDamageBoat.Status == "Geen schade")
                     {
                         UpdateDamageBoat.TimeOfFix = DateTime.Now;
                     }
-                    else
-                    {
-                        UpdateDamageBoat.TimeOfFix = null;
-                    }
                     context.SaveChanges();
+               
                 }
             }
 

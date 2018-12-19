@@ -18,7 +18,7 @@ namespace Models
         public int BoatID { get; set; }
         public string Description { get; set; }
         public DateTime TimeOfClaim { get; set; }
-        public DateTime? TimeOfAccupyForFix { get; set; }
+        public DateTime? TimeOfOccupyForFix { get; set; }
         public DateTime? TimeOfFix { get; set; }
         public string Status { get; set; }
 

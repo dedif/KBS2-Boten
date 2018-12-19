@@ -28,15 +28,14 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <DataGrid Grid.Row="2" x:Name="DataBoatDamageList"  CanUserAddRows="false"   ItemsSource="{Binding Users}" x:FieldModifier="public" DataContext="{StaticResource BoatDamageSource}" AutoGenerateColumns="false" HorizontalAlignment="Left" Height="469" Width="1000" >
+        <DataGrid Grid.Row="2" x:Name="DataBoatDamageList"  CanUserAddRows="false"   ItemsSource="{Binding Users}" x:FieldModifier="public" DataContext="{StaticResource BoatDamageSource}" AutoGenerateColumns="false" HorizontalAlignment="Left" Width="970" Margin="0,0.4,0,72" Grid.RowSpan="2" SelectionChanged="DataBoatDamageList_SelectionChanged" >
 
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="BoatID" Width="auto"    Binding="{Binding BoatID}" Header="Bootnummer" IsReadOnly="true" />
                 <DataGridTextColumn x:Name="Boatname"    Binding="{Binding BoatName}" Header="Bootnaam" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="description"  Binding="{Binding  Description}" Header="Omschrijving" IsReadOnly="true"/>
-                <DataGridTextColumn x:Name="timeofclaim"  Binding="{Binding TimeOfClaim, StringFormat=\{0:dd-MM-yyyy hh:mm:ss\}}" Header="Tijd van schade" IsReadOnly="true"/>
-                <DataGridTextColumn x:Name="timeofaccupyforfix"  Binding="{Binding TimeOfAccupyForFix, StringFormat=\{0:dd-MM-yyyy hh:mm:ss\}}" Header="Uit vaart" IsReadOnly="true"  />
-                <DataGridTextColumn x:Name="timeoffix"  Binding="{Binding TimeOfFix, StringFormat=\{0:dd-MM-yyyy hh:mm:ss\}}" Header="Hersteld" IsReadOnly="true"  />
+                <DataGridTextColumn x:Name="timeofclaim"  Binding="{Binding TimeOfClaim, StringFormat=\{0:dd-MM-yyyy \}}" Header="Tijd van schade" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="timeofoccupyforfix"  Binding="{Binding TimeOfOccupyForFix, StringFormat=\{0:dd-MM-yyyy\}}" Header="Uit vaart" IsReadOnly="true"  />
+                <DataGridTextColumn x:Name="timeoffix"  Binding="{Binding TimeOfFix, StringFormat=\{0:dd-MM-yyyy \}}" Header="Hersteld" IsReadOnly="true"  />
                 <DataGridTextColumn x:Name="status"  Binding="{Binding Status}" Header="Status" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="firstname"  Binding="{Binding FirstName}" Header="Voornaam" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="middlename"  Binding="{Binding MiddleName}" Header="" IsReadOnly="true"  />
@@ -58,7 +57,7 @@
                                 <Button 
                                     Height="30" 
                                     Width="30"
-                                    Tag="{Binding BoatID}"
+                                    Tag="{Binding DamageID}"
                                     x:Name="EditButton" Click="ButtonEdit"
                                     Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
                                     ToolTip="Bewerken">
