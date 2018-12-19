@@ -57,7 +57,7 @@ namespace BataviaReseveringsSysteem.Views
         void ButtonDelete(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
-            if (MessageBox.Show("Wilt u dit nieuws bericht definitief verwijderen?",
+            if (MessageBox.Show("Wilt u dit nieuwsbericht definitief verwijderen?",
                     "Bevestig verwijdering",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question) !=
