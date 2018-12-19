@@ -26,19 +26,27 @@ namespace BataviaReseveringsSysteem.Views
 
         private void TypeChecked(object sender, RoutedEventArgs e)
         {
-            BoatCombo.Items.Clear();
-            SteeringToggle.IsEnabled = Equals(sender, Scull) || Equals(sender, Board);
 
+   
             if(Equals(sender, Skiff))
             {
                 RowersCombo.IsEnabled = false;
                 RowersCombo.SelectedItem = oneRower;
+                SteeringToggle.IsEnabled = false;
             }
             else
             {
+                if(RowersCombo.SelectedItem == oneRower)
+                {
+                    RowersCombo.SelectedIndex = 1;
+                }
                 RowersCombo.IsEnabled = true;
                 oneRower.IsEnabled = false;
+                SteeringToggle.IsEnabled = true;
+
             }
+
+            BoatCombo.Items.Clear();
 
             var type = Equals(sender, Scull) ? Boat.BoatType.Scull : Equals(sender, Skiff) ? Boat.BoatType.Skiff : Boat.BoatType.Board;
 
