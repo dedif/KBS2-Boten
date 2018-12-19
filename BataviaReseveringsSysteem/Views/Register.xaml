@@ -56,6 +56,26 @@
                 Height="35" 
                 TextWrapping="Wrap" 
                 Width="140"/>
+        <TextBox
+                x:Name="Middlename"
+                Grid.Row="2"
+                Grid.Column="2"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                materialDesign:HintAssist.Hint="de"
+                Height="35" 
+                TextWrapping="Wrap" 
+                Width="115"/>
+        <TextBox
+            Grid.Row="2"
+            Grid.Column="3"
+            x:Name="Lastname" 
+            materialDesign:HintAssist.Hint="Jager"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Height="35" 
+            TextWrapping="Wrap" 
+            Width="120"/>
         <ComboBox 
                 Grid.Row="2"
                 Grid.Column="1"
@@ -70,31 +90,12 @@
             <ComboBoxItem x:Name="Woman" Tag="2" Content="Vrouw"/>
             <ComboBoxItem x:Name="Other" Tag="3" Content="Anders"/>
         </ComboBox>
-        <StackPanel Grid.Row="2" Grid.Column="2">
-            <TextBox
-                x:Name="Middlename"
-                HorizontalAlignment="Right"
-                materialDesign:HintAssist.Hint="de"
-                Height="35" 
-                TextWrapping="Wrap" 
-                Width="115"/>
-        </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <Label 
                 Content="Geboorte datum" 
                 Foreground="Gray" 
                 Height="25"/>
         </StackPanel>
-        <TextBox
-            Grid.Row="2"
-            Grid.Column="3"
-            x:Name="Lastname" 
-            materialDesign:HintAssist.Hint="Jager"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Height="35" 
-            TextWrapping="Wrap" 
-            Width="120"/>
         <StackPanel 
             Grid.Row="2"
             Grid.Column="3"
@@ -211,6 +212,17 @@
             HorizontalAlignment="Right" 
             Height="35" 
             VerticalAlignment="Center"/>
+        <DatePicker 
+            x:Name="EndOfSubscription" 
+            Grid.Row="5"
+            Grid.Column="3"
+            Margin="0,12,0,0"
+            materialDesign:HintAssist.Hint="Einddatum Abonnement" 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Center" 
+            Width="170"  
+            Focusable="False" 
+            Height="25"/>
         <Label 
             Content="" 
             Grid.Row="6"

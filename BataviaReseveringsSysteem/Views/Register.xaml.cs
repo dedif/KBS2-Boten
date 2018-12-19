@@ -6,7 +6,6 @@ using System.Windows.Input;
 using System.Text.RegularExpressions;
 using Controllers;
 using ScreenSwitcher;
-using BataviaReseveringsSysteem;
 using BataviaReseveringsSysteem.Database;
 using System.Collections.Generic;
 
