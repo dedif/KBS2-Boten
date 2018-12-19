@@ -5,11 +5,11 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BataviaReseveringsSysteem.Controllers
+namespace Controllers
 {
   public class EmailController
     {
-        public  EmailController(string sendTo, string subject, string message)
+        public EmailController(string sendTo, string subject, string message)
         {
             SmtpClient client = new SmtpClient( );
             client.Port = 587;

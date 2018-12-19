@@ -6,6 +6,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using ScreenSwitcher;
+using BataviaReseveringsSysteem.Database;
+using Models;
+using System.Linq;
 
 namespace Controllers
 {
@@ -25,7 +28,8 @@ namespace Controllers
                                     ComboBox Gender,
                                     PasswordBox Password,
                                     PasswordBox ConfirmPassword,
-                                    Label editID)
+                                    Label editID,
+                                    DatePicker EndOfSub)
         {
             bool validate = true;
             bool valDate = true;
@@ -64,6 +68,8 @@ namespace Controllers
             Password.BorderThickness = new Thickness(1);
             ConfirmPassword.BorderBrush = Brushes.Gray;
             ConfirmPassword.BorderThickness = new Thickness(1);
+            EndOfSub.BorderBrush = Brushes.Gray;
+            EndOfSub.BorderThickness = new Thickness(1);
 
             // check if passwords are filled 
             if (Password.Password == "" && ConfirmPassword.Password == "")
@@ -80,7 +86,17 @@ namespace Controllers
                 AlertPassword(ConfirmPassword);
                 validate = false;
             }
+            if (EndOfSub.SelectedDate != null)
+            {
+                if (EndOfSub.SelectedDate.Value < DateTime.Now)
+                {
+                    EndOfSub.BorderBrush = Brushes.Red;
+                    EndOfSub.BorderThickness = new Thickness(2);
+                    EndOfSub.UpdateLayout();
+                    validate = false;
+                }
 
+            }
             UserController u = new UserController(); // Get database
             if (hasPassword)
             {
@@ -122,6 +138,7 @@ namespace Controllers
                 TextBoxAlert(Email);
             }
 
+            
 
             if (valDate && validate)
             {
@@ -141,13 +158,15 @@ namespace Controllers
             // add user to database
             if (validate && valDate && hasPassword)
             {
-                u.Update_User((int)editID.Content, savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+                sendNewSubscription(Firstname, Email, EndOfSub, (int)editID.Content);
+                u.Update_User((int)editID.Content, savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt,EndOfSub.SelectedDate.Value);
                 MessageBoxResult result = MessageBox.Show("Het account is bijgewerkt.");
                 Switcher.Switch(new Views.UserList());
                 return true;
             }if (validate && valDate && !hasPassword)
             {
-                u.Update_User((int)editID.Content, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt);
+                sendNewSubscription(Firstname, Email, EndOfSub, (int)editID.Content);
+                u.Update_User((int)editID.Content, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt, EndOfSub.SelectedDate.Value);
                 Switcher.DeleteMenu();
                 Switcher.MenuMaker();
                 MessageBoxResult result = MessageBox.Show("Het account is bijgewerkt.");
@@ -159,6 +178,20 @@ namespace Controllers
                 return false;
             }
 
+        }
+        public static void sendNewSubscription(TextBox firstname, TextBox email, DatePicker endDate, int userID)
+        {
+            using (DataBase context = new DataBase())
+            {
+                User update = context.Users.Where(d => d.UserID == userID).First();
+
+                if (update.EndOfSubscription.Value != endDate.SelectedDate.Value)
+                {
+                    string sendMessage = $"Hallo {firstname.Text},{Environment.NewLine}{Environment.NewLine}Lidnummer:{userID}{Environment.NewLine}{Environment.NewLine}Uw abonnement is gewijzigd, uw abonnemnt loopt nu tot {endDate.SelectedDate.Value.ToString("dd-MM-yyyy")}.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}Omar en de gang";
+                    EmailController mail = new EmailController(email.Text, "Abonnement gegevens gewijzigd", sendMessage);
+                }
+            }
+               
         }
 
         // Melding voor passwordboxs
@@ -219,5 +252,6 @@ namespace Controllers
             T.BorderThickness = new Thickness(2);
             T.UpdateLayout();
         }
+        
     }
 }

@@ -44,11 +44,12 @@ namespace Views
                 Email.Text = user.Email;
                 Phonenumber.Text = user.Phonenumber;
                 Gender.SelectedIndex = user.GenderID - 1;
+                EndOfSubscription.SelectedDate = user.EndOfSubscription;
 
                 string myString = user.Birthday.ToString("dd-MM-yyyy"); // From Database
-           
+
                 var split = myString.Split('-');
-                
+
                 Year.Text = split[2];
                 Month.Text = split[1];
                 Day.Text = split[0];
@@ -81,14 +82,14 @@ namespace Views
                         Bestuur.Tag = role.RoleID;
                         break;
                 }
-                
+
             }
 
             var User_Roles = from x in context.User_Roles
                               where x.UserID == id && x.DeletedAt == null
                               select x.RoleID;
 
-          
+
 
             foreach (var userRole in User_Roles)
             {
@@ -115,7 +116,7 @@ namespace Views
                     Bestuur.IsChecked = true;
                 }
 
-              
+
             }
 
             // check de rollen van de ingelogte gebruiker en zet rollen op hidden als de gebruiker de rechten niet heeft
@@ -131,7 +132,7 @@ namespace Views
                     Commissaris.Visibility = Visibility.Hidden;
                     Bestuur.Visibility = Visibility.Hidden;
                 }
-            
+
         }
 
         public void UtilizeState(object state)
@@ -167,6 +168,7 @@ namespace Views
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
+
             var Login_User_Role = from x in context.User_Roles
                                   where x.UserID == LoginView.UserId && x.DeletedAt == null
                                   select x.RoleID;
@@ -180,9 +182,10 @@ namespace Views
             }
         }
 
+
         private void BewerkBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (Controllers.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, UserID))
+            if (Controllers.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, UserID,EndOfSubscription))
             {
 
                 foreach (CheckBox c in RegisterLayout.Children.OfType<CheckBox>())
@@ -243,6 +246,6 @@ namespace Views
             }
         }
     }
-    
+
 
 }
