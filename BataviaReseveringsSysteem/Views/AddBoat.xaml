@@ -65,7 +65,6 @@
                   HorizontalAlignment="Center" 
                   Width="120" 
                   Height="35">
-            <ComboBoxItem x:Name="oneRower" Content="1"/>
             <ComboBoxItem Content="2"/>
             <ComboBoxItem Content="4"/>
             <ComboBoxItem Content="8"/>

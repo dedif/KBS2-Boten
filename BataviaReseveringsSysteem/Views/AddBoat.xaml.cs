@@ -94,8 +94,9 @@ namespace Views
             }
             else
             {
+                RowersCombo.Items.Remove("1");
+                RowersCombo.SelectedIndex = 0;
                 RowersCombo.IsEnabled = true;
-                oneRower.IsEnabled = false;
                 SteeringWheelToggle.IsEnabled = true;
                 SkiffLabel.Visibility = Visibility.Hidden;
             }
