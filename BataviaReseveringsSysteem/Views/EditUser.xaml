@@ -226,7 +226,7 @@
         <Label
             Content=""
             Grid.Row="6"
-            Grid.Column="1"
+            Grid.Column="2"
             Foreground="Red"
             x:Name="RegisterError"
             HorizontalAlignment="Left"
@@ -315,7 +315,7 @@
             x:Name="UserID"
             Content="" Tag="{Binding UserID}" Visibility="Hidden"></Label>
 
-        <DatePicker x:Name="EndOfSubscription" materialDesign:HintAssist.Hint="Einddatum Abonnement" HorizontalAlignment="Left" Margin="144,415,0,0" VerticalAlignment="Top" Width="176"  Focusable="False"/>
+        <DatePicker x:Name="EndOfSubscription" materialDesign:HintAssist.Hint="Einddatum Abonnement" HorizontalAlignment="Left" VerticalAlignment="Top" Width="176"  Focusable="False" Grid.Column="1" Grid.Row="5" Height="25" Margin="0,119,0,0" Grid.RowSpan="2"/>
 
 
     </Grid>

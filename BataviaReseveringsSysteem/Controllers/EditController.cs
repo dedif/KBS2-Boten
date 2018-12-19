@@ -185,7 +185,7 @@ namespace Controllers
             {
                 User update = context.Users.Where(d => d.UserID == userID).First();
 
-                if (update.EndOfSubscription.Value != endDate.SelectedDate.Value)
+                if (update.EndOfSubscription != endDate.SelectedDate)
                 {
                     string sendMessage = $"Hallo {firstname.Text},{Environment.NewLine}{Environment.NewLine}Lidnummer:{userID}{Environment.NewLine}{Environment.NewLine}Uw abonnement is gewijzigd, uw abonnemnt loopt nu tot {endDate.SelectedDate.Value.ToString("dd-MM-yyyy")}.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}Omar en de gang";
                     EmailController mail = new EmailController(email.Text, "Abonnement gegevens gewijzigd", sendMessage);
