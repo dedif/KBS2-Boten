@@ -28,12 +28,16 @@ namespace BataviaReseveringsSysteem.Views
         {
             BoatCombo.Items.Clear();
             SteeringToggle.IsEnabled = Equals(sender, Scull) || Equals(sender, Board);
-            if(Equals(sender, Scull) || Equals(sender, Board))
+
+            if(Equals(sender, Skiff))
             {
+                RowersCombo.IsEnabled = false;
+                RowersCombo.SelectedItem = oneRower;
+            }
+            else
+            {
+                RowersCombo.IsEnabled = true;
                 oneRower.IsEnabled = false;
-            } else
-            {
-                oneRower.IsEnabled = true;
             }
 
             var type = Equals(sender, Scull) ? Boat.BoatType.Scull : Equals(sender, Skiff) ? Boat.BoatType.Skiff : Boat.BoatType.Board;
@@ -42,11 +46,16 @@ namespace BataviaReseveringsSysteem.Views
             {
                 var amountOfRowersFromCombo = RowersCombo.SelectedIndex == -1 ? 0 : int.Parse(((ComboBoxItem)RowersCombo.SelectedItem).Content.ToString());
                 var boats = (from data in context.Boats
+                             join d in context.Boat_Diplomas on data.BoatID equals d.BoatID
+                             join u in context.User_Diplomas on d.DiplomaID equals u.DiplomaID
+                             where data.BoatID == d.BoatID
+                             where d.DiplomaID == u.DiplomaID
                              where data.Type == type
                              where data.Steering == SteeringToggle.IsChecked
                              where data.NumberOfRowers == amountOfRowersFromCombo
                              where data.AvailableAt <= DateTime.Now
-                             select data).ToList();
+                             where data.Deleted == false
+                             select data).ToList().Distinct();
 
                 foreach (var item in boats) BoatCombo.Items.Add(item.Name);
             }

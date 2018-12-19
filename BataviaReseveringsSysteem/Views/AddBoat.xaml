@@ -42,12 +42,17 @@
                 FontSize="26"
                 Canvas.Left="384" Canvas.Top="5" Width="208"/>
         </Canvas>
+        <Label 
+            Grid.Row="2"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            FontSize="16"
+            Foreground="Gray"
+            Content="Naam:"/>
         <TextBox Grid.Row="2" Grid.Column="1" x:Name="NameBox" 
-                materialDesign:HintAssist.Hint="Bootnaam"
-                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" FontSize="16" Height="35" />
+                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" />
         <ComboBox Grid.Row="3" Grid.Column="1" x:Name="TypCombo" 
-                  materialDesign:HintAssist.Hint="Boot type"
-                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16" SelectionChanged="TypCombo_SelectionChanged">
+                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" SelectionChanged="TypCombo_SelectionChanged">
             <ComboBoxItem Content="Scull"/>
             <ComboBoxItem  Content="Skiff"/>
             <ComboBoxItem Content="Board"/>
@@ -55,25 +60,23 @@
         <ComboBox Grid.Row="5" 
                   Grid.Column="1" 
                   x:Name="RowersCombo"
-                  materialDesign:HintAssist.Hint="Aantal roeiers"
+                  materialDesign:HintAssist.Hint="Aantal"
                   VerticalAlignment="Center" 
                   HorizontalAlignment="Center" 
                   Width="120" 
-                  Height="35"
-                  FontSize="16">
-            <!--<ComboBoxItem Content="1"/>-->
+                  Height="35">
+            <ComboBoxItem x:Name="oneRower" Content="1"/>
             <ComboBoxItem Content="2"/>
             <ComboBoxItem Content="4"/>
             <ComboBoxItem Content="8"/>
         </ComboBox>
         <TextBox Grid.Row="4" Grid.Column="1" x:Name="WeightBox" 
-                 materialDesign:HintAssist.Hint="Gewicht (kg)"
-                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16"/>
+                 materialDesign:HintAssist.Hint="Kg"
+                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35"/>
         <ToggleButton 
             Grid.Row="7"
             Grid.Column="1"
             VerticalAlignment="Center"
-            Margin="60,0,0,0"
             Width="40"
             x:Name="SteeringWheelToggle"
             Style="{StaticResource MaterialDesignSwitchToggleButton}"
@@ -81,16 +84,16 @@
         <Label 
             Grid.Row="7"
             Grid.Column="1"
+            HorizontalAlignment="Left"
             VerticalAlignment="Center"
-            Content="Stuur?" 
+            Content="Gestuurd?" 
             FontSize="16"
-            Foreground="Gray" 
-            Width="55" Margin="-65,0,0,0"/>
-        <Button Grid.Row="8" Grid.Column="1" x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="SaveButton_Click"/>
-        <Button Grid.Row="8" Grid.Column="2" x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="CancelButton_Click"/>
+            Foreground="Gray"/>
+        <Button Grid.Row="8" Grid.Column="2" x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="SaveButton_Click"/>
+        <Button Grid.Row="8" Grid.Column="1" x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="CancelButton_Click"/>
         <Label  x:Name="NotificationLabel" Content="&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Center" Width="290" Grid.Row="5" FontSize="16" Grid.Column="2" Foreground="#DDFF0000"/>
         <Label Grid.Row="3" Grid.Column="2" x:Name="SkiffLabel" Foreground="Red" Content="Een skiff boot heeft altijd één roeier en geen stuur" Visibility="Visible" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left" Width="480" Grid.ColumnSpan="2" Margin="0,28"/>
-        <Label Grid.Row="4" Grid.Column="2" Content="Benodigd diploma:" FontSize="16" Foreground="Gray"/>
+        <Label Grid.Row="4" Grid.Column="2" Content="Geldige diploma's voor deze boot:" FontSize="16" Foreground="Gray"/>
 
         <StackPanel Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <CheckBox x:Name="S1CheckBox" Tag="1" FontSize="16" >
@@ -147,8 +150,8 @@
             </CheckBox>
         </StackPanel>
         <TextBox Grid.Row="6" Grid.Column="1" x:Name="BoatLocationBox" 
-            materialDesign:HintAssist.Hint="Boot locatie"
-            VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16"/>
+            materialDesign:HintAssist.Hint="in de loods"
+            VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35"/>
         <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
             <Label 
                 Content="Ingangsdatum:" 
@@ -165,5 +168,50 @@
                 FontSize="16"
                 Margin="70,0,0,0"/>
         </StackPanel>
+        <Label 
+            Grid.Row="3"
+            Grid.Column="1"
+            Width="90"
+            HorizontalAlignment="Left"            
+            VerticalAlignment="Center"
+            FontSize="16"
+            Foreground="Gray"
+            Content="Type:"/>
+        <Label 
+            Grid.Row="3"
+            Grid.Column="1"
+            Width="90"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            FontSize="16"
+            Foreground="Gray"
+            Content="Type:"/>
+        <Label 
+            Grid.Row="4"
+            Width="90"
+            HorizontalAlignment="Left"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            FontSize="16"
+            Foreground="Gray"
+            Content="Gewicht:"/>
+        <Label 
+            Grid.Row="5"
+            Grid.Column="1"
+            Width="90"
+            HorizontalAlignment="Left"            
+            VerticalAlignment="Center"
+            FontSize="16"
+            Foreground="Gray"
+            Content="Roeiers:"/>
+        <Label 
+            Grid.Row="6"
+            Grid.Column="1"
+            Width="90"
+            HorizontalAlignment="Left"            
+            VerticalAlignment="Center"
+            FontSize="16"
+            Foreground="Gray"
+            Content="Locatie:"/>
     </Grid>
 </UserControl>

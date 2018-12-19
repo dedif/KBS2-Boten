@@ -191,11 +191,8 @@ namespace Controllers
             {
                 //Er wordt een button aangemaakt. 
                 Content = "Afschrijving annuleren",
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(x, y, 0, 0),
                 Height = 30,
-                Width = 200,
                 FontSize = 16,
                 Tag = id,
                 HorizontalContentAlignment = HorizontalAlignment.Left

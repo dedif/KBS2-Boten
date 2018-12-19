@@ -92,10 +92,8 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Visibility="Hidden" Header="_Nieuws">
-                <MenuItem Header="Wedstrijden"></MenuItem>
-                <MenuItem Header="Competitie"></MenuItem>
-                <MenuItem Header="Toernooien"></MenuItem>
+            <MenuItem Header="_Nieuws">
+                <MenuItem x:Name="nieuwsBtn" Header="Laatste nieuwtjes" Click="nieuwsBtn_Click"></MenuItem>
             </MenuItem>
             <MenuItem  Visibility="Hidden" Header="_Help">
                 <MenuItem Header="Hulp bij afschrijven"></MenuItem>
