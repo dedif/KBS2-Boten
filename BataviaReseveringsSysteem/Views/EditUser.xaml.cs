@@ -126,6 +126,7 @@ namespace Views
 
             if (!Login_User_Role.Contains(5))
             {
+                AccountLabel.Visibility = Visibility.Hidden;
                 Reparateur.Visibility = Visibility.Hidden;
                 Coach.Visibility = Visibility.Hidden;
                 Examinator.Visibility = Visibility.Hidden;

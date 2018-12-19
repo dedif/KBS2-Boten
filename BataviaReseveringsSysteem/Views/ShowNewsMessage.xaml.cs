@@ -2,6 +2,7 @@
 using ScreenSwitcher;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,9 +37,10 @@ namespace BataviaReseveringsSysteem.Views
                 
                 foreach (var newsMessage in news)
                 {
-
+                   
                   
-                    TitleBox.Content = $"{newsMessage.Title} {newsMessage.CreatedAt}";
+                    // content van de pagina invullen
+                    TitleBox.Content = $"{newsMessage.Title} {newsMessage.CreatedAt.ToString("dd-MM-yyyy")}";
                     NewsMessageBox.Text = newsMessage.Message;
                 }
                 
