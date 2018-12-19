@@ -1,7 +1,9 @@
-﻿using BataviaReseveringsSysteem.Database;
+﻿using BataviaReseveringsSysteem;
+using BataviaReseveringsSysteem.Database;
 using Controllers;
 using ScreenSwitcher;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -84,8 +86,8 @@ namespace Views
             }
 
             var User_Roles = from x in context.User_Roles
-                              where x.UserID == id && x.DeletedAt == null
-                              select x.RoleID;
+                             where x.UserID == id && x.DeletedAt == null
+                             select x.RoleID;
 
 
 
@@ -123,13 +125,13 @@ namespace Views
                                   select x.RoleID;
 
             if (!Login_User_Role.Contains(5))
-                {
-                    Reparateur.Visibility = Visibility.Hidden;
-                    Coach.Visibility = Visibility.Hidden;
-                    Examinator.Visibility = Visibility.Hidden;
-                    Commissaris.Visibility = Visibility.Hidden;
-                    Bestuur.Visibility = Visibility.Hidden;
-                }
+            {
+                Reparateur.Visibility = Visibility.Hidden;
+                Coach.Visibility = Visibility.Hidden;
+                Examinator.Visibility = Visibility.Hidden;
+                Commissaris.Visibility = Visibility.Hidden;
+                Bestuur.Visibility = Visibility.Hidden;
+            }
 
         }
 
@@ -183,7 +185,7 @@ namespace Views
 
         private void BewerkBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (Controllers.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, UserID,EndOfSubscription))
+            if (Controllers.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, UserID, EndOfSubscription))
             {
 
                 foreach (CheckBox c in RegisterLayout.Children.OfType<CheckBox>())
@@ -242,11 +244,6 @@ namespace Views
                 RegisterError.Content = "Controleer uw gegevens!";
                 RegisterError.UpdateLayout();
             }
-        }
-
-        private void OpslaanBtn_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 

@@ -360,5 +360,17 @@
             Height="25"
             VerticalAlignment="Center"
             HorizontalAlignment="Left" Margin="0,49.5"/>
+        <DatePicker 
+            x:Name="EndOfSubscription" 
+            Grid.Row="5"
+            Grid.Column="3"
+            Margin="0,12,0,0"
+            materialDesign:HintAssist.Hint="Einddatum Abonnement" 
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Center" 
+            Width="170"  
+            Focusable="False" 
+            Height="25"/>
+
     </Grid>
 </UserControl>

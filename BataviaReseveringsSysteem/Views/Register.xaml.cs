@@ -104,7 +104,7 @@ namespace Views
         //Register user of user
         private void ButtonRegister(object sender, RoutedEventArgs e)
         {
-            if (RegisterController.Register(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword,EndOfSubscription))
+            if (RegisterController.Register(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, EndOfSubscription))
             {
                 using (DataBase context = new DataBase()) {
                     List<CheckBox> CheckBoxList = new List<CheckBox>() { Reparateur, Commissaris, Examinator, Coach, Bestuur };
@@ -123,10 +123,6 @@ namespace Views
                             var max = context.Users.OrderByDescending(p => p.UserID).FirstOrDefault().UserID;
 
                             dbc.Add_UserRole(roleID, max);
-                           
-
-
-
                         }
                     }
                 }
@@ -144,10 +140,8 @@ namespace Views
                 RegisterError.Content = "Controleer uw gegevens!";
                 RegisterError.UpdateLayout();
             }
-            
-            
-
         }
+
         // check if there are no numbers in inputbox
         public static bool IsAllLetters(string s)
         {
