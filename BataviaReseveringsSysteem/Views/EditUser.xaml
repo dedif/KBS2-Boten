@@ -34,6 +34,18 @@
                 FontSize="26"
                 Canvas.Left="384" Canvas.Top="5" Width="232"/>
         </Canvas>
+        <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="610,0,0,0">
+            <Label
+                Content="Lidmaatschap:"
+                FontWeight="Bold"
+                Foreground="Green"/>
+            <DatePicker 
+                x:Name="EndOfSubscription"
+                Margin="20,0,0,0"
+                materialDesign:HintAssist.Hint="Einddatum lidmaatschap" 
+                Focusable="False" 
+                Height="25"/>
+        </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Label 
                 Content="Voornaam"
@@ -41,7 +53,7 @@
                 FontWeight="Bold"
                 Foreground="#673ab7"            
                 Margin="20,5,0,0"
-                Width="75"
+                Width="90"
                 Height="25"/>
             <TextBox  
                 Grid.Row="2"
@@ -58,7 +70,7 @@
                 FontWeight="Bold"
                 Foreground="#673ab7"            
                 Margin="20,5,0,0"
-                Width="120"
+                Width="140"
                 Height="25"/>
             <TextBox
                 x:Name="Middlename"
@@ -70,7 +82,7 @@
             <Label 
                 Content="Achternaam"
                 Grid.Row="2"
-                Width="140"
+                Width="90"
                 Margin="20,5,0,0"
                 FontWeight="Bold"
                 Foreground="#673ab7"            
@@ -90,7 +102,7 @@
                 Content="Adres"
                 FontWeight="Bold"
                 Foreground="#673ab7"            
-                Width="75"
+                Width="90"
                 Margin="20,0,0,0"
                 Height="25"/>
             <TextBox
@@ -104,7 +116,7 @@
                 Content="Postcode"
                 FontWeight="Bold"
                 Foreground="#673ab7"            
-                Width="120"
+                Width="140"
                 Margin="20,0,0,0"
                 Height="25"/>
             <TextBox
@@ -122,7 +134,7 @@
                 Content="Woonplaats"
                 FontWeight="Bold"
                 Foreground="#673ab7"            
-                Width="140"
+                Width="90"
                 Margin="20,0,0,0"
                 Height="25"/>
             <TextBox  
@@ -141,7 +153,7 @@
                 Margin="20,0,0,0"
                 FontWeight="Bold"
                 Foreground="#673ab7"            
-                Width="75"
+                Width="90"
                 Height="25"/>
             <ComboBox
                 Grid.Row="2"
@@ -160,7 +172,7 @@
                 Content="Geboorte datum" 
                 FontWeight="Bold"
                 Foreground="#673ab7"            
-                Width="120"
+                Width="140"
                 Margin="20,0,0,0"
                 Height="25"/>
             <StackPanel Orientation="Horizontal" Width="140" Margin="20,0,0,0">
@@ -207,7 +219,7 @@
                 Foreground="#673ab7"            
                 Margin="20,0,0,0"
                 Height="25"
-                Width="140"                
+                Width="90"                
                 />
             <TextBox 
                 PreviewTextInput="NumberValidationTextBox"
@@ -224,31 +236,16 @@
 
         <StackPanel Grid.Row="5" Orientation="Horizontal">
             <Label 
-                Content="Emailadres"
-                Height="25"
-                FontWeight="Bold"
-                Foreground="#673ab7"            
-                Width="80"
-                Margin="20,0,0,0"/>
-            <TextBox
-                x:Name="Email"
-                Grid.Row="5"
-                materialDesign:HintAssist.Hint="1@2.com"
-                Height="35" 
-                TextWrapping="Wrap" 
-                Width="140" 
-                Margin="15,0,0,0"/>
-            <Label 
                 Content="Wachtwoord"
                 Height="25"
-                Width="120"
+                Width="90"
                 FontWeight="Bold"
                 Foreground="#673ab7"            
                 Margin="20,0,0,0"/>
             <PasswordBox
                 x:Name="Password"
                 materialDesign:HintAssist.Hint="Wachtwoord"
-                Margin="20,0,0,0"
+                Margin="20,0,0,10"
                 Height="35"
                 PasswordChar="*" 
                 Width="140"/>
@@ -261,11 +258,26 @@
                 Margin="20,0,0,0"/>
             <PasswordBox
                 x:Name="ConfirmPassword"
-                materialDesign:HintAssist.Hint="Bevestig wachtwoord"
+                materialDesign:HintAssist.Hint="Bevestig"
                 PasswordChar="*"
-                Margin="20,0,0,0"
+                Margin="20,0,0,10"
                 Height="25"
-                Width="160"/>
+                Width="140"/>
+            <Label 
+                Content="Emailadres"
+                Height="25"
+                FontWeight="Bold"
+                Foreground="#673ab7"            
+                Width="90"
+                Margin="20,0,0,0"/>
+            <TextBox
+                x:Name="Email"
+                Grid.Row="5"
+                materialDesign:HintAssist.Hint="1@2.com"
+                Height="25" 
+                TextWrapping="Wrap" 
+                Width="180" 
+                Margin="20,0,0,10"/>
         </StackPanel>
         <Label 
             Content="" 
@@ -277,6 +289,7 @@
             VerticalAlignment="Top"/>
         <StackPanel Grid.Row="6" Orientation="Horizontal">
             <Label
+                x:Name="AccountLabel"
                 Content="Functie"
                 Width="75"
                 Height="25"
@@ -325,12 +338,6 @@
                     <TextBlock DockPanel.Dock="Top" Text="Bestuur" />
                 </DockPanel>
             </CheckBox>
-            <DatePicker 
-                x:Name="EndOfSubscription"
-                Margin="18"
-                materialDesign:HintAssist.Hint="Einddatum lidmaatschap" 
-                Focusable="False" 
-                Height="25"/>
         </StackPanel>
         <Label
             x:Name="UserID"

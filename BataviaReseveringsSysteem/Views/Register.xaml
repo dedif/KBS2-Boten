@@ -224,21 +224,6 @@
 
         <StackPanel Grid.Row="5" Orientation="Horizontal">
             <Label 
-                Content="Emailadres"
-                Height="25"
-                FontWeight="Bold"
-                Foreground="#673ab7"            
-                Width="80"
-                Margin="20,0,0,0"/>
-            <TextBox
-                x:Name="Email"
-                Grid.Row="5"
-                materialDesign:HintAssist.Hint="1@2.com"
-                Height="35" 
-                TextWrapping="Wrap" 
-                Width="140" 
-                Margin="15,0,0,0"/>
-            <Label 
                 Content="Wachtwoord"
                 Height="25"
                 Width="120"
@@ -266,6 +251,21 @@
                 Margin="20,0,0,0"
                 Height="25"
                 Width="160"/>
+            <Label 
+                Content="Emailadres"
+                Height="25"
+                FontWeight="Bold"
+                Foreground="#673ab7"            
+                Width="80"
+                Margin="20,0,0,0"/>
+            <TextBox
+                x:Name="Email"
+                Grid.Row="5"
+                materialDesign:HintAssist.Hint="1@2.com"
+                Height="35" 
+                TextWrapping="Wrap" 
+                Width="180" 
+                Margin="15,0,0,0"/>
         </StackPanel>
         <Label 
             Content="" 
@@ -327,7 +327,7 @@
             </CheckBox>
             <DatePicker 
                 x:Name="EndOfSubscription"
-                Margin="18"
+                Margin="33"
                 materialDesign:HintAssist.Hint="Einddatum lidmaatschap" 
                 Focusable="False" 
                 Height="25"/>
