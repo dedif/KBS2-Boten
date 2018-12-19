@@ -14,10 +14,12 @@ namespace Controllers
     {
       
         //Maak een nieuwe gebruiker aan
-        public void Add_User(string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday,DateTime endOfSub)
+        public void Add_User(string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday,DateTime? endOfSub)
         {
+           
             using (DataBase context = new DataBase())
             {
+              
                 var user = new Models.User
                 {
 
@@ -45,7 +47,9 @@ namespace Controllers
                 context.SaveChanges();
             }
 
+           
         }
+
         public void Add_Gender(string GenderName)
         {
             using (DataBase context = new DataBase())
@@ -66,7 +70,7 @@ namespace Controllers
         }
 
         //Bewerk een gebruiker met wachtwoord
-        public void Update_User(int userID, string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday,DateTime endOfSub)
+        public void Update_User(int userID, string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday,DateTime? endOfSub)
         {
             using (DataBase context = new DataBase())
             {
@@ -137,6 +141,12 @@ namespace Controllers
 
                     context.SaveChanges();
                 }
+
+                string sendMessage = $"Goededag meneer/mevrouw {delUser.Lastname},{Environment.NewLine}{Environment.NewLine} Uw abonnement is vanaf vandaag opgezegd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}Omar en de gang";
+
+                EmailController mail = new EmailController(
+                    delUser.Email,
+                    "Einde Abbonement", sendMessage);
             }
         }
 
@@ -240,6 +250,12 @@ namespace Controllers
                     {
                         if (user.EndOfSubscription <= DateTime.Now)
                         {
+                            string sendMessage = $"Goededag meneer/mevrouw {user.Lastname},{Environment.NewLine}{Environment.NewLine} Uw abonnement is vanaf vandaag opgezegd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}Omar en de gang";
+
+                            EmailController mail = new EmailController(
+                                user.Email,
+                                "Einde Abbonement", sendMessage);
+
                             User dep = context.Users.Where(d => d.UserID == user.UserID).First();
                             dep.City = null;
                             dep.Address = null;

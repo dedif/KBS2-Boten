@@ -92,7 +92,7 @@ namespace Controllers
                 validate = false;
             }
 
-            if (EndofSub.SelectedDate.Value != null)
+            if (EndofSub.SelectedDate != null)
             {
                 if (EndofSub.SelectedDate.Value < DateTime.Now)
                 {
@@ -101,7 +101,7 @@ namespace Controllers
                     EndofSub.UpdateLayout();
                     validate = false;
                 }
-
+               
             }
             UserController u = new UserController(); // Get database
 
@@ -178,10 +178,31 @@ namespace Controllers
             if (validate && valDate)
             {
                 int GenderID = int.Parse(((ComboBoxItem)Gender.SelectedItem).Tag.ToString());
+                if (EndofSub.SelectedDate != null)
+                {
+                    u.Add_User(savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt, EndofSub.SelectedDate);
+                }
+                else
+                {
+                    u.Add_User(savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt, null);
+                }
 
-                u.Add_User(savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt,EndofSub.SelectedDate.Value);
                 MessageBoxResult result = MessageBox.Show("Het account is aangemaakt, het lidnummer is " + u.GetID());
+
+                if (EndofSub.SelectedDate != null)
+                {
+                    string sendMessage = $"Hallo {Firstname.Text},{Environment.NewLine}Lidnummer:{u.GetID()}{Environment.NewLine}{Environment.NewLine} Uw staat vanaf vandaag ingeschreven bij onze vereniging.{Environment.NewLine}{Environment.NewLine}Uw abbonement loopt tot {EndofSub.SelectedDate.Value.ToString("dd-MM-yyyy")}.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}Omar en de gang";
+
+                    EmailController mail = new EmailController(Email.Text, "Duur Abonnement", sendMessage);
+                }
+                else
+                {
+                    string sendMessage = $"Hallo {Firstname.Text},{Environment.NewLine}Lidnummer:{u.GetID()}{Environment.NewLine}{Environment.NewLine} Uw staat vanaf vandaag ingeschreven bij onze vereniging.{Environment.NewLine}{Environment.NewLine}Uw abbonement loopt tot nog een onbekend termijn bij ons. Uw krijgt later een mail als het abonnement termijn veranderd wordt.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}Omar en de gang";
+
+                    EmailController mail = new EmailController(Email.Text, "Abonnement bij Batavia..", sendMessage);
+                }
                 return true;
+
             }
             else
             {
