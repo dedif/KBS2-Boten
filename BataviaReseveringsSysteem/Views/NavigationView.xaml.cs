@@ -74,7 +74,10 @@ namespace Views
                     //Mag die users inzien en toevoegen
                     SeeUsersBtn.IsEnabled = true;
                     AddUsersBtn.IsEnabled = true;
-                   
+                    nieuwsBtn.IsEnabled = true;
+
+
+
                 }
                 else
                 {
@@ -82,9 +85,12 @@ namespace Views
                    //Mag die users inzien en toevoegen
                     SeeUsersBtn.IsEnabled = false;
                     AddUsersBtn.IsEnabled = false;
+                    nieuwsBtn.IsEnabled = false;
 
 
                 }
+
+                
 
 
             }
@@ -149,6 +155,10 @@ namespace Views
         private void nieuwsBtn_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new AddNewsMessage());
+        }
+        private void nieuwsListBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new NewsMessageList());
         }
     }
 }
