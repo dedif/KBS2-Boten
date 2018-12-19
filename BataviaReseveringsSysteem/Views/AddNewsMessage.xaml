@@ -5,100 +5,69 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BataviaReseveringsSysteem.Views"
              mc:Ignorable="d" 
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
-        Height="768" Width="1024">
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             Height="768" Width="1024">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="500"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="100"/>
             <RowDefinition/>
-            <RowDefinition />
-            <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
         <Canvas 
             Width="1024"
-                Height="50"
+            Height="50"
             Background="#673ab7" Margin="0,50,0,1000">
             <Label
-                Content="Nieuwsbericht toevoegen"
-                Foreground="White"
-                FontSize="26"
-                Canvas.Left="384" Canvas.Top="5" Width="314"/>
+            Content="Nieuwsbericht plaatsen"
+            Foreground="White"
+            FontSize="26"
+            Canvas.Left="328" Canvas.Top="5" Width="282"/>
         </Canvas>
+        <Label
+            Grid.Row="1"
+            Grid.Column="1"
+            Content="Bericht titel"
+            VerticalAlignment="Bottom"
+            Foreground="#673ab7"
+            FontSize="16"
+            FontWeight="Bold" Height="26"/>
         <TextBox   
-            x:Name="TitleBox" 
             Grid.Row="2"
             Grid.Column="1"
-            VerticalAlignment="Top" 
             HorizontalAlignment="Left"
-            Margin="8,0,0,0"
-            Width="120" 
-            Height="35"/>
+            VerticalAlignment="Top"
+            Margin="5,5,0,0"
+            x:Name="TitleBox" 
+            Width="120"
+            materialDesign:HintAssist.Hint="Voer een titel in"/>
         <TextBox
-            x:Name="NewsMessageBox"
-            Grid.Row="3"
+            Grid.Row="2"
             Grid.Column="1"
-            Width="490"
+            Height="200"
+            x:Name="NewsMessageBox"
             Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
-            VerticalAlignment="Center"
-            Height="130"
             AcceptsReturn="True"
             TextWrapping="Wrap"
             VerticalScrollBarVisibility="Auto"
-            materialDesign:HintAssist.Hint="Typ uw nieuwsbericht"
+            materialDesign:HintAssist.Hint="Bericht"
             IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextFieldTextBoxEnabledComboBox}"/>
-        <Label 
-            x:Name="NotificationLabel" 
-            Grid.Row="4"
-            Grid.Column="1"
-            Content="&#xD;&#xA;" 
-            Width="290" 
-            FontSize="16" 
-            Foreground="#DDFF0000"/>
-        <Button 
-            Grid.Row="5"
-            Grid.Column="1"
-            HorizontalAlignment="Right"
-            Content="Plaatsen" 
-            Width="120" 
-            FontSize="16" 
-            x:Name="SaveNewsMessage" 
-            Click="SaveNewsMessage_Click"/>
-        <Button 
-            Grid.Row="5"
-            Grid.Column="1"
-            HorizontalAlignment="Left"
-            Content="Annuleren" Width="120" x:Name="Cancel" FontSize="16" Click="CancelNewsMessage_Click"/>
-        <Label
-            Content="Titel:"
-            Grid.Row="1"
-            Grid.Column="1"
-            Height="25"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"
-            Foreground="Gray"            
-            FontSize="16"/>
-        <Label
-            Content="Bericht:"
-            Grid.Row="2"
-            Grid.Column="1"
-            Height="25"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"
-            Foreground="Gray"            
-            FontSize="16"/>
+        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Height="32" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Button Content="Annuleren" FontSize="16" Width="120" x:Name="SaveNewsMessage" Click="CancelNewsMessage_Click" Margin="0,0,100,0"/>
+            <Button Content="Opslaan" FontSize="16" Width="120" x:Name="Cancel" Click="SaveNewsMessage_Click"/>
+        </StackPanel>
+        <Label x:Name="NotificationLabel" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1" Content="&#xD;&#xA;" FontSize="16" Foreground="#DDFF0000" Height="53"/>
     </Grid>
 </UserControl>

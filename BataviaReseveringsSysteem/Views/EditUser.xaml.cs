@@ -1,9 +1,7 @@
-﻿using BataviaReseveringsSysteem;
-using BataviaReseveringsSysteem.Database;
+﻿using BataviaReseveringsSysteem.Database;
 using Controllers;
 using ScreenSwitcher;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;

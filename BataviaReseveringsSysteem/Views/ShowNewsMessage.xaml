@@ -4,21 +4,51 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BataviaReseveringsSysteem.Views"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
-        <Label   x:Name="TitleBox" 
-                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="800" Height="25" Margin="10,59,0,0" />
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             Height="768" Width="1024">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <Canvas 
+            Width="1024"
+            Height="50"
+            Background="#673ab7" Margin="0,50,0,1000">
+            <Label
+                x:Name="TitleBox"
+                Foreground="White"
+                FontSize="26"
+                Canvas.Left="328" Canvas.Top="5"/>
+        </Canvas>
         <TextBox
-                x:Name="NewsMessageBox"
-                Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
-                VerticalAlignment="Center"
-                Height="227"
-                AcceptsReturn="True"
-                TextWrapping="Wrap"
-                VerticalScrollBarVisibility="Auto"
-                Margin="0,119,0,104" Width="800" IsEnabled="False"  IsReadOnly="True"/>
-        <Button Content="Ga terug" HorizontalAlignment="Left" Margin="44,384,0,0" VerticalAlignment="Top" Width="86" x:Name="Cancel"  Click="CancelNewsMessage_Click"/>
+            x:Name="NewsMessageBox"
+            Grid.Row="2"
+            Grid.Column="1"
+            Height="200"
+            Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+            AcceptsReturn="True"
+            TextWrapping="Wrap"
+            VerticalScrollBarVisibility="Auto"
+            IsEnabled="False"  IsReadOnly="True"/>
+        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Height="32" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Button Content="Ga teug" Width="120" FontSize="16" x:Name="Cancel" Click="CancelNewsMessage_Click"/>
+        </StackPanel>
+        <Label x:Name="NotificationLabel" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1" Content="&#xD;&#xA;" FontSize="16" Foreground="#DDFF0000" Height="53"/>
     </Grid>
 </UserControl>

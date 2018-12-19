@@ -20,11 +20,11 @@
         <TextBox
                 x:Name="NewsMessageBox"
                 Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
-                VerticalAlignment="Center"
-                Height="100"
+                VerticalAlignment="Center"  
+                Height="209"
                 AcceptsReturn="True"
                 TextWrapping="Wrap"
                 VerticalScrollBarVisibility="Auto"
-                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextFieldTextBoxEnabledComboBox}" Margin="91,150,49,518" IsReadOnly="True" />
+                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextFieldTextBoxEnabledComboBox}" Margin="91,150,49,409" IsReadOnly="True" />
     </Grid>
 </UserControl>

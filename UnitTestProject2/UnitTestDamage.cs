@@ -54,7 +54,7 @@ namespace UnitTestProject2
             //boot is al gereserveerd dus reserved wordt gevuld met answer
             boatDamage.AlreadyReserved(boatName);
             // result wordt: " Deze boot is in de toekomst gereserveerd."
-            string result = boatDamage.reserved;
+            string result = boatDamage.Reserved;
             //Assert
             Assert.AreEqual(result, answer);
         }

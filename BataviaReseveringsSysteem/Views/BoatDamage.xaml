@@ -44,14 +44,19 @@
             HorizontalAlignment="Left"
             Content="Naam van de boot:"
             FontSize="16"
-            Foreground="Gray"
+            Foreground="#673ab7"
+            FontWeight="Bold"
             />
         <ComboBox x:Name="NameboatCombo" Margin="5,0,0,0"  Grid.Row="2" materialDesign:HintAssist.Hint="Aalscholver III" VerticalAlignment="Center" HorizontalAlignment="Left" Width="245" Grid.Column="1" SelectionChanged="NameboatCombo_SelectionChanged" Height="35"/>
         <TextBox x:Name="OtherDamages" IsReadOnly="True" Grid.Row="4" Width="499" Grid.Column="1" ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Height="90"/>
-        <Label x:Name="DamagesLabel" Grid.Row="3" Foreground="Gray" Grid.Column="1" FontWeight="Bold" FontSize="16" Content="Reeds gemeldde schade(s):" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <Label 
+            x:Name="DamagesLabel" 
+            Grid.Row="3" 
+            Foreground="#673ab7" Grid.Column="1" FontWeight="Bold" FontSize="16" Content="Reeds gemeldde schade(s):" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
         <StackPanel Grid.Row="3" Grid.Column="1" VerticalAlignment="Top">
             <TextBox
                 Grid.Row="2" Grid.Column="1"
+                Margin="0,5,0,0"
                 x:Name="DescriptionBox"
                 Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
                 VerticalAlignment="Center"
@@ -82,6 +87,7 @@
             HorizontalAlignment="Left"
             Content="Vermeld hier de schade:"
             FontSize="16"
-            Foreground="Gray"/>
+            FontWeight="Bold"
+            Foreground="#673ab7"/>
     </Grid>
 </UserControl>

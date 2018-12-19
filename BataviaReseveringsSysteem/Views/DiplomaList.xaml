@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BataviaReseveringsSysteem.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="1080" Background="White" d:DesignWidth="1920">
+             d:DesignHeight="768" Background="White" d:DesignWidth="1024">
     <UserControl.Resources>
         <CollectionViewSource x:Key="UserViewSource"></CollectionViewSource>
     </UserControl.Resources>

@@ -108,7 +108,8 @@
             HorizontalAlignment="Right" VerticalAlignment="Bottom" 
             x:Name="Search" 
                      materialDesign:HintAssist.Hint="Zoeken"
-                     TextChanged="Search_TextChanged" Margin="0,0,20,10" Width="120"/>
+                     TextChanged="Search_TextChanged" Margin="0,0,20,10" Width="120"
+                        Foreground="#673ab7"/>
 
     </Grid>
 
