@@ -339,7 +339,7 @@
             Height="25"
             VerticalAlignment="Center"
             HorizontalAlignment="Right"/>
-        <Label 
+        <Label x:Name="AccountLabel"
             Content="Account:"
             Grid.Row="4"
             Grid.Column="2"
