@@ -135,15 +135,15 @@ namespace Views
                         var l = new Label
                         {
                             Content = dashboardController.ReservationContent(r),
-                            Margin = new Thickness(25, YLeft, 0, 0),
+                            Margin = new Thickness(20, YLeft, 0, 0),
                             Width = 235,
                             FontSize = 16,
 
                             
                         };
                     LabelList.Add(l);
-                    var deleteButton = dashboardController.AddDeleteButton(20, YLeft + 130, r.ReservationID);
-                    var changeButton = dashboardController.AddChangeButton(20, YLeft + 170);
+                    var deleteButton = dashboardController.AddDeleteButton(25, YLeft + 130, r.ReservationID);
+                    var changeButton = dashboardController.AddChangeButton(25, YLeft + 170);
                     ButtonList.Add(deleteButton);
                     ButtonList.Add(changeButton);
 
@@ -160,13 +160,13 @@ namespace Views
                     var l2 = new Label
                     {
                         Content = dashboardController.ReservationContent(r),
-                        Margin = new Thickness(360, YRight, 0, 0),
+                        Margin = new Thickness(355, YRight, 0, 0),
                         Width = 235,
                         FontSize = 16,
                     };
                     LabelList.Add(l2);
-                    var deleteButton = dashboardController.AddDeleteButton(355, YRight + 130, r.ReservationID);
-                    var changeButton = dashboardController.AddChangeButton(500, YRight + 170);
+                    var deleteButton = dashboardController.AddDeleteButton(360, YRight + 130, r.ReservationID);
+                    var changeButton = dashboardController.AddChangeButton(360, YRight + 170);
                     ButtonList.Add(deleteButton);
                     ButtonList.Add(changeButton);
 
