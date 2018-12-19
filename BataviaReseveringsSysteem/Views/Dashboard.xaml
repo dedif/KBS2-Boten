@@ -17,8 +17,8 @@
         Focusable="True">
     <Grid Name="GridDashboard">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="610"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -27,23 +27,26 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Canvas
-        Width="1024"
-            Height="50"
-        Background="#673ab7" Margin="0,50,0,1000">
+        Background="#673ab7" Margin="0,0,0,50" Grid.ColumnSpan="3" Grid.Row="1">
             <Label
       Content="Dashboard"
       Foreground="White"
       FontSize="26"
       Canvas.Left="457" Canvas.Top="7" Width="135"/>
         </Canvas>
-        <Button x:Name="AddReservationButton" Content="+ Afschrijving toevoegen" Width="120" Click="AddReservationButton_Click" Margin="279,119,607.667,929"/>
-        <Label x:Name="NoReservationLabel"  Content="U heeft nog geen afschrijvingen"  Visibility="Hidden" FontSize="30" HorizontalAlignment="Left" Height="86" Width="518" Margin="228,201,0,793"/>
-        <Label x:Name="MaxReservations" Visibility="Hidden" Foreground="#FFFF0909" Content="U heeft het maximaal aantal afschrijvingen bereikt" HorizontalAlignment="Left" Margin="468,49,0,0" VerticalAlignment="Top" Width="323"/>
-        <ListView x:Name="NewsMessageBox" HorizontalAlignment="Left" Height="100" Margin="370,111,0,0" VerticalAlignment="Top" Width="100" ItemsSource="{Binding}" Grid.Column="1" Grid.Row="2">
+        <Canvas
+            x:Name="reservationsCanvas"
+            Grid.Row="2"
+            Grid.Column="1" Grid.ColumnSpan="2" Margin="2.667,0,261,0">
+        </Canvas>
+        <StackPanel Grid.ColumnSpan="2" Margin="0,0,519.667,0"/>
+        <Label x:Name="NoReservationLabel"  Content="U heeft nog geen afschrijvingen"  Visibility="Hidden" FontSize="30" HorizontalAlignment="Left" Width="518" Margin="14.667,51,0,481" Grid.Column="1" Grid.Row="2"/>
+        <Label x:Name="MaxReservations" Visibility="Hidden" Foreground="#FFFF0909" Content="U heeft het maximaal aantal afschrijvingen bereikt" HorizontalAlignment="Left" Margin="218.667,49,0,0" VerticalAlignment="Top" Width="323" Grid.Column="1" Height="1"/>
+        <ListView x:Name="NewsMessageBox" HorizontalAlignment="Left" Height="100" Margin="10.333,10,0,0" VerticalAlignment="Top" Width="100" ItemsSource="{Binding}" Grid.Column="2" Grid.Row="2">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBox Text="{Binding Title}" Tag="{Binding NewsMessageID}"
-        GotFocus="TextBox_GotFocus"/>
+                        GotFocus="TextBox_GotFocus"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

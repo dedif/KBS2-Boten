@@ -32,10 +32,12 @@ namespace BataviaReseveringsSysteem.Views
             if(Equals(sender, Skiff))
             {
                 RowersCombo.IsEnabled = false;
+                RowersCombo.SelectedItem = oneRower;
             }
             else
             {
                 RowersCombo.IsEnabled = true;
+                oneRower.IsEnabled = false;
             }
 
             var type = Equals(sender, Scull) ? Boat.BoatType.Scull : Equals(sender, Skiff) ? Boat.BoatType.Skiff : Boat.BoatType.Board;
@@ -43,15 +45,17 @@ namespace BataviaReseveringsSysteem.Views
             using (var context = new DataBase())
             {
                 var amountOfRowersFromCombo = RowersCombo.SelectedIndex == -1 ? 0 : int.Parse(((ComboBoxItem)RowersCombo.SelectedItem).Content.ToString());
-                var boats = (from boat in context.Boats
-                             join d in context.Boat_Diplomas on boat.BoatID equals d.BoatID
+                var boats = (from data in context.Boats
+                             join d in context.Boat_Diplomas on data.BoatID equals d.BoatID
                              join u in context.User_Diplomas on d.DiplomaID equals u.DiplomaID
-                             where boat.Type == type
-                             where boat.Steering == SteeringToggle.IsChecked
-                             where boat.NumberOfRowers == amountOfRowersFromCombo
-                             where boat.AvailableAt <= DateTime.Now
-                             where boat.Deleted == false
-                             select boat).ToList().Distinct();
+                             where data.BoatID == d.BoatID
+                             where d.DiplomaID == u.DiplomaID
+                             where data.Type == type
+                             where data.Steering == SteeringToggle.IsChecked
+                             where data.NumberOfRowers == amountOfRowersFromCombo
+                             where data.AvailableAt <= DateTime.Now
+                             where data.Deleted == false
+                             select data).ToList().Distinct();
 
                 foreach (var item in boats) BoatCombo.Items.Add(item.Name);
             }
