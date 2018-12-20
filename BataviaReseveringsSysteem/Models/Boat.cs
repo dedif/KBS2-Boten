@@ -16,7 +16,6 @@ namespace Models
         public int NumberOfRowers { get; set;}
         public double Weight { get; set; }
         public bool Steering { get; set; }
-        [Index(IsUnique = true)]
         public int BoatLocation { get; set; }
         public DateTime AvailableAt { get; set; }
         public DateTime CreatedAt { get; set; }
