@@ -70,7 +70,7 @@
         <ToggleButton Grid.Row="6" Grid.Column="1" x:Name="SteeringWheelToggle"
               Style="{StaticResource MaterialDesignSwitchToggleButton}"
               ToolTip="Default ToggleButton Style" Margin="131,20.2,60,25.6" FontSize="16"/>
-        <Label Grid.Row="6" Grid.Column="1" Content="Gestuurd:" Margin="10,30.2,163,25.6" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Foreground="#673ab7" Height="29"/>
+        <Label Grid.Row="6" Grid.Column="1" Content="Gestuurd:" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Foreground="#673ab7" Height="29"/>
         <Button Grid.Row="7" Grid.Column="1" x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="SaveButton_Click"/>
         <Button Grid.Row="7" Grid.Column="2" x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="CancelButton_Click"/>
         <Label x:Name="NotificationLabel" Content="&#xD;&#xA;" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Top" Width="290" Grid.Row="4" FontSize="16" Grid.ColumnSpan="2" Grid.Column="2" Margin="10,10.4,0,0"/>
@@ -80,13 +80,14 @@
             VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16" Grid.Column="1" Margin="90,25.8,46,24.8"/>
         <DatePicker x:Name="AvailableAt" SelectedDate="{x:Static sys:DateTime.Now}"  materialDesign:HintAssist.Hint="Ingangs datum" Grid.Row="1" Grid.Column="2" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Gray" Width="110"  Focusable="False" Margin="0,35.4,0,22.2"/>
 
-        <Label Content="Ingangsdatum:" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" FontSize="16" VerticalAlignment="Center" FontWeight="Bold" Foreground="#673ab7" Margin="0,34.4,0,22.2"/>
+        <Label Content="Ingangsdatum:" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" FontSize="16" VerticalAlignment="Center" FontWeight="Bold" Foreground="#673ab7"/>
         <Label 
             Grid.Row="1"
             VerticalAlignment="Center"
+            HorizontalAlignment="Left"
             FontWeight="Bold"
             Foreground="#673ab7" 
-            Content="Naam:" FontSize="16" Margin="16,44.4,177,15.2" Grid.Column="0" Height="26"/>
+            Content="Naam:" FontSize="16"  Grid.Column="1" Height="26"/>
         <Label 
             Grid.Row="2"
             Width="90"
@@ -95,7 +96,7 @@
             FontSize="16"
             FontWeight="Bold"
             Foreground="#673ab7"
-            Content="Type:" Margin="10,32.8,0,23.8" Grid.Column="1" RenderTransformOrigin="0.058,0.658"/>
+            Content="Type:"  Grid.Column="1" RenderTransformOrigin="0.058,0.658"/>
         <Label 
             Grid.Row="3"
             Width="90"
@@ -104,7 +105,7 @@
             FontSize="16"
             FontWeight="Bold"
             Foreground="#673ab7"
-            Content="Gewicht:" Margin="10,25.2,0,30.6" Grid.Column="1" RenderTransformOrigin="0.694,0.557"/>
+            Content="Gewicht:" Grid.Column="1" RenderTransformOrigin="0.694,0.557"/>
         <Label 
             Grid.Row="4"
             Width="90"
@@ -113,7 +114,7 @@
             FontSize="16"
             FontWeight="Bold"
             Foreground="#673ab7"
-            Content="Roeiers:" Margin="16,20.4,0,36.2" Grid.Column="1"/>
+            Content="Roeiers:" Grid.Column="1"/>
         <Label 
             Grid.Row="5"
             Width="90"
@@ -122,7 +123,7 @@
             FontSize="16"
             FontWeight="Bold"
             Foreground="#673ab7"
-            Content="Locatie:" Margin="16,31.8,0,24.8" Grid.Column="1"/>
+            Content="Locatie:" Grid.Column="1"/>
         <Label Content="Nee" Grid.Column="1" HorizontalAlignment="Left" Margin="98,30.2,0,0" Grid.Row="6" VerticalAlignment="Top" RenderTransformOrigin="-3.287,0.714"/>
         <Label Content="Ja" Grid.Column="1" HorizontalAlignment="Left" Margin="196,30.2,0,0" Grid.Row="6" VerticalAlignment="Top" Height="25" Width="41" RenderTransformOrigin="-2.998,3.389"/>
     </Grid>
