@@ -36,7 +36,7 @@
         </Canvas>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Label 
-                Content="Naam"
+                Content="Naam:"
                 Grid.Row="2"
                 FontWeight="Bold"
                 Foreground="#673ab7"            
@@ -49,11 +49,11 @@
                 x:Name="Firstname" 
                 materialDesign:HintAssist.Hint="Voornaam"
                 Height="35" 
-                Margin="20,0,0,0"
+                Margin="35,0,0,0"
                 TextWrapping="Wrap" 
                 Width="140"/>
             <Label 
-                Content="tussenvoegsel"
+                Content="Tussenvoegsel:"
                 Grid.Row="2"
                 FontWeight="Bold"
                 Foreground="#673ab7"            
@@ -68,10 +68,10 @@
                 TextWrapping="Wrap" 
                 Width="140"/>
             <Label 
-                Content="Achternaam"
+                Content="Achternaam:"
                 Grid.Row="2"
-                Width="140"
-                Margin="20,5,0,0"
+                Width="89"
+                Margin="60,42,0,37"
                 FontWeight="Bold"
                 Foreground="#673ab7"            
                 Height="25"/>
@@ -87,7 +87,7 @@
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal">
             <Label
-                Content="Adres"
+                Content="Adres:"
                 FontWeight="Bold"
                 Foreground="#673ab7"            
                 Width="75"
@@ -97,11 +97,11 @@
                 x:Name="Address"
                 materialDesign:HintAssist.Hint="Straat en huisnummer"
                 Height="35" 
-                Margin="20,0,0,0"
+                Margin="35,0,0,0"
                 TextWrapping="Wrap" 
                 Width="140"/>
             <Label
-                Content="Postcode"
+                Content="Postcode:"
                 FontWeight="Bold"
                 Foreground="#673ab7"            
                 Width="120"
@@ -119,11 +119,11 @@
                 Width="140" 
                 MaxLength="7"/>
             <Label
-                Content="Woonplaats"
+                Content="Woonplaats:"
                 FontWeight="Bold"
                 Foreground="#673ab7"            
-                Width="140"
-                Margin="20,0,0,0"
+                Width="84"
+                Margin="60,39,0,39"
                 Height="25"/>
             <TextBox  
                 x:Name="City" 
@@ -137,17 +137,15 @@
         </StackPanel>
         <StackPanel Grid.Row="4" Orientation="Horizontal">
             <Label 
-                Content="Geslacht"
+                Content="Geslacht:"
                 Margin="20,0,0,0"
                 FontWeight="Bold"
                 Foreground="#673ab7"            
                 Width="75"
                 Height="25"/>
             <ComboBox
-                Grid.Row="2"
-                Grid.Column="1"
                 x:Name="Gender"
-                Margin="20,0,0,0"
+                Margin="35,38,0,37"
                 materialDesign:HintAssist.Hint="Selecteer"
                 Width="140"   
                 IsEditable="True" 
@@ -157,11 +155,11 @@
                 <ComboBoxItem x:Name="Other" Tag="3" Content="Anders"/>
             </ComboBox>
             <Label 
-                Content="Geboorte datum" 
+                Content="Geboortedatum:" 
                 FontWeight="Bold"
                 Foreground="#673ab7"            
-                Width="120"
-                Margin="20,0,0,0"
+                Width="151"
+                Margin="20,39,0,39"
                 Height="25"/>
             <StackPanel Orientation="Horizontal" Width="140" Margin="20,0,0,0">
                 <TextBox
@@ -202,12 +200,12 @@
                     Height="35"/>
             </StackPanel>
             <Label
-                Content="Telefoon"
+                Content="Telefoon:"
                 FontWeight="Bold"
                 Foreground="#673ab7"            
-                Margin="20,0,0,0"
+                Margin="40,39,0,39"
                 Height="25"
-                Width="140"                
+                Width="78"                
                 />
             <TextBox 
                 PreviewTextInput="NumberValidationTextBox"
@@ -224,16 +222,16 @@
 
         <StackPanel Grid.Row="5" Orientation="Horizontal">
             <Label 
-                Content="Wachtwoord"
+                Content="Wachtwoord:"
                 Height="25"
-                Width="120"
+                Width="95"
                 FontWeight="Bold"
                 Foreground="#673ab7"            
-                Margin="20,0,0,0"/>
+                Margin="20,39,0,39"/>
             <PasswordBox
                 x:Name="Password"
                 materialDesign:HintAssist.Hint="Wachtwoord"
-                Margin="20,0,0,0"
+                Margin="20,34,0,34"
                 Height="35"
                 PasswordChar="*" 
                 Width="140"/>
@@ -252,7 +250,7 @@
                 Height="25"
                 Width="160"/>
             <Label 
-                Content="Emailadres"
+                Content="Emailadres:"
                 Height="25"
                 FontWeight="Bold"
                 Foreground="#673ab7"            
@@ -277,7 +275,7 @@
             VerticalAlignment="Top"/>
         <StackPanel Grid.Row="6" Orientation="Horizontal">
             <Label
-                Content="Functie"
+                Content="Functie(s):"
                 Width="75"
                 Height="25"
                 Margin="20,0,0,0"
