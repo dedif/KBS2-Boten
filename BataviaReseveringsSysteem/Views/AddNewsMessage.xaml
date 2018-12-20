@@ -45,6 +45,7 @@
             VerticalAlignment="Top" 
             HorizontalAlignment="Left"
             Margin="8,0,0,0"
+            FontSize="16"
             Width="120" 
             Height="35"/>
         <TextBox
@@ -55,6 +56,7 @@
             Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
             VerticalAlignment="Center"
             Height="130"
+             FontSize="16"
             AcceptsReturn="True"
             TextWrapping="Wrap"
             VerticalScrollBarVisibility="Auto"
@@ -89,7 +91,8 @@
             Height="25"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
-            Foreground="Gray"            
+            FontWeight="Bold"
+            Foreground="#673ab7"           
             FontSize="16"/>
         <Label
             Content="Bericht:"
@@ -98,7 +101,8 @@
             Height="25"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
-            Foreground="Gray"            
+            FontWeight="Bold"
+            Foreground="#673ab7"            
             FontSize="16"/>
     </Grid>
 </UserControl>
