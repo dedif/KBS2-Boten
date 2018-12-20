@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Controllers;
 using Views;
 
 namespace ScreenSwitcher
@@ -9,7 +10,7 @@ namespace ScreenSwitcher
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class PageSwitcher : Window
+    public partial class PageSwitcher
     {
         public Canvas switcherCanvas;
         Canvas menuCanvas = new Canvas();
@@ -20,7 +21,10 @@ namespace ScreenSwitcher
             Switcher.pageSwitcher = this;
             using (var context = new DataBase())
             {
-                if (context.Database.Exists()) Switcher.Switch(new LoginView());
+                 if (context.Database.Exists() && new UserController().DataBaseContainsManagementUser())
+                {
+                    Switcher.Switch(new LoginView());
+                }
                 else Switcher.Switch(new Register());
             }
             

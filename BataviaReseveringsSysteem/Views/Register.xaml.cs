@@ -21,9 +21,9 @@ namespace Views
 
         public Register()
         {
-            this.InitializeComponent();
-            this.HorizontalAlignment = HorizontalAlignment.Center;
-            using (DataBase context = new DataBase())
+            InitializeComponent();
+            HorizontalAlignment = HorizontalAlignment.Center;
+            using (var context = new DataBase())
             {
                 // als er nog geen diploma's in de database staan maak dan deze diploma's aan.
                 if (!context.Diplomas.Any(z => z.DiplomaName == "S1" || z.DiplomaName == "S2" || z.DiplomaName == "S3" || z.DiplomaName == "P1" || z.DiplomaName == "P2" || z.DiplomaName == "B1" || z.DiplomaName == "B2" || z.DiplomaName == "B3"))
@@ -56,9 +56,9 @@ namespace Views
                     dbc.Add_Role("Bestuur");
                 }
 
-                var Roles = context.Roles.ToList();
+                var roles = context.Roles.ToList();
 
-                foreach (var role in Roles)
+                foreach (var role in roles)
                 {
                     if("Reparateur" == role.RoleName)
                     {
@@ -103,40 +103,44 @@ namespace Views
         //Register user of user
         private void ButtonRegister(object sender, RoutedEventArgs e)
         {
-            if (RegisterController.Register(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, EndOfSubscription))
+            var managementIsChecked = Bestuur.IsChecked;
+            if (managementIsChecked.HasValue && managementIsChecked.Value || new UserController().DataBaseContainsManagementUser())
             {
-                using (DataBase context = new DataBase()) {
-                    List<CheckBox> CheckBoxList = new List<CheckBox>() { Reparateur, Commissaris, Examinator, Coach, Bestuur };
-                  
-                    foreach (CheckBox c in CheckBoxList)
+                if (RegisterController.Register(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, EndOfSubscription))
+                {
+                    using (DataBase context = new DataBase())
                     {
-                        if (c.IsChecked == true)
+                        var checkBoxList = new List<CheckBox>() { Reparateur, Commissaris, Examinator, Coach, Bestuur };
+
+                        foreach (CheckBox c in checkBoxList)
                         {
-                            int roleID = int.Parse(c.Tag.ToString());
-                            
-
-
-                            var User_Roles = context.User_Roles.Any(x => x.RoleID == roleID && x.DeletedAt == null);
-
-                            var LastUserID = context.Users.Select(x => x.UserID).ToList().Last();
+                            if (c.IsChecked != true) continue;
+                            var roleId = int.Parse(c.Tag.ToString());
+                            var userRoles = context.User_Roles.Any(x => x.RoleID == roleId && x.DeletedAt == null);
+                            var lastUserId = context.Users.Select(x => x.UserID).ToList().Last();
                             var max = context.Users.OrderByDescending(p => p.UserID).FirstOrDefault().UserID;
-
-                            dbc.Add_UserRole(roleID, max);
+                            dbc.Add_UserRole(roleId, max);
                         }
                     }
+                    try
+                    {
+                        Switcher.Switch(new Dashboard());
+                    }
+                    catch
+                    {
+                        Switcher.Switch(new LoginView());
+                    }
+
                 }
-                try
+                else
                 {
-                    Switcher.Switch(new Dashboard());
-                } catch
-                {
-                    Switcher.Switch(new LoginView());
+                    RegisterError.Content = "Controleer uw gegevens!";
+                    RegisterError.UpdateLayout();
                 }
-                    
             }
             else
             {
-                RegisterError.Content = "Controleer uw gegevens!";
+                RegisterError.Content = "Je moet een bestuurslid opgeven als eerste gebruiker";
                 RegisterError.UpdateLayout();
             }
         }

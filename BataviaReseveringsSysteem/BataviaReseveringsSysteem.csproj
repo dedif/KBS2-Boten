@@ -95,7 +95,6 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\User_Diploma.cs" />
     <Compile Include="Models\User_Role.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Views\AddNewsMessage.xaml.cs">
       <DependentUpon>AddNewsMessage.xaml</DependentUpon>
     </Compile>
@@ -291,6 +290,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
