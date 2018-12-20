@@ -142,6 +142,7 @@ namespace Views
                         if (TimeOfOccupyForFix.SelectedDate.Value <= TimeOfFix.SelectedDate.Value)
                         {//kijkt of reservering al is gereserveerd
                          //AlreadyReserved(NameBoatLabel.Content.ToString());
+
                             MessageBoxResult Melding = MessageBox.Show(
                                         "Weet u het zeker?",
                                         // "Boot is gereserveerd in de toekomst" als boot is gereserveerd. Anders null

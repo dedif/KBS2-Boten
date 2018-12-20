@@ -38,18 +38,14 @@ namespace BataviaReseveringsSysteem.Views
             {
                 NotificationLabel.Content = nmc.Notification();
 
-                MessageBoxResult Succes = MessageBox.Show(
-                    "Het nieuwsbericht is succesvol aangepast",
-                    "Gelukt!",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
+
+                System.Windows.Forms.DialogResult Succes = System.Windows.Forms.MessageBoxEx.Show("Het nieuwsbericht is succesvol aangepast", "Succes", System.Windows.Forms.MessageBoxButtons.OK, 30000);
 
                 switch (Succes)
                 {
-                    case MessageBoxResult.OK:
-                        nmc.Update_NewsMessage(EditNewsMessageID,TitleBox.Text, NewsMessageBox.Text);
+                    case System.Windows.Forms.DialogResult.OK:
+                        nmc.Update_NewsMessage(EditNewsMessageID, TitleBox.Text, NewsMessageBox.Text);
                         Switcher.Switch(new NewsMessageList());
-                       
                         break;
 
                 }

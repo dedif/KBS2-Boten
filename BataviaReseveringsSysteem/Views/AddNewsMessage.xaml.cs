@@ -23,19 +23,16 @@ namespace BataviaReseveringsSysteem.Views
 
                 NotificationLabel.Content = nmc.Notification();
 
-                MessageBoxResult Succes = MessageBox.Show(
-                    "Uw bericht is geplaatst",
-                    "Gelukt!",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
+
+                System.Windows.Forms.DialogResult Succes = System.Windows.Forms.MessageBoxEx.Show("Uw bericht is geplaatst", "Gelukt!", System.Windows.Forms.MessageBoxButtons.OK, 30000);
 
                 switch (Succes)
                 {
-                    case MessageBoxResult.OK:
+                    case System.Windows.Forms.DialogResult.OK:
                         nmc.Add_NewsMessage(TitleBox.Text, NewsMessageBox.Text);
                         Switcher.Switch(new NewsMessageList());
-
                         break;
+
                 }
             }
             else
