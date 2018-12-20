@@ -20,6 +20,8 @@ namespace Views
             InitializeComponent();
             this.HorizontalAlignment = HorizontalAlignment.Center;
             this.VerticalAlignment = VerticalAlignment.Center;
+            TypCombo.SelectedIndex = 1;
+            RowersCombo.SelectedItem = "1";
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
