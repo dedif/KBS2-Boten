@@ -41,9 +41,9 @@
                 Canvas.Left="384" Canvas.Top="5" Width="212"/>
         </Canvas>
         <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
-            <RadioButton x:Name="HeavyDamageRadioButton" FontSize="14" Content="Zware schade" Checked="HeavyDamageRadioButton_Checked"/>
-            <RadioButton x:Name="LightDamageRadioButton" Margin="15,0,0,0" FontSize="14" Content="Lichte schade" Checked="NoDamageRadioButton_Checked"/>
-            <RadioButton x:Name="NoDamageRadioButton" Margin="14,0,0,0" FontSize="14" Content="Hersteld" Checked="NoDamageRadioButton_Checked"/>
+            <RadioButton x:Name="HeavyDamageRadioButton" FontSize="16" Content="Zware schade" Checked="HeavyDamageRadioButton_Checked"/>
+            <RadioButton x:Name="LightDamageRadioButton" Margin="1,0,0,0" FontSize="16" Content="Lichte schade" Checked="NoDamageRadioButton_Checked"/>
+            <RadioButton x:Name="NoDamageRadioButton" Margin="14,0,0,0" FontSize="16" Content="Hersteld" Checked="NoDamageRadioButton_Checked" Width="79"/>
         </StackPanel>
         <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
             <Button x:Name="CancelButton" Content="Annuleren" FontSize="16" Width="120" Click="CancelButton_Click"/>
@@ -52,16 +52,19 @@
         <Label Grid.Row="5" Grid.Column="1" x:Name="NotificationLabel" Visibility="Hidden" Content="De boot wordt uit de vaart genomen bij zware schade" FontSize="16" HorizontalAlignment="Left" Margin="46,246,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.237,0" Foreground="Red"/>
         <Label x:Name="MessageLabel" Visibility="Hidden" Content="U heeft geen beschrijving ingevuld" HorizontalAlignment="Left" Margin="53,1,0,0" VerticalAlignment="Top" Width="313" FontSize="16" Foreground="#FFF70505"/>
 
-        <Label Content="Uit vaart:" Grid.Column="1" HorizontalAlignment="Left" Margin="10.4,30.6,0,0" Grid.Row="5" Foreground="#673ab7" VerticalAlignment="Top" Height="26" Width="79" FontSize="14"/>
-        <Label Content="Hersteld:" Grid.Column="1" HorizontalAlignment="Left" Margin="10.4,29.6,0,33.2" Grid.Row="6" Foreground="#673ab7" Width="79" FontSize="14"/>
-        <Calendar x:Name="DateDamageFix" SelectionMode="MultipleRange" HorizontalAlignment="Left" Margin="19.6,56.4,0,0" Grid.Row="2" Grid.RowSpan="6" VerticalAlignment="Top" Height="389" Width="283" Grid.Column="2"/>
+        <Label Content="Uit vaart:" Grid.Column="1" HorizontalAlignment="Left" Margin="10.4,30.6,0,0" Grid.Row="5" Foreground="#673ab7" VerticalAlignment="Top" Height="26" Width="79" FontSize="16"/>
+        <Label Content="Hersteld:" Grid.Column="1" HorizontalAlignment="Left" Margin="10.4,29.6,0,33.2" Grid.Row="6" Foreground="#673ab7" Width="79" FontSize="16"/>
+        <Calendar x:Name="DateDamageFix" SelectionMode="MultipleRange" FontSize="16" HorizontalAlignment="Left" Margin="19.6,56.4,0,0" Grid.Row="2" Grid.RowSpan="6" VerticalAlignment="Top" Height="389" Width="283" Grid.Column="2"/>
         <DatePicker x:Name="TimeOfOccupyForFix" Grid.Column="1" SelectedDateChanged="ClickDates"  HorizontalAlignment="Left" Margin="89.4,39.6,0,0" Grid.Row="5" VerticalAlignment="Top" />
         <DatePicker x:Name="TimeOfFix" Grid.Column="1" SelectedDateChanged="ClickDate"  HorizontalAlignment="Left" Margin="89.4,26.6,0,0" Grid.Row="6" VerticalAlignment="Top"/>
 
         <Label x:Name="Label" Content="iijsnn" Grid.Column="1" Visibility="Hidden" HorizontalAlignment="Left" Margin="10.4,55.6,0,0" Grid.Row="6" VerticalAlignment="Top" Width="228" Height="30" Foreground="#DDF10606" FontSize="14"/>
-        <Label Content="Planning:" Foreground="#673ab7" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Left" Margin="19.6,4.4,0,0" Grid.Row="2" VerticalAlignment="Top" Height="41" RenderTransformOrigin="0.521,0.098" FontSize="14"/>
-        <Label x:Name="NameBoatLabel" Content="NameBoot" Grid.Column="1" HorizontalAlignment="Left" Margin="10.4,72.4,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="14" Grid.RowSpan="2"/>
-        <Label x:Name="textboxLabel" Content="Beschrijving" Grid.Column="1" Foreground="#673ab7" HorizontalAlignment="Left" Margin="10.4,28.4,0,0" Grid.Row="2" VerticalAlignment="Top" Height="126" Grid.RowSpan="2" Width="319" FontSize="14"/>
+        <Label Content="Planning:" Foreground="#673ab7" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Left" Margin="19.6,4.4,0,0" Grid.Row="2" VerticalAlignment="Top" Height="41" RenderTransformOrigin="0.521,0.098" FontSize="16"/>
+        <Label x:Name="NameBoatLabel" Content="NameBoot" Grid.Column="1" HorizontalAlignment="Left" Margin="10.4,72.4,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Grid.RowSpan="2"/>
+        <Label x:Name="textboxLabel" Content="Beschrijving" Grid.Column="1" HorizontalAlignment="Left" Margin="10.4,28.4,0,0" Grid.Row="2" VerticalAlignment="Top" Height="126" Grid.RowSpan="2" Width="319" FontSize="16"/>
+        <Label x:Name="BoatNameLabel" Content="Naamboot:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="37" Width="97" FontSize="16" FontWeight="Bold" Foreground="#673ab7" Margin="0,0,10,79" Grid.RowSpan="2"/>
+        <Label x:Name="DescibtionLabel" Content="Beschrijving:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="37" Width="110" FontSize="16" FontWeight="Bold" Foreground="#673ab7" Margin="0,30,10,21"/>
+        <Label x:Name="DamageLabel" Content="Schade:" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Top" Height="37" Width="110" FontSize="16" FontWeight="Bold" Foreground="#673ab7"/>
 
     </Grid>
 </UserControl>
