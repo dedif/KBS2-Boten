@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Controllers;
 using Views;
 
 namespace ScreenSwitcher
@@ -20,7 +21,10 @@ namespace ScreenSwitcher
             Switcher.pageSwitcher = this;
             using (var context = new DataBase())
             {
-                if (context.Database.Exists()) Switcher.Switch(new LoginView());
+                if (context.Database.Exists() && new UserController().DataBaseDoesNotContainManagementAccount())
+                {
+                    Switcher.Switch(new LoginView());
+                }
                 else Switcher.Switch(new Register());
             }
             

@@ -1,4 +1,5 @@
-﻿using Controllers;
+﻿using System;
+using Controllers;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
@@ -21,7 +22,7 @@ namespace UnitTest
             //Arrange
             BoatController boot = new BoatController();
             //Act
-            bool result = boot.WhiteCheck(Name, Weight);
+            bool result = boot.WhiteCheck(Name, Weight, "1");
             //Assert
             Assert.AreEqual(answer, result);
         }
@@ -53,7 +54,7 @@ namespace UnitTest
         {
             //Arrange
             BoatController boot = new BoatController();
-            boot.AddBoat("pizza", "scull", 3, 23, false);
+            boot.AddBoat("pizza", "scull", 3, 23, false, 1, DateTime.Now);
             //Act
             bool result = boot.NameCheck(name);
             //Assert

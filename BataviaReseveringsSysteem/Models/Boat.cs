@@ -6,14 +6,14 @@ namespace Models
 {
     public class Boat
     {
-        public enum BoatType {Scull = 0 , Skiff = 1, Board = 2}
+        public enum BoatType { Scull = 0, Skiff = 1, Board = 2 }
 
         [Key]
         public int BoatID { get; set; }
 
         public string Name { get; set; }
         public BoatType Type { get; set; }
-        public int NumberOfRowers { get; set;}
+        public int NumberOfRowers { get; set; }
         public double Weight { get; set; }
         public bool Steering { get; set; }
         [Index(IsUnique = true)]
@@ -35,16 +35,10 @@ namespace Models
             BoatLocation = boatLocation;
             CreatedAt = createdAt;
             AvailableAt = availableAt;
-
-
         }
+
         public Boat()
         {
-
         }
-
-
-
-
     }
 }

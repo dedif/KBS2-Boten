@@ -5,7 +5,6 @@ namespace BataviaReseveringsSysteem.Database
 {
     public class DataBase : DbContext
     {
-
         public DataBase() : base("name = DataBase") { }
         public virtual DbSet<Boat> Boats { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -18,8 +17,5 @@ namespace BataviaReseveringsSysteem.Database
         public virtual DbSet<User_Role> User_Roles { get; set; }
         public virtual DbSet<Damage> Damages { get; set; }
         public virtual DbSet<Mail> Mails { get; set; }
-
     }
 }
-    
-
