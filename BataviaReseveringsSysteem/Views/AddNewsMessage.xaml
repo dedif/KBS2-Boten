@@ -61,7 +61,6 @@
             Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
 
             VerticalAlignment="Center"
-            Height="130"
              FontSize="16"
 
             AcceptsReturn="True"
@@ -70,48 +69,7 @@
             materialDesign:HintAssist.Hint="Bericht"
             IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextFieldTextBoxEnabledComboBox}"/>
 
-        <Label 
-            x:Name="NotificationLabel" 
-            Grid.Row="4"
-            Grid.Column="1"
-            Content="&#xD;&#xA;" 
-            Width="290" 
-            FontSize="16" 
-            Foreground="#DDFF0000"/>
-        <Button 
-            Grid.Row="5"
-            Grid.Column="1"
-            HorizontalAlignment="Right"
-            Content="Plaatsen" 
-            Width="120" 
-            FontSize="16" 
-            x:Name="SaveNewsMessage" 
-            Click="SaveNewsMessage_Click"/>
-        <Button 
-            Grid.Row="5"
-            Grid.Column="1"
-            HorizontalAlignment="Left"
-            Content="Annuleren" Width="120" x:Name="Cancel" FontSize="16" Click="CancelNewsMessage_Click"/>
-        <Label
-            Content="Titel:"
-            Grid.Row="1"
-            Grid.Column="1"
-            Height="25"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"
-            FontWeight="Bold"
-            Foreground="#673ab7"           
-            FontSize="16"/>
-        <Label
-            Content="Bericht:"
-            Grid.Row="2"
-            Grid.Column="1"
-            Height="25"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"
-            FontWeight="Bold"
-            Foreground="#673ab7"            
-            FontSize="16"/>
+        
 
         <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Height="32" HorizontalAlignment="Right" VerticalAlignment="Top">
             <Button Content="Annuleren" FontSize="16" Width="120" x:Name="SaveNewsMessage" Click="CancelNewsMessage_Click" Margin="0,0,100,0"/>
