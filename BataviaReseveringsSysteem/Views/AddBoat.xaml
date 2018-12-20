@@ -94,7 +94,6 @@
         <Label  x:Name="NotificationLabel" Content="&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Center" Width="290" Grid.Row="5" FontSize="16" Grid.Column="2" Foreground="#DDFF0000"/>
         <Label Grid.Row="3" Grid.Column="2" x:Name="SkiffLabel" Foreground="Red" Content="Een skiff boot heeft altijd één roeier en geen stuur" Visibility="Visible" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left" Width="480" Grid.ColumnSpan="2" Margin="0,28"/>
         <Label Grid.Row="4" Grid.Column="2" Content="Geldige diploma's voor deze boot:" FontSize="16" FontWeight="Bold" Foreground="#673ab7"/>
-
         <StackPanel Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <CheckBox x:Name="S1CheckBox" Tag="1" FontSize="16" >
                 <DockPanel Height="16">
@@ -164,8 +163,8 @@
                 SelectedDate="{x:Static sys:DateTime.Now}"  
                 materialDesign:HintAssist.Hint="Ingangs datum" 
                 Width="110"  
+                Foreground="#673ab7"
                 Focusable="False"
-                Foreground="Gray"
                 FontSize="16"
                 Margin="70,0,0,0"/>
         </StackPanel>

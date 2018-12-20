@@ -41,7 +41,7 @@
 
 
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="Boatname"    Binding="{Binding BoatName}" Header="Bootnaam" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Boatname"  Binding="{Binding BoatName}" Header="Bootnaam" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="description"  Binding="{Binding  Description}" Header="Omschrijving" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="timeofclaim"  Binding="{Binding TimeOfClaim, StringFormat=\{0:dd-MM-yyyy \}}" Header="Tijd van schade" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="timeofoccupyforfix"  Binding="{Binding TimeOfOccupyForFix, StringFormat=\{0:dd-MM-yyyy\}}" Header="Uit vaart" IsReadOnly="true"  />
@@ -50,8 +50,6 @@
                 <DataGridTextColumn x:Name="firstname"  Binding="{Binding FirstName}" Header="Voornaam" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="middlename"  Binding="{Binding MiddleName}" Header="" IsReadOnly="true"  />
                 <DataGridTextColumn x:Name="lastname"  Binding="{Binding LastName}" Header="Achternaam" IsReadOnly="true"/>
-
-
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.HeaderTemplate>
 
@@ -86,7 +84,7 @@
         <TextBox 
             materialDesign:HintAssist.Hint="Zoeken"
             HorizontalAlignment="Right" VerticalAlignment="Bottom" 
-            x:Name="Search" TextChanged="Search_TextChanged" Height="23" Margin="0,0,20,10" TextWrapping="Wrap" Width="120" Grid.Row="1"/>
+            x:Name="Search" TextChanged="Search_TextChanged" Height="23" Foreground="#673ab7" Margin="0,0,20,10" TextWrapping="Wrap" Width="120" Grid.Row="1"/>
 
     </Grid>
 

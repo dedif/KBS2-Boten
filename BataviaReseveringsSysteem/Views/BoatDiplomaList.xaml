@@ -82,7 +82,7 @@
 
         <TextBox 
             materialDesign:HintAssist.Hint="Zoeken"
-            HorizontalAlignment="Right" VerticalAlignment="Bottom" x:Name="Search" TextChanged="Search_TextChanged" Height="23" Margin="0,0,20,10" TextWrapping="Wrap" Width="120" Grid.Row="1"/>
+            HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="#673ab7" x:Name="Search" TextChanged="Search_TextChanged" Height="23" Margin="0,0,20,10" TextWrapping="Wrap" Width="120" Grid.Row="1"/>
 
 
     </Grid>

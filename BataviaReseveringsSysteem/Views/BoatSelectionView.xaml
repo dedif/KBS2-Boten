@@ -74,7 +74,7 @@
                 Board
             </RadioButton>
         </StackPanel>
-        <Label FontSize="16" Width="80" Content="Gestuurd:" FontWeight="Bold" Foreground="#673ab7"  Grid.Row="2" Height="35" HorizontalAlignment="Right"/>
+        <Label FontSize="16" Width="80" Content="Gestuurd:" FontWeight="Bold" Foreground="#673ab7" Grid.Row="2" Height="35" HorizontalAlignment="Right"/>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
             <Label Content="Nee" Foreground="Gray" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" FontSize="16"/>
             <ToggleButton
@@ -89,6 +89,7 @@
         <StackPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" Width="150" Margin="25,0,0,5" HorizontalAlignment="Left">
             <ComboBox 
                 x:Name="RowersCombo"
+                Foreground="#673ab7"
                 materialDesign:HintAssist.Hint="Selecteer"
                 FontSize="16" SelectionChanged="RowersCombo_SelectionChanged">
                 <ComboBoxItem x:Name="oneRower" Content="1" Tag="2"/>
@@ -100,6 +101,7 @@
         <StackPanel Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Width="150" HorizontalAlignment="Left" Margin="25,0,0,5">
             <ComboBox 
                 x:Name="BoatCombo"
+                Foreground="#673ab7"
                 materialDesign:HintAssist.Hint="Selecteer boot"
                 FontSize="16" SelectionChanged="BoatCombo_SelectionChanged">
             </ComboBox>
@@ -111,11 +113,13 @@
             <Button
                 x:Name="AnnulerenBtn"
                 Content="Annuleren"
+                 FontSize="16"
                 Width="120" Click="AnnulerenBtn_Click"/>
             <Button
                 x:Name="BevestigenBtn"
                 Content="Bevestigen"
                 Width="120"
+                 FontSize="16"
                 Margin="110,0,0,0" Click="BevestigenBtn_Click"
                 IsEnabled="False"/>
         </StackPanel>

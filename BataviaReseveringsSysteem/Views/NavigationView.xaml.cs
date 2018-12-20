@@ -136,7 +136,7 @@ namespace Views
 
         private void ReportDamageaBtn_Click(object sender, RoutedEventArgs e) => Switcher.Switch(new BoatDamage());
 
-        private void seeDamageListBtn_Click(object sender, RoutedEventArgs e) => Switcher.Switch(new BoatDamageList());
+        private void SeeDamageListBtn_Click(object sender, RoutedEventArgs e) => Switcher.Switch(new BoatDamageList());
 
         private void SeeBoatsBtn_Click(object sender, RoutedEventArgs e) => Switcher.Switch(new BoatList());
 
@@ -152,11 +152,11 @@ namespace Views
         private void SeeBoatDiplomasBtn_Click(object sender, RoutedEventArgs e) =>
             Switcher.Switch(new BoatDiplomaList());
 
-        private void nieuwsBtn_Click(object sender, RoutedEventArgs e)
+        private void NieuwsBtn_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new AddNewsMessage());
         }
-        private void nieuwsListBtn_Click(object sender, RoutedEventArgs e)
+        private void NieuwsListBtn_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new NewsMessageList());
         }
