@@ -130,6 +130,8 @@ namespace Views
                 Examinator.Visibility = Visibility.Hidden;
                 Commissaris.Visibility = Visibility.Hidden;
                 Bestuur.Visibility = Visibility.Hidden;
+                SubscriptionLabel.Visibility = Visibility.Hidden;
+                EndOfSubscription.Visibility = Visibility.Hidden;
             }
 
         }
