@@ -98,7 +98,7 @@
                 <ComboBoxItem Content="8" Tag="8"/>
             </ComboBox>
         </StackPanel>
-        <StackPanel Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Width="150" HorizontalAlignment="Left" Margin="25,0,0,5">
+        <StackPanel Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" Width="150" HorizontalAlignment="Left" Margin="25,20,0,5">
             <ComboBox 
                 x:Name="BoatCombo"
                 Foreground="#673ab7"
@@ -124,6 +124,6 @@
                 IsEnabled="False"/>
         </StackPanel>
         <Label FontSize="16" Content="Aantal roeiers:" FontWeight="Bold" Foreground="#673ab7"  Grid.Row="2" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
-        <Label FontSize="16" Content="Boot:" FontWeight="Bold" Foreground="#673ab7"  Grid.Row="3" Height="35" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.ColumnSpan="2" Margin="0,0,349.666,0"/>
+        <Label FontSize="16" Content="Boot:" FontWeight="Bold" Foreground="#673ab7"  Grid.Row="3" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.ColumnSpan="2" Margin="0,20,349.666,0"/>
     </Grid>
 </UserControl>
