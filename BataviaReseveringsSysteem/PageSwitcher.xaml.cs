@@ -10,7 +10,7 @@ namespace ScreenSwitcher
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class PageSwitcher : Window
+    public partial class PageSwitcher
     {
         public Canvas switcherCanvas;
         Canvas menuCanvas = new Canvas();
@@ -21,7 +21,7 @@ namespace ScreenSwitcher
             Switcher.pageSwitcher = this;
             using (var context = new DataBase())
             {
-                if (context.Database.Exists())
+                 if (context.Database.Exists() && new UserController().DataBaseContainsManagementUser())
                 {
                     Switcher.Switch(new LoginView());
                 }

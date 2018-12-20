@@ -273,5 +273,18 @@ namespace Controllers
                 }
             }
         }
+
+        public bool DataBaseContainsManagementUser()
+        {
+            var now = DateTime.Now;
+            using (var context = new DataBase())
+                return
+                    (from userRole in context.User_Roles
+                        where userRole.User.DeletedAt == null || userRole.User.DeletedAt <= now
+                        where userRole.Role.DeletedAt == null || userRole.Role.DeletedAt <= now
+                        where userRole.DeletedAt == null || userRole.DeletedAt <= now
+                        where userRole.Role.RoleName.Equals("Bestuur")
+                        select userRole).Any();
+        }
     }
 }
