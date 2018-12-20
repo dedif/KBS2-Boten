@@ -46,13 +46,12 @@
             Grid.Row="2"
             Grid.Column="1"
             VerticalAlignment="Center"
-            FontSize="16"
             Foreground="Gray"
-            Content="Naam:"/>
+            Content="Naam:" FontSize="16"/>
         <TextBox Grid.Row="2" Grid.Column="1" x:Name="NameBox" 
-                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" />
+                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16" />
         <ComboBox Grid.Row="3" Grid.Column="1" x:Name="TypCombo" 
-                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" SelectionChanged="TypCombo_SelectionChanged">
+                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" SelectionChanged="TypCombo_SelectionChanged" FontSize="16">
             <ComboBoxItem Content="Scull"/>
             <ComboBoxItem  Content="Skiff"/>
             <ComboBoxItem Content="Board"/>
@@ -64,14 +63,14 @@
                   VerticalAlignment="Center" 
                   HorizontalAlignment="Center" 
                   Width="120" 
-                  Height="35">
+                  Height="35" FontSize="16">
             <ComboBoxItem Content="2"/>
             <ComboBoxItem Content="4"/>
             <ComboBoxItem Content="8"/>
         </ComboBox>
         <TextBox Grid.Row="4" Grid.Column="1" x:Name="WeightBox" 
                  materialDesign:HintAssist.Hint="Kg"
-                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35"/>
+                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16"/>
         <ToggleButton 
             Grid.Row="7"
             Grid.Column="1"
@@ -79,13 +78,13 @@
             Width="40"
             x:Name="SteeringWheelToggle"
             Style="{StaticResource MaterialDesignSwitchToggleButton}"
-            ToolTip="Default ToggleButton Style"/>
+            ToolTip="Default ToggleButton Style" FontSize="16" Content="&#xD;&#xA;" RenderTransformOrigin="1.292,0.584" Margin="156,29.8,112,31.2"/>
         <Label 
             Grid.Row="7"
             Grid.Column="1"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
-            Content="Gestuurd?" 
+            Content="Gestuurd" 
             FontSize="16"
             Foreground="Gray"/>
         <Button Grid.Row="8" Grid.Column="2" x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="SaveButton_Click"/>
@@ -149,8 +148,8 @@
             </CheckBox>
         </StackPanel>
         <TextBox Grid.Row="6" Grid.Column="1" x:Name="BoatLocationBox" 
-            materialDesign:HintAssist.Hint="in de loods"
-            VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35"/>
+            materialDesign:HintAssist.Hint="Loods"
+            VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16"/>
         <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
             <Label 
                 Content="Ingangsdatum:" 
@@ -212,5 +211,7 @@
             FontSize="16"
             Foreground="Gray"
             Content="Locatie:"/>
+        <Label Content="Nee&#xD;&#xA;" Foreground="Gray" Grid.Column="1" HorizontalAlignment="Left" Margin="94,29.8,0,0" Grid.Row="7" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Ja" Grid.Column="1" Foreground="Gray" HorizontalAlignment="Left" Margin="229,29.8,0,0" Grid.Row="7" VerticalAlignment="Top" FontSize="16"/>
     </Grid>
 </UserControl>
