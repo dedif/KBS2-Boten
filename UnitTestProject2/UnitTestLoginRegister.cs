@@ -58,7 +58,7 @@ namespace UnitTestLoginRegister
             PasswordBox Co = new PasswordBox() { Password = ConfirmPassword };
 
             //Act
-            bool result = RegisterController.Register(F, M, L, C, Z, A, P, E, D, Mo, Y, G, Pa, Co);
+            bool result = RegisterController.Register(F, M, L, C, Z, A, P, E, D, Mo, Y, G, Pa, Co, new DatePicker());
 
             //Assert
             Assert.AreEqual(answer, result);

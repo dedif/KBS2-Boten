@@ -18,7 +18,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="100"/>
-            <RowDefinition/>
+            <RowDefinition Height="500"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -48,14 +48,13 @@
             x:Name="NewsMessageBox"
             Grid.Row="2"
             Grid.Column="1"
-            Height="200"
             Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
             AcceptsReturn="True"
             TextWrapping="Wrap"
             BorderBrush="#673ab7"
             VerticalScrollBarVisibility="Auto"
             
-            IsEnabled="true"  IsReadOnly="True"/>
+            IsEnabled="true"  IsReadOnly="True" Margin="0,10"/>
         <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Height="32" HorizontalAlignment="Right" VerticalAlignment="Top">
             <Button Content="Ga terug" Width="120" FontSize="16" x:Name="Cancel" Click="CancelNewsMessage_Click"/>
         </StackPanel>
