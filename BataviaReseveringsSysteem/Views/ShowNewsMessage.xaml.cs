@@ -28,7 +28,8 @@ namespace BataviaReseveringsSysteem.Views
                    
                   
                     // content van de pagina invullen
-                    TitleBox.Content = $"{newsMessage.Title} {newsMessage.CreatedAt.ToString("dd-MM-yyyy")}";
+                    TitleBox.Content = newsMessage.Title;
+                    NewsMessageDateLabel.Content = newsMessage.CreatedAt.ToString("dd-MM-yyyy");
                     NewsMessageBox.Text = newsMessage.Message;
                 }
                 

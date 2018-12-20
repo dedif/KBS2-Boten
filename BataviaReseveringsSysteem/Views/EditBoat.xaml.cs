@@ -58,109 +58,6 @@ namespace Views
             }
         }
 
-        public void EditBoatDiploma()
-        {
-            using (DataBase context = new DataBase())
-            {
-                var Diplomas = context.Diplomas.ToList();
-
-                foreach (var diploma in Diplomas)
-                {
-                    if ("S1" == diploma.DiplomaName)
-                    {
-                        S1CheckBox.Content = diploma.DiplomaName;
-                        S1CheckBox.Tag = diploma.DiplomaID;
-                    }
-                    if ("S2" == diploma.DiplomaName)
-                    {
-                        S2CheckBox.Content = diploma.DiplomaName;
-                        S2CheckBox.Tag = diploma.DiplomaID;
-
-                    }
-                    if ("S3" == diploma.DiplomaName)
-                    {
-                        S3CheckBox.Content = diploma.DiplomaName;
-                        S3CheckBox.Tag = diploma.DiplomaID;
-
-                    }
-                    if ("P1" == diploma.DiplomaName)
-                    {
-                        P1CheckBox.Content = diploma.DiplomaName;
-                        P1CheckBox.Tag = diploma.DiplomaID;
-
-                    }
-                    if ("P2" == diploma.DiplomaName)
-                    {
-                        P2CheckBox.Content = diploma.DiplomaName;
-                        P2CheckBox.Tag = diploma.DiplomaID;
-
-
-                    }
-                    if ("B1" == diploma.DiplomaName)
-                    {
-                        B1CheckBox.Content = diploma.DiplomaName;
-                        B1CheckBox.Tag = diploma.DiplomaID;
-
-                    }
-                    if ("B2" == diploma.DiplomaName)
-                    {
-                        B2CheckBox.Content = diploma.DiplomaName;
-                        B2CheckBox.Tag = diploma.DiplomaID;
-
-                    }
-                    if ("B3" == diploma.DiplomaName)
-                    {
-                        B3CheckBox.Content = diploma.DiplomaName;
-                        B3CheckBox.Tag = diploma.DiplomaID;
-
-                    }
-                }
-
-                var BoatDiplomas = from x in context.Boat_Diplomas
-                                   where x.BoatID == EditBoatID
-                                   select x;
-
-                foreach (var memberRole in BoatDiplomas)
-                {
-                    if (memberRole.DiplomaID == int.Parse(S1CheckBox.Tag.ToString()))
-                    {
-                        S1CheckBox.IsChecked = true;
-                    }
-
-                    if (memberRole.DiplomaID == int.Parse(S2CheckBox.Tag.ToString()))
-                    {
-                        S2CheckBox.IsChecked = true;
-                    }
-
-                    if (memberRole.DiplomaID == int.Parse(S3CheckBox.Tag.ToString()))
-                    {
-                        S3CheckBox.IsChecked = true;
-                    }
-                    if (memberRole.DiplomaID == int.Parse(B1CheckBox.Tag.ToString()))
-                    {
-                        B1CheckBox.IsChecked = true;
-                    }
-                    if (memberRole.DiplomaID == int.Parse(B2CheckBox.Tag.ToString()))
-                    {
-                        B2CheckBox.IsChecked = true;
-                    }
-                    if (memberRole.DiplomaID == int.Parse(B3CheckBox.Tag.ToString()))
-                    {
-                        B3CheckBox.IsChecked = true;
-                    }
-                    if (memberRole.DiplomaID == int.Parse(P1CheckBox.Tag.ToString()))
-                    {
-                        P1CheckBox.IsChecked = true;
-                    }
-                    if (memberRole.DiplomaID == int.Parse(P2CheckBox.Tag.ToString()))
-                    {
-                        P2CheckBox.IsChecked = true;
-                    }
-                }
-            }
-
-        }
-
         public void UtilizeState(object state)
         {
             throw new NotImplementedException();
@@ -224,7 +121,6 @@ namespace Views
                 }
             }
             NotificationLabel.Content = b.Notification();
-            EditBoatDiploma();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
