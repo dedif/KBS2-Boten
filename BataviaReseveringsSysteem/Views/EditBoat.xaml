@@ -100,37 +100,128 @@
                   Foreground="#673ab7"
                   materialDesign:HintAssist.Hint="Aantal roeiers"
                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35"
-                  FontSize="16">
+                  FontSize="16" Margin="90,14.4,46,36.2">
             <ComboBoxItem x:Name="oneRower" Content="1"/>
             <ComboBoxItem x:Name="twoRowers" Content="2"/>
             <ComboBoxItem x:Name="fourRower" Content="4"/>
             <ComboBoxItem x:Name="eightRower" Content="8"/>
         </ComboBox>
-        <TextBox Grid.Row="4" Grid.Column="1" x:Name="WeightBox"
-                 Foreground="#673ab7"
-                 materialDesign:HintAssist.Hint="Gewicht (kg)"
-                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16"/>
-        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Width="120">
-            <Label Content="Stuur?" FontSize="16" Foreground="#673ab7"/>
-            <ToggleButton x:Name="SteeringWheelToggle"
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="WeightBox" 
+                 materialDesign:HintAssist.Hint="Kg"
+                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16" Margin="90,19.2,46,30.6"/>
+        <ToggleButton Grid.Row="6" Grid.Column="1" x:Name="SteeringWheelToggle"
               Style="{StaticResource MaterialDesignSwitchToggleButton}"
-              ToolTip="Default ToggleButton Style"/>
-        </StackPanel>
-        <Button Grid.Row="7" Grid.Column="2" x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Right" VerticalAlignment="Center" Width="140" Height="35" FontSize="16" Click="SaveButton_Click"/>
-        <Button Grid.Row="7" Grid.Column="1" x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Height="35" FontSize="16" Click="CancelButton_Click"/>
-        <Label x:Name="NotificationLabel" Content="&#xD;&#xA;" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Top" Width="290" Grid.Row="8" Grid.Column="1" FontSize="16" />
+              ToolTip="Default ToggleButton Style" Margin="131,20.2,60,25.6" FontSize="16"/>
+        <Label Grid.Row="6" Grid.Column="1" Content="Gestuurd:" Margin="10,30.2,163,25.6" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Foreground="#673ab7" Height="29"/>
+        <Button Grid.Row="7" Grid.Column="1" x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="SaveButton_Click"/>
+        <Button Grid.Row="7" Grid.Column="2" x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="CancelButton_Click"/>
+        <Label x:Name="NotificationLabel" Content="&#xD;&#xA;" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Top" Width="290" Grid.Row="4" FontSize="16" Grid.ColumnSpan="2" Grid.Column="2" Margin="10,10.4,0,0"/>
         <TextBlock  Grid.Row="2" Grid.Column="2" x:Name="SkiffLabel" FontSize="16" TextWrapping="Wrap" Text="Een skiff boot heeft altijd één roeier en geen stuur" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Left" Width="331"/>
-        <Label Grid.Row="3" Grid.Column="2" Content="" FontSize="16" FontWeight="Bold" Foreground="#673ab7"/>
+        <Label Grid.Row="3" Grid.Column="2" Content="Benodigd diploma:" FontSize="16" FontWeight="Bold" Foreground="#673ab7"/>
 
-        <StackPanel Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-        <StackPanel Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-        <StackPanel Grid.Row="3" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-        <TextBox Grid.Row="5" x:Name="BoatLocationBox"
-                 Foreground="#673ab7"
-            materialDesign:HintAssist.Hint="Boot locatie"
-            VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16" Grid.Column="1"/>
-        <DatePicker x:Name="AvailableAt" SelectedDate="{x:Static sys:DateTime.Now}"  materialDesign:HintAssist.Hint="Ingangs datum" Grid.Row="1" Grid.Column="2" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Gray" Width="110"  Focusable="False"/>
+        <StackPanel Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <CheckBox x:Name="S1CheckBox" Tag="1" FontSize="16" >
+                <DockPanel Height="16">
+                    <Image DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Top" Text="S1" />
+                </DockPanel>
+            </CheckBox>
+            <CheckBox x:Name="S2CheckBox" Tag="2" FontSize="16" >
+                <DockPanel Height="16">
+                    <Image DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Top" Text="S2" />
+                </DockPanel>
+            </CheckBox>
+            <CheckBox x:Name="S3CheckBox" Tag="3" FontSize="16">
+                <DockPanel Height="16">
+                    <Image DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Top" Text="S3" />
+                </DockPanel>
+            </CheckBox>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <CheckBox x:Name="B1CheckBox" Tag="4" FontSize="16">
+                <DockPanel Height="16">
+                    <Image DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Top" Text="B1" />
+                </DockPanel>
+            </CheckBox>
+            <CheckBox x:Name="B2CheckBox" Tag="5" FontSize="16">
+                <DockPanel Height="16">
+                    <Image DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Top" Text="B2" />
+                </DockPanel>
+            </CheckBox>
+            <CheckBox x:Name="B3CheckBox" Tag="6" FontSize="16" >
+                <DockPanel Height="16">
+                    <Image DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Top" Text="B3" />
+                </DockPanel>
+            </CheckBox>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <CheckBox x:Name="P1CheckBox" Tag="7" FontSize="16">
+                <DockPanel Height="16">
+                    <Image DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Top" Text="P1" />
+                </DockPanel>
+            </CheckBox>
+            <CheckBox x:Name="P2CheckBox" Tag="8" FontSize="16">
+                <DockPanel Height="16">
+                    <Image DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Top" Text="P2" />
+                </DockPanel>
+            </CheckBox>
+        </StackPanel>
+        <TextBox Grid.Row="5" x:Name="BoatLocationBox" 
+            materialDesign:HintAssist.Hint="Locatie"
+            VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16" Grid.Column="1" Margin="90,25.8,46,24.8"/>
+        <DatePicker x:Name="AvailableAt" SelectedDate="{x:Static sys:DateTime.Now}"  materialDesign:HintAssist.Hint="Ingangs datum" Grid.Row="1" Grid.Column="2" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Gray" Width="110"  Focusable="False" Margin="0,35.4,0,22.2"/>
 
-        <Label Content="Ingangsdatum:" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" FontSize="16" VerticalAlignment="Center" FontWeight="Bold" Foreground="#673ab7"/>
+        <Label Content="Ingangsdatum:" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" FontSize="16" VerticalAlignment="Center" FontWeight="Bold" Foreground="#673ab7" Margin="0,34.4,0,22.2"/>
+        <Label 
+            Grid.Row="1"
+            VerticalAlignment="Center"
+            FontWeight="Bold"
+            Foreground="#673ab7" 
+            Content="Naam:" FontSize="16" Margin="16,44.4,177,15.2" Grid.Column="1" Height="26"/>
+        <Label 
+            Grid.Row="2"
+            Width="90"
+            HorizontalAlignment="Left"            
+            VerticalAlignment="Center"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="#673ab7"
+            Content="Type:" Margin="10,32.8,0,23.8" Grid.Column="1" RenderTransformOrigin="0.058,0.658"/>
+        <Label 
+            Grid.Row="3"
+            Width="90"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="#673ab7"
+            Content="Gewicht:" Margin="10,25.2,0,30.6" Grid.Column="1" RenderTransformOrigin="0.694,0.557"/>
+        <Label 
+            Grid.Row="4"
+            Width="90"
+            HorizontalAlignment="Left"            
+            VerticalAlignment="Center"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="#673ab7"
+            Content="Roeiers:" Margin="16,20.4,0,36.2" Grid.Column="1"/>
+        <Label 
+            Grid.Row="5"
+            Width="90"
+            HorizontalAlignment="Left"            
+            VerticalAlignment="Center"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="#673ab7"
+            Content="Locatie:" Margin="16,31.8,0,24.8" Grid.Column="1"/>
+        <Label Content="Nee" Grid.Column="1" HorizontalAlignment="Left" Margin="98,30.2,0,0" Grid.Row="6" VerticalAlignment="Top" RenderTransformOrigin="-3.287,0.714"/>
+        <Label Content="Ja" Grid.Column="1" HorizontalAlignment="Left" Margin="196,30.2,0,0" Grid.Row="6" VerticalAlignment="Top" Height="25" Width="41" RenderTransformOrigin="-2.998,3.389"/>
     </Grid>
 </UserControl>
