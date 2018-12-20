@@ -4,7 +4,8 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
-
+using Microsoft;
+using BataviaReseveringsSysteem.Controllers;
 
 namespace Views
 {
@@ -54,25 +55,37 @@ namespace Views
                                 List<CheckBox> listDiplomaCheckBox = new List<CheckBox> { S1CheckBox, S2CheckBox, S3CheckBox, B1CheckBox, B2CheckBox, B3CheckBox, P1CheckBox, P2CheckBox };
 
                                 //De methode AddBoat wordt aangeroepen om een nieuwe boot toe te voegen aan de database
-                                b.AddBoat(NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation, AvailableAt.SelectedDate.Value);
-                                b.AddDiploma(listDiplomaCheckBox);
+                              
 
 
                                 //Als de boot succesvol is toegevoegd aan de database, laat de applicatie een pop-up scherm zien. 
                                 NotificationLabel.Content = b.Notification();
 
-                                MessageBoxResult Succes = MessageBox.Show(
-                                    "De boot is succesvol opgeslagen",
-                                    "Melding",
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Information);
+
+                                System.Windows.Forms.DialogResult Succes = System.Windows.Forms.MessageBoxEx.Show("De boot is succesvol opgeslagen", "Melding", System.Windows.Forms.MessageBoxButtons.YesNo, 30000);
+
+
+                                //System.Windows.Forms.DialogResult Succes = System.Windows.Forms.MessageBoxEx.Show(
+                                //    "De boot is succesvol opgeslagen",
+                                //    "Melding",
+                                //    MessageBoxButton.OK, 
+                                //    MessageBoxImage.Information,85);
 
                                 switch (Succes)
                                 {
-                                    case MessageBoxResult.OK:
-                                        Switcher.Switch(new Dashboard());
+                                    case System.Windows.Forms.DialogResult.None:
+
                                         break;
+                                    case System.Windows.Forms.DialogResult.Yes:
+                                        b.AddBoat(NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation, AvailableAt.SelectedDate.Value);
+                                        b.AddDiploma(listDiplomaCheckBox);
+                                        Switcher.Switch(new BoatList());
+                                        break;
+
                                 }
+
+
+                              
                             }
                         }
                     }
@@ -81,6 +94,8 @@ namespace Views
             }
             NotificationLabel.Content = b.Notification();
         }
+
+       
 
         private void TypCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
