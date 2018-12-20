@@ -44,14 +44,16 @@
             HorizontalAlignment="Left"
             Content="Naam van de boot:"
             FontSize="16"
-            Foreground="Gray"
+               FontWeight="Bold"
+                Foreground="#673ab7" 
             />
-        <ComboBox x:Name="NameboatCombo" Margin="5,0,0,0"  Grid.Row="2" materialDesign:HintAssist.Hint="Aalscholver III" VerticalAlignment="Center" HorizontalAlignment="Left" Width="245" Grid.Column="1" SelectionChanged="NameboatCombo_SelectionChanged" Height="35"/>
-        <TextBox x:Name="OtherDamages" IsReadOnly="True" Grid.Row="4" Width="499" Grid.Column="1" ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Height="90"/>
-        <Label x:Name="DamagesLabel" Grid.Row="3" Foreground="Gray" Grid.Column="1" FontWeight="Bold" FontSize="16" Content="Reeds gemeldde schade(s):" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <ComboBox x:Name="NameboatCombo" FontSize="16" Margin="5,0,0,0"  Grid.Row="2" materialDesign:HintAssist.Hint="Aalscholver III" VerticalAlignment="Center" HorizontalAlignment="Left" Width="245" Grid.Column="1" SelectionChanged="NameboatCombo_SelectionChanged" Height="35"/>
+        <TextBox x:Name="OtherDamages" FontSize="16" IsReadOnly="True" Grid.Row="4" Width="499" Grid.Column="1" ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Height="90"/>
+        <Label x:Name="DamagesLabel" Grid.Row="3"  Grid.Column="1" FontWeight="Bold" Foreground="#673ab7"  FontSize="16" Content="Reeds gemeldde schade(s):" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
         <StackPanel Grid.Row="3" Grid.Column="1" VerticalAlignment="Top">
             <TextBox
                 Grid.Row="2" Grid.Column="1"
+                FontSize="16"
                 x:Name="DescriptionBox"
                 Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
                 VerticalAlignment="Center"
@@ -64,8 +66,8 @@
                 IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextFieldTextBoxEnabledComboBox}" />
         </StackPanel>
         <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom">
-            <RadioButton x:Name="HeavyDamageRadioButton" Foreground="Gray" HorizontalAlignment="Left" FontSize="16" Content="Zware schade" Checked="HeavyDamageRadioButton_Checked"/>
-            <RadioButton x:Name="LightDamageRadioButton" Foreground="Gray" HorizontalAlignment="Right" FontSize="16" Margin="250,0,0,0" Content="Lichte schade" Checked="LightDamageRadioButton_Checked"/>
+            <RadioButton x:Name="HeavyDamageRadioButton"  HorizontalAlignment="Left" FontSize="16" Content="Zware schade" Checked="HeavyDamageRadioButton_Checked"/>
+            <RadioButton x:Name="LightDamageRadioButton"  HorizontalAlignment="Right" FontSize="16" Margin="250,0,0,0" Content="Lichte schade" Checked="LightDamageRadioButton_Checked"/>
         </StackPanel>
         <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
             <Button x:Name="SaveButton" Content="Opslaan" FontSize="16" Width="120" Click="SaveButton_Click"/>
@@ -82,6 +84,7 @@
             HorizontalAlignment="Left"
             Content="Vermeld hier de schade:"
             FontSize="16"
-            Foreground="Gray"/>
+            FontWeight="Bold"
+            Foreground="#673ab7" />
     </Grid>
 </UserControl>
