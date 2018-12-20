@@ -46,7 +46,8 @@
             Grid.Row="2"
             Grid.Column="1"
             VerticalAlignment="Center"
-            Foreground="Gray"
+            FontWeight="Bold"
+            Foreground="#673ab7" 
             Content="Naam:" FontSize="16"/>
         <TextBox Grid.Row="2" Grid.Column="1" x:Name="NameBox" 
                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16" />
@@ -84,14 +85,15 @@
             Grid.Column="1"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
-            Content="Gestuurd" 
+            Content="Gestuurd:" 
             FontSize="16"
-            Foreground="Gray"/>
+            FontWeight="Bold"
+            Foreground="#673ab7"/>
         <Button Grid.Row="8" Grid.Column="2" x:Name="SaveButton" Content="Opslaan" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="SaveButton_Click"/>
         <Button Grid.Row="8" Grid.Column="1" x:Name="CancelButton" Content="Annuleren" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="35" FontSize="16" Click="CancelButton_Click"/>
         <Label  x:Name="NotificationLabel" Content="&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Center" Width="290" Grid.Row="5" FontSize="16" Grid.Column="2" Foreground="#DDFF0000"/>
         <Label Grid.Row="3" Grid.Column="2" x:Name="SkiffLabel" Foreground="Red" Content="Een skiff boot heeft altijd één roeier en geen stuur" Visibility="Visible" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left" Width="480" Grid.ColumnSpan="2" Margin="0,28"/>
-        <Label Grid.Row="4" Grid.Column="2" Content="Geldige diploma's voor deze boot:" FontSize="16" Foreground="Gray"/>
+        <Label Grid.Row="4" Grid.Column="2" Content="Geldige diploma's voor deze boot:" FontSize="16" FontWeight="Bold" Foreground="#673ab7"/>
 
         <StackPanel Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <CheckBox x:Name="S1CheckBox" Tag="1" FontSize="16" >
@@ -155,7 +157,8 @@
                 Content="Ingangsdatum:" 
                 Width="120"
                 FontSize="16"
-                Foreground="Gray"/>
+                FontWeight="Bold"
+                Foreground="#673ab7"/>
             <DatePicker 
                 x:Name="AvailableAt"
                 SelectedDate="{x:Static sys:DateTime.Now}"  
@@ -173,7 +176,8 @@
             HorizontalAlignment="Left"            
             VerticalAlignment="Center"
             FontSize="16"
-            Foreground="Gray"
+            FontWeight="Bold"
+            Foreground="#673ab7"
             Content="Type:"/>
         <Label 
             Grid.Row="3"
@@ -191,7 +195,8 @@
             Grid.Column="1"
             VerticalAlignment="Center"
             FontSize="16"
-            Foreground="Gray"
+            FontWeight="Bold"
+            Foreground="#673ab7"
             Content="Gewicht:"/>
         <Label 
             Grid.Row="5"
@@ -200,7 +205,8 @@
             HorizontalAlignment="Left"            
             VerticalAlignment="Center"
             FontSize="16"
-            Foreground="Gray"
+            FontWeight="Bold"
+            Foreground="#673ab7"
             Content="Roeiers:"/>
         <Label 
             Grid.Row="6"
@@ -209,9 +215,10 @@
             HorizontalAlignment="Left"            
             VerticalAlignment="Center"
             FontSize="16"
-            Foreground="Gray"
+            FontWeight="Bold"
+            Foreground="#673ab7"
             Content="Locatie:"/>
         <Label Content="Nee&#xD;&#xA;" Foreground="Gray" Grid.Column="1" HorizontalAlignment="Left" Margin="94,29.8,0,0" Grid.Row="7" VerticalAlignment="Top" FontSize="16"/>
-        <Label Content="Ja" Grid.Column="1" Foreground="Gray" HorizontalAlignment="Left" Margin="229,29.8,0,0" Grid.Row="7" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Ja" Grid.Column="1" Foreground="Gray" HorizontalAlignment="Left" Margin="214,29.8,0,0" Grid.Row="7" VerticalAlignment="Top" FontSize="16"/>
     </Grid>
 </UserControl>
