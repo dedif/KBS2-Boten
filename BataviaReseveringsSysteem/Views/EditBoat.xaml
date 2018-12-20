@@ -43,19 +43,16 @@
                 Canvas.Left="384" Canvas.Top="5" Width="208"/>
         </Canvas>
         <TextBox Grid.Row="1" Grid.Column="1" x:Name="NameBox"
-                 Foreground="#673ab7"
                materialDesign:HintAssist.Hint="Bootnaam"
                  VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" FontSize="16" Height="35" />
         <ComboBox Grid.Row="2" Grid.Column="1" x:Name="TypCombo" 
                   materialDesign:HintAssist.Hint="Boottype"
-                  Foreground="#673ab7"
                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35" FontSize="16" SelectionChanged="TypCombo_SelectionChanged">
             <ComboBoxItem x:Name="scullItem" Content="Scull"/>
             <ComboBoxItem x:Name="skiffItem" Content="Skiff"/>
             <ComboBoxItem x:Name="boardItem" Content="Board"/>
         </ComboBox>
         <ComboBox Grid.Row="4" Grid.Column="1" x:Name="RowersCombo" 
-                  Foreground="#673ab7"
                   materialDesign:HintAssist.Hint="Aantal roeiers"
                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" Height="35"
                   FontSize="16" Margin="90,14,46,36">
