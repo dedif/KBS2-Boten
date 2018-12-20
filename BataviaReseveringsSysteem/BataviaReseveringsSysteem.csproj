@@ -121,26 +121,17 @@
     </Compile>
     <Compile Include="Reservations\BoatTypeTabItem.cs" />
     <Compile Include="Reservations\CalcSunTimes.cs" />
-    <Compile Include="Views\DiplomaList.xaml.cs">
-      <DependentUpon>DiplomaList.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\EditBoatDamage.xaml.cs">
       <DependentUpon>EditBoatDamage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditBoatDiplomaView.xaml.cs">
       <DependentUpon>EditBoatDiplomaView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EditDiplomaView.xaml.cs">
-      <DependentUpon>EditDiplomaView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\EditNewsMessage.xaml.cs">
       <DependentUpon>EditNewsMessage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NewsMessageList.xaml.cs">
       <DependentUpon>NewsMessageList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ShowMessageList.xaml.cs">
-      <DependentUpon>ShowMessageList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShowNewsMessage.xaml.cs">
       <DependentUpon>ShowNewsMessage.xaml</DependentUpon>
@@ -203,10 +194,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DiplomaList.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\EditBoatDamage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -215,19 +202,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\EditDiplomaView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\EditNewsMessage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\NewsMessageList.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ShowMessageList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

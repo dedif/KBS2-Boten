@@ -40,7 +40,7 @@ namespace UnitTestProject2
             //maak databse
             DataBase context = new DataBase();
             //maak boot
-            Boat boatTest = new Boat(boatName, Boat.BoatType.Board, 2, 2, false, 1, DateTime.Now, DateTime.Now);
+            Boat boatTest = new Boat(boatName, Boat.BoatType.Board, 2, 2, false, 2, DateTime.Now, DateTime.Now);
             context.Boats.Add(boatTest);
             //maak reservering met toegevoegde boot
             Reservation reservationTest = new Reservation(boatTest, DateTime.Now, DateTime.Now);
@@ -54,7 +54,7 @@ namespace UnitTestProject2
             //boot is al gereserveerd dus reserved wordt gevuld met answer
             boatDamage.AlreadyReserved(boatName);
             // result wordt: " Deze boot is in de toekomst gereserveerd."
-            string result = boatDamage.reserved;
+            string result = boatDamage.Reserved;
             //Assert
             Assert.AreEqual(result, answer);
         }
@@ -65,7 +65,7 @@ namespace UnitTestProject2
         public void Notification_OneReservationAndLastLoggedInBeforeDamage_NotificationIsOne()
         {
             //Arrange
-            Boat boatTest = new Boat("bootTest", Boat.BoatType.Board, 2, 2, false, 1, DateTime.Now, DateTime.Now);
+            Boat boatTest = new Boat("bootTest", Boat.BoatType.Board, 2, 2, false, 2, DateTime.Now, DateTime.Now);
             Reservation reservationTest = new Reservation(boatTest, DateTime.Now, new DateTime());
             Damage damage = new Damage(2, boatTest.BoatID, "boot kapot", "Lichte schade");
             DateTime dateTest = new DateTime(2025, 2, 10);

@@ -1,12 +1,10 @@
 ﻿using BataviaReseveringsSysteem.Database;
-using Controllers;
 using Models;
 using ScreenSwitcher;
 using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Net.Mail;
 using BataviaReseveringsSysteem.Controllers;
 
 namespace Views
@@ -19,10 +17,10 @@ namespace Views
         DataBase context = new DataBase();
         DamageController damageController = new DamageController();
 
-        public string reserved { get; set; } = null;
+        public string Reserved { get; set; } = null;
         public BoatDamage()
         {
-          
+
             InitializeComponent();
 
             var NameBoats = (from data in context.Boats
@@ -37,7 +35,7 @@ namespace Views
                 HeavyDamageRadioButton.IsEnabled = false;
                 LightDamageRadioButton.IsEnabled = false;
                 SaveButton.IsEnabled = false;
-                MessageLabel.Content = "Er zijn geen boten beschikbaar om schade voor te melden.";
+                MessageLabel.Content = "Er zijn geen boten beschikbaar.";
                 MessageLabel.Visibility = Visibility.Visible;
                 DamagesLabel.Visibility = Visibility.Hidden;
                 OtherDamages.Visibility = Visibility.Hidden;
@@ -50,8 +48,8 @@ namespace Views
             NameboatCombo.SelectedIndex = 0;
 
             LightDamageRadioButton.IsChecked = true;
- 
-    }
+
+        }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
@@ -61,63 +59,63 @@ namespace Views
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             //kijkt of beschrijving is ingevuld
-            if (!IsEmpty(DescriptionBox.Text)) { 
+            if (!IsEmpty(DescriptionBox.Text))
+            {
                 //kijkt of reservering al is gereserveerd
                 AlreadyReserved(NameboatCombo.Text);
                 MessageBoxResult Melding = MessageBox.Show(
                             "Weet u zeker dat u deze schade wilt melden?" +
                             // "Boot is gereserveerd in de toekomst" als boot is gereserveerd. Anders null
-                            reserved,
-                            "Melding",
+                            Reserved,
+                            "Bevestigen",
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Question);
 
-                    switch (Melding)
-                    {
+                switch (Melding)
+                {
 
                     case MessageBoxResult.Yes:
 
-                            var Boat = (from data in context.Boats
-                                        where data.Name == NameboatCombo.Text && data.DeletedAt == null
-                                        select data).Single();
+                        var Boat = (from data in context.Boats
+                                    where data.Name == NameboatCombo.Text && data.DeletedAt == null
+                                    select data).Single();
 
                         var Reservations = (from data in context.Reservations
                                             join boats in context.Boats on data.BoatID equals boats.BoatID
                                             where boats.Name.Equals(NameboatCombo.Text)
-                                               where data.Deleted == null
-                                               select data).ToList();
+                                            where data.Deleted == null
+                                            select data).ToList();
 
-                        
+
                         string status = null;
-                            if (LightDamageRadioButton.IsChecked == true)
-                            {
-                                status = "Lichte schade";
-                            }
-                            else if (HeavyDamageRadioButton.IsChecked == true)
-                            {
-                                status = "Zware schade";
-                                Boat.Broken = true;
+                        if (LightDamageRadioButton.IsChecked == true)
+                        {
+                            status = "Lichte schade";
+                        }
+                        else if (HeavyDamageRadioButton.IsChecked == true)
+                        {
+                            status = "Zware schade";
+                            Boat.Broken = true;
                             //De methode om mails te sturen, wordt aangeroepen
                             damageController.SendingMail(Reservations);
                             //voor elke reservering met zware schade wordt deleted vadaag
                             foreach (Reservation r in Reservations)
-                                {
-                                 r.Deleted = DateTime.Now;
-                            
+                            {
+                                r.Deleted = DateTime.Now;
                             }
-                            }
-                            
-                            Damage damage = new Damage(LoginView.UserId, Boat.BoatID, DescriptionBox.Text, status);
-                        
-                           context.Damages.Add(damage);
-                            context.SaveChanges();
-                            Switcher.Switch(new Dashboard());
-                            break;
+                        }
 
-                        case MessageBoxResult.No:
-                        reserved = "";
+                        Damage damage = new Damage(LoginView.UserId, Boat.BoatID, DescriptionBox.Text, status);
+
+                        context.Damages.Add(damage);
+                        context.SaveChanges();
+                        Switcher.Switch(new Dashboard());
                         break;
-                    }
+
+                    case MessageBoxResult.No:
+                        Reserved = "";
+                        break;
+                }
             }
         }
 
@@ -149,10 +147,10 @@ namespace Views
         {
             var Reservation = (from data in context.Reservations
                                join boats in context.Boats on data.BoatID equals boats.BoatID
-                        select boats.Name).ToList();
+                               select boats.Name).ToList();
             if (Reservation.Contains(boat))
             {
-                reserved = " Deze boot is in de toekomst gereserveerd.";
+                Reserved = " Deze boot is in de toekomst gereserveerd.";
             }
         }
 

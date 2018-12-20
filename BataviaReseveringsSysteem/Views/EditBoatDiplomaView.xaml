@@ -21,7 +21,6 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -31,6 +30,16 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <Canvas 
+            Width="1024"
+                Height="50"
+            Background="#673ab7" Margin="0,50,0,1000">
+            <Label
+                Content="Diploma wijzigen"
+                Foreground="White"
+                FontSize="26"
+                Canvas.Left="384" Canvas.Top="5" Width="232"/>
+        </Canvas>
         <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom">
             <CheckBox x:Name="S1CheckBox" Tag="1">
                 <DockPanel Height="16">
@@ -88,6 +97,9 @@
         <Button Grid.Row="3" Grid.Column="1" Content="Annuleren" VerticalAlignment="Center" x:Name="CancelButton" Width="120" Click="ButtonCancel"/>
         <Button Grid.Row="3" Grid.Column="3"  x:Name="ButtonBe" VerticalAlignment="Center" Content="Bevestig" Width="120" HorizontalAlignment="Left" Click="ButtonConfirm"/>
         <Label x:Name="DiplomaUserID"  Content="" HorizontalAlignment="Left" Margin="226,41,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
-       
+        <Label Content="Boot:" Grid.Column="1" HorizontalAlignment="Left" Margin="0.2,10.4,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FF673AB7"/>
+        <Label x:Name="Name" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="92.2,10.4,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="29" Width="307" FontSize="16"/>
+        <Label Content="Diploma's:" Grid.Column="1" HorizontalAlignment="Left" Margin="0.2,71.4,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FF673AB7"/>
+
     </Grid>
 </UserControl>

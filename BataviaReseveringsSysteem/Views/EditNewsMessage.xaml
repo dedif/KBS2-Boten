@@ -4,25 +4,70 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BataviaReseveringsSysteem.Views"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
-        <TextBox   x:Name="TitleBox" 
-                materialDesign:HintAssist.Hint="Titel"
-                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" Height="25" Margin="10,59,0,0" />
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             Height="768" Width="1024">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <Canvas 
+            Width="1024"
+            Height="50"
+            Background="#673ab7" Margin="0,50,0,1000">
+            <Label
+            Content="Nieuwsbericht bewerken"
+            Foreground="White"
+            FontSize="26"
+            Canvas.Left="328" Canvas.Top="5" Width="310"/>
+        </Canvas>
+        <Label
+            Grid.Row="1"
+            Grid.Column="1"
+            Content="Bericht titel"
+            VerticalAlignment="Bottom"
+            Foreground="#673ab7"
+            FontSize="16"
+            FontWeight="Bold" Height="26"/>
+        <TextBox   
+            Grid.Row="2"
+            Grid.Column="1"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Margin="5,5,0,0"
+            x:Name="TitleBox" 
+            Width="120"
+            materialDesign:HintAssist.Hint="Voer een titel in"/>
         <TextBox
-                x:Name="NewsMessageBox"
-                Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
-                VerticalAlignment="Center"
-                Height="100"
-                AcceptsReturn="True"
-                TextWrapping="Wrap"
-                VerticalScrollBarVisibility="Auto"
-                materialDesign:HintAssist.Hint="Bericht"
-                IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextFieldTextBoxEnabledComboBox}" Margin="0,153,0,197" />
-        <Label  x:Name="NotificationLabel" Content="&#xD;&#xA;" HorizontalAlignment="Left" Margin="279,59,0,0" VerticalAlignment="Top" Width="290" FontSize="16" Foreground="#DDFF0000"/>
-        <Button Content="Opslaan" HorizontalAlignment="Left" Margin="644,384,0,0" VerticalAlignment="Top" Width="86" x:Name="SaveNewsMessage" Click="SaveNewsMessage_Click"/>
-        <Button Content="Ga terug" HorizontalAlignment="Left" Margin="44,384,0,0" VerticalAlignment="Top" Width="86" x:Name="Cancel" Click="CancelNewsMessage_Click"/>
+            Grid.Row="2"
+            Grid.Column="1"
+            Height="200"
+            x:Name="NewsMessageBox"
+            Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+            AcceptsReturn="True"
+            TextWrapping="Wrap"
+            VerticalScrollBarVisibility="Auto"
+            materialDesign:HintAssist.Hint="Bericht"
+            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextFieldTextBoxEnabledComboBox}"/>
+        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Height="32" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Button Content="Annuleren" Width="120" x:Name="SaveNewsMessage" Click="CancelNewsMessage_Click" FontSize="16" Margin="0,0,100,0"/>
+            <Button Content="Wijzigen" Width="120" x:Name="Cancel" FontSize="16" Click="SaveNewsMessage_Click"/>
+        </StackPanel>
+        <Label x:Name="NotificationLabel" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1" Content="&#xD;&#xA;" FontSize="16" Foreground="#DDFF0000" Height="53"/>
     </Grid>
 </UserControl>

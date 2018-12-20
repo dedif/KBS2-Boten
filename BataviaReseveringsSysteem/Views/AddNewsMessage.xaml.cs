@@ -1,20 +1,7 @@
 ﻿using BataviaReseveringsSysteem.Controllers;
 using ScreenSwitcher;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Views;
 
 namespace BataviaReseveringsSysteem.Views
 {
@@ -47,10 +34,11 @@ namespace BataviaReseveringsSysteem.Views
                     case MessageBoxResult.OK:
                         nmc.Add_NewsMessage(TitleBox.Text, NewsMessageBox.Text);
                         Switcher.Switch(new NewsMessageList());
-                        
+
                         break;
                 }
-            } else
+            }
+            else
             {
                 NotificationLabel.Content = nmc.Notification();
 

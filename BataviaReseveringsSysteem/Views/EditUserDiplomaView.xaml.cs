@@ -21,8 +21,14 @@ namespace Views
         {
             DiplomaUsersID = userID;
             InitializeComponent();
+            
             using (DataBase context = new DataBase())
             {
+                var User = (from data in context.Users
+                            where data.UserID == userID
+                            select data).Single();
+                
+                Name.Content = $"{User.Firstname} {User.Middlename} {User.Lastname}";
                 var Diplomas = context.Diplomas.ToList();
 
                 foreach (var diploma in Diplomas)
