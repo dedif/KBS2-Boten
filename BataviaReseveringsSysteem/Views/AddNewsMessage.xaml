@@ -52,7 +52,7 @@
             Margin="5,5,0,0"
             x:Name="TitleBox" 
             Width="120"
-            materialDesign:HintAssist.Hint="Voer een titel in"/>
+            materialDesign:HintAssist.Hint="Voer een titel in" FontSize="16"/>
         <TextBox
             Grid.Row="2"
             Grid.Column="1"
@@ -67,14 +67,22 @@
             TextWrapping="Wrap"
             VerticalScrollBarVisibility="Auto"
             materialDesign:HintAssist.Hint="Bericht"
-            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextFieldTextBoxEnabledComboBox}"/>
+            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextFieldTextBoxEnabledComboBox}" Margin="0,75.4,0,33.4"/>
 
-        
+
 
         <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Height="32" HorizontalAlignment="Right" VerticalAlignment="Top">
             <Button Content="Annuleren" FontSize="16" Width="120" x:Name="SaveNewsMessage" Click="CancelNewsMessage_Click" Margin="0,0,100,0"/>
             <Button Content="Opslaan" FontSize="16" Width="120" x:Name="Cancel" Click="SaveNewsMessage_Click"/>
         </StackPanel>
         <Label x:Name="NotificationLabel" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1" Content="&#xD;&#xA;" FontSize="16" Foreground="#DDFF0000" Height="53"/>
+        <Label
+            Grid.Row="2"
+            Grid.Column="1"
+            Content="Bericht:"
+            VerticalAlignment="Bottom"
+            Foreground="#673ab7"
+            FontSize="16"
+            FontWeight="Bold" Height="26" Margin="0,0,0,233.4"/>
     </Grid>
 </UserControl>

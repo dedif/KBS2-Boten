@@ -47,7 +47,7 @@
                FontWeight="Bold"
                 Foreground="#673ab7" 
             />
-        <ComboBox x:Name="NameboatCombo" FontSize="16" Margin="5,0,0,0"  Grid.Row="2" materialDesign:HintAssist.Hint="Aalscholver III" VerticalAlignment="Center" HorizontalAlignment="Left" Width="245" Grid.Column="1" SelectionChanged="NameboatCombo_SelectionChanged" Height="35"/>
+        <ComboBox x:Name="NameboatCombo" FontSize="16" Margin="5,0,0,0"  Grid.Row="2" materialDesign:HintAssist.Hint="Bootnaam" VerticalAlignment="Center" HorizontalAlignment="Left" Width="245" Grid.Column="1" SelectionChanged="NameboatCombo_SelectionChanged" Height="35"/>
         <TextBox x:Name="OtherDamages" FontSize="16" IsReadOnly="True" Grid.Row="4" Width="499" Grid.Column="1" ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Height="90"/>
         <Label x:Name="DamagesLabel" Grid.Row="3"  Grid.Column="1" FontWeight="Bold" Foreground="#673ab7"  FontSize="16" Content="Reeds gemeldde schade(s):" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
         <StackPanel Grid.Row="3" Grid.Column="1" VerticalAlignment="Top">
