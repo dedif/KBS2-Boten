@@ -22,6 +22,11 @@ namespace Views
             InitializeComponent();
             using (DataBase context = new DataBase())
             {
+                var Boat = (from data in context.Boats
+                            where data.BoatID == boatID
+                            select data).Single();
+
+                Name.Content = Boat.Name;
                 var Diplomas = context.Diplomas.ToList();
 
                 foreach (var diploma in Diplomas)
