@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BataviaReseveringsSysteem.App" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controllers.BoatController" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kAAIAABAAQAAQAAAAgMCBBBUAABAQABEwACBAAAAAAA=</HashCode>
+      <FileName>Controllers\BoatController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controllers.DashboardController" Collapsed="true">
+    <Position X="12.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACIAAAAAAAEAAIQAAAAAAAAAAAQABAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\DashboardController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controllers.DataBaseController" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACEAAAAAAAAAIAgEAAAACAAAAAIQACAFAAQAAAEAAA=</HashCode>
+      <FileName>Controllers\Databasecontroller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controllers.EditController" Collapsed="true">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAIAAAAAAAAAABACAAJAAAAAAAA=</HashCode>
+      <FileName>Controllers\EditController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controllers.LoginController" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\LoginController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controllers.RegisterController" Collapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAIAAAEAAAABAAAAQABAAAACAAA=</HashCode>
+      <FileName>Controllers\RegisterController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controllers.ReservationController" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAABABAAEAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Controllers\ReservationController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controllers.UserController" Collapsed="true">
+    <Position X="11" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAACAAAAAAgIEgEAAAgAAAAAAAAAAAEAAAAAAEAAA=</HashCode>
+      <FileName>Controllers\UserController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BataviaReseveringsSysteem.Controllers.DamageController" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIIBAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\DamageController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BataviaReseveringsSysteem.Controllers.EmailController" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\EmailController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BataviaReseveringsSysteem.Controllers.UserTimeOutController" Collapsed="true">
+    <Position X="2.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAQAQAAAQAAQABAgAAAAAABAAAAA=</HashCode>
+      <FileName>Controllers\UserTimeOutController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BataviaReseveringsSysteem.Database.DataBase" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAECAAAAAAAAAAEEAAAABAAwAAAIAAIAIAAAQAAAA=</HashCode>
+      <FileName>Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Boat" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAACAAAACAAFASAACAAAgAAAUAAAAIAAAA=</HashCode>
+      <FileName>Models\Boat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Boat_Diploma" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAQAAAAAAAAAIAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Models\Boat_Diploma.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Damage" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAQEAAAgABAQIAAEAAgAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Damage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Diploma" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Diploma.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Gender" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Gender.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Mail" Collapsed="true">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABgAAAAAABAEAAEAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Models\Mail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Reservation" Collapsed="true">
+    <Position X="5.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIBAAUAACAAAAAAIAAAEAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Reservation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Role" Collapsed="true">
+    <Position X="12.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAACAAAACAAAAAAAAAAAgAAAAAAEAAAAAA=</HashCode>
+      <FileName>Models\Role.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.User" Collapsed="true">
+    <Position X="5.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACAACACIACAAQAgAEAAIAhACEAAAAQAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.User_Diploma" Collapsed="true">
+    <Position X="7.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABQAAAAAAACAAAACAAAAgAAAAAAgAAIAAAAAAAAAA=</HashCode>
+      <FileName>Models\User_Diploma.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.User_Role" Collapsed="true">
+    <Position X="9.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAIAAAAACAAAECAAAAgAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\User_Role.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScreenSwitcher.PageSwitcher" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAEAIAgAAAAAAAAAAAIAAIAAAAQAAABAAA=</HashCode>
+      <FileName>PageSwitcher.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ScreenSwitcher.Switcher" Collapsed="true">
+    <Position X="4" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAEAIAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Switcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Boatwindow.Properties.Resources" Collapsed="true">
+    <Position X="11" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Boatwindow.Properties.Settings" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BataviaReseveringsSysteem.Reservations.BoatTypeTabItem" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QBFNggAgBAgiSEhA0QQCQaBAAAQAEAKABQgAEBAwIJA=</HashCode>
+      <FileName>Reservations\BoatTypeTabItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BataviaReseveringsSysteem.Reservations.PlannerGrid" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iBigAAoAIgAAIBCAAQhgIAAAAAAACQCIAAAAAQIAIQA=</HashCode>
+      <FileName>Reservations\PlannerGrid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SunTimes" Collapsed="true">
+    <Position X="2.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAUAAEAAAABABAAAEEYAAQAAAwQSAAAQAAQACACAAA=</HashCode>
+      <FileName>Reservations\CalcSunTimes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Views.AddBoat" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BBAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Views\AddBoat.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Views.BoatDamage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BBBCAAAAAAACAAAIAAAAAAAAACAAAAAAAABAgAAAACA=</HashCode>
+      <FileName>Views\BoatDamage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Views.BoatDiplomaList" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAIAAAAAAAAAgAAAABAAAAAAAAA=</HashCode>
+      <FileName>Views\BoatDiplomaList.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Views.BoatList" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACiAEAAAAAAAAAAAIAAAAAAAAAgAAAABAAAAABAAA=</HashCode>
+      <FileName>Views\BoatList.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Views.BoatView" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEQAAAAAAEAAAAAQIAAAAAAAAAACAAggAAAIAAAA=</HashCode>
+      <FileName>Views\BoatView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Views.Dashboard" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAEAAAAAAAABAAAQEMBCAAAEAABAAAEAAAAA=</HashCode>
+      <FileName>Views\Dashboard.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Views.EditBoat" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BBAAAAAAAAAQAQAAIAAAAAAgAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Views\EditBoat.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Views.EditBoatDamage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BBBACAQAAAACAAAIIAAAAAAAAAAAAAAAAABAgAAAAAA=</HashCode>
+      <FileName>Views\EditBoatDamage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Views.EditBoatDiplomaView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEACAAABAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\EditBoatDiplomaView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Views.EditUser" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABACAAAQAAAQAAAAAAAAAAEgAAAAABAAAIAAEAAAAAA=</HashCode>
+      <FileName>Views\EditUser.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Views.EditUserDiplomaView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAQAAAAAAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\EditUserDiplomaView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Views.LoginView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAgkAAAAAAAAAAAACAAgAAAA=</HashCode>
+      <FileName>Views\LoginView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Views.NavigationView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAIQAEhQAIAAABAAAAAAAAAgAAASAAIgAAQAAAAAA=</HashCode>
+      <FileName>Views\NavigationView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Views.Register" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAUAAAAAAAQAAAAAAAAAAEAAAAAABAAAIAAAAAAgAA=</HashCode>
+      <FileName>Views\Register.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Views.ReserveWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAACAAAACAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Views\ReserveWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Views.UserDiplomaList" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgAAAAAAQAAAAAAIAAAAAAAAAgAAAABAAAAAAAAA=</HashCode>
+      <FileName>Views\UserDiplomaList.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Views.UserList" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAIAAAAgAAAAgAAABBAAAAARAAA=</HashCode>
+      <FileName>Views\UserList.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BataviaReseveringsSysteem.Views.BoatDamageList" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAIAAAAAAAAAgAAAABAAAAAAAAA=</HashCode>
+      <FileName>Views\BoatDamageList.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BataviaReseveringsSysteem.Views.BoatSelectionView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAQCQBAAAAAgAAACAAAEAQACAAIAAAAAAAAgAA=</HashCode>
+      <FileName>Views\BoatSelectionView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
