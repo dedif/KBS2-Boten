@@ -113,19 +113,12 @@ namespace Controllers
                 {
                     Minutes = "0" + Minutes;
                 }
-
-                string CompetitionString = null;
-                if(reservation.Competition == true)
-                {
-                    CompetitionString = "\nVoor een wedstrijd";
-                }
-
+              
                 string content;
                 content = "Naam : " + Name;
                 content += "\nBegintijd: " + StartDate.Hour + ":" + Minutes;
                 content += "\nDuur: " + Duration.Hours + ":" + Duration.Minutes;
                 content += "\nDatum: "  + StartDate.Day + "/" + StartDate.Month + "/" + StartDate.Year;
-                content += CompetitionString;
                 content += "\nLocatie: " + BoatLocation;
 
                 return content;
@@ -158,9 +151,6 @@ namespace Controllers
                 context.SaveChanges();
                 //Alle oude knoppen en labels worden verwijderd van het scherm.
                 Dashboard.DeleteAllControls();
-                Dashboard.YLeft = 50;
-                Dashboard.YRight = 50;
-                Dashboard.Count = 0;
                 //De nieuwe reserveringen worden op het scherm getoond. 
                 Dashboard.ShowReservations(competition);
 

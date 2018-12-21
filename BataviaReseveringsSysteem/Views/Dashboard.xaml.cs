@@ -191,14 +191,18 @@ namespace Views
     {
         foreach (var t in LabelList)
         {
-            GridDashboard.Children.Remove(t);
+            reservationsCanvas.Children.Remove(t);
         }
 
         foreach (var t in ButtonList)
         {
-            GridDashboard.Children.Remove(t);
+            reservationsCanvas.Children.Remove(t);
         }
-    }
+            // de posities worden gereset
+            YLeft = 10;
+           YRight = 10;
+            Count = 0;
+        }
 
 
 
@@ -219,20 +223,25 @@ namespace Views
     private void AddReservationButton_Click(object sender, RoutedEventArgs e) =>
         Switcher.Switch(new BoatSelectionView());
 
-        private void Click_Handler(object sender, RoutedEventArgs e)
+     
+
+        private void SortReservation_Click(object sender, RoutedEventArgs e)
         {
-            competition = true;
+            if (competition == false)
+            {
+                competition = true;
+                SortReservation.Content = "Mijn afschijvingen";
+                SortReservationLabel.Content = "Wedstrijd afschrijvingen";
+            }
+            else if (competition == true)
+            {
+                competition = false;
+                SortReservation.Content = "Wedstrijd afschrijvingen";
+                SortReservationLabel.Content = "Mijn afschijvingen";
+
+            }
             DeleteAllControls();
             ShowReservations(competition);
-            
-        }
-
-        private void Click_Handler1(object sender, RoutedEventArgs e)
-        {
-            competition = false;
-            DeleteAllControls();
-            ShowReservations(competition);
-
         }
     }
 }

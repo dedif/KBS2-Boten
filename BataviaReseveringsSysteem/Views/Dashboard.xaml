@@ -40,14 +40,7 @@
             Grid.Column="1" Grid.ColumnSpan="2" Margin="2.667,0,261,0">
         </Canvas>
         <StackPanel Grid.ColumnSpan="2" Margin="0,0,519.667,0"/>
-        <Button Content="Competitie" Click="Click_Handler" Grid.Column="1" Margin="3,18,457,50" Grid.Row="1">
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <ContentPresenter />
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-        <Button Content="Mijn afschrijvingen" Click="Click_Handler1" Grid.Column="1" Margin="118,18,342,50" Grid.Row="1">
+        <Button x:Name="SortReservation" Content="Wedstrijd afschrijvingen" Click="SortReservation_Click" Grid.Column="1" Margin="3,18,457,50" Grid.Row="1">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <ContentPresenter />
@@ -67,5 +60,6 @@
             </ListView.ItemTemplate>
         </ListView>
         <Label Content="Nieuwsberichten:" Grid.Column="2" HorizontalAlignment="Left" Margin="10,79.4,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Grid.RowSpan="2"/>
+        <Label x:Name="SortReservationLabel" FontSize="18" Content="Mijn afschrijvingen" Grid.Column="1" HorizontalAlignment="Center" Margin="50,64,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-1.287,0.498"/>
     </Grid>
 </UserControl>
