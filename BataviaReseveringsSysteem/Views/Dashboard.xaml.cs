@@ -25,6 +25,7 @@ namespace Views
         DataBase context = new DataBase();
         DashboardController dashboardController;
         public static NavigationView navigationview;
+        bool competition = false;
         public Dashboard()
         {
             InitializeComponent();
@@ -64,7 +65,7 @@ namespace Views
             }
 
             //De reservaties van de gebruiker worden met deze methode getoond op het scherm
-            ShowReservations();
+            ShowReservations(competition);
             dashboardController.Notification(loggedUser.LastLoggedIn);
 
             // send email test
@@ -89,7 +90,7 @@ namespace Views
 
 
 
-        public void ShowReservations()
+        public void ShowReservations(bool competition)
         {
             using (var context = new DataBase())
             {
@@ -99,6 +100,7 @@ namespace Views
                     from data in context.Reservations
                     where data.Deleted == null
                     where data.UserId == LoginView.UserId
+                    where data.Competition == competition
                     select data).ToList();
 
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
@@ -203,7 +205,7 @@ namespace Views
     public void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
         var b = (Button)sender;
-        dashboardController.DeleteReservation((int)b.Tag);
+        dashboardController.DeleteReservation((int)b.Tag, competition);
     }
 
     public void Change_Click(object sender, RoutedEventArgs e)
@@ -216,5 +218,21 @@ namespace Views
     //            reserveWindow.Populate();
     private void AddReservationButton_Click(object sender, RoutedEventArgs e) =>
         Switcher.Switch(new BoatSelectionView());
-}
+
+        private void Click_Handler(object sender, RoutedEventArgs e)
+        {
+            competition = true;
+            DeleteAllControls();
+            ShowReservations(competition);
+            
+        }
+
+        private void Click_Handler1(object sender, RoutedEventArgs e)
+        {
+            competition = false;
+            DeleteAllControls();
+            ShowReservations(competition);
+
+        }
+    }
 }

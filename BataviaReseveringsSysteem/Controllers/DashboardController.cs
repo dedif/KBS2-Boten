@@ -133,7 +133,7 @@ namespace Controllers
         }
 
         //Deze methode verwijderd de bijbehorende reservatie
-        public void DeleteReservation(int id)
+        public void DeleteReservation(int id, bool competition)
         {
             using (DataBase context = new DataBase())
             {
@@ -162,7 +162,7 @@ namespace Controllers
                 Dashboard.YRight = 50;
                 Dashboard.Count = 0;
                 //De nieuwe reserveringen worden op het scherm getoond. 
-                Dashboard.ShowReservations();
+                Dashboard.ShowReservations(competition);
 
             }
         }
