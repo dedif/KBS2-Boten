@@ -100,7 +100,7 @@ namespace Controllers
         }
 
         //Bewerk een gebruiker zonder wachtwoord
-        public void Update_User(int userID, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday,DateTime? endOfSub)
+        public void Update_User(int userID, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday,DateTime endOfSub)
         {
             using (DataBase context = new DataBase())
             {
