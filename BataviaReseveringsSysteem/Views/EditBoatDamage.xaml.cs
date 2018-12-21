@@ -143,27 +143,24 @@ namespace Views
                         {//kijkt of reservering al is gereserveerd
                          //AlreadyReserved(NameBoatLabel.Content.ToString());
 
-                            MessageBoxResult Melding = MessageBox.Show(
-                                        "Weet u het zeker?",
-                                        // "Boot is gereserveerd in de toekomst" als boot is gereserveerd. Anders null
-                                        "Melding",
-                                        MessageBoxButton.YesNo,
-                                        MessageBoxImage.Question);
 
-                            switch (Melding)
-                            {
-                                case MessageBoxResult.Yes:
+                        System.Windows.Forms.DialogResult Succes = System.Windows.Forms.MessageBoxEx.Show("Weet u zeker dat u de schade van deze boot wilt aanpassen?", "Bevestiging bewerking", System.Windows.Forms.MessageBoxButtons.YesNo, 30000);
 
-                                    bc.UpdateBoatDamage(Damage.DamageID, textboxLabel.Content.ToString(), TimeOfOccupyForFix.SelectedDate.Value, TimeOfFix.SelectedDate.Value, status);
-                                    Switcher.Switch(new BoatDamageList());
-
-                                    break;
+                        switch (Succes)
+                        {
 
 
-                                case MessageBoxResult.No:
+                            case System.Windows.Forms.DialogResult.Yes:
 
-                                    break;
-                            
+                                bc.UpdateBoatDamage(Damage.DamageID, textboxLabel.Content.ToString(), TimeOfOccupyForFix.SelectedDate.Value, TimeOfFix.SelectedDate.Value, status);
+                                Switcher.Switch(new BoatDamageList());
+
+                                break;
+
+
+                            case System.Windows.Forms.DialogResult.No:
+
+                                break;
                         }
                     }
                 }
