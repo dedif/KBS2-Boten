@@ -20,7 +20,7 @@ namespace Views
             Calendar.SelectedDate = DateTime.Now;
         }
 
-        public void Populate(Boat boat)
+        public void Populate(Boat boat, Boolean competition)
         {
 //            var boats = new BoatController().GetBoatsReservableWithThisUsersDiplomasThatAreNotBroken();
 //            if (boats.Count == 0)
@@ -30,12 +30,12 @@ namespace Views
 //                return;
 //            }
             var reservations = new ReservationController().GetReservationsForBoatThatAreNotDeleted(boat);
-            AddBoatTypeTabs(boat, reservations);
+            AddBoatTypeTabs(boat, competition,  reservations);
 		}
 		
         // deze methode zorgt voor de tabbladen met de types boten bovenaan in het scherm
-        private void AddBoatTypeTabs(Boat boat, List<Reservation> reservations) =>
-            BoatTypeTabControl.Children.Add(new BoatTypeTabItem(boat, reservations, Calendar));
+        private void AddBoatTypeTabs(Boat boat, Boolean competition, List<Reservation> reservations) =>
+            BoatTypeTabControl.Children.Add(new BoatTypeTabItem(boat, competition, reservations, Calendar));
 
 
         private IEnumerable<Boat.BoatType> GetDifferentBoatTypes(IEnumerable<Boat> boats) =>

@@ -19,11 +19,27 @@ namespace BataviaReseveringsSysteem.Views
         public BoatSelectionView()
         {
             InitializeComponent();
+            AllowedCompetition();
             Scull.IsChecked = true;
+               
         }
 
         private Boat _boat;
+        private Boolean _competition = false;
+        //Deze methode kijkt of je ook voor wedstrijden mag afschrijven
+        private void AllowedCompetition()
+        {
+            using (DataBase context = new DataBase()) {
+                var RolID = (from data in context.User_Roles
+                             where data.UserID == LoginView.UserId
+                             select data.RoleID).ToList();
 
+                if (RolID.Contains(3))
+                {
+                    CompetitionCheckbox.Visibility = Visibility.Visible;
+                }
+            }
+        }
         private void TypeChecked(object sender, RoutedEventArgs e)
         {
 
@@ -88,9 +104,13 @@ namespace BataviaReseveringsSysteem.Views
 
         private void BevestigenBtn_Click(object sender, RoutedEventArgs e)
         {
+            if(CompetitionCheckbox.IsChecked == true)
+            {
+                _competition = true;
+            }
             var reserveWindow = new ReserveWindow();
             Switcher.Switch(reserveWindow);
-            reserveWindow.Populate(_boat);
+            reserveWindow.Populate(_boat, _competition);
         }
 
         private void BoatCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
