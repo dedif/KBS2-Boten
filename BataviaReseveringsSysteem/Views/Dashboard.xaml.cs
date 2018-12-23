@@ -43,23 +43,17 @@ namespace Views
             var rol = (from data in context.User_Roles
                        where data.UserID == LoginView.UserId
                        select data.RoleID).ToList();
-
-            if (rol.Contains(5))
-            {
-                MaxReservationUser = 2;
-            }
-
+   
+            //Een wedstrijd commisaris heeft maximaal 8 afschrijvingen. 
+            //De wedstrijdcommisaris heeft ook de keuze tussen afschrijvingen voor een wedstrijd en persoonlijke afschrijvingen.
             if (rol.Contains(3))
             {
                 MaxReservationUser = 8;
+                SortReservation.Visibility = Visibility.Visible;
+                SortReservationLabel.Visibility = Visibility.Visible;
             }
-
-            if (rol.Contains(4))
-            {
-                MaxReservationUser = int.MaxValue;
-            }
-
-            if (rol.Contains(5))
+            //Een examinator en bestuur mag zoveel afschrijvingen als die wilt
+            if (rol.Contains(4) || rol.Contains(5))
             {
                 MaxReservationUser = int.MaxValue;
             }
@@ -67,10 +61,6 @@ namespace Views
             //De reservaties van de gebruiker worden met deze methode getoond op het scherm
             ShowReservations(competition);
             dashboardController.Notification(loggedUser.LastLoggedIn);
-
-            // send email test
-            //string Message = $"Hallo {loggedUser.Firstname},{Environment.NewLine}{Environment.NewLine}De boot moet vanwege zware schade worden gerepareerd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}Omar en de gang";
-            //EmailController sendMail = new EmailController("ltzpatrick@hotmail.nl", "Uw reserveringen zijn gewijzigd omdat de boot uit de vaart is genomen.", Message);
 
 
 
