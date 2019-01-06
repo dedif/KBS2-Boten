@@ -144,8 +144,12 @@ namespace BataviaReseveringsSysteem.Views
             }
         }
 
-        private Boat GetBoatFromBoatComboBox() =>
-            new BoatController().GetBoatWithName(BoatCombo.SelectedItem.ToString());
+        private Boat GetBoatFromBoatComboBox()
+        {
+            //Je pakt alleen de naam van de boot, die de gebruiker selecteerd.
+            string BoatName = BoatCombo.SelectedItem.ToString().Substring(0, BoatCombo.SelectedItem.ToString().IndexOf(" "));
+           return new BoatController().GetBoatWithName(BoatName);
+        }
 
         private bool IsBoatSelected() => BoatCombo.SelectedIndex != -1;
 
