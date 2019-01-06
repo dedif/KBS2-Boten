@@ -92,11 +92,11 @@ namespace BataviaReseveringsSysteem.Views
                     //Als de boot licht beschadigd is dan wordt dit vermeld bij het selecteren van een boot
                     if (DamagedBoats.Contains(item.BoatID))
                     {
-                        BoatCombo.Items.Add(item.Name + "(beschadigd)");
+                        BoatCombo.Items.Add(item.Name + " " + item.Weight +  "kg (beschadigd)");
                     }
                     else
                     {
-                        BoatCombo.Items.Add(item.Name);
+                        BoatCombo.Items.Add(item.Name +  " " + item.Weight + "kg");
                     }
                 }
             }
