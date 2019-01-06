@@ -21,7 +21,7 @@ namespace BataviaReseveringsSysteem.Views
             InitializeComponent();
             AllowedCompetition();
             Scull.IsChecked = true;
-               
+
         }
 
         private Boat _boat;
@@ -29,7 +29,8 @@ namespace BataviaReseveringsSysteem.Views
         //Deze methode kijkt of je ook voor wedstrijden mag afschrijven
         private void AllowedCompetition()
         {
-            using (DataBase context = new DataBase()) {
+            using (DataBase context = new DataBase())
+            {
                 var RolID = (from data in context.User_Roles
                              where data.UserID == LoginView.UserId
                              select data.RoleID).ToList();
@@ -43,8 +44,8 @@ namespace BataviaReseveringsSysteem.Views
         private void TypeChecked(object sender, RoutedEventArgs e)
         {
 
-   
-            if(Equals(sender, Skiff))
+
+            if (Equals(sender, Skiff))
             {
                 RowersCombo.IsEnabled = false;
                 RowersCombo.SelectedItem = oneRower;
@@ -52,7 +53,7 @@ namespace BataviaReseveringsSysteem.Views
             }
             else
             {
-                if(RowersCombo.SelectedItem == oneRower)
+                if (RowersCombo.SelectedItem == oneRower)
                 {
                     RowersCombo.SelectedIndex = 1;
                 }
@@ -81,7 +82,23 @@ namespace BataviaReseveringsSysteem.Views
                              where data.Deleted == false
                              select data).ToList().Distinct();
 
-                foreach (var item in boats) BoatCombo.Items.Add(item.Name);
+                //Deze query haalt alle boten uit de database die licht beschadigd zijn
+                var DamagedBoats = (from data in context.Damages
+                                    where data.Description == "licht beschadigd"
+                                    select data.BoatID).ToList();
+
+                foreach (var item in boats)
+                {
+                    //Als de boot licht beschadigd is dan wordt dit vermeld bij het selecteren van een boot
+                    if (DamagedBoats.Contains(item.BoatID))
+                    {
+                        BoatCombo.Items.Add(item.Name + "(beschadigd)");
+                    }
+                    else
+                    {
+                        BoatCombo.Items.Add(item.Name);
+                    }
+                }
             }
         }
 
@@ -92,7 +109,7 @@ namespace BataviaReseveringsSysteem.Views
         private void Refresh()
         {
             foreach (var type in Types.Children)
-            {				
+            {
                 RadioButton radioButton = (RadioButton)type;
                 if (radioButton.IsChecked == true) TypeChecked(radioButton, new RoutedEventArgs());
             }
@@ -104,7 +121,7 @@ namespace BataviaReseveringsSysteem.Views
 
         private void BevestigenBtn_Click(object sender, RoutedEventArgs e)
         {
-            if(CompetitionCheckbox.IsChecked == true)
+            if (CompetitionCheckbox.IsChecked == true)
             {
                 _competition = true;
             }
