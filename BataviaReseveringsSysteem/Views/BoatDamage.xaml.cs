@@ -91,6 +91,7 @@ namespace Views
                         if (LightDamageRadioButton.IsChecked == true)
                         {
                             status = "Lichte schade";
+                            Boat.Broken = false;
                         }
                         else if (HeavyDamageRadioButton.IsChecked == true)
                         {

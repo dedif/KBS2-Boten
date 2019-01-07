@@ -15,17 +15,17 @@ namespace Views
     /// </summary>
     public partial class EditBoatDamage : UserControl
     {
-    
+
         private BoatController bc = new BoatController();
         public EditBoatDamage(int damageID)
         {
             InitializeComponent();
-            
+
             TimeOfOccupyForFix.SelectedDate = DateTime.Now;
             TimeOfFix.SelectedDate = DateTime.Now;
             using (DataBase context = new DataBase())
             {
-                
+
                 var boat = (from data in context.Damages
                             join b in context.Boats on data.BoatID equals b.BoatID
                             where data.DamageID == damageID
@@ -71,12 +71,13 @@ namespace Views
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-              using (DataBase context = new DataBase()) {
+            using (DataBase context = new DataBase())
+            {
 
                 var Reservations = (from data in context.Reservations
-                                                where data.Boat.Name == NameBoatLabel.Content.ToString()
-                                                where data.Deleted == null
-                                                select data).ToList();
+                                    where data.Boat.Name == NameBoatLabel.Content.ToString()
+                                    where data.Deleted == null
+                                    select data).ToList();
 
                 var Boat = (from data in context.Boats
                             where data.Name == NameBoatLabel.Content.ToString() && data.DeletedAt == null
@@ -86,6 +87,7 @@ namespace Views
                 if (LightDamageRadioButton.IsChecked == true)
                 {
                     status = "Lichte schade";
+                    Boat.Broken = false;
                 }
                 else if (HeavyDamageRadioButton.IsChecked == true)
                 {
@@ -100,28 +102,33 @@ namespace Views
                 else if (NoDamageRadioButton.IsChecked == true)
                 {
                     status = "Geen schade";
-
+                    Boat.Broken = false;
                 }
+
+                context.SaveChanges();
                 var Damage = (from data in context.Damages
                               join a in context.Boats
                               on data.BoatID equals a.BoatID
                               where data.Description == textboxLabel.Content.ToString()
                               select data).Single();
 
-                            
-                            
+                var DamageListHeavyDamage = (from data in context.Damages
+                                             where data.Description == "Zware Schade"
+                                             where data.BoatID == Boat.BoatID
+                                             select data).ToList();
+                if (DamageListHeavyDamage.Count < 1)
+                {
+                    Boat.Broken = false;
+                }
 
-
-                            
-
-                            bool reservationDate = false;
-                                var ReservationDates = (from data in context.Reservations
-                                                        join a in context.Boats
-                                                        on data.BoatID equals a.BoatID
-                                                        where a.Name == NameBoatLabel.Content.ToString()
-                                                        where data.Deleted == null
-                                                        where data.End >= DateTime.Now
-                                                        select data.End).ToList();
+                bool reservationDate = false;
+                var ReservationDates = (from data in context.Reservations
+                                        join a in context.Boats
+                                        on data.BoatID equals a.BoatID
+                                        where a.Name == NameBoatLabel.Content.ToString()
+                                        where data.Deleted == null
+                                        where data.End >= DateTime.Now
+                                        select data.End).ToList();
 
                 foreach (DateTime reservation in ReservationDates)
                 {
@@ -132,12 +139,12 @@ namespace Views
                     }
                 }
 
-                    if (reservationDate == false)
+                if (reservationDate == false)
+                {
+                    CheckDate();
+
+                    if (TimeOfOccupyForFix.SelectedDate.Value <= TimeOfFix.SelectedDate.Value)
                     {
-                        CheckDate();
-                       
-                        if (TimeOfOccupyForFix.SelectedDate.Value <= TimeOfFix.SelectedDate.Value)
-                        {
 
 
                         System.Windows.Forms.DialogResult Succes = System.Windows.Forms.MessageBoxEx.Show("Weet u zeker dat u de schade van deze boot wilt aanpassen?", "Bevestiging bewerking", System.Windows.Forms.MessageBoxButtons.YesNo, 30000);
@@ -197,12 +204,12 @@ namespace Views
             using (DataBase context = new DataBase())
             {
                 var dateEnd = (from data in context.Reservations
-                                    join a in context.Boats
-                                    on data.BoatID equals a.BoatID
-                                    where a.Name == boatName
-                                    where data.Deleted == null
-                                    select data.End).FirstOrDefault();
-                
+                               join a in context.Boats
+                               on data.BoatID equals a.BoatID
+                               where a.Name == boatName
+                               where data.Deleted == null
+                               select data.End).FirstOrDefault();
+
                 int date2 = dateEnd.DayOfYear;
 
                 int dateNow = DateTime.Now.DayOfYear;
@@ -214,55 +221,57 @@ namespace Views
                                         where data.Deleted == null
                                         where date2 > dateNow
                                         select data.Start).ToList();
-                
-                foreach (DateTime date in DateReservations) {
-                        TimeOfOccupyForFix.BlackoutDates.Add(new CalendarDateRange(date));
-                        TimeOfFix.BlackoutDates.Add(new CalendarDateRange(date));
-                        DateDamageFix.BlackoutDates.Add(new CalendarDateRange(date));
-                    
+
+                foreach (DateTime date in DateReservations)
+                {
+                    TimeOfOccupyForFix.BlackoutDates.Add(new CalendarDateRange(date));
+                    TimeOfFix.BlackoutDates.Add(new CalendarDateRange(date));
+                    DateDamageFix.BlackoutDates.Add(new CalendarDateRange(date));
+
                 }
-                
+
 
             }
         }
-        
+
 
         //TimeOfFix
         private void ClickDate(object sender, SelectionChangedEventArgs e)
         {
             // vult de dates
             DateTime timeOfAccupyForFix = DateTime.Now;
-            
+
             if (TimeOfOccupyForFix.SelectedDate != null)
             {
                 timeOfAccupyForFix = TimeOfOccupyForFix.SelectedDate.Value;
             }
             DateTime timeOfFix = DateTime.Now;
-            
+
             if (TimeOfFix.SelectedDate != null)
             {
                 timeOfFix = TimeOfFix.SelectedDate.Value;
             }
             // maakt database
-            using (DataBase context = new DataBase()) {
+            using (DataBase context = new DataBase())
+            {
 
                 Label.Visibility = Visibility.Hidden;
                 //geeft een melding als de data niet kloppen
-                CheckDate ();
+                CheckDate();
                 // kijkt of de data kloppen
                 if (timeOfAccupyForFix < timeOfFix)
                 {
                     Label.Visibility = Visibility.Hidden;
                     //variablele
-                        int i = 1;
-                    
-                        var ReservationDate = (from data in context.Reservations
-                                               join a in context.Boats
-                                               on data.BoatID equals a.BoatID
-                                               where a.Name == NameBoatLabel.Content.ToString()
-                                               where data.Deleted == null
-                                               where data.End >= DateTime.Now
-                                               select data).ToList();
+                    int i = 1;
+
+                    var ReservationDate = (from data in context.Reservations
+                                           join a in context.Boats
+                                           on data.BoatID equals a.BoatID
+                                           where a.Name == NameBoatLabel.Content.ToString()
+                                           where data.Deleted == null
+                                           where data.End >= DateTime.Now
+                                           select data).ToList();
                     // kijkt of er een reservering is tussen de data 
                     foreach (var date in ReservationDate)
                     {
@@ -283,13 +292,13 @@ namespace Views
                     }
                     if (i == 1)
                     {
-                        
+
                         TimeOfFix.SelectedDate = TimeOfFix.SelectedDate;
                         TimeAddToCalender();
                         DateDamageFix.SelectedDates.Add(TimeOfFix.SelectedDate.Value);
                     }
-                    
-                } 
+
+                }
             }
         }
 
@@ -299,19 +308,20 @@ namespace Views
             DateTime timeOfAccupyForFix = DateTime.Now;
             if (TimeOfOccupyForFix.SelectedDate != null)
             {
-               timeOfAccupyForFix = TimeOfOccupyForFix.SelectedDate.Value;
+                timeOfAccupyForFix = TimeOfOccupyForFix.SelectedDate.Value;
             }
             DateTime timeOfFix = DateTime.Now;
-            
+
             if (TimeOfFix.SelectedDate != null)
             {
                 timeOfFix = TimeOfFix.SelectedDate.Value;
             }
             Label.Visibility = Visibility.Hidden;
-            using (DataBase context = new DataBase()) {
+            using (DataBase context = new DataBase())
+            {
 
                 CheckDate();
-                
+
                 var ReservationDate = (from data in context.Reservations
                                        join a in context.Boats
                                        on data.BoatID equals a.BoatID
@@ -337,7 +347,7 @@ namespace Views
                 {
                     Label.Visibility = Visibility.Hidden;
                 }
-                if( i == 1)
+                if (i == 1)
                 {
                     //Label.Visibility = Visibility.Hidden;
                     TimeOfOccupyForFix.SelectedDate = TimeOfOccupyForFix.SelectedDate;
@@ -359,21 +369,22 @@ namespace Views
             {
                 timeOfFix = TimeOfFix.SelectedDate.Value;
             }
-            if (timeOfAccupyForFix > timeOfFix ){
+            if (timeOfAccupyForFix > timeOfFix)
+            {
                 Label.Content = "De data kloppen niet";
                 Label.Visibility = Visibility.Visible;
             }
         }
 
-       public void TimeAddToCalender()
+        public void TimeAddToCalender()
         {
-            if(DateDamageFix.SelectedDates.Count == 2)
-            {   
+            if (DateDamageFix.SelectedDates.Count == 2)
+            {
                 DateDamageFix.SelectedDates.RemoveAt(0);
                 DateDamageFix.SelectedDates.RemoveAt(0);
             }
-       }
+        }
 
-        
+
     }
 }

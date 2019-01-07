@@ -80,11 +80,12 @@ namespace BataviaReseveringsSysteem.Views
                              where data.NumberOfRowers == amountOfRowersFromCombo
                              where data.AvailableAt <= DateTime.Now
                              where data.Deleted == false
+                             where data.Broken == false
                              select data).ToList().Distinct();
 
                 //Deze query haalt alle boten uit de database die licht beschadigd zijn
                 var DamagedBoats = (from data in context.Damages
-                                    where data.Description == "licht beschadigd"
+                                    where data.Status == "Lichte schade"
                                     select data.BoatID).ToList();
 
                 foreach (var item in boats)
