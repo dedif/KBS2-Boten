@@ -99,7 +99,7 @@
                             Kind="ViewList"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="nieuwsListBtn" Header="Nieuwsberichten lijst" Click="NieuwsListBtn_Click">
+                <MenuItem x:Name="nieuwsListBtn" Header="Nieuwsberichten lijst" IsEnabled="False" Click="NieuwsListBtn_Click">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon
                         Kind="Newspaper" />
