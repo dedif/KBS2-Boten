@@ -39,7 +39,7 @@
         <Label
             Grid.Row="1"
             Grid.Column="1"
-            Content="Bericht titel"
+            Content="Bericht titel:"
             VerticalAlignment="Bottom"
             Foreground="#673ab7"
             FontSize="16"
