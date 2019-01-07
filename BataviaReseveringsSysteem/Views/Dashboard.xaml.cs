@@ -214,7 +214,7 @@ namespace Views
         Switcher.Switch(new BoatSelectionView());
 
      
-
+    //method voor het sorteren van de reserveringen.
         private void SortReservation_Click(object sender, RoutedEventArgs e)
         {
             if (competition == false)
