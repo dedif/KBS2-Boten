@@ -15,8 +15,7 @@ namespace Views
     /// </summary>
     public partial class EditBoatDamage : UserControl
     {
-        private string reserved = null;
-        private int DamageID;
+    
         private BoatController bc = new BoatController();
         public EditBoatDamage(int damageID)
         {
@@ -27,11 +26,9 @@ namespace Views
             using (DataBase context = new DataBase())
             {
                 
-
-                DamageID = damageID;
                 var boat = (from data in context.Damages
                             join b in context.Boats on data.BoatID equals b.BoatID
-                            where data.DamageID == DamageID
+                            where data.DamageID == damageID
                             select new { b.Name, data.Status, data.Description, data.TimeOfOccupyForFix, data.TimeOfFix }).First();
 
                 SetBlackOutDates(boat.Name);
@@ -140,8 +137,7 @@ namespace Views
                         CheckDate();
                        
                         if (TimeOfOccupyForFix.SelectedDate.Value <= TimeOfFix.SelectedDate.Value)
-                        {//kijkt of reservering al is gereserveerd
-                         //AlreadyReserved(NameBoatLabel.Content.ToString());
+                        {
 
 
                         System.Windows.Forms.DialogResult Succes = System.Windows.Forms.MessageBoxEx.Show("Weet u zeker dat u de schade van deze boot wilt aanpassen?", "Bevestiging bewerking", System.Windows.Forms.MessageBoxButtons.YesNo, 30000);
@@ -194,19 +190,7 @@ namespace Views
                 return false;
             }
         }
-        //kijkt of de boot gereserveerd is
-        public void AlreadyReserved(string boat)
-        {
-            using (DataBase context = new DataBase())
-            {
-                var Reservation = (from data in context.Reservations
-                                   select data.Boat.Name).ToList();
-                if (Reservation.Contains(boat))
-                {
-                    reserved = " Deze boot is in de toekomst gereserveerd.";
-                }
-            }
-        }
+
 
         private void SetBlackOutDates(string boatName)
         {

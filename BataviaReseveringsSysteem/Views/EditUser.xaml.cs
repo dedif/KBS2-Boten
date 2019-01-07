@@ -2,6 +2,7 @@
 using Controllers;
 using ScreenSwitcher;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -188,8 +189,8 @@ namespace Views
         {
             if (Controllers.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, UserID, EndOfSubscription))
             {
-
-                foreach (CheckBox c in RegisterLayout.Children.OfType<CheckBox>())
+                List<CheckBox> CheckBoxList = new List<CheckBox>() { Reparateur, Coach, Commissaris, Examinator, Bestuur };
+                foreach (CheckBox c in CheckBoxList)
                 {
                     if (c.IsChecked == true)
                     {
