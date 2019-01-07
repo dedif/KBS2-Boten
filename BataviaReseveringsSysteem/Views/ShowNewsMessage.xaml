@@ -30,19 +30,22 @@
             Width="1024"
             Height="50"
             Background="#673ab7" Margin="0,50,0,1000">
-            <Label
+            <TextBox
                 x:Name="TitleBox"
                 Foreground="White"
                 FontSize="26"
-                Canvas.Left="328" Canvas.Top="5"/>
+                TextWrapping="Wrap"
+                HorizontalContentAlignment="Center"
+                VerticalScrollBarVisibility="Auto"
+                Canvas.Left="229" Canvas.Top="5" Height="45" Width="543"/>
             <Label 
                 x:Name="NewsMessageDateLabel" 
                 Canvas.Left="772" 
                 Canvas.Top="20" 
                 Width="125"
                 Foreground="White"
+                VerticalAlignment="Center"
                 FontSize="20"/>
-
         </Canvas>
         <TextBox
             x:Name="NewsMessageBox"

@@ -52,7 +52,7 @@ namespace Views
             TypeLabel.Content = $"Type: {boat.Type}";
             WeightLabel.Content = $"Gewicht: {boat.Weight}";
             AmountOfRowersLabel.Content = $"Aantal roeiers: {boat.NumberOfRowers}";
-            SteermanLabel.Content = "Stuurman? ";
+            SteermanLabel.Content = "Stuurman: ";
             SteermanLabel.Content += boat.Steering ? "Ja" : "Nee";
             BoatLocation.Content = $"Locatie: {boat.BoatLocation}";
         }

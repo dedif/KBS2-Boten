@@ -159,14 +159,14 @@ namespace Controllers
             if (validate && valDate && hasPassword)
             {
                 sendNewSubscription(Firstname, Email, EndOfSub, (int)editID.Content);
-                u.Update_User((int)editID.Content, savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt,EndOfSub.SelectedDate.Value);
+                u.Update_User((int)editID.Content, savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt,EndOfSub.SelectedDate);
                 MessageBoxResult result = MessageBox.Show("Het account is bijgewerkt.");
                 Switcher.Switch(new Views.UserList());
                 return true;
             }if (validate && valDate && !hasPassword)
             {
                 sendNewSubscription(Firstname, Email, EndOfSub, (int)editID.Content);
-                u.Update_User((int)editID.Content, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt, EndOfSub.SelectedDate.Value);
+                u.Update_User((int)editID.Content, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt, EndOfSub.SelectedDate);
                 Switcher.DeleteMenu();
                 Switcher.MenuMaker();
                 MessageBoxResult result = MessageBox.Show("Het account is bijgewerkt.");
@@ -187,8 +187,8 @@ namespace Controllers
 
                 if (update.EndOfSubscription != endDate.SelectedDate)
                 {
-                    string sendMessage = $"Hallo {firstname.Text},{Environment.NewLine}{Environment.NewLine}Lidnummer:{userID}{Environment.NewLine}{Environment.NewLine}Uw abonnement is gewijzigd, uw abonnemnt loopt nu tot {endDate.SelectedDate.Value.ToString("dd-MM-yyyy")}.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}Omar en de gang";
-                    EmailController mail = new EmailController(email.Text, "Abonnement gegevens gewijzigd", sendMessage);
+                    string sendMessage = $"Beste {firstname.Text},{Environment.NewLine}{Environment.NewLine}Lidnummer:{userID}{Environment.NewLine}{Environment.NewLine}Uw lidmaatschap is gewijzigd, uw lidmaatschap loopt nu tot {endDate.SelectedDate.Value.ToString("dd-MM-yyyy")}.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}De Roeivereniging";
+                    EmailController mail = new EmailController(email.Text, "Lidmaatschap gegevens gewijzigd", sendMessage);
                 }
             }
                

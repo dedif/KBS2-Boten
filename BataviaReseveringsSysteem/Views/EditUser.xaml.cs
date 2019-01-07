@@ -2,6 +2,7 @@
 using Controllers;
 using ScreenSwitcher;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -132,6 +133,12 @@ namespace Views
                 Bestuur.Visibility = Visibility.Hidden;
                 SubscriptionLabel.Visibility = Visibility.Hidden;
                 EndOfSubscription.Visibility = Visibility.Hidden;
+                VerwijderenBtn.Visibility = Visibility.Hidden;
+            }
+            if (LoginView.UserId == EditID && Login_User_Role.Contains(5))
+            {
+                VerwijderenBtn.Visibility = Visibility.Hidden;
+                Bestuur.Visibility = Visibility.Hidden;
             }
 
         }
@@ -182,14 +189,33 @@ namespace Views
                 Switcher.Switch(new Dashboard());
             }
         }
+        private void VerwijderenBtn_Click(object sender, RoutedEventArgs e)
+        {
+                System.Windows.Forms.DialogResult Succes = System.Windows.Forms.MessageBoxEx.Show("Wilt u deze gebruiker definitief verwijderen?", "Bevestig verwijdering", System.Windows.Forms.MessageBoxButtons.YesNo, 30000);
 
+                switch (Succes)
+                {
+                    case System.Windows.Forms.DialogResult.No:
+
+                        break;
+
+                    case System.Windows.Forms.DialogResult.Yes:
+                        DataBaseController.Delete_User(EditID);
+
+
+                        Switcher.Switch(new UserList());
+                        break;
+
+                }
+            
+        }
 
         private void BewerkBtn_Click(object sender, RoutedEventArgs e)
         {
             if (Controllers.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, UserID, EndOfSubscription))
             {
-
-                foreach (CheckBox c in RegisterLayout.Children.OfType<CheckBox>())
+                List<CheckBox> CheckBoxList = new List<CheckBox>() { Reparateur, Coach, Commissaris, Examinator, Bestuur };
+                foreach (CheckBox c in CheckBoxList)
                 {
                     if (c.IsChecked == true)
                     {
@@ -201,8 +227,8 @@ namespace Views
 
                         if (!User_Roles)
                         {
-                            dbc.Add_UserRole(roleID, EditID);
 
+                            dbc.Add_UserRole(roleID, EditID);
                         }
 
 
@@ -226,6 +252,8 @@ namespace Views
                         }
                     }
 
+
+                    //als de rechten van de gebruiker bestuur is, ga dan naar de userlist. Als je geen bestuur bent ga je terug naar het dashboard.
                     var Login_User_Role = from x in context.User_Roles
                                           where x.UserID == LoginView.UserId && x.DeletedAt == null
                                           select x.RoleID;

@@ -9,9 +9,9 @@ using Views;
 
 namespace Controllers
 {
-    public  class DashboardController
+    public class DashboardController
     {
-       
+
         DataBase context = new DataBase();
         Dashboard Dashboard;
 
@@ -21,7 +21,7 @@ namespace Controllers
             UserController.CheckSubscription();
         }
         //deze methode kijkt of wanneer je het laatst bent ingelogd en geeft een melding wanneer je reserveringen zijn veranderd
-           public void Notification(DateTime lastLogged)
+        public void Notification(DateTime lastLogged)
         {
             var DamagedBoatsOfUser = (from data in context.Damages
                                       join a in context.Reservations
@@ -41,26 +41,27 @@ namespace Controllers
 
                         select data).Single();
 
-          
-            if (DamagedBoatsOfUser.Count > 1 ) {
+
+            if (DamagedBoatsOfUser.Count > 1)
+            {
                 //melding met meerdere veranderingen
-              MessageBoxResult Notification = MessageBox.Show(
-                               "Uw reserveringen zijn gewijzigd omdat de boot uit de vaart is genomen",
-                               "Melding",
-                               MessageBoxButton.OK,
-                               MessageBoxImage.Information);
+                MessageBoxResult Notification = MessageBox.Show(
+                                 "Uw reserveringen zijn gewijzigd omdat de boot uit de vaart is genomen",
+                                 "Melding",
+                                 MessageBoxButton.OK,
+                                 MessageBoxImage.Information);
 
 
             }
 
             if (DamagedBoatsOfUser.Count == 1)
             {
-                    MessageBoxResult Notification = MessageBox.Show(
-                    //melding met 1 verandering
-                               "Uw reservering is gewijzigd omdat de boot uit de vaart is genomen",
-                               "Melding",
-                               MessageBoxButton.OK,
-                               MessageBoxImage.Information);
+                MessageBoxResult Notification = MessageBox.Show(
+                           //melding met 1 verandering
+                           "Uw reservering is gewijzigd omdat de boot uit de vaart is genomen",
+                           "Melding",
+                           MessageBoxButton.OK,
+                           MessageBoxImage.Information);
 
             }
             //last login wordt geupdate na het melden van schade
@@ -97,28 +98,34 @@ namespace Controllers
                    select r.Start).Single();
 
                 var EndDate =
-             (from r in context.Reservations
-              where r.ReservationID == reservation.ReservationID
-              select r.End).Single();
+                  (from r in context.Reservations
+                   where r.ReservationID == reservation.ReservationID
+                   select r.End).Single();
 
                 var Duration = EndDate - StartDate;
+                string DurationMinuteString = Duration.Minutes.ToString();
 
                 var BoatLocation =
-            (from r in context.Reservations 
-             where r.ReservationID == reservation.ReservationID
-             select r.Boat.BoatLocation).Single();
+                 (from r in context.Reservations
+                  where r.ReservationID == reservation.ReservationID
+                  select r.Boat.BoatLocation).Single();
 
                 string Minutes = StartDate.Minute.ToString();
+
                 if (StartDate.Minute < 10)
                 {
                     Minutes = "0" + Minutes;
+                }
+                if (Duration.Minutes < 10)
+                {
+                    DurationMinuteString = "0" + DurationMinuteString;
                 }
 
                 string content;
                 content = "Naam : " + Name;
                 content += "\nBegintijd: " + StartDate.Hour + ":" + Minutes;
-                content += "\nDuur: " + Duration.Hours + ":" + Duration.Minutes;
-                content += "\nDatum: "  + StartDate.Day + "/" + StartDate.Month + "/" + StartDate.Year;
+                content += "\nDuur: " + Duration.Hours + ":" + DurationMinuteString;
+                content += "\nDatum: " + StartDate.Day + "/" + StartDate.Month + "/" + StartDate.Year;
                 content += "\nLocatie: " + BoatLocation;
 
                 return content;
@@ -126,7 +133,7 @@ namespace Controllers
         }
 
         //Deze methode verwijderd de bijbehorende reservatie
-        public void DeleteReservation(int id)
+        public void DeleteReservation(int id, bool competition)
         {
             using (DataBase context = new DataBase())
             {
@@ -151,18 +158,15 @@ namespace Controllers
                 context.SaveChanges();
                 //Alle oude knoppen en labels worden verwijderd van het scherm.
                 Dashboard.DeleteAllControls();
-                Dashboard.YLeft = 50;
-                Dashboard.YRight = 50;
-                Dashboard.Count = 0;
                 //De nieuwe reserveringen worden op het scherm getoond. 
-                Dashboard.ShowReservations();
+                Dashboard.ShowReservations(competition);
 
             }
         }
         //Deze methode verwijderd alle controls
-       
 
-        
+
+
         public Button AddChangeButton(int x, int y)
         {
             //Er wordt een button aangemaakt. 

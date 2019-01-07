@@ -25,6 +25,7 @@ namespace Views
         DataBase context = new DataBase();
         DashboardController dashboardController;
         public static NavigationView navigationview;
+        bool competition = false;
         public Dashboard()
         {
             InitializeComponent();
@@ -42,34 +43,24 @@ namespace Views
             var rol = (from data in context.User_Roles
                        where data.UserID == LoginView.UserId
                        select data.RoleID).ToList();
-
-            if (rol.Contains(5))
-            {
-                MaxReservationUser = 2;
-            }
-
+   
+            //Een wedstrijd commisaris heeft maximaal 8 afschrijvingen. 
+            //De wedstrijdcommisaris heeft ook de keuze tussen afschrijvingen voor een wedstrijd en persoonlijke afschrijvingen.
             if (rol.Contains(3))
             {
                 MaxReservationUser = 8;
+                SortReservation.Visibility = Visibility.Visible;
+                SortReservationLabel.Visibility = Visibility.Visible;
             }
-
-            if (rol.Contains(4))
-            {
-                MaxReservationUser = int.MaxValue;
-            }
-
-            if (rol.Contains(5))
+            //Een examinator en bestuur mag zoveel afschrijvingen als die wilt
+            if (rol.Contains(4) || rol.Contains(5))
             {
                 MaxReservationUser = int.MaxValue;
             }
 
             //De reservaties van de gebruiker worden met deze methode getoond op het scherm
-            ShowReservations();
+            ShowReservations(competition);
             dashboardController.Notification(loggedUser.LastLoggedIn);
-
-            // send email test
-            //string Message = $"Hallo {loggedUser.Firstname},{Environment.NewLine}{Environment.NewLine}De boot moet vanwege zware schade worden gerepareerd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}Omar en de gang";
-            //EmailController sendMail = new EmailController("ltzpatrick@hotmail.nl", "Uw reserveringen zijn gewijzigd omdat de boot uit de vaart is genomen.", Message);
 
 
 
@@ -89,7 +80,7 @@ namespace Views
 
 
 
-        public void ShowReservations()
+        public void ShowReservations(bool competition)
         {
             using (var context = new DataBase())
             {
@@ -99,6 +90,7 @@ namespace Views
                     from data in context.Reservations
                     where data.Deleted == null
                     where data.UserId == LoginView.UserId
+                    where data.Competition == competition
                     select data).ToList();
 
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
@@ -189,21 +181,25 @@ namespace Views
     {
         foreach (var t in LabelList)
         {
-            GridDashboard.Children.Remove(t);
+            reservationsCanvas.Children.Remove(t);
         }
 
         foreach (var t in ButtonList)
         {
-            GridDashboard.Children.Remove(t);
+            reservationsCanvas.Children.Remove(t);
         }
-    }
+            // de posities worden gereset
+            YLeft = 10;
+           YRight = 10;
+            Count = 0;
+        }
 
 
 
     public void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
         var b = (Button)sender;
-        dashboardController.DeleteReservation((int)b.Tag);
+        dashboardController.DeleteReservation((int)b.Tag, competition);
     }
 
     public void Change_Click(object sender, RoutedEventArgs e)
@@ -216,5 +212,26 @@ namespace Views
     //            reserveWindow.Populate();
     private void AddReservationButton_Click(object sender, RoutedEventArgs e) =>
         Switcher.Switch(new BoatSelectionView());
-}
+
+     
+    //method voor het sorteren van de reserveringen.
+        private void SortReservation_Click(object sender, RoutedEventArgs e)
+        {
+            if (competition == false)
+            {
+                competition = true;
+                SortReservation.Content = "Mijn afschijvingen";
+                SortReservationLabel.Content = "Wedstrijd afschrijvingen";
+            }
+            else if (competition == true)
+            {
+                competition = false;
+                SortReservation.Content = "Wedstrijd afschrijvingen";
+                SortReservationLabel.Content = "Mijn afschijvingen";
+
+            }
+            DeleteAllControls();
+            ShowReservations(competition);
+        }
+    }
 }

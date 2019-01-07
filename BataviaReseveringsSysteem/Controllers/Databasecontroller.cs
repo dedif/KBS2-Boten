@@ -194,7 +194,7 @@ namespace Controllers
 
         }
 
-        public void Delete_User(int userID)
+        public static void Delete_User(int userID)
         {
             using (DataBase context = new DataBase())
             {
@@ -207,6 +207,9 @@ namespace Controllers
                     delUser.DeletedAt = DateTime.Now;
 
                     context.SaveChanges();
+
+                    string sendMessage = $"Beste {delUser.Firstname},{Environment.NewLine}{Environment.NewLine}Uw lidmaatschap is vanaf vandaag opgezegd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}De Roeivereniging";
+                    EmailController mail = new EmailController(delUser.Email, "Einde lidmaatschap", sendMessage);
                 }
             }
 

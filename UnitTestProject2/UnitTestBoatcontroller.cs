@@ -1,7 +1,6 @@
 ﻿using System;
 using Controllers;
 using NUnit.Framework;
-using System;
 using Assert = NUnit.Framework.Assert;
 
 namespace UnitTest
@@ -50,20 +49,34 @@ namespace UnitTest
       
         // true = de boot bestaat nog niet, false = de boot bestaat al
         [Test]
-        [TestCase("boot", true)]
+        [TestCase("kaas", true)]
         [TestCase("pizza", false)]
        
         public void NameCheck_NameExistOrNot_ReturnBool(string name, bool answer)
         {
             //Arrange
             BoatController boot = new BoatController();
-            boot.AddBoat("pizza", "scull", 3, 23, false, 1, DateTime.Now);
             //Act
             bool result = boot.NameCheck(name);
             //Assert
             Assert.AreEqual(answer, result);
         }
 
+
+        [Test]
+        [TestCase(1, false)]
+        [TestCase(567, true)]
+
+        // true = de boot locatie bestaat al, false = de boot bestaat al
+        public void LocationCheck_LocationExistOrNot_ReturnBool(int location, bool answer)
+        {
+            //Arrange
+            BoatController boot = new BoatController();
+            //Act
+            bool result = boot.BoatLocationCheck(location);
+            //Assert
+            Assert.AreEqual(answer, result);
+        }
 
     }
 }

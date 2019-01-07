@@ -112,8 +112,8 @@ namespace Controllers
                     delUser.DeletedAt = DateTime.Now;
                     context.SaveChanges();
                 }
-                var sendMessage = $"Goededag meneer/mevrouw {delUser.Lastname},{Environment.NewLine}{Environment.NewLine} Uw abonnement is vanaf vandaag opgezegd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}Omar en de gang";
-                new EmailController(delUser.Email, "Einde Abbonement", sendMessage);
+                var sendMessage = $"Beste {delUser.Firstname},{Environment.NewLine}{Environment.NewLine} Uw lidmaatschap is vanaf vandaag opgezegd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}De Roeivereniging";
+                new EmailController(delUser.Email, "Abbonement", sendMessage);
             }
         }
 
@@ -198,8 +198,8 @@ namespace Controllers
                 foreach (var user in users)
                 {
                     if (!(user.EndOfSubscription <= DateTime.Now)) continue;
-                    var sendMessage = $"Goededag meneer/mevrouw {user.Lastname},{Environment.NewLine}{Environment.NewLine} Uw abonnement is vanaf vandaag opgezegd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}Omar en de gang";
-                    new EmailController(user.Email, "Einde Abbonement", sendMessage);
+                    var sendMessage = $"Beste {user.Firstname},{Environment.NewLine}{Environment.NewLine} Uw lidmaatschap is vanaf vandaag verlopen.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}De Roeivereniging";
+                    new EmailController(user.Email, "Einde lidmaatschap", sendMessage);
                     var dep = context.Users.First(d => d.UserID == user.UserID);
                     dep.City = null;
                     dep.Address = null;

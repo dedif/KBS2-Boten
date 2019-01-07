@@ -358,6 +358,15 @@
                 FontSize="16"
                 Margin="170,0,0,0"
                 Click="BewerkBtn_Click"/>
+            <Button
+                x:Name="VerwijderenBtn"
+                Content="Lid verijderen"
+                Background="Red"
+                Width="140"
+                Height="35"
+                FontSize="16"
+                Margin="120,0,0,0"
+                Click="VerwijderenBtn_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>

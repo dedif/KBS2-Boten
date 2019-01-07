@@ -75,6 +75,7 @@ namespace Views
                     SeeUsersBtn.IsEnabled = true;
                     AddUsersBtn.IsEnabled = true;
                     nieuwsBtn.IsEnabled = true;
+                    nieuwsListBtn.IsEnabled = true;
 
 
 

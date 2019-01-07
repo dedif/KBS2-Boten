@@ -46,15 +46,24 @@ namespace Views
         void ButtonDelete(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
-            if (MessageBox.Show("Wilt u deze boot definitief verwijderen?",
-                    "Bevestig verwijdering",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) !=
-                MessageBoxResult.Yes)
-                return;
-            bc.SendingMail((int)b.Tag);
-            bc.DeleteBoat((int)b.Tag);
-            Switcher.Switch(new BoatList());
+
+
+            System.Windows.Forms.DialogResult Succes = System.Windows.Forms.MessageBoxEx.Show("Wilt u deze boot definitief verwijderen?", "Bevestig verwijdering", System.Windows.Forms.MessageBoxButtons.YesNo, 30000);
+
+            switch (Succes)
+            {
+                case System.Windows.Forms.DialogResult.No:
+
+                    break;
+
+                case System.Windows.Forms.DialogResult.Yes:
+                    bc.SendingMail((int)b.Tag);
+                    bc.DeleteBoat((int)b.Tag);
+                    Switcher.Switch(new BoatList());
+                    break;
+
+            }
+            
         }
 
 

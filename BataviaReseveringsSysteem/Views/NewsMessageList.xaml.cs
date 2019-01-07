@@ -46,14 +46,23 @@ namespace BataviaReseveringsSysteem.Views
         void ButtonDelete(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
-            if (MessageBox.Show("Wilt u dit nieuwsbericht definitief verwijderen?",
-                    "Bevestig verwijdering",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) !=
-                MessageBoxResult.Yes)
-                return;
-            nmc.Delete_NewsMessage((int)b.Tag);
-            Switcher.Switch(new NewsMessageList());
+            System.Windows.Forms.DialogResult Succes = System.Windows.Forms.MessageBoxEx.Show("Weet u zeker dat u dit nieuwsbericht wilt verwijderen?", "Bevestiging verwijdering", System.Windows.Forms.MessageBoxButtons.YesNo, 30000);
+
+            switch (Succes)
+            {
+                case System.Windows.Forms.DialogResult.Yes:
+
+                    nmc.Delete_NewsMessage((int)b.Tag);
+                    Switcher.Switch(new NewsMessageList());
+
+                    break;
+
+
+                case System.Windows.Forms.DialogResult.No:
+
+                    break;
+            }
+            
         }
 
 

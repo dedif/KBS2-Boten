@@ -32,7 +32,7 @@ namespace Views
             using (DataBase context = new DataBase())
             {
                 var rol = (from data in context.User_Roles
-                           where data.UserID == LoginView.UserId 
+                           where data.UserID == LoginView.UserId
                            select data.RoleID).ToList();
 
 
@@ -58,7 +58,7 @@ namespace Views
             using (DataBase context = new DataBase())
             {
                 var users = (from u in context.Users join g in context.Genders on u.GenderID equals g.GenderID
-                             where u.DeletedAt == null
+                             where u.DeletedAt == null && u.UserID != LoginView.UserId
                              select new {u.UserID,Firstname = u.Firstname, Middlename = u.Middlename, Lastname = u.Lastname, Gender = g.GenderName , Birthday = u.Birthday, City = u.City, Address = u.Address, Zipcode = u.Zipcode, Phonenumber = u.Phonenumber, Email = u.Email }).ToList();
 
 
@@ -83,20 +83,24 @@ namespace Views
         void ButtonDelete(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
-            if (MessageBox.Show("Wilt u deze gebruiker definitief verwijderen?",
-                    "Bevestig verwijdering",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) !=
-                MessageBoxResult.Yes)
-                return;
-            usc.Delete_User((int)b.Tag);
-            
-            
-            Switcher.Switch(new UserList());
+
+            System.Windows.Forms.DialogResult Succes = System.Windows.Forms.MessageBoxEx.Show("Wilt u deze gebruiker definitief verwijderen?", "Bevestig verwijdering", System.Windows.Forms.MessageBoxButtons.YesNo, 30000);
+
+            switch (Succes)
+            {
+                case System.Windows.Forms.DialogResult.No:
+                    
+                    break;
+
+                case System.Windows.Forms.DialogResult.Yes:
+                    usc.Delete_User((int)b.Tag);
+
+
+                    Switcher.Switch(new UserList());
+                    break;
+
+            }
         }
-
-
-
 
         void ButtonEdit(object sender, RoutedEventArgs e)
         {

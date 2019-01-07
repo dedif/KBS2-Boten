@@ -19,16 +19,33 @@ namespace BataviaReseveringsSysteem.Views
         public BoatSelectionView()
         {
             InitializeComponent();
+            AllowedCompetition();
             Scull.IsChecked = true;
+
         }
 
         private Boat _boat;
+        private Boolean _competition = false;
+        //Deze methode kijkt of je ook voor wedstrijden mag afschrijven
+        private void AllowedCompetition()
+        {
+            using (DataBase context = new DataBase())
+            {
+                var RolID = (from data in context.User_Roles
+                             where data.UserID == LoginView.UserId
+                             select data.RoleID).ToList();
 
+                if (RolID.Contains(3))
+                {
+                    CompetitionCheckbox.Visibility = Visibility.Visible;
+                }
+            }
+        }
         private void TypeChecked(object sender, RoutedEventArgs e)
         {
 
-   
-            if(Equals(sender, Skiff))
+
+            if (Equals(sender, Skiff))
             {
                 RowersCombo.IsEnabled = false;
                 RowersCombo.SelectedItem = oneRower;
@@ -36,7 +53,7 @@ namespace BataviaReseveringsSysteem.Views
             }
             else
             {
-                if(RowersCombo.SelectedItem == oneRower)
+                if (RowersCombo.SelectedItem == oneRower)
                 {
                     RowersCombo.SelectedIndex = 1;
                 }
@@ -63,9 +80,26 @@ namespace BataviaReseveringsSysteem.Views
                              where data.NumberOfRowers == amountOfRowersFromCombo
                              where data.AvailableAt <= DateTime.Now
                              where data.Deleted == false
+                             where data.Broken == false
                              select data).ToList().Distinct();
 
-                foreach (var item in boats) BoatCombo.Items.Add(item.Name);
+                //Deze query haalt alle boten uit de database die licht beschadigd zijn
+                var DamagedBoats = (from data in context.Damages
+                                    where data.Status == "Lichte schade"
+                                    select data.BoatID).ToList();
+
+                foreach (var item in boats)
+                {
+                    //Als de boot licht beschadigd is dan wordt dit vermeld bij het selecteren van een boot
+                    if (DamagedBoats.Contains(item.BoatID))
+                    {
+                        BoatCombo.Items.Add(item.Name + " " + item.Weight +  "kg (beschadigd)");
+                    }
+                    else
+                    {
+                        BoatCombo.Items.Add(item.Name +  " " + item.Weight + "kg");
+                    }
+                }
             }
         }
 
@@ -76,7 +110,7 @@ namespace BataviaReseveringsSysteem.Views
         private void Refresh()
         {
             foreach (var type in Types.Children)
-            {				
+            {
                 RadioButton radioButton = (RadioButton)type;
                 if (radioButton.IsChecked == true) TypeChecked(radioButton, new RoutedEventArgs());
             }
@@ -88,9 +122,13 @@ namespace BataviaReseveringsSysteem.Views
 
         private void BevestigenBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (CompetitionCheckbox.IsChecked == true)
+            {
+                _competition = true;
+            }
             var reserveWindow = new ReserveWindow();
             Switcher.Switch(reserveWindow);
-            reserveWindow.Populate(_boat);
+            reserveWindow.Populate(_boat, _competition);
         }
 
         private void BoatCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -107,8 +145,12 @@ namespace BataviaReseveringsSysteem.Views
             }
         }
 
-        private Boat GetBoatFromBoatComboBox() =>
-            new BoatController().GetBoatWithName(BoatCombo.SelectedItem.ToString());
+        private Boat GetBoatFromBoatComboBox()
+        {
+            //Je pakt alleen de naam van de boot, die de gebruiker selecteerd.
+            string BoatName = BoatCombo.SelectedItem.ToString().Substring(0, BoatCombo.SelectedItem.ToString().IndexOf(" "));
+           return new BoatController().GetBoatWithName(BoatName);
+        }
 
         private bool IsBoatSelected() => BoatCombo.SelectedIndex != -1;
 

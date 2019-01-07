@@ -38,7 +38,7 @@
                 FontSize="26"
                 Canvas.Left="328" Canvas.Top="5" Width="333"/>
         </Canvas>
-        <DataGrid Grid.Row="2" x:Name="DataNewsMessageList"  CanUserAddRows="false"   ItemsSource="{Binding Users}" x:FieldModifier="public" DataContext="{StaticResource NewsMessageSource}" AutoGenerateColumns="false" HorizontalAlignment="Left" Height="469" Width="1000" >
+        <DataGrid Grid.Row="2" x:Name="DataNewsMessageList" CanUserAddRows="false"   ItemsSource="{Binding Users}" x:FieldModifier="public" DataContext="{StaticResource NewsMessageSource}" AutoGenerateColumns="false" HorizontalAlignment="Left" Height="469" Width="968" Margin="0,0,0,149" Grid.RowSpan="2" >
 
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="NewsMessageID" Width="auto"    Binding="{Binding NewsMessageID}" Header="berichtnummer" IsReadOnly="true" />

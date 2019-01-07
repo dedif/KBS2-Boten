@@ -21,17 +21,13 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Menu Grid.Row="0" Name="Menu" IsMainMenu="True"  DockPanel.Dock="Top" Grid.Column="0" FontSize="16">
+            <MenuItem Header="Dashboard" x:Name="SeeReservationsBtn" Click="SeeReservationsBtn_Click">
+            </MenuItem>
             <MenuItem Header="_Afschrijven">
                 <MenuItem Header="Afschrijvingen maken" x:Name="MakeReservationsBtn" Click="MakeReservationsBtn_Click">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon
                         Kind="CalendarPlus" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Afschrijvingen inzien" x:Name="SeeReservationsBtn" Click="SeeReservationsBtn_Click">
-                    <MenuItem.Icon>
-                        <materialDesign:PackIcon
-                        Kind="CalendarText"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -57,7 +53,7 @@
                         Kind="UserSearch" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Leden toevoegen" IsEnabled="False"  x:Name="AddUsersBtn" Click="AddUsersBtn_Click">
+                <MenuItem Header="Lid toevoegen" IsEnabled="False"  x:Name="AddUsersBtn" Click="AddUsersBtn_Click">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon
                         Kind="PersonAdd" />
@@ -93,13 +89,13 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Nieuws">
-                <MenuItem x:Name="nieuwsBtn" Header="Nieuwsbericht toevoegen" Click="NieuwsBtn_Click">
+                <MenuItem x:Name="nieuwsBtn" Header="Nieuwsbericht plaatsen" Click="NieuwsBtn_Click">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon
                             Kind="ViewList"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="nieuwsListBtn" Header="Nieuwsberichten lijst" Click="NieuwsListBtn_Click">
+                <MenuItem x:Name="nieuwsListBtn" Header="Nieuwsberichten overzicht" IsEnabled="False" Click="NieuwsListBtn_Click">
                     <MenuItem.Icon>
                         <materialDesign:PackIcon
                         Kind="Newspaper" />
@@ -117,7 +113,7 @@
             <Label x:Name="NameLabel" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Content="" Height="37" Width="120"/>
             <materialDesign:PopupBox StaysOpen="False">
                 <StackPanel>
-                    <MenuItem Header="Account" Click="EditUserBtn_Click">
+                    <MenuItem Header="Gegevens wijzigen" Click="EditUserBtn_Click">
                         <MenuItem.Icon>
                             <materialDesign:PackIcon
                         Kind="Cog" />
