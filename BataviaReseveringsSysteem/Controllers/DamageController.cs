@@ -63,7 +63,7 @@ namespace BataviaReseveringsSysteem.Controllers
                     if (AlreadySendenMails.Count == 0)
                     {
                         //De message van de mail
-                        string sendMessage = $"Hallo {user.Firstname},{Environment.NewLine}{Environment.NewLine}De boot moet vanwege zware schade worden gerepareerd.{Environment.NewLine}De onderstaande reservering is hierdoor gewijzigd:{Environment.NewLine}{ReservationContent(r)}{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}De vereniging";
+                        string sendMessage = $"Beste {user.Firstname},{Environment.NewLine}{Environment.NewLine}De boot moet vanwege zware schade worden gerepareerd.{Environment.NewLine}De onderstaande reservering is hierdoor gewijzigd:{Environment.NewLine}{ReservationContent(r)}{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}De vereniging";
                         //De titel
                         string title = "Uw reservering is gewijzigd.";
                         EmailController sendMail = new EmailController($"{user.Email}", title, sendMessage);

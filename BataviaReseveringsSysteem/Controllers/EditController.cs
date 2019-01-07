@@ -187,8 +187,8 @@ namespace Controllers
 
                 if (update.EndOfSubscription != endDate.SelectedDate)
                 {
-                    string sendMessage = $"Hallo {firstname.Text},{Environment.NewLine}{Environment.NewLine}Lidnummer:{userID}{Environment.NewLine}{Environment.NewLine}Uw abonnement is gewijzigd, uw abonnemnt loopt nu tot {endDate.SelectedDate.Value.ToString("dd-MM-yyyy")}.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}De Roeivereniging";
-                    EmailController mail = new EmailController(email.Text, "Abonnement gegevens gewijzigd", sendMessage);
+                    string sendMessage = $"Beste {firstname.Text},{Environment.NewLine}{Environment.NewLine}Lidnummer:{userID}{Environment.NewLine}{Environment.NewLine}Uw lidmaatschap is gewijzigd, uw lidmaatschap loopt nu tot {endDate.SelectedDate.Value.ToString("dd-MM-yyyy")}.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}De Roeivereniging";
+                    EmailController mail = new EmailController(email.Text, "Lidmaatschap gegevens gewijzigd", sendMessage);
                 }
             }
                

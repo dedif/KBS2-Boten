@@ -142,11 +142,11 @@ namespace Controllers
                     context.SaveChanges();
                 }
 
-                string sendMessage = $"Goededag meneer/mevrouw {delUser.Lastname},{Environment.NewLine}{Environment.NewLine} Uw abonnement is vanaf vandaag opgezegd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}De Roeivereniging";
+                string sendMessage = $"Beste {delUser.Firstname},{Environment.NewLine}{Environment.NewLine} Uw lidmaatschap is vanaf vandaag opgezegd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}De Roeivereniging";
 
                 EmailController mail = new EmailController(
                     delUser.Email,
-                    "Einde Abbonement", sendMessage);
+                    "Abbonement", sendMessage);
             }
         }
 
@@ -250,11 +250,11 @@ namespace Controllers
                     {
                         if (user.EndOfSubscription <= DateTime.Now)
                         {
-                            string sendMessage = $"Goededag meneer/mevrouw {user.Lastname},{Environment.NewLine}{Environment.NewLine} Uw abonnement is vanaf vandaag opgezegd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}De Roeivereniging";
+                            string sendMessage = $"Beste {user.Firstname},{Environment.NewLine}{Environment.NewLine} Uw lidmaatschap is vanaf vandaag verlopen.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}De Roeivereniging";
 
                             EmailController mail = new EmailController(
                                 user.Email,
-                                "Einde Abbonement", sendMessage);
+                                "Einde lidmaatschap", sendMessage);
 
                             User dep = context.Users.Where(d => d.UserID == user.UserID).First();
                             dep.City = null;
