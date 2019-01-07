@@ -133,6 +133,7 @@ namespace Views
                 Bestuur.Visibility = Visibility.Hidden;
                 SubscriptionLabel.Visibility = Visibility.Hidden;
                 EndOfSubscription.Visibility = Visibility.Hidden;
+                VerwijderenBtn.Visibility = Visibility.Hidden;
             }
 
         }
@@ -183,7 +184,18 @@ namespace Views
                 Switcher.Switch(new Dashboard());
             }
         }
-
+        private void VerwijderenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Weet u zeker dat u deze gebuiker wil verwijderen?",
+                                          "Waarschuwing",
+                                          MessageBoxButton.YesNo,
+                                          MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                DataBaseController.Delete_User(EditID);
+                Switcher.Switch(new UserList());
+            }
+        }
 
         private void BewerkBtn_Click(object sender, RoutedEventArgs e)
         {
