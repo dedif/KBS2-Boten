@@ -1,5 +1,4 @@
 ﻿using BataviaReseveringsSysteem.Database;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Controllers;
@@ -21,13 +20,11 @@ namespace ScreenSwitcher
             Switcher.pageSwitcher = this;
             using (var context = new DataBase())
             {
-                 if (context.Database.Exists() && new UserController().DataBaseContainsManagementUser())
-                {
+                if (context.Database.Exists() && new UserController().DataBaseContainsUndeletedManagementUser())
                     Switcher.Switch(new LoginView());
-                }
                 else Switcher.Switch(new Register());
             }
-            
+
         }
 
         public void SwitcherContentCanvas()

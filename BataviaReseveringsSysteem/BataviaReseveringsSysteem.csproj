@@ -121,6 +121,9 @@
     </Compile>
     <Compile Include="Reservations\BoatTypeTabItem.cs" />
     <Compile Include="Reservations\CalcSunTimes.cs" />
+    <Compile Include="Views\CannotCancelRegisteringBecauseNoManagersDialog.xaml.cs">
+      <DependentUpon>CannotCancelRegisteringBecauseNoManagersDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditBoatDamage.xaml.cs">
       <DependentUpon>EditBoatDamage.xaml</DependentUpon>
     </Compile>
@@ -191,6 +194,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BoatSelectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CannotCancelRegisteringBecauseNoManagersDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
