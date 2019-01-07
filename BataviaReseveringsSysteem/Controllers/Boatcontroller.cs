@@ -61,7 +61,7 @@ namespace Controllers
 
         public Boolean WhiteCheck(string name, string weight, string boatLocation)
         {
-            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(weight))
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(weight) || string.IsNullOrWhiteSpace(boatLocation))
             {
                 notification = "U heeft niet alle gegevens ingevuld";
 

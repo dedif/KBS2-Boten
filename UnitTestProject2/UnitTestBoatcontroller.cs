@@ -67,7 +67,7 @@ namespace UnitTest
         [TestCase(1, false)]
         [TestCase(567, true)]
 
-
+        // true = de boot locatie bestaat al, false = de boot bestaat al
         public void LocationCheck_LocationExistOrNot_ReturnBool(int location, bool answer)
         {
             //Arrange
