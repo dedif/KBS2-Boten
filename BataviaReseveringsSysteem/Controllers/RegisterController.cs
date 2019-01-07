@@ -197,7 +197,7 @@ namespace Controllers
                 }
                 else
                 {
-                    string sendMessage = $"Hallo {Firstname.Text},{Environment.NewLine}Lidnummer:{u.GetID()}{Environment.NewLine}{Environment.NewLine}U staat vanaf vandaag ingeschreven bij onze vereniging.{Environment.NewLine}{Environment.NewLine}U abbonement loopt tot nog een onbekend termijn bij ons. Uw krijgt later een mail als het abonnement termijn veranderd wordt.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}De Roeivereniging";
+                    string sendMessage = $"Hallo {Firstname.Text},{Environment.NewLine}Lidnummer:{u.GetID()}{Environment.NewLine}{Environment.NewLine}U staat vanaf vandaag ingeschreven bij onze vereniging.{Environment.NewLine}{Environment.NewLine}U abbonement loopt tot nog een onbekend termijn bij ons. {Environment.NewLine}Uw krijgt later een mail als het abonnement termijn veranderd wordt.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}De Roeivereniging";
 
                     EmailController mail = new EmailController(Email.Text, "Abonnement bij Batavia..", sendMessage);
                 }
