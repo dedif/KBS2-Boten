@@ -8,15 +8,16 @@ using Controllers;
 using ScreenSwitcher;
 using BataviaReseveringsSysteem.Database;
 using System.Collections.Generic;
+using BataviaReseveringsSysteem.Views;
 
 namespace Views
 {
     /// <summary>
     /// Interaction logic for Register.xaml
     /// </summary>
-    public partial class Register : UserControl
+    public partial class Register
     {
-	    DataBaseController dbc = new DataBaseController();
+        DataBaseController dbc = new DataBaseController();
         UserController uc = new UserController();
 
         public Register()
@@ -43,7 +44,7 @@ namespace Views
                     uc.Add_Gender("Man");
                     uc.Add_Gender("Vrouw");
                     uc.Add_Gender("Anders");
-                  
+
                 }
 
                 // als er nog geen rollen in de database staan maak dan deze rollen aan
@@ -60,36 +61,32 @@ namespace Views
 
                 foreach (var role in roles)
                 {
-                    if("Reparateur" == role.RoleName)
+                    if (role.RoleName.Equals("Reparateur"))
                     {
                         Reparateur.Content = role.RoleName;
                         Reparateur.Tag = role.RoleID;
-                    } 
-                    if("Coach" == role.RoleName)
+                    }
+                    if (role.RoleName.Equals("Coach"))
                     {
                         Coach.Content = role.RoleName;
                         Coach.Tag = role.RoleID;
-
                     }
-                    if ("Wedstrijd Commissaris" == role.RoleName)
+                    if (role.RoleName.Equals("Wedstrijd Commissaris"))
                     {
                         Commissaris.Content = role.RoleName;
                         Commissaris.Tag = role.RoleID;
-
                     }
-                    if ("Examinator" == role.RoleName)
+                    if (role.RoleName.Equals("Examinator"))
                     {
                         Examinator.Content = role.RoleName;
                         Examinator.Tag = role.RoleID;
-
                     }
-                    if ("Bestuur" == role.RoleName)
+                    if (role.RoleName.Equals("Bestuur"))
                     {
                         Bestuur.Content = role.RoleName;
                         Bestuur.Tag = role.RoleID;
-
                     }
-                  
+
                 }
 
             }
@@ -97,22 +94,22 @@ namespace Views
         //Redirect to DashBoard
         private void Login_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
-             Switcher.Switch(new LoginView());
+            Switcher.Switch(new LoginView());
         }
 
         //Register user of user
         private void ButtonRegister(object sender, RoutedEventArgs e)
         {
             var managementIsChecked = Bestuur.IsChecked;
-            if (managementIsChecked.HasValue && managementIsChecked.Value || new UserController().DataBaseContainsManagementUser())
+            if (managementIsChecked.HasValue && managementIsChecked.Value || new UserController().DataBaseContainsUndeletedManagementUser())
             {
                 if (RegisterController.Register(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, EndOfSubscription))
                 {
-                    using (DataBase context = new DataBase())
+                    using (var context = new DataBase())
                     {
-                        var checkBoxList = new List<CheckBox>() { Reparateur, Commissaris, Examinator, Coach, Bestuur };
+                        var checkBoxList = new List<CheckBox> { Reparateur, Commissaris, Examinator, Coach, Bestuur };
 
-                        foreach (CheckBox c in checkBoxList)
+                        foreach (var c in checkBoxList)
                         {
                             if (c.IsChecked != true) continue;
                             var roleId = int.Parse(c.Tag.ToString());
@@ -148,7 +145,8 @@ namespace Views
         // check if there are no numbers in inputbox
         public static bool IsAllLetters(string s)
         {
-            foreach (char c in s)
+            //            return s.ToList().All(c => char.IsLetter(c));
+            foreach (var c in s)
             {
                 if (!Char.IsLetter(c))
                 {
@@ -156,24 +154,24 @@ namespace Views
                 }
             }
             return true;
-
         }
         // Check if there is are no letters in input box
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("[^0-9]+");
+            var regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 
         private void ZipcodeValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i");
+            var regex = new Regex("/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i");
             e.Handled = regex.IsMatch(e.Text);
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new Dashboard());
+            if (uc.DataBaseContainsUndeletedManagementUser()) Switcher.Switch(new Dashboard());
+            else new CannotCancelRegisteringBecauseNoManagersDialog().ShowDialog();
         }
     }
 }
