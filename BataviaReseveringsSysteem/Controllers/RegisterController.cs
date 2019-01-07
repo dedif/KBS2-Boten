@@ -191,13 +191,13 @@ namespace Controllers
 
                 if (EndofSub.SelectedDate != null)
                 {
-                    string sendMessage = $"Hallo {Firstname.Text},{Environment.NewLine}Lidnummer:{u.GetID()}{Environment.NewLine}{Environment.NewLine} Uw staat vanaf vandaag ingeschreven bij onze vereniging.{Environment.NewLine}{Environment.NewLine}Uw abbonement loopt tot {EndofSub.SelectedDate.Value.ToString("dd-MM-yyyy")}.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}De Roeivereniging";
+                    string sendMessage = $"Hallo {Firstname.Text},{Environment.NewLine}Lidnummer:{u.GetID()}{Environment.NewLine}{Environment.NewLine}U staat vanaf vandaag ingeschreven bij onze vereniging.{Environment.NewLine}{Environment.NewLine}U abbonement loopt tot {EndofSub.SelectedDate.Value.ToString("dd-MM-yyyy")}.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}De Roeivereniging";
 
                     EmailController mail = new EmailController(Email.Text, "Duur Abonnement", sendMessage);
                 }
                 else
                 {
-                    string sendMessage = $"Hallo {Firstname.Text},{Environment.NewLine}Lidnummer:{u.GetID()}{Environment.NewLine}{Environment.NewLine} Uw staat vanaf vandaag ingeschreven bij onze vereniging.{Environment.NewLine}{Environment.NewLine}Uw abbonement loopt tot nog een onbekend termijn bij ons. Uw krijgt later een mail als het abonnement termijn veranderd wordt.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}De Roeivereniging";
+                    string sendMessage = $"Hallo {Firstname.Text},{Environment.NewLine}Lidnummer:{u.GetID()}{Environment.NewLine}{Environment.NewLine}U staat vanaf vandaag ingeschreven bij onze vereniging.{Environment.NewLine}{Environment.NewLine}U abbonement loopt tot nog een onbekend termijn bij ons. Uw krijgt later een mail als het abonnement termijn veranderd wordt.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}De Roeivereniging";
 
                     EmailController mail = new EmailController(Email.Text, "Abonnement bij Batavia..", sendMessage);
                 }
