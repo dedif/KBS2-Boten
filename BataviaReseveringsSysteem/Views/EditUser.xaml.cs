@@ -201,8 +201,8 @@ namespace Views
 
                         if (!User_Roles)
                         {
-                            dbc.Add_UserRole(roleID, EditID);
 
+                            dbc.Add_UserRole(roleID, EditID);
                         }
 
 
@@ -226,6 +226,8 @@ namespace Views
                         }
                     }
 
+
+                    //als de rechten van de gebruiker bestuur is, ga dan naar de userlist. Als je geen bestuur bent ga je terug naar het dashboard.
                     var Login_User_Role = from x in context.User_Roles
                                           where x.UserID == LoginView.UserId && x.DeletedAt == null
                                           select x.RoleID;

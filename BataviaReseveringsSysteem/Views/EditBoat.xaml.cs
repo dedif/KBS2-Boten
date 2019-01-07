@@ -100,18 +100,15 @@ namespace Views
                                     // {
 
                                     b.UpdateBoat(EditBoatID, NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation, AvailableAt.SelectedDate.Value);
-                                    MessageBoxResult Succes = MessageBox.Show(
-                                     "De boot is succesvol opgeslagen",
-                                     "Melding",
-                                     MessageBoxButton.OK,
-                                     MessageBoxImage.Information);
 
+                                    System.Windows.Forms.DialogResult Succes = System.Windows.Forms.MessageBoxEx.Show("De boot is succesvol opgeslagen", "Succes", System.Windows.Forms.MessageBoxButtons.OK, 30000);
 
                                     switch (Succes)
                                     {
-                                        case MessageBoxResult.OK:
+                                        case System.Windows.Forms.DialogResult.OK:
                                             Switcher.Switch(new BoatList());
                                             break;
+
                                     }
                                 }
                             }

@@ -113,7 +113,7 @@ namespace Controllers
                 {
                     Minutes = "0" + Minutes;
                 }
-
+              
                 string content;
                 content = "Naam : " + Name;
                 content += "\nBegintijd: " + StartDate.Hour + ":" + Minutes;
@@ -126,7 +126,7 @@ namespace Controllers
         }
 
         //Deze methode verwijderd de bijbehorende reservatie
-        public void DeleteReservation(int id)
+        public void DeleteReservation(int id, bool competition)
         {
             using (DataBase context = new DataBase())
             {
@@ -151,11 +151,8 @@ namespace Controllers
                 context.SaveChanges();
                 //Alle oude knoppen en labels worden verwijderd van het scherm.
                 Dashboard.DeleteAllControls();
-                Dashboard.YLeft = 50;
-                Dashboard.YRight = 50;
-                Dashboard.Count = 0;
                 //De nieuwe reserveringen worden op het scherm getoond. 
-                Dashboard.ShowReservations();
+                Dashboard.ShowReservations(competition);
 
             }
         }

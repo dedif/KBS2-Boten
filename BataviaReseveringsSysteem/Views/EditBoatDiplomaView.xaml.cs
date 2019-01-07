@@ -169,9 +169,20 @@ namespace Views
                 }
             }
 
+            System.Windows.Forms.DialogResult Succes = System.Windows.Forms.MessageBoxEx.Show("De diploma's van deze boot zijn aangepast", "Bevestiging diploma's", System.Windows.Forms.MessageBoxButtons.OK, 30000);
+
+            switch (Succes)
+            {
+
+                case System.Windows.Forms.DialogResult.OK:
 
 
-            Switcher.Switch(new BoatDiplomaList());
+                    Switcher.Switch(new BoatDiplomaList());
+                    break;
+
+            }
+
+           
         }
 
 

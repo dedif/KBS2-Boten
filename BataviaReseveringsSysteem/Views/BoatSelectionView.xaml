@@ -125,5 +125,6 @@
         </StackPanel>
         <Label FontSize="16" Content="Aantal roeiers:" FontWeight="Bold" Foreground="#673ab7"  Grid.Row="2" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
         <Label FontSize="16" Content="Boot:" FontWeight="Bold" Foreground="#673ab7"  Grid.Row="3" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.ColumnSpan="2" Margin="0,20,349.666,0"/>
+        <CheckBox FontSize="16" x:Name="CompetitionCheckbox"  Visibility="Hidden" Content="De afschrijving is voor een wedstrijd" Grid.Column="1" HorizontalAlignment="Left" Margin="25,86,0,0" Grid.Row="3" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>

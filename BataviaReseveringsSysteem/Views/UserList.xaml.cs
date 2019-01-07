@@ -83,20 +83,24 @@ namespace Views
         void ButtonDelete(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
-            if (MessageBox.Show("Wilt u deze gebruiker definitief verwijderen?",
-                    "Bevestig verwijdering",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) !=
-                MessageBoxResult.Yes)
-                return;
-            usc.Delete_User((int)b.Tag);
-            
-            
-            Switcher.Switch(new UserList());
+
+            System.Windows.Forms.DialogResult Succes = System.Windows.Forms.MessageBoxEx.Show("Wilt u deze gebruiker definitief verwijderen?", "Bevestig verwijdering", System.Windows.Forms.MessageBoxButtons.YesNo, 30000);
+
+            switch (Succes)
+            {
+                case System.Windows.Forms.DialogResult.No:
+                    
+                    break;
+
+                case System.Windows.Forms.DialogResult.Yes:
+                    usc.Delete_User((int)b.Tag);
+
+
+                    Switcher.Switch(new UserList());
+                    break;
+
+            }
         }
-
-
-
 
         void ButtonEdit(object sender, RoutedEventArgs e)
         {
