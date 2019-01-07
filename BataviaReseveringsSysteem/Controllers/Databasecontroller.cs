@@ -208,7 +208,7 @@ namespace Controllers
 
                     context.SaveChanges();
 
-                    string sendMessage = $"Goededag meneer/mevrouw {delUser.Lastname},{Environment.NewLine}{Environment.NewLine} Uw abonnement is vanaf vandaag opgezegd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}Omar en de gang";
+                    string sendMessage = $"Goededag meneer/mevrouw {delUser.Lastname},{Environment.NewLine}{Environment.NewLine}Uw abonnement is vanaf vandaag opgezegd.{Environment.NewLine}{Environment.NewLine}Met vriendelijke groet,{Environment.NewLine}{Environment.NewLine}De Roeivereniging";
                     EmailController mail = new EmailController(delUser.Email,"Einde Abbonement", sendMessage);
                 }
             }

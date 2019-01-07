@@ -135,6 +135,11 @@ namespace Views
                 EndOfSubscription.Visibility = Visibility.Hidden;
                 VerwijderenBtn.Visibility = Visibility.Hidden;
             }
+            if (LoginView.UserId == EditID && Login_User_Role.Contains(5))
+            {
+                VerwijderenBtn.Visibility = Visibility.Hidden;
+                Bestuur.Visibility = Visibility.Hidden;
+            }
 
         }
 
@@ -186,15 +191,23 @@ namespace Views
         }
         private void VerwijderenBtn_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Weet u zeker dat u deze gebuiker wil verwijderen?",
-                                          "Waarschuwing",
-                                          MessageBoxButton.YesNo,
-                                          MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
-            {
-                DataBaseController.Delete_User(EditID);
-                Switcher.Switch(new UserList());
-            }
+                System.Windows.Forms.DialogResult Succes = System.Windows.Forms.MessageBoxEx.Show("Wilt u deze gebruiker definitief verwijderen?", "Bevestig verwijdering", System.Windows.Forms.MessageBoxButtons.YesNo, 30000);
+
+                switch (Succes)
+                {
+                    case System.Windows.Forms.DialogResult.No:
+
+                        break;
+
+                    case System.Windows.Forms.DialogResult.Yes:
+                        DataBaseController.Delete_User(EditID);
+
+
+                        Switcher.Switch(new UserList());
+                        break;
+
+                }
+            
         }
 
         private void BewerkBtn_Click(object sender, RoutedEventArgs e)

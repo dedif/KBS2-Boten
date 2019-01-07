@@ -32,7 +32,7 @@ namespace Views
             using (DataBase context = new DataBase())
             {
                 var rol = (from data in context.User_Roles
-                           where data.UserID == LoginView.UserId 
+                           where data.UserID == LoginView.UserId
                            select data.RoleID).ToList();
 
 
@@ -58,7 +58,7 @@ namespace Views
             using (DataBase context = new DataBase())
             {
                 var users = (from u in context.Users join g in context.Genders on u.GenderID equals g.GenderID
-                             where u.DeletedAt == null
+                             where u.DeletedAt == null && u.UserID != LoginView.UserId
                              select new {u.UserID,Firstname = u.Firstname, Middlename = u.Middlename, Lastname = u.Lastname, Gender = g.GenderName , Birthday = u.Birthday, City = u.City, Address = u.Address, Zipcode = u.Zipcode, Phonenumber = u.Phonenumber, Email = u.Email }).ToList();
 
 
