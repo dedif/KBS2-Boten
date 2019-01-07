@@ -166,7 +166,7 @@ namespace Controllers
             }if (validate && valDate && !hasPassword)
             {
                 sendNewSubscription(Firstname, Email, EndOfSub, (int)editID.Content);
-                u.Update_User((int)editID.Content, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt, EndOfSub.SelectedDate);
+                u.Update_User((int)editID.Content, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt, EndOfSub.SelectedDate.Value);
                 Switcher.DeleteMenu();
                 Switcher.MenuMaker();
                 MessageBoxResult result = MessageBox.Show("Het account is bijgewerkt.");
