@@ -52,6 +52,13 @@ namespace Views
                 SortReservation.Visibility = Visibility.Visible;
                 SortReservationLabel.Visibility = Visibility.Visible;
             }
+
+            //Een Coach heeft maximaal 8 afschrijvingen.
+            if (rol.Contains(2))
+            {
+                MaxReservationUser = 8;
+            }
+
             //Een examinator en bestuur mag zoveel afschrijvingen als die wilt
             if (rol.Contains(4) || rol.Contains(5))
             {
