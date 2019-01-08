@@ -41,7 +41,7 @@
         <DataGrid Grid.Row="2" x:Name="DataNewsMessageList" CanUserAddRows="false"   ItemsSource="{Binding Users}" x:FieldModifier="public" DataContext="{StaticResource NewsMessageSource}" AutoGenerateColumns="false" HorizontalAlignment="Left" Height="469" Width="968" Margin="0,0,0,149" Grid.RowSpan="2" >
 
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="NewsMessageID" Width="auto"    Binding="{Binding NewsMessageID}" Header="berichtnummer" IsReadOnly="true" />
+                <DataGridTextColumn x:Name="NewsMessageID" Width="auto"    Binding="{Binding NewsMessageID}" Header="Berichtnummer" IsReadOnly="true" />
                 <DataGridTextColumn x:Name="Title"    Binding="{Binding Title}" Header="Titel" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="CreatedAt"  Binding="{Binding  CreatedAt, StringFormat=\{0:dd-MM-yyyy\}}" Header="Gemaakt op" IsReadOnly="true"/>
                 <DataGridTemplateColumn>
