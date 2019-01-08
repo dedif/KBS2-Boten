@@ -54,7 +54,7 @@ namespace Views
                 textboxLabel.Content = boat.Description;
                 if (boat.TimeOfOccupyForFix != null)
                 {
-                    TimeOfOccupyForFix.SelectedDate = boat.TimeOfOccupyForFix;
+                    TimeOfOccupyForFix.SelectedDate = boat.TimeOfOccupyForFix.Value.Date;
                 }
                 if (boat.TimeOfFix != null)
                 {

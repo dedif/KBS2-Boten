@@ -151,7 +151,7 @@ namespace BataviaReseveringsSysteem.Views
         private void BevestigenBtn_Click(object sender, RoutedEventArgs e)
         {
             if (CompetitionCheckbox.IsChecked == true) _competition = true;
-            var reserveWindow = new ReserveWindow(_competition);
+            var reserveWindow = new ReserveWindow(_competition, _boat);
             Switcher.Switch(reserveWindow);
             reserveWindow.Populate(_boat, _competition);
         }

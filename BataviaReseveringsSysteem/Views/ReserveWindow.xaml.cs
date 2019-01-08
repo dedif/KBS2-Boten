@@ -4,6 +4,8 @@ using Models;
 using System.Collections.Generic;
 using System.Windows.Controls;
 using BataviaReseveringsSysteem.Reservations;
+using BataviaReseveringsSysteem.Database;
+using System.Linq;
 
 namespace Views
 {
@@ -12,11 +14,33 @@ namespace Views
     /// </summary>
     public partial class ReserveWindow
     {
-        public ReserveWindow(bool reservationIsForCompetition)
+        public ReserveWindow(bool reservationIsForCompetition, Boat boat)
         {
             InitializeComponent();
             Calendar.BlackoutDates.AddDatesInPast();
             Calendar.BlackoutDates.Add(GetDisabledDatesInFuture(reservationIsForCompetition));
+
+            using (DataBase context = new DataBase())
+            {
+
+                var boatRepare = (from data in context.Boats
+                                  join a in context.Damages on data.BoatID equals a.BoatID
+                                  where data.Name == boat.Name
+                                  select a).ToList();
+
+                foreach (var b in boatRepare)
+                {
+                    if (b.TimeOfOccupyForFix != DateTime.Today)
+                    {
+                        if (b.TimeOfFix != DateTime.Today)
+                        {
+                            Calendar.BlackoutDates.Add(new CalendarDateRange(b.TimeOfOccupyForFix.Value.Date, b.TimeOfFix.Value.Date));
+                        }
+
+                    }
+                }
+            }
+      
         }
 
         public void Populate(Boat boat, bool competition) => AddBoatTypeTabs(boat, competition,
