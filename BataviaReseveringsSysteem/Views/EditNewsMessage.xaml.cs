@@ -4,6 +4,7 @@ using ScreenSwitcher;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Views;
 
 namespace BataviaReseveringsSysteem.Views
 {
@@ -44,7 +45,7 @@ namespace BataviaReseveringsSysteem.Views
                 switch (Succes)
                 {
                     case System.Windows.Forms.DialogResult.OK:
-                        nmc.Update_NewsMessage(EditNewsMessageID, TitleBox.Text, NewsMessageBox.Text);
+                        nmc.Update_NewsMessage(LoginView.UserId, EditNewsMessageID, TitleBox.Text, NewsMessageBox.Text);
                         Switcher.Switch(new NewsMessageList());
                         break;
 

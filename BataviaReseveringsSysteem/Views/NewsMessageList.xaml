@@ -44,6 +44,11 @@
                 <DataGridTextColumn x:Name="NewsMessageID" Width="auto"    Binding="{Binding NewsMessageID}" Header="Berichtnummer" IsReadOnly="true" />
                 <DataGridTextColumn x:Name="Title"    Binding="{Binding Title}" Header="Titel" IsReadOnly="true"/>
                 <DataGridTextColumn x:Name="CreatedAt"  Binding="{Binding  CreatedAt, StringFormat=\{0:dd-MM-yyyy\}}" Header="Gemaakt op" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Firstname"  Binding="{Binding  Firstname}" Header="Voornaam" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Middlename"  Binding="{Binding  Middlename}" Header="Tvg" IsReadOnly="true"/>
+                <DataGridTextColumn x:Name="Lastname"  Binding="{Binding  Lastname}" Header="Achternaam" IsReadOnly="true"/>
+
+
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.HeaderTemplate>
 

@@ -28,12 +28,13 @@ namespace BataviaReseveringsSysteem.Controllers
             }
         }
 
-        public void Add_NewsMessage(string title, string message)
+        public void Add_NewsMessage(int userID, string title, string message)
         {
             using (DataBase context = new DataBase())
             {
                 var NewsMessage = new Models.News_Message
                 {
+                    UserID = userID,
                     Title = title,
                     Message = message,
                     CreatedAt = DateTime.Now,
@@ -43,7 +44,7 @@ namespace BataviaReseveringsSysteem.Controllers
             }
         }
 
-        public void Update_NewsMessage(int newsMessageID, string title, string message)
+        public void Update_NewsMessage(int newsMessageID,int userID, string title, string message)
         {
             using (DataBase context = new DataBase())
             {
@@ -51,6 +52,7 @@ namespace BataviaReseveringsSysteem.Controllers
                 if (newsMessage != null)
                 {
                     newsMessage.Title = title;
+                    newsMessage.UserID = userID;
                     newsMessage.Message = message;
                     newsMessage.UpdatedAt = DateTime.Now;
                     newsMessage.DeletedAt = null;

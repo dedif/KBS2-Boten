@@ -27,7 +27,7 @@ namespace BataviaReseveringsSysteem.Views
             //DataUserList.ItemsSource = context.Users.ToList();
             using (DataBase context = new DataBase())
             {
-                var news = (from x in context.News_Messages where x.DeletedAt == null  select x).ToList();
+                var news = (from x in context.News_Messages join u in context.Users on x.UserID equals u.UserID where x.DeletedAt == null  select new {NewsMessageID = x.NewsMessageID, CreatedAt = x.CreatedAt, Message = x.Message, Title = x.Title, Firstname = u.Firstname, Middlename = u.Middlename, Lastname = u.Lastname }).ToList();
 
 
                 DataNewsMessageList.ItemsSource = news;

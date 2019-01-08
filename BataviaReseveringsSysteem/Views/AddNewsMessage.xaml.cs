@@ -2,6 +2,7 @@
 using ScreenSwitcher;
 using System.Windows;
 using System.Windows.Controls;
+using Views;
 
 namespace BataviaReseveringsSysteem.Views
 {
@@ -29,7 +30,7 @@ namespace BataviaReseveringsSysteem.Views
                 switch (Succes)
                 {
                     case System.Windows.Forms.DialogResult.OK:
-                        nmc.Add_NewsMessage(TitleBox.Text, NewsMessageBox.Text);
+                        nmc.Add_NewsMessage(LoginView.UserId,TitleBox.Text, NewsMessageBox.Text);
                         Switcher.Switch(new NewsMessageList());
                         break;
 
