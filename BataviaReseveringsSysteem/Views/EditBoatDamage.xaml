@@ -40,10 +40,10 @@
                 FontSize="26"
                 Canvas.Left="384" Canvas.Top="5" Width="212"/>
         </Canvas>
-        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
-            <RadioButton x:Name="HeavyDamageRadioButton" FontSize="16" Content="Zware schade" Checked="HeavyDamageRadioButton_Checked"/>
-            <RadioButton x:Name="LightDamageRadioButton" Margin="1,0,0,0" FontSize="16" Content="Lichte schade" Checked="NoDamageRadioButton_Checked"/>
-            <RadioButton x:Name="NoDamageRadioButton" Margin="14,0,0,0" FontSize="16" Content="Hersteld" Checked="NoDamageRadioButton_Checked" Width="79"/>
+        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Margin="0.4">
+            <RadioButton x:Name="HeavyDamageRadioButton" FontSize="16" Content="Zware schade" Checked="HeavyDamageRadioButton_Checked" Margin="0,0,0,-0.2"/>
+            <RadioButton x:Name="LightDamageRadioButton" Margin="1,0,0,0" FontSize="16" Content="Lichte schade" Checked="NoDamageRadioButton_Checked" Width="120"/>
+            <RadioButton x:Name="NoDamageRadioButton" Margin="14,0,0,0" FontSize="16" Content="Hersteld" Checked="NoDamageRadioButton_Checked" Width="89"/>
         </StackPanel>
         <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
             <Button x:Name="CancelButton" Content="Annuleren" FontSize="16" Width="120" Click="CancelButton_Click"/>
