@@ -109,9 +109,11 @@
                 <MenuItem Header="Hulp bij inloggen"></MenuItem>
             </MenuItem>
         </Menu>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Width="181">
-            <Label x:Name="NameLabel" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Content="" Height="37" Width="120"/>
-            <materialDesign:PopupBox StaysOpen="False">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Width="281">
+            <Label x:Name="NameLabel" HorizontalContentAlignment="Center"  VerticalContentAlignment="Center" Content="" Height="37" Margin="0,6" Width="240"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <materialDesign:PopupBox StaysOpen="False" Margin="100,10,10,10">
                 <StackPanel>
                     <MenuItem Header="Gegevens wijzigen" Click="EditUserBtn_Click">
                         <MenuItem.Icon>
