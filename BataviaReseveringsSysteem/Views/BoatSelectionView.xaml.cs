@@ -26,6 +26,7 @@ namespace BataviaReseveringsSysteem.Views
         private Boat _boat;
 
         private bool _competition;
+        private bool _coach;
         //Deze methode kijkt of je ook voor wedstrijden mag afschrijven
         private void AllowedCompetition()
         {
@@ -35,9 +36,14 @@ namespace BataviaReseveringsSysteem.Views
                              where data.UserID == LoginView.UserId
                              select data.RoleID).ToList();
 
-                if (RolID.Contains(3))
+                if (RolID.Contains(3) || RolID.Contains(5))
                 {
                     CompetitionCheckbox.Visibility = Visibility.Visible;
+                }
+
+                if (RolID.Contains(2) || RolID.Contains(5))
+                {
+                    CoachCheckbox.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -108,6 +114,7 @@ namespace BataviaReseveringsSysteem.Views
                     SteeringToggle.IsEnabled = false;
                     RowersCombo.IsEnabled = false;
                     CompetitionCheckbox.IsEnabled = false;
+                    CoachCheckbox.IsEnabled = false;
                     BoatCombo.IsEnabled = false;
                 }
 
@@ -151,9 +158,10 @@ namespace BataviaReseveringsSysteem.Views
         private void BevestigenBtn_Click(object sender, RoutedEventArgs e)
         {
             if (CompetitionCheckbox.IsChecked == true) _competition = true;
-            var reserveWindow = new ReserveWindow(_competition, _boat);
+            if (CoachCheckbox.IsChecked == true) _coach = true;
+            var reserveWindow = new ReserveWindow(_competition, _coach, _boat);
             Switcher.Switch(reserveWindow);
-            reserveWindow.Populate(_boat, _competition);
+            reserveWindow.Populate(_boat, _competition, _coach);
         }
 
         private void BoatCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)

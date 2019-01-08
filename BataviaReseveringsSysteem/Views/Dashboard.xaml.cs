@@ -7,6 +7,7 @@ using BataviaReseveringsSysteem.Views;
 using ScreenSwitcher;
 using Controllers;
 using BataviaReseveringsSysteem.Controllers;
+using System;
 
 namespace Views
 {
@@ -26,6 +27,7 @@ namespace Views
         DashboardController dashboardController;
         public static NavigationView navigationview;
         bool competition = false;
+        bool coach = false;
         public Dashboard()
         {
             InitializeComponent();
@@ -49,8 +51,9 @@ namespace Views
             if (rol.Contains(3))
             {
                 MaxReservationUser = 8;
-                SortReservation.Visibility = Visibility.Visible;
+                //SortReservation.Visibility = Visibility.Visible;
                 SortReservationLabel.Visibility = Visibility.Visible;
+                
             }
             //Een examinator en bestuur mag zoveel afschrijvingen als die wilt
             if (rol.Contains(4) || rol.Contains(5))
@@ -59,7 +62,7 @@ namespace Views
             }
 
             //De reservaties van de gebruiker worden met deze methode getoond op het scherm
-            ShowReservations(competition);
+            ShowReservations(competition, coach);
             dashboardController.Notification(loggedUser.LastLoggedIn);
 
 
@@ -80,7 +83,7 @@ namespace Views
 
 
 
-        public void ShowReservations(bool competition)
+        public void ShowReservations(bool competition, bool coach)
         {
             using (var context = new DataBase())
             {
@@ -91,6 +94,7 @@ namespace Views
                     where data.Deleted == null
                     where data.UserId == LoginView.UserId
                     where data.Competition == competition
+                    where data.Coach == coach
                     select data).ToList();
 
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
@@ -199,7 +203,7 @@ namespace Views
     public void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
         var b = (Button)sender;
-        dashboardController.DeleteReservation((int)b.Tag, competition);
+        dashboardController.DeleteReservation((int)b.Tag, competition, coach);
     }
 
     public void Change_Click(object sender, RoutedEventArgs e)
@@ -215,23 +219,43 @@ namespace Views
 
      
     //method voor het sorteren van de reserveringen.
-        private void SortReservation_Click(object sender, RoutedEventArgs e)
+        //private void SortReservation_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (competition == false)
+        //    {
+        //        competition = true;
+        //        SortReservation.Content = "Mijn afschijvingen";
+        //        SortReservationLabel.Content = "Wedstrijd afschrijvingen";
+        //    }
+        //    else if (competition == true)
+        //    {
+        //        competition = false;
+        //        SortReservation.Content = "Wedstrijd afschrijvingen";
+        //        SortReservationLabel.Content = "Mijn afschijvingen";
+
+        //    }
+        //    DeleteAllControls();
+        //    ShowReservations(competition, false);
+        //}
+
+        private void SelectReservationType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (competition == false)
-            {
-                competition = true;
-                SortReservation.Content = "Mijn afschijvingen";
-                SortReservationLabel.Content = "Wedstrijd afschrijvingen";
-            }
-            else if (competition == true)
+            int SelectedValue = int.Parse(((ComboBoxItem)SelectReservation.SelectedItem).Tag.ToString());
+            if (SelectedValue == 2)
             {
                 competition = false;
-                SortReservation.Content = "Wedstrijd afschrijvingen";
-                SortReservationLabel.Content = "Mijn afschijvingen";
-
+                coach = false;
+            } else if (SelectedValue == 3)
+            {
+                competition = true;
+                coach = false;
+            } else
+            {
+                coach = false;
+                competition = false;
             }
             DeleteAllControls();
-            ShowReservations(competition);
+            ShowReservations(competition, coach);
         }
     }
 }

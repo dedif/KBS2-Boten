@@ -21,6 +21,7 @@ namespace BataviaReseveringsSysteem.Reservations
     {
         private Boat _boat;
         private bool _competition;
+        private bool _coach;
         // Het grid waar alles op wordt geplaatst
         public Grid Grid { get; set; }
 
@@ -55,7 +56,7 @@ namespace BataviaReseveringsSysteem.Reservations
         private Label _noSlotsAvailableLabel;
         private bool _selectsStart = true;
 
-        public BoatTypeTabItem(Boat boat, bool competition,  List<Reservation> reservations, Calendar calendar)
+        public BoatTypeTabItem(Boat boat, bool competition, bool coach,  List<Reservation> reservations, Calendar calendar)
         {
             _boat = boat;
             _calendar = calendar;
@@ -72,6 +73,7 @@ namespace BataviaReseveringsSysteem.Reservations
 
             BoatView = new BoatView();
             _competition = competition;
+            _coach = coach;
             Reservations = reservations;
 
             // Maak de grid waar alles in komt
@@ -521,7 +523,7 @@ namespace BataviaReseveringsSysteem.Reservations
                 var endTime = GenerateEndTime(startTime);
 
                 // Maak een reservering met de geselecteerde boot, de ingelogde gebruiker, de start- en de eindtijd
-                context.Reservations.Add(new Reservation(_boat, _competition, startTime, endTime));
+                context.Reservations.Add(new Reservation(_boat, _competition, _coach, startTime, endTime));
                 context.SaveChanges();
             }
             MessageBox.Show("De boot is succesvol afgeschreven",

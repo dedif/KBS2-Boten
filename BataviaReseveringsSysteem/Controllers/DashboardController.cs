@@ -133,7 +133,7 @@ namespace Controllers
         }
 
         //Deze methode verwijderd de bijbehorende reservatie
-        public void DeleteReservation(int id, bool competition)
+        public void DeleteReservation(int id, bool competition, bool coach)
         {
             using (DataBase context = new DataBase())
             {
@@ -159,7 +159,7 @@ namespace Controllers
                 //Alle oude knoppen en labels worden verwijderd van het scherm.
                 Dashboard.DeleteAllControls();
                 //De nieuwe reserveringen worden op het scherm getoond. 
-                Dashboard.ShowReservations(competition);
+                Dashboard.ShowReservations(competition, coach);
 
             }
         }

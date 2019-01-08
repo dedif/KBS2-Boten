@@ -19,11 +19,13 @@ namespace Models
         [ForeignKey("User")]
         public int UserId { get; set; }
         public bool Competition { get; set; } = false;
+        public bool Coach { get; set; } = false;
         public DateTime? Deleted { get; set; }
         public User User { get; set; }
         public Boat Boat { get; set; }
-        public Reservation(Boat boat, bool competition, DateTime start, DateTime end)
+        public Reservation(Boat boat, bool competition,bool coach, DateTime start, DateTime end)
         {
+            Coach = Coach;
             Competition = competition;
             UserId = LoginView.UserId;
             BoatID = boat.BoatID;
