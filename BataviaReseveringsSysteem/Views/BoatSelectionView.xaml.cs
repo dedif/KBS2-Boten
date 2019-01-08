@@ -121,11 +121,11 @@ namespace BataviaReseveringsSysteem.Views
                     //Als de boot licht beschadigd is dan wordt dit vermeld bij het selecteren van een boot
                     if (DamagedBoats.Contains(item.BoatID))
                     {
-                        BoatCombo.Items.Add(item.Name + " " + item.Weight +  "kg (beschadigd)");
+                        BoatCombo.Items.Add(item.Name + " (" + item.Weight +  "kg) (beschadigd)");
                     }
                     else
                     {
-                        BoatCombo.Items.Add(item.Name +  " " + item.Weight + "kg");
+                        BoatCombo.Items.Add(item.Name +  " (" + item.Weight + "kg)");
                     }
                 }
             }
@@ -173,7 +173,7 @@ namespace BataviaReseveringsSysteem.Views
         private Boat GetBoatFromBoatComboBox()
         {
             //Je pakt alleen de naam van de boot, die de gebruiker selecteerd.
-            string BoatName = BoatCombo.SelectedItem.ToString().Substring(0, BoatCombo.SelectedItem.ToString().IndexOf(" "));
+            string BoatName = BoatCombo.SelectedItem.ToString().Substring(0, BoatCombo.SelectedItem.ToString().IndexOf(" ("));
            return new BoatController().GetBoatWithName(BoatName);
         }
 

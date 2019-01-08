@@ -78,7 +78,6 @@ namespace Views
                     nieuwsListBtn.IsEnabled = true;
 
 
-
                 }
                 else
                 {
