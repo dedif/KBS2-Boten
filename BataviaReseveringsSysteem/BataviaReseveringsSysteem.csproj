@@ -90,7 +90,6 @@
     <Compile Include="Models\Diploma.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\Mail.cs" />
-    <Compile Include="Models\Member_Diploma.cs" />
     <Compile Include="Models\News_Message.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
