@@ -83,6 +83,34 @@ namespace BataviaReseveringsSysteem.Views
                              where data.Broken == false
                              select data).ToList().Distinct();
 
+                var boatsAvailableForUser = (from data in context.Boats
+                             join d in context.Boat_Diplomas on data.BoatID equals d.BoatID
+                             join u in context.User_Diplomas on d.DiplomaID equals u.DiplomaID
+                             where data.BoatID == d.BoatID
+                             where d.DiplomaID == u.DiplomaID
+                             where data.AvailableAt <= DateTime.Now
+                             where data.Deleted == false
+                             where data.Broken == false
+                             select data).ToList();
+
+                if (boatsAvailableForUser.Count < 1)
+                {
+                    //Als de gebruiker nit de juiste diploma's heeft
+                    MessageBoxResult NoBoatsAvailable = MessageBox.Show(
+                        "U heeft niet de juiste diploma's om boten te kunnen reserveren",
+                        "Melding",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                    // Dan kan hij nergens meer op klikken.
+                    Skiff.IsEnabled = false;
+                    Scull.IsEnabled = false;
+                    Board.IsEnabled = false;
+                    SteeringToggle.IsEnabled = false;
+                    RowersCombo.IsEnabled = false;
+                    CompetitionCheckbox.IsEnabled = false;
+                    BoatCombo.IsEnabled = false;
+                }
+
                 //Deze query haalt alle boten uit de database die licht beschadigd zijn
                 var DamagedBoats = (from data in context.Damages
                                     where data.Status == "Lichte schade"
