@@ -14,7 +14,7 @@
         <Label Content="Er is nog geen bestuurslid opgeslagen." HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Label Content="U moet een bestuurslid invoeren om naar een ander scherm te kunnen." HorizontalAlignment="Left"
                VerticalAlignment="Top" />
-        <Label Content="Wilt u het registratiescherm wissen of wilt u de applicatie afsluiten?"
+        <Label Content="Wilt u alle velden in het registratiescherm leegmaken of wilt u de applicatie afsluiten?"
                HorizontalAlignment="Left" VerticalAlignment="Top" />
         <Label Content="Of wilt u terug naar het geopende registratiescherm om zo de data aan te passen?"
                HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -24,7 +24,7 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Button x:Name="ClearButton" Content="Registratiescherm wissen" Margin="0,0,5,0" IsDefault="True"
+                <Button x:Name="ClearButton" Content="Velden in registratiescherm leegmaken" Margin="0,0,5,0" IsDefault="True"
                         Click="ClearButton_Click" Width="Auto" Grid.Column="0" />
                 <Button x:Name="CloseApplicationButton" Content="Applicatie afsluiten" Margin="5,0,0,0"
                         IsDefault="True" Click="CloseApplicationButton_Click" Width="Auto" DockPanel.Dock="Right"

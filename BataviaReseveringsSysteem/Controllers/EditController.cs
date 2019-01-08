@@ -138,7 +138,7 @@ namespace Controllers
                 TextBoxAlert(Email);
             }
 
-            
+
 
             if (valDate && validate)
             {
@@ -159,11 +159,12 @@ namespace Controllers
             if (validate && valDate && hasPassword)
             {
                 sendNewSubscription(Firstname, Email, EndOfSub, (int)editID.Content);
-                u.Update_User((int)editID.Content, savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt,EndOfSub.SelectedDate);
+                u.Update_User((int)editID.Content, savedPasswordHash, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt, EndOfSub.SelectedDate);
                 MessageBoxResult result = MessageBox.Show("Het account is bijgewerkt.");
                 Switcher.Switch(new Views.UserList());
                 return true;
-            }if (validate && valDate && !hasPassword)
+            }
+            if (validate && valDate && !hasPassword)
             {
                 sendNewSubscription(Firstname, Email, EndOfSub, (int)editID.Content);
                 u.Update_User((int)editID.Content, Firstname.Text, Middlename.Text, Lastname.Text, Address.Text, Zipcode.Text, City.Text, Phonenumber.Text, Email.Text, GenderID, dt, EndOfSub.SelectedDate);
@@ -191,7 +192,7 @@ namespace Controllers
                     EmailController mail = new EmailController(email.Text, "Lidmaatschap gegevens gewijzigd", sendMessage);
                 }
             }
-               
+
         }
 
         // Melding voor passwordboxs
@@ -234,7 +235,7 @@ namespace Controllers
         //Enkel digit veranderen naar double digit
         public static string ConvertDate(string x)
         {
-            
+
 
             if (x.Length < 2)
             {
@@ -252,6 +253,6 @@ namespace Controllers
             T.BorderThickness = new Thickness(2);
             T.UpdateLayout();
         }
-        
+
     }
 }
