@@ -2,10 +2,8 @@
 using Controllers;
 using Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
+using System.Windows.Controls;
 using BataviaReseveringsSysteem.Reservations;
-using ScreenSwitcher;
 
 namespace Views
 {
@@ -14,39 +12,27 @@ namespace Views
     /// </summary>
     public partial class ReserveWindow
     {
-        public ReserveWindow()
+        public ReserveWindow(bool reservationIsForCompetition)
         {
             InitializeComponent();
-            Calendar.SelectedDate = DateTime.Now;
+            Calendar.BlackoutDates.AddDatesInPast();
+            Calendar.BlackoutDates.Add(GetDisabledDatesInFuture(reservationIsForCompetition));
         }
 
-        public void Populate(Boat boat, Boolean competition)
-        {
-//            var boats = new BoatController().GetBoatsReservableWithThisUsersDiplomasThatAreNotBroken();
-//            if (boats.Count == 0)
-//            {
-//                MessageBox.Show("Je kan met jouw diploma's geen enkele boot afschrijven");
-//                Switcher.Switch(new Dashboard());
-//                return;
-//            }
-            var reservations = new ReservationController().GetReservationsForBoatThatAreNotDeleted(boat);
-            AddBoatTypeTabs(boat, competition,  reservations);
-		}
-		
+        public void Populate(Boat boat, bool competition) => AddBoatTypeTabs(boat, competition,
+            new ReservationController().GetReservationsForBoatThatAreNotDeleted(boat));
+
         // deze methode zorgt voor de tabbladen met de types boten bovenaan in het scherm
-        private void AddBoatTypeTabs(Boat boat, Boolean competition, List<Reservation> reservations) =>
+        private void AddBoatTypeTabs(Boat boat, bool competition, List<Reservation> reservations) =>
             BoatTypeTabControl.Children.Add(new BoatTypeTabItem(boat, competition, reservations, Calendar));
 
-
-        private IEnumerable<Boat.BoatType> GetDifferentBoatTypes(IEnumerable<Boat> boats) =>
-            boats.Select(boat => boat.Type).Distinct();
-
-        private IEnumerable<Boat> GetBoatsForBoatType(IEnumerable<Boat> allBoats, Boat.BoatType boatType) =>
-            allBoats.Where(boat => boat.Type == boatType);
-
-        //        private List<Boat> GetBoatsReservableWithThisDiploma(List<Boat> allBoats)
-        //        {
-        //            
-        //        }
+        private CalendarDateRange GetDisabledDatesInFuture(bool reservationIsForCompetition)
+        {
+            var now = DateTime.Now;
+            var maxDate = DateTime.MaxValue;
+            return reservationIsForCompetition
+                ? new CalendarDateRange(now.AddYears(1).AddDays(1), maxDate)
+                : new CalendarDateRange(now.AddDays(3), maxDate);
+        }
     }
 }
