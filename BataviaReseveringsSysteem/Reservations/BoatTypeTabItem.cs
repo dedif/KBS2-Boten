@@ -20,12 +20,11 @@ namespace BataviaReseveringsSysteem.Reservations
     public class BoatTypeTabItem : Grid
     {
         private Boat _boat;
-        private Boolean _competition;
+        private bool _competition;
         // Het grid waar alles op wordt geplaatst
         public Grid Grid { get; set; }
 
         // De kalender
-        //        public BoatTypeTabItemCalendar BoatTypeTabItemCalendar { get; set; }
         private Calendar _calendar;
 
         // Het tabelletje om de tijdsslots aan te klikken
@@ -56,7 +55,7 @@ namespace BataviaReseveringsSysteem.Reservations
         private Label _noSlotsAvailableLabel;
         private bool _selectsStart = true;
 
-        public BoatTypeTabItem(Boat boat, Boolean competition,  List<Reservation> reservations, Calendar calendar)
+        public BoatTypeTabItem(Boat boat, bool competition,  List<Reservation> reservations, Calendar calendar)
         {
             _boat = boat;
             _calendar = calendar;
@@ -649,7 +648,7 @@ namespace BataviaReseveringsSysteem.Reservations
             // In de andere gevallen, retourneer alleen de geclaimde slots
             if (selectedDate.Date.Equals(datePartOfDateTimeNow))
                 return GetClaimedAndPastSlots(claimedSlots, now, earliestSlot, firstDarknessSlot);
-            else if (DateIsLastReservableDate(new UserController().LoggedInUserIsRaceCommissioner(),
+            else if (DateIsLastReservableDate(_competition,
                 datePartOfDateTimeNow,
                 selectedDate))
                 return GetClaimedAndTooDistantSlots(claimedSlots, selectedDate, now);

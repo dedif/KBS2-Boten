@@ -21,11 +21,11 @@ namespace BataviaReseveringsSysteem.Views
             InitializeComponent();
             AllowedCompetition();
             Scull.IsChecked = true;
-
         }
 
         private Boat _boat;
-        private Boolean _competition = false;
+
+        private bool _competition;
         //Deze methode kijkt of je ook voor wedstrijden mag afschrijven
         private void AllowedCompetition()
         {
@@ -53,7 +53,7 @@ namespace BataviaReseveringsSysteem.Views
             }
             else
             {
-                if (RowersCombo.SelectedItem == oneRower)
+                if (Equals(RowersCombo.SelectedItem, oneRower))
                 {
                     RowersCombo.SelectedIndex = 1;
                 }
@@ -122,11 +122,8 @@ namespace BataviaReseveringsSysteem.Views
 
         private void BevestigenBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (CompetitionCheckbox.IsChecked == true)
-            {
-                _competition = true;
-            }
-            var reserveWindow = new ReserveWindow();
+            if (CompetitionCheckbox.IsChecked == true) _competition = true;
+            var reserveWindow = new ReserveWindow(_competition);
             Switcher.Switch(reserveWindow);
             reserveWindow.Populate(_boat, _competition);
         }

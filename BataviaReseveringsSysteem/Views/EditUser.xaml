@@ -360,7 +360,7 @@
                 Click="BewerkBtn_Click"/>
             <Button
                 x:Name="VerwijderenBtn"
-                Content="Lid verijderen"
+                Content="Lid verwijderen"
                 Background="Red"
                 Width="140"
                 Height="35"
