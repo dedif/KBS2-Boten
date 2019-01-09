@@ -33,8 +33,7 @@
       Foreground="White"
       FontSize="26"
       Canvas.Left="457" Canvas.Top="7" Width="135"/>
-            <ComboBox x:Name="SelectReservation" 
-               
+            <ComboBox x:Name="SelectReservation"  
                   Foreground="White"
                   materialDesign:HintAssist.Hint="Sorteer type reservering"
                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="190" Height="35"

@@ -124,11 +124,17 @@
         </StackPanel>
         <Label FontSize="16" Content="Aantal roeiers:" FontWeight="Bold" Foreground="#673ab7"  Grid.Row="2" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
         <Label FontSize="16" Content="Boot:" FontWeight="Bold" Foreground="#673ab7"  Grid.Row="3" Height="35" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.ColumnSpan="2" Margin="0,20,349.666,0"/>
-
-        <CheckBox FontSize="16" x:Name="CompetitionCheckbox"  Visibility="Hidden" Content="De afschrijving is voor een wedstrijd" Grid.Column="1" HorizontalAlignment="Left" Margin="25,86,0,0" Grid.Row="3" VerticalAlignment="Top"/>
-        <CheckBox FontSize="16" x:Name="CoachCheckbox"  Visibility="Hidden" Content="De afschrijving is voor een Les" Grid.Column="1" HorizontalAlignment="Left" Margin="25,125,0,0" Grid.Row="3" VerticalAlignment="Top"/>
-        <Label x:Name="MaxReservation" FontSize="16" Visibility="Hidden"  Content="U heeft het maximaal aantal persoonlijke afschrijvingen bereikt." Foreground="Red"  Grid.Row="4" Grid.Column="1" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.ColumnSpan="2" Margin="0,0,226,63" Width="461"/>
-        <Label Content="" x:Name="SelectionError" Foreground="Red" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="4" VerticalAlignment="Top"/>
-
+        <Label x:Name="MaxReservation" FontSize="16"  Visibility="Hidden" Content="U heeft het maximaal aantal persoonlijke afschrijvingen bereikt." Foreground="Red"  Grid.Row="3" Grid.Column="1" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.ColumnSpan="2" Margin="0,0,226,10" Width="461"/>
+        <Label x:Name="KindReservationLabel" Visibility="Hidden" FontSize="16" Content="Soort afschrijving:" FontWeight="Bold" Foreground="#673ab7"  Grid.Row="3" Height="35" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.ColumnSpan="2" Margin="0,20,349.666,0"/>
+        <ComboBox x:Name="SelectReservation"  
+                  Grid.Column="1"
+                  Grid.Row="3"
+                  Visibility="Hidden"
+                  VerticalAlignment="Center" HorizontalAlignment="Left" Width="190" Height="35"
+                  FontSize="16" Canvas.Left="230" Canvas.Top="13">
+            <ComboBoxItem x:Name="Normal" Tag="1" Content="Normale reserveringen"/>
+            <ComboBoxItem x:Name="Coach" Tag="2" Content="Coach reserveringen"/>
+            <ComboBoxItem x:Name="Competition" Tag="3" Content="Competitie reserveringen"/>
+        </ComboBox>
     </Grid>
 </UserControl>

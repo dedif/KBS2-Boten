@@ -70,12 +70,6 @@ namespace Views
               //  Coach.Visibility = Visibility.Visible;
 
             }
-            if (rol.Contains(5))
-            {
-                SelectReservation.Items.Add((ComboBoxItem)Coach);
-                SelectReservation.Items.Add((ComboBoxItem)Competition);
-
-            }
 
             //Een Coach heeft maximaal 8 afschrijvingen.
             if (rol.Contains(2))
@@ -118,7 +112,7 @@ namespace Views
             using (var context = new DataBase())
             {
 
-                //Geeft de reserveringen van de user
+                //Geeft de reserveringen van de gebruiker
                 var reservations = (
                     from data in context.Reservations
                     where data.Deleted == null
@@ -126,6 +120,14 @@ namespace Views
                     where data.Competition == competition
                     where data.Coach == coach
                     select data).ToList();
+
+                //Dit geeft het totale aantal reserveren van de gebruiker
+                var TotalReservations =(
+                    from data in context.Reservations
+                    where data.Deleted == null
+                    where data.UserId == LoginView.UserId
+                    select data).ToList();
+
 
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
 
@@ -140,7 +142,7 @@ namespace Views
                 }
 
                 //Als de gebruiker het maximale aantal afschrijvingen heeft bereikt, mag hij geen boten meer afschrijven
-                if (reservations.Count >= MaxReservationUser)
+                if (TotalReservations.Count >= MaxReservationUser)
 
                 {
                     MaxReservations.Visibility = Visibility.Visible;
