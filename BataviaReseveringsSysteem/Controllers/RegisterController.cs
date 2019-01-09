@@ -18,7 +18,7 @@ namespace Controllers
     public class RegisterController
     {
 
-        //Register user of user
+        //registreren van een gebruiker met alle benodidge validaties
 
         public static Boolean Register(TextBox Firstname, 
                                      TextBox Middlename, 
@@ -224,7 +224,7 @@ namespace Controllers
 
         }
         
-
+        // kijken of de email bestaat
         public static bool IsEmailValid(string emailaddress)
         {
             try
@@ -239,6 +239,7 @@ namespace Controllers
                 return false;
             }
         }
+        // convertde datum naar het goede formaat
         public static string ConvertDate(string x)
         {
 
@@ -252,20 +253,21 @@ namespace Controllers
 
             return x;
         }
-
+        // error message style
         public static void ErrorAlert(TextBox T)
         {
             T.BorderBrush = Brushes.Red;
             T.BorderThickness = new Thickness(2);
             T.UpdateLayout();
         }
-
+        // combobox style voor error message
         public static void ErrorAlertGender(ComboBox C)
         {
             C.BorderBrush = Brushes.Red;
             C.BorderThickness = new Thickness(2);
             C.UpdateLayout();
         }
+        //passwordbox style voor error message
         public static void ErrorAlertPassword(PasswordBox P)
         {
             P.BorderBrush = Brushes.Red;

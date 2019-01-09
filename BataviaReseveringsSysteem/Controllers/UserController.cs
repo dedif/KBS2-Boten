@@ -38,7 +38,7 @@ namespace Controllers
                 context.SaveChanges();
             }
         }
-
+        // voeg een nieuw geslacht toe
         public void Add_Gender(string GenderName)
         {
             using (var context = new DataBase())
@@ -154,7 +154,7 @@ namespace Controllers
                     select data.UserID).First();
         }
 
-
+        // print alle gebruikers in een lijst
         public void Print()
         {
             using (var context = new DataBase())
@@ -172,7 +172,7 @@ namespace Controllers
                 Console.ReadKey();
             }
         }
-
+        // haal alle gebruikersrollen op van de gebruiker
         public List<Role> GetRolesFromLoggedInUser()
         {
             using (var context = new DataBase())
@@ -182,10 +182,11 @@ namespace Controllers
                         join role in context.Roles on userRole.RoleID equals role.RoleID
                         select role).ToList();
         }
-
+        // kijk naar alle wedstrijd commissarissen
         public bool LoggedInUserIsRaceCommissioner() =>
             GetRolesFromLoggedInUser().Any(role => role.RoleName.Equals("Wedstrijd Commissaris"));
 
+        // kijk of iemand een subscription heeft en als die is geweest pas dan bepaalde velden aan voor privacy
         public static void CheckSubscription()
         {
             using (var context = new DataBase())
@@ -214,7 +215,7 @@ namespace Controllers
                 context.SaveChanges();
             }
         }
-
+        // kijken of er geen bestuursleden zijn die zijn verwijdert 
         public bool DataBaseContainsUndeletedManagementUser()
         {
             var now = DateTime.Now;

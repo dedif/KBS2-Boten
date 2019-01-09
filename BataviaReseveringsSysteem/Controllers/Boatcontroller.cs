@@ -91,7 +91,7 @@ namespace Controllers
                 return false;
             }
         }
-
+// check of de locatie een int is
         public Boolean LocationCheckIfInt(string boatLocation)
         {
 
@@ -134,7 +134,7 @@ namespace Controllers
                 }
             }
         }
-
+        // controlleer als de locatie al bestaat
         public Boolean BoatLocationCheck(int boatLocation)
         {
 
@@ -162,7 +162,7 @@ namespace Controllers
                 }
             }
         }
-
+        // controleer of de bootlocatie al bestaat
         public Boolean EditBoatLocationCheck(int boatLocation, int boatID)
         {
 
@@ -190,7 +190,7 @@ namespace Controllers
             }
 
         }
-
+        // controlleer of de bootnaam al bestaat.
         public Boolean EditBoatNameCheck(string name, int boatID)
         {
 
@@ -218,7 +218,7 @@ namespace Controllers
             }
 
         }
-
+        // controlleer of de boot al bestaat
         public Boolean BootExist(int boatID)
         {
 
@@ -243,7 +243,7 @@ namespace Controllers
             }
         }
 
-
+        // controlleer of de parameter zijn gegeven
         public Boolean BootParametersAreGiven(int boatID, string name, string type, int rowers, double weight, bool steering)
         {
 
@@ -395,7 +395,7 @@ namespace Controllers
 
         }
 
-
+        // bewerk de boot
         public void UpdateBoat(int boatID, string name, string type, int rowers, double weight, bool steeringwheel, int boatLocation, DateTime availableAt)
         {
             using (DataBase context = new DataBase())
@@ -430,7 +430,7 @@ namespace Controllers
             }
 
         }
-
+        // bewerk de bootschade
         public void UpdateBoatDamage(int DamageID, string description, DateTime timeOfAccupyForFix, DateTime timeOfFix, string status)
         {
             using (DataBase context = new DataBase())
@@ -456,10 +456,7 @@ namespace Controllers
             }
 
         }
-
-
-
-
+        // lijst met boten
         public List<Boat> BoatList()
         {
 
@@ -473,7 +470,7 @@ namespace Controllers
                 return boats;
             }
         }
-
+        // haal een specifieke boot op
         public Boat GetBoatWithName(string name)
         {
 
@@ -482,7 +479,7 @@ namespace Controllers
                 return (from boat in context.Boats where boat.Name.Equals(name) select boat).First();
             }
         }
-
+        // voeg een nieuwe bootdiploma toe
         public void AddDiploma(List<CheckBox> list)
         {
 
@@ -508,7 +505,7 @@ namespace Controllers
             }
         }
 
-
+        // voeg een nieuwe bootdiploma toe
         public void Add_BoatDiploma(int diplomaID, int boatID)
         {
 
@@ -530,7 +527,7 @@ namespace Controllers
 
             }
         }
-
+        // verwijder de bootdiploma
         public void Delete_BoatDiploma(int boatID, int diplomaID)
         {
             using (DataBase context = new DataBase())
@@ -549,7 +546,7 @@ namespace Controllers
 
         }
 
-
+// haal alle gereserveerde boten op waarbij die boot geen schade heeft.
         public List<Boat> GetBoatsReservableWithThisUsersDiplomasThatAreNotBroken()
         {
             using (var context = new DataBase())

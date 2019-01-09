@@ -7,6 +7,7 @@ using ScreenSwitcher;
 
 namespace BataviaReseveringsSysteem.Controllers
 {
+    // deze klasse zorgt ervoor dat je automatisch na 90 seconden wordt uitgelocht. Dit gebeurd als je voor 90 seconden geen activiteiten op de applicatie zijn geweest.
     class UserTimeOutController
     {
 
@@ -40,6 +41,7 @@ namespace BataviaReseveringsSysteem.Controllers
             _inactiveMousePosition = Mouse.GetPosition(_inputElement);
             _activityTimer.Stop();
             IsIdle?.Invoke(this, new EventArgs());
+            // logout, haal het menu weg en ga naar de login pagina als er geen activiteit is geweest voor 90 seconden
             LoginView.UserId = 0;
             Switcher.DeleteMenu();
             Switcher.Switch(new LoginView());

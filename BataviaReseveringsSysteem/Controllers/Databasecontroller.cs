@@ -12,6 +12,7 @@ namespace Controllers
 
     public class DataBaseController
     {
+        //maak een nieuwe rol aan
         public void Add_Role(string roleName)
         {
 
@@ -32,7 +33,7 @@ namespace Controllers
             }
 
         }
-
+        // maak een nieuwe diploma aan
         public void Add_Diploma(string diplomaName)
         {
             using (DataBase context = new DataBase())
@@ -46,7 +47,7 @@ namespace Controllers
             }
         }
 
-
+        // voeg een nieuwe user diploma toe
         public void Add_UserDiploma(int diplomaID, int userID)
         {
             using (DataBase context = new DataBase())
@@ -62,6 +63,7 @@ namespace Controllers
                 context.SaveChanges();
             }
         }
+        // voeg een nieuwe rol toe
         public void Add_UserRole(int roleID, int userID)
         {
 
@@ -86,17 +88,9 @@ namespace Controllers
                     Switcher.DeleteMenu();
                     Switcher.MenuMaker();
                 }
-
-
-
-
-
-
-
-
             }
         }
-
+        // haal alle rollen op
         public bool Get_UserRole(int roleID, int userID)
         {
             try
@@ -113,7 +107,7 @@ namespace Controllers
             { return false; }
 
         }
-
+        // verwijder gebruikers rol
         public void Delete_UserRole(int userID, int rolID)
         {
             using (DataBase context = new DataBase())
@@ -134,7 +128,7 @@ namespace Controllers
             }
 
         }
-
+        // verwijder diploma
         public void Delete_UserDiploma(int userID, int diplomaID)
 
         {
@@ -154,7 +148,7 @@ namespace Controllers
             }
 
         }
-
+        //maak een nieuwe user aan
         public void Add_User(string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
         {
             using (DataBase context = new DataBase())
@@ -193,7 +187,7 @@ namespace Controllers
             }
 
         }
-
+        // verwijder user
         public static void Delete_User(int userID)
         {
             using (DataBase context = new DataBase())
@@ -214,6 +208,7 @@ namespace Controllers
             }
 
         }
+        //bewerk user
         public void Update_User(int userID, string password, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
         {
             using (DataBase context = new DataBase())
@@ -245,7 +240,7 @@ namespace Controllers
 
         }
 
-
+        //bewerk user
         public void Update_User(int userID, string firstname, string middlename, string lastname, string address, string zipcode, string city, string phonenumber, string email, int genderID, DateTime birthday)
         {
             using (DataBase context = new DataBase())
@@ -279,7 +274,7 @@ namespace Controllers
 
         }
 
-
+        // password hash
         public string PasswordHash(string rawData)
         {
             // Create a SHA256   
@@ -298,7 +293,7 @@ namespace Controllers
             }
         }
 
-
+        //haal gebruiker op
         public void GetUser()
         {
             using (DataBase context = new DataBase())
@@ -312,7 +307,7 @@ namespace Controllers
             }
 
         }
-
+        // print een lijst met gebruikers
         public void Print()
         {
             using (DataBase context = new DataBase())
