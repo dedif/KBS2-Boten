@@ -43,7 +43,7 @@ namespace Views
             var rol = (from data in context.User_Roles
                        where data.UserID == LoginView.UserId
                        select data.RoleID).ToList();
-   
+
             //Een wedstrijd commisaris heeft maximaal 8 afschrijvingen. 
             //De wedstrijdcommisaris heeft ook de keuze tussen afschrijvingen voor een wedstrijd en persoonlijke afschrijvingen.
             if (rol.Contains(3))
@@ -138,90 +138,91 @@ namespace Views
                             Width = 235,
                             FontSize = 16,
 
-                            
+
                         };
-                    LabelList.Add(l);
-                    var deleteButton = dashboardController.AddDeleteButton(25, YLeft + 130, r.ReservationID);
-                    var changeButton = dashboardController.AddChangeButton(25, YLeft + 170);
-                    ButtonList.Add(deleteButton);
-                    ButtonList.Add(changeButton);
+                        LabelList.Add(l);
+                        var deleteButton = dashboardController.AddDeleteButton(25, YLeft + 130, r.ReservationID);
+                        var changeButton = dashboardController.AddChangeButton(25, YLeft + 170);
+                        ButtonList.Add(deleteButton);
+                        ButtonList.Add(changeButton);
 
-                    //Dit voegt de label en knoppen toe aan het scherm
-                    reservationsCanvas.Children.Add(l);
-                    reservationsCanvas.Children.Add(deleteButton);
+                        //Dit voegt de label en knoppen toe aan het scherm
+                        reservationsCanvas.Children.Add(l);
+                        reservationsCanvas.Children.Add(deleteButton);
 
-
-                    YLeft = YLeft + 200;
-                }
+                        YLeft = YLeft + 200;
+                    }
                     else if (Count % 2 != 0)
-                {
-                    //Hiermee maak je een label
-                    var l2 = new Label
                     {
-                        Content = dashboardController.ReservationContent(r),
-                        Margin = new Thickness(355, YRight, 0, 0),
-                        Width = 235,
-                        FontSize = 16,
-                    };
-                    LabelList.Add(l2);
-                    var deleteButton = dashboardController.AddDeleteButton(360, YRight + 130, r.ReservationID);
-                    var changeButton = dashboardController.AddChangeButton(360, YRight + 170);
-                    ButtonList.Add(deleteButton);
-                    ButtonList.Add(changeButton);
+                        //Hiermee maak je een label
+                        var l2 = new Label
+                        {
+                            Content = dashboardController.ReservationContent(r),
+                            Margin = new Thickness(355, YRight, 0, 0),
+                            Width = 235,
+                            FontSize = 16,
+                        };
+                        LabelList.Add(l2);
+                        var deleteButton = dashboardController.AddDeleteButton(360, YRight + 130, r.ReservationID);
+                        var changeButton = dashboardController.AddChangeButton(360, YRight + 170);
+                        ButtonList.Add(deleteButton);
+                        ButtonList.Add(changeButton);
 
-                    //Dit voegt de label en knoppen toe aan het scherm
-                    reservationsCanvas.Children.Add(l2);
-                    reservationsCanvas.Children.Add(deleteButton);
+                        //Dit voegt de label en knoppen toe aan het scherm
+                        reservationsCanvas.Children.Add(l2);
+                        reservationsCanvas.Children.Add(deleteButton);
 
 
-                    YRight = YRight + 200;
+                        YRight = YRight + 200;
+                    }
+
+
+                    Count++;
                 }
+                reservationsCanvas.Height = YLeft + 10;
 
-
-                Count++;
             }
         }
-    }
 
-    //Deze methode verwijderd alle controls
-    public void DeleteAllControls()
-    {
-        foreach (var t in LabelList)
+        //Deze methode verwijderd alle controls
+        public void DeleteAllControls()
         {
-            reservationsCanvas.Children.Remove(t);
-        }
+            foreach (var t in LabelList)
+            {
+                reservationsCanvas.Children.Remove(t);
+            }
 
-        foreach (var t in ButtonList)
-        {
-            reservationsCanvas.Children.Remove(t);
-        }
+            foreach (var t in ButtonList)
+            {
+                reservationsCanvas.Children.Remove(t);
+            }
             // de posities worden gereset
             YLeft = 10;
-           YRight = 10;
+            YRight = 10;
             Count = 0;
         }
 
 
 
-    public void DeleteButton_Click(object sender, RoutedEventArgs e)
-    {
-        var b = (Button)sender;
-        dashboardController.DeleteReservation((int)b.Tag, competition);
-    }
+        public void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            var b = (Button)sender;
+            dashboardController.DeleteReservation((int)b.Tag, competition);
+        }
 
-    public void Change_Click(object sender, RoutedEventArgs e)
-    {
-        Switcher.Switch(new Dashboard());
-    }
+        public void Change_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new Dashboard());
+        }
 
-    //            var reserveWindow = new ReserveWindow();
-    //            Switcher.Switch(reserveWindow);
-    //            reserveWindow.Populate();
-    private void AddReservationButton_Click(object sender, RoutedEventArgs e) =>
-        Switcher.Switch(new BoatSelectionView());
+        //            var reserveWindow = new ReserveWindow();
+        //            Switcher.Switch(reserveWindow);
+        //            reserveWindow.Populate();
+        private void AddReservationButton_Click(object sender, RoutedEventArgs e) =>
+            Switcher.Switch(new BoatSelectionView());
 
-     
-    //method voor het sorteren van de reserveringen.
+
+        //method voor het sorteren van de reserveringen.
         private void SortReservation_Click(object sender, RoutedEventArgs e)
         {
             if (competition == false)

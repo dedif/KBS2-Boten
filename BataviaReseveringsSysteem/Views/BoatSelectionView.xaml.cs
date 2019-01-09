@@ -38,6 +38,27 @@ namespace BataviaReseveringsSysteem.Views
                 if (RolID.Contains(3))
                 {
                     CompetitionCheckbox.Visibility = Visibility.Visible;
+                    //De afschrijvingen voor een wedstrijd van een wedstrijdcommisaris
+                    var ReservationsCompetition = (from data in context.Reservations
+                                                   where data.UserId == LoginView.UserId
+                                                   where data.Competition == true
+                                                   where data.Deleted == null
+                                                   select data).ToList();
+                    //De afschrijvingen voor persoonlijk gebruik van een wedstrijdcommisaris
+                    var ReservationsPersonal = (from data in context.Reservations
+                                                where data.UserId == LoginView.UserId
+                                                where data.Competition == false
+                                                where data.Deleted == null
+                                                   select data).ToList();
+
+                    //De wedstrijdcommisaris mag maximaal 2 afschrijvingen voor de zichzelf afschrijven
+                    if (ReservationsPersonal.Count == 2)
+                    {
+                        CompetitionCheckbox.IsChecked = true;
+                        CompetitionCheckbox.IsEnabled = false;
+                        MaxReservation.Visibility = Visibility.Visible;
+                    }
+
                 }
             }
         }
