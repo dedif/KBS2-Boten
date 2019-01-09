@@ -157,11 +157,18 @@ namespace BataviaReseveringsSysteem.Views
 
         private void BevestigenBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (CompetitionCheckbox.IsChecked == true) _competition = true;
-            if (CoachCheckbox.IsChecked == true) _coach = true;
-            var reserveWindow = new ReserveWindow(_competition, _coach, _boat);
-            Switcher.Switch(reserveWindow);
-            reserveWindow.Populate(_boat, _competition, _coach);
+            if (CompetitionCheckbox.IsChecked == true && CoachCheckbox.IsChecked == true)
+            {
+                SelectionError.Content = "U kunt geen boot voor een wedstrijd en een les afschrijven";
+            }
+            else 
+            {
+                if (CompetitionCheckbox.IsChecked == true) { _competition = true; }
+                if (CoachCheckbox.IsChecked == true) { _coach = true; }
+                var reserveWindow = new ReserveWindow(_competition, _coach, _boat);
+                Switcher.Switch(reserveWindow);
+                reserveWindow.Populate(_boat, _competition, _coach);
+            }
         }
 
         private void BoatCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)

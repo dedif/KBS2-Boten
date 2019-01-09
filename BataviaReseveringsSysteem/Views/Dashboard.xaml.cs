@@ -31,7 +31,7 @@ namespace Views
         public Dashboard()
         {
             InitializeComponent();
-
+            
             UserTimeOutController utoc = new UserTimeOutController(System.Windows.Input.FocusManager.GetFocusedElement(this), 90);
 
 
@@ -41,7 +41,7 @@ namespace Views
 
 
             dashboardController = new DashboardController(this);
-
+           
             var rol = (from data in context.User_Roles
                        where data.UserID == LoginView.UserId
                        select data.RoleID).ToList();
@@ -53,7 +53,28 @@ namespace Views
                 MaxReservationUser = 8;
                 //SortReservation.Visibility = Visibility.Visible;
                 SortReservationLabel.Visibility = Visibility.Visible;
-                
+
+            }
+            
+
+           
+            if (!rol.Contains(2))
+            {
+                SelectReservation.Items.Remove((ComboBoxItem)Coach);
+               // Coach.Visibility = Visibility.Hidden;
+            }
+            if (!rol.Contains(3))
+            {
+                SelectReservation.Items.Remove((ComboBoxItem)Competition);
+                //Competition.Visibility = Visibility.Visible;
+              //  Coach.Visibility = Visibility.Visible;
+
+            }
+            if (rol.Contains(5))
+            {
+                SelectReservation.Items.Add((ComboBoxItem)Coach);
+                SelectReservation.Items.Add((ComboBoxItem)Competition);
+
             }
             //Een examinator en bestuur mag zoveel afschrijvingen als die wilt
             if (rol.Contains(4) || rol.Contains(5))
@@ -65,9 +86,11 @@ namespace Views
             ShowReservations(competition, coach);
             dashboardController.Notification(loggedUser.LastLoggedIn);
 
+            // combobox index start op normale reservering
+            int selectedIndex = 0;
+            SelectReservation.SelectedItem = SelectReservation.Items.GetItemAt(selectedIndex);
 
-
-
+            // haal de nieuwsberichten op
             var getNewsMessage = (from data in context.News_Messages
                                   where data.DeletedAt == null
                                   select data).ToList();
