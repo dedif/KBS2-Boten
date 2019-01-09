@@ -78,13 +78,13 @@ namespace BataviaReseveringsSysteem.Controllers
 
 
 
-
+        // lijst met alle schades
         public List<Damage> GetDamagesList()
         {
             using (var context = new DataBase()) return context.Damages.ToList();
 
         }
-
+        // kijk of deze boot schade heeft vandaag
         public bool IsThisBoatBrokenToday(Boat boat, DateTime day)
         {
             using (var context = new DataBase())

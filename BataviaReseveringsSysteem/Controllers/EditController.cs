@@ -180,6 +180,7 @@ namespace Controllers
             }
 
         }
+        // wijzig het lidmaatschap van de user aan
         public static void sendNewSubscription(TextBox firstname, TextBox email, DatePicker endDate, int userID)
         {
             using (DataBase context = new DataBase())

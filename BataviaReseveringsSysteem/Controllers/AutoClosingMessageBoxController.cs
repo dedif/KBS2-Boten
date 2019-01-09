@@ -7,6 +7,7 @@ using System.Security.Permissions;
 
 namespace System.Windows.Forms
 {
+    //Deze klasse wordt gebruikt om een timer aan de messageBox toe tevoegen, waardoor de messagebox na een bepaalde tijd automatisch sluit.
     public class MessageBoxEx
     {
         public static DialogResult Show(string text, uint uTimeout)
