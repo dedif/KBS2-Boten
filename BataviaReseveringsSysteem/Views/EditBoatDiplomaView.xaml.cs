@@ -18,6 +18,7 @@ namespace Views
         public EditBoatDiplomaView(int boatID)
         {
             InitializeComponent();
+            // DiplomaBoatID
             DiplomaBoatID = boatID;
             InitializeComponent();
             using (DataBase context = new DataBase())
@@ -31,6 +32,7 @@ namespace Views
 
                 foreach (var diploma in Diplomas)
                 {
+                    // Zet de content en de tag van de checkboxen
                     if ("S1" == diploma.DiplomaName)
                     {
                         S1CheckBox.Content = diploma.DiplomaName;
@@ -83,7 +85,7 @@ namespace Views
                 var BoatDiplomas = from x in context.Boat_Diplomas
                                      where x.BoatID == boatID 
                                      select x;
-
+                // zet de checkboxen checked als het gelijk is aan het diplomaID
                 foreach (var BoatDiploma in BoatDiplomas)
                 {
                     if (BoatDiploma.DiplomaID == int.Parse(S1CheckBox.Tag.ToString()))
@@ -129,6 +131,7 @@ namespace Views
         {
             using (DataBase context = new DataBase())
             {
+                // lijst met elke checkbox
                 List<CheckBox> CheckboxList = new List<CheckBox>() { S1CheckBox, S2CheckBox, S3CheckBox, B1CheckBox, B2CheckBox, B3CheckBox, P1CheckBox, P2CheckBox };
 
                 foreach (CheckBox c in CheckboxList)
@@ -147,6 +150,7 @@ namespace Views
                         }
                         else
                         {
+                            // voeg toe aan de database
                             bc.Add_BoatDiploma(diplomaID, DiplomaBoatID);
                         }
 
@@ -155,7 +159,7 @@ namespace Views
                     }
                     else if (c.IsChecked == false)
                     {
-
+                        // als de checkbox niet meer is aangevinkt verwijder het diploma uit de database
                         int diplomaID = int.Parse(c.Tag.ToString());
 
                         var MemberDiplomas = context.Boat_Diplomas.Any(x => x.DiplomaID == diplomaID &&  x.BoatID == DiplomaBoatID);
@@ -187,7 +191,7 @@ namespace Views
 
 
 
-
+        // ga terug naar de boatdiplomalijst pagina
         private void ButtonCancel(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new BoatDiplomaList());

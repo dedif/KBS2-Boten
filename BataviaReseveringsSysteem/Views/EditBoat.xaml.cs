@@ -63,7 +63,7 @@ namespace Views
             throw new NotImplementedException();
         }
 
-
+        //bewerk een boot en check daarnaast of alle velden zijn gevuld 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             if (b.WhiteCheck(NameBox.Text, WeightBox.Text, BoatLocationBox.Text) == true)
@@ -120,11 +120,13 @@ namespace Views
             NotificationLabel.Content = b.Notification();
         }
 
+        //redirect terug naar bootlijst
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new BoatList());
         }
 
+        // voorselectie combinatie van verschillende boten
         private void TypCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (TypCombo.SelectedIndex == 1)

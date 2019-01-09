@@ -21,10 +21,11 @@ namespace Views
             InitializeComponent();
             this.HorizontalAlignment = HorizontalAlignment.Center;
             this.VerticalAlignment = VerticalAlignment.Center;
+            // set combobox index values 
             TypCombo.SelectedIndex = 1;
             RowersCombo.SelectedItem = "1";
         }
-
+        // annuleer knop terug naar dashboard
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new Dashboard());

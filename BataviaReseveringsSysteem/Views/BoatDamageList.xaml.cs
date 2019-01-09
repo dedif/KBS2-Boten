@@ -21,6 +21,7 @@ namespace BataviaReseveringsSysteem.Views
 
         private void Load( )
         {
+            // voeg items toe aan de tabel (datagrid)
             using (DataBase context = new DataBase())
             {
 
@@ -37,12 +38,14 @@ namespace BataviaReseveringsSysteem.Views
         
         }
 
+        // ga naar de edit schade pagina
         private void ButtonEdit(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
             Switcher.Switch(new EditBoatDamage((int)b.Tag));
         }
 
+        // zoekbalk 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
             using (DataBase context = new DataBase())
@@ -55,11 +58,6 @@ namespace BataviaReseveringsSysteem.Views
 
                 DataGrid = DataBoatDamageList;
             }
-
-        }
-
-        private void DataBoatDamageList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
         }
     }

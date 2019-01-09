@@ -35,7 +35,7 @@ namespace BataviaReseveringsSysteem.Views
                 
 }
         }
-
+        // ga terug naar het dashboard
         private void CancelNewsMessage_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new Dashboard());

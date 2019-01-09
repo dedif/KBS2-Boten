@@ -19,8 +19,11 @@ namespace BataviaReseveringsSysteem.Views
         public NewsMessageList()
         {
             InitializeComponent();
+            // laad de tabel
             Load();
         }
+
+        // voeg items toe aan de tabel
         private void Load()
         {
 
@@ -38,11 +41,7 @@ namespace BataviaReseveringsSysteem.Views
 
         }
 
-        private void AddBoatButton(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new AddBoat());
-        }
-
+        // verwijder nieuwsbericht
         void ButtonDelete(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
@@ -67,7 +66,7 @@ namespace BataviaReseveringsSysteem.Views
 
 
 
-
+        // ga naar de bewerk pagina van het nieuwsbericht
         void ButtonEdit(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
@@ -75,6 +74,7 @@ namespace BataviaReseveringsSysteem.Views
 
         }
 
+        //zoek naar een nieuwsbericht in de tabel
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
             using (DataBase context = new DataBase())
