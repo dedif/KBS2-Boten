@@ -61,13 +61,10 @@ namespace Views
             if (!rol.Contains(2))
             {
                 SelectReservation.Items.Remove((ComboBoxItem)Coach);
-               // Coach.Visibility = Visibility.Hidden;
             }
             if (!rol.Contains(3))
             {
                 SelectReservation.Items.Remove((ComboBoxItem)Competition);
-                //Competition.Visibility = Visibility.Visible;
-              //  Coach.Visibility = Visibility.Visible;
 
             }
 
@@ -171,9 +168,7 @@ namespace Views
                         };
                         LabelList.Add(l);
                         var deleteButton = dashboardController.AddDeleteButton(25, YLeft + 130, r.ReservationID);
-                        var changeButton = dashboardController.AddChangeButton(25, YLeft + 170);
                         ButtonList.Add(deleteButton);
-                        ButtonList.Add(changeButton);
 
                         //Dit voegt de label en knoppen toe aan het scherm
                         reservationsCanvas.Children.Add(l);
@@ -193,9 +188,7 @@ namespace Views
                         };
                         LabelList.Add(l2);
                         var deleteButton = dashboardController.AddDeleteButton(360, YRight + 130, r.ReservationID);
-                        var changeButton = dashboardController.AddChangeButton(360, YRight + 170);
                         ButtonList.Add(deleteButton);
-                        ButtonList.Add(changeButton);
 
                         //Dit voegt de label en knoppen toe aan het scherm
                         reservationsCanvas.Children.Add(l2);
@@ -242,9 +235,6 @@ namespace Views
             Switcher.Switch(new Dashboard());
         }
 
-        //            var reserveWindow = new ReserveWindow();
-        //            Switcher.Switch(reserveWindow);
-        //            reserveWindow.Populate();
         private void AddReservationButton_Click(object sender, RoutedEventArgs e) =>
             Switcher.Switch(new BoatSelectionView());
 
@@ -255,14 +245,17 @@ namespace Views
             {
                 competition = false;
                 coach = true;
+                SortReservationLabel.Content = "Afschrijvingen coach";
             } else if (SelectedValue == 3)
             {
                 competition = true;
                 coach = false;
+                SortReservationLabel.Content = "Afschrijvingen wedstrijd";
             } else
             {
                 coach = false;
                 competition = false;
+                SortReservationLabel.Content = "Afschrijvingen Persoonlijk";
             }
             DeleteAllControls();
             ShowReservations(competition, coach);
