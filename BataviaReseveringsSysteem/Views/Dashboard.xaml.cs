@@ -7,6 +7,7 @@ using BataviaReseveringsSysteem.Views;
 using ScreenSwitcher;
 using Controllers;
 using BataviaReseveringsSysteem.Controllers;
+using System;
 
 namespace Views
 {
@@ -26,10 +27,11 @@ namespace Views
         DashboardController dashboardController;
         public static NavigationView navigationview;
         bool competition = false;
+        bool coach = false;
         public Dashboard()
         {
             InitializeComponent();
-
+            
             UserTimeOutController utoc = new UserTimeOutController(System.Windows.Input.FocusManager.GetFocusedElement(this), 90);
 
 
@@ -39,7 +41,7 @@ namespace Views
 
 
             dashboardController = new DashboardController(this);
-
+           
             var rol = (from data in context.User_Roles
                        where data.UserID == LoginView.UserId
                        select data.RoleID).ToList();
@@ -49,8 +51,30 @@ namespace Views
             if (rol.Contains(3))
             {
                 MaxReservationUser = 8;
-                SortReservation.Visibility = Visibility.Visible;
+                //SortReservation.Visibility = Visibility.Visible;
                 SortReservationLabel.Visibility = Visibility.Visible;
+
+            }
+            
+
+           
+            if (!rol.Contains(2))
+            {
+                SelectReservation.Items.Remove((ComboBoxItem)Coach);
+               // Coach.Visibility = Visibility.Hidden;
+            }
+            if (!rol.Contains(3))
+            {
+                SelectReservation.Items.Remove((ComboBoxItem)Competition);
+                //Competition.Visibility = Visibility.Visible;
+              //  Coach.Visibility = Visibility.Visible;
+
+            }
+            if (rol.Contains(5))
+            {
+                SelectReservation.Items.Add((ComboBoxItem)Coach);
+                SelectReservation.Items.Add((ComboBoxItem)Competition);
+
             }
 
             //Een Coach heeft maximaal 8 afschrijvingen.
@@ -66,12 +90,14 @@ namespace Views
             }
 
             //De reservaties van de gebruiker worden met deze methode getoond op het scherm
-            ShowReservations(competition);
+            ShowReservations(competition, coach);
             dashboardController.Notification(loggedUser.LastLoggedIn);
 
+            // combobox index start op normale reservering
+            int selectedIndex = 0;
+            SelectReservation.SelectedItem = SelectReservation.Items.GetItemAt(selectedIndex);
 
-
-
+            // haal de nieuwsberichten op
             var getNewsMessage = (from data in context.News_Messages
                                   where data.DeletedAt == null
                                   select data).ToList();
@@ -87,7 +113,7 @@ namespace Views
 
 
 
-        public void ShowReservations(bool competition)
+        public void ShowReservations(bool competition, bool coach)
         {
             using (var context = new DataBase())
             {
@@ -98,6 +124,7 @@ namespace Views
                     where data.Deleted == null
                     where data.UserId == LoginView.UserId
                     where data.Competition == competition
+                    where data.Coach == coach
                     select data).ToList();
 
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
@@ -202,13 +229,11 @@ namespace Views
             Count = 0;
         }
 
-
-
-        public void DeleteButton_Click(object sender, RoutedEventArgs e)
-        {
-            var b = (Button)sender;
-            dashboardController.DeleteReservation((int)b.Tag, competition);
-        }
+    public void DeleteButton_Click(object sender, RoutedEventArgs e)
+    {
+        var b = (Button)sender;
+        dashboardController.DeleteReservation((int)b.Tag, competition, coach);
+    }
 
         public void Change_Click(object sender, RoutedEventArgs e)
         {
@@ -221,25 +246,24 @@ namespace Views
         private void AddReservationButton_Click(object sender, RoutedEventArgs e) =>
             Switcher.Switch(new BoatSelectionView());
 
-
-        //method voor het sorteren van de reserveringen.
-        private void SortReservation_Click(object sender, RoutedEventArgs e)
+        private void SelectReservationType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (competition == false)
-            {
-                competition = true;
-                SortReservation.Content = "Mijn afschijvingen";
-                SortReservationLabel.Content = "Wedstrijd afschrijvingen";
-            }
-            else if (competition == true)
+            int SelectedValue = int.Parse(((ComboBoxItem)SelectReservation.SelectedItem).Tag.ToString());
+            if (SelectedValue == 2)
             {
                 competition = false;
-                SortReservation.Content = "Wedstrijd afschrijvingen";
-                SortReservationLabel.Content = "Mijn afschijvingen";
-
+                coach = true;
+            } else if (SelectedValue == 3)
+            {
+                competition = true;
+                coach = false;
+            } else
+            {
+                coach = false;
+                competition = false;
             }
             DeleteAllControls();
-            ShowReservations(competition);
+            ShowReservations(competition, coach);
         }
     }
 }

@@ -26,6 +26,7 @@ namespace BataviaReseveringsSysteem.Views
         private Boat _boat;
 
         private bool _competition;
+        private bool _coach;
         //Deze methode kijkt of je ook voor wedstrijden mag afschrijven
         private void AllowedCompetition()
         {
@@ -35,7 +36,9 @@ namespace BataviaReseveringsSysteem.Views
                              where data.UserID == LoginView.UserId
                              select data.RoleID).ToList();
 
-                if (RolID.Contains(3))
+                
+
+                if (RolID.Contains(3) || RolID.Contains(5))
                 {
                     CompetitionCheckbox.Visibility = Visibility.Visible;
                     //De afschrijvingen voor een wedstrijd van een wedstrijdcommisaris
@@ -52,14 +55,52 @@ namespace BataviaReseveringsSysteem.Views
                                                    select data).ToList();
 
                     //De wedstrijdcommisaris mag maximaal 2 afschrijvingen voor de zichzelf afschrijven
-                    if (ReservationsPersonal.Count == 2)
+                    if (ReservationsPersonal.Count >= 2)
                     {
+                        
                         CompetitionCheckbox.IsChecked = true;
                         CompetitionCheckbox.IsEnabled = false;
+
                         MaxReservation.Visibility = Visibility.Visible;
                     }
 
                 }
+
+                if (RolID.Contains(2) || RolID.Contains(5))
+                {
+                    CompetitionCheckbox.Visibility = Visibility.Visible;
+                    //De afschrijvingen voor een wedstrijd van een wedstrijdcommisaris
+                    var ReservationsCompetition = (from data in context.Reservations
+                                                   where data.UserId == LoginView.UserId
+                                                   where data.Coach == true
+                                                   where data.Deleted == null
+                                                   select data).ToList();
+                    //De afschrijvingen voor persoonlijk gebruik van een wedstrijdcommisaris
+                    var ReservationsPersonal = (from data in context.Reservations
+                                                where data.UserId == LoginView.UserId
+                                                where data.Coach == false
+                                                where data.Deleted == null
+                                                select data).ToList();
+
+                    //De wedstrijdcommisaris mag maximaal 2 afschrijvingen voor de zichzelf afschrijven
+                    if (ReservationsPersonal.Count >= 2)
+                    {
+
+                        CoachCheckbox.IsChecked = true;
+                        CoachCheckbox.IsEnabled = false;
+
+                        MaxReservation.Visibility = Visibility.Visible;
+                    }
+
+                }
+
+                if (RolID.Contains(2) || RolID.Contains(5))
+                {
+                    CoachCheckbox.Visibility = Visibility.Visible;
+                }
+
+
+
             }
         }
         private void TypeChecked(object sender, RoutedEventArgs e)
@@ -129,6 +170,7 @@ namespace BataviaReseveringsSysteem.Views
                     SteeringToggle.IsEnabled = false;
                     RowersCombo.IsEnabled = false;
                     CompetitionCheckbox.IsEnabled = false;
+                    CoachCheckbox.IsEnabled = false;
                     BoatCombo.IsEnabled = false;
                 }
 
@@ -171,10 +213,18 @@ namespace BataviaReseveringsSysteem.Views
 
         private void BevestigenBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (CompetitionCheckbox.IsChecked == true) _competition = true;
-            var reserveWindow = new ReserveWindow(_competition, _boat);
-            Switcher.Switch(reserveWindow);
-            reserveWindow.Populate(_boat, _competition);
+            if (CompetitionCheckbox.IsChecked == true && CoachCheckbox.IsChecked == true)
+            {
+                SelectionError.Content = "U kunt geen boot voor een wedstrijd en een les afschrijven";
+            }
+            else 
+            {
+                if (CompetitionCheckbox.IsChecked == true) { _competition = true; }
+                if (CoachCheckbox.IsChecked == true) { _coach = true; }
+                var reserveWindow = new ReserveWindow(_competition, _coach, _boat);
+                Switcher.Switch(reserveWindow);
+                reserveWindow.Populate(_boat, _competition, _coach);
+            }
         }
 
         private void BoatCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)

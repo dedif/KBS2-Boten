@@ -14,11 +14,12 @@ namespace Views
     /// </summary>
     public partial class ReserveWindow
     {
-        public ReserveWindow(bool reservationIsForCompetition, Boat boat)
+        public ReserveWindow(bool reservationIsForCompetition, bool coach, Boat boat)
         {
             InitializeComponent();
             Calendar.BlackoutDates.AddDatesInPast();
             Calendar.BlackoutDates.Add(GetDisabledDatesInFuture(reservationIsForCompetition));
+            Calendar.BlackoutDates.Add(GetDisabledDatesInFuture(coach));
 
             using (DataBase context = new DataBase())
             {
@@ -43,12 +44,12 @@ namespace Views
       
         }
 
-        public void Populate(Boat boat, bool competition) => AddBoatTypeTabs(boat, competition,
+        public void Populate(Boat boat, bool competition, bool coach) => AddBoatTypeTabs(boat, competition, coach,
             new ReservationController().GetReservationsForBoatThatAreNotDeleted(boat));
 
         // deze methode zorgt voor de tabbladen met de types boten bovenaan in het scherm
-        private void AddBoatTypeTabs(Boat boat, bool competition, List<Reservation> reservations) =>
-            BoatTypeTabControl.Children.Add(new BoatTypeTabItem(boat, competition, reservations, Calendar));
+        private void AddBoatTypeTabs(Boat boat, bool competition, bool coach, List<Reservation> reservations) =>
+            BoatTypeTabControl.Children.Add(new BoatTypeTabItem(boat, competition, coach, reservations, Calendar));
 
         private CalendarDateRange GetDisabledDatesInFuture(bool reservationIsForCompetition)
         {
