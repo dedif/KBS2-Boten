@@ -25,7 +25,7 @@ namespace Models
         public Boat Boat { get; set; }
         public Reservation(Boat boat, bool competition,bool coach, DateTime start, DateTime end)
         {
-            Coach = Coach;
+            Coach = coach;
             Competition = competition;
             UserId = LoginView.UserId;
             BoatID = boat.BoatID;

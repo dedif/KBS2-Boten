@@ -244,7 +244,7 @@ namespace Views
             if (SelectedValue == 2)
             {
                 competition = false;
-                coach = false;
+                coach = true;
             } else if (SelectedValue == 3)
             {
                 competition = true;
