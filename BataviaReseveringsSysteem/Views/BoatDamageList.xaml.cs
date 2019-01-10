@@ -52,6 +52,7 @@ namespace BataviaReseveringsSysteem.Views
             {
                 DataBoatDamageList.ItemsSource = (from x in context.Boats join d in context.Damages on x.BoatID equals d.BoatID
                                                   join u in context.Users on d.UserID equals u.UserID
+                                                  where x.DeletedAt == null
                                                   where x.BoatID.ToString() == Search.Text || x.Name.Contains(Search.Text) || d.TimeOfClaim.ToString() == Search.Text || d.TimeOfFix.ToString() == Search.Text || d.Description.Contains(Search.Text) || d.Status.Contains(Search.Text) || u.Firstname.Contains(Search.Text)  || u.Middlename.Contains(Search.Text) || u.Lastname.Contains(Search.Text) && x.DeletedAt == null
                                                   select new { x.BoatID, BoatName = x.Name, TimeOfClaim = d.TimeOfClaim, TimeOfOccupyForFix = d.TimeOfOccupyForFix, TimeOfFix = d.TimeOfFix, Description = d.Description, Status = d.Status, FirstName = u.Firstname, MiddleName = u.Middlename, LastName = u.Lastname }).ToList();
 

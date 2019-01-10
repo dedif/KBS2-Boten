@@ -81,7 +81,8 @@ namespace BataviaReseveringsSysteem.Views
             {
 
                 DataNewsMessageList.ItemsSource = (from x in context.News_Messages
-                                                   where (x.NewsMessageID.ToString() == Search.Text || x.Title.Contains(Search.Text) || x.CreatedAt.ToString() == Search.Text ) && x.DeletedAt == null
+                                                   where x.DeletedAt == null
+                                                   where (x.NewsMessageID.ToString() == Search.Text || x.Title.Contains(Search.Text) || x.CreatedAt.ToString() == Search.Text ) 
                                                    select x).ToList();
 
 

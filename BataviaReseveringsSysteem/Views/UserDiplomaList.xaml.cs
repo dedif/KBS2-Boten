@@ -51,6 +51,7 @@ namespace Views
 
 
                 var users = (from u in context.Users
+                             where u.DeletedAt == null
                              where u.Firstname.Contains(searchInfo) || u.Lastname.Contains(searchInfo) || u.Middlename.Contains(searchInfo)
                              select u).ToList();
 

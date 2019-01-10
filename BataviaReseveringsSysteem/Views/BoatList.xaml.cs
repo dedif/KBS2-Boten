@@ -84,7 +84,8 @@ namespace Views
         {
 
             DataBoatList.ItemsSource = (from x in context.Boats
-                                        where (x.BoatID.ToString() == Search.Text || x.Name.Contains(Search.Text) || x.Type.ToString() == Search.Text || x.Weight.ToString() == Search.Text || x.NumberOfRowers.ToString() == Search.Text || x.Steering.ToString() == Search.Text || x.BoatLocation.ToString() == Search.Text) && x.DeletedAt == null
+                                        where x.DeletedAt == null
+                                        where (x.BoatID.ToString() == Search.Text || x.Name.Contains(Search.Text) || x.Type.ToString() == Search.Text || x.Weight.ToString() == Search.Text || x.NumberOfRowers.ToString() == Search.Text || x.Steering.ToString() == Search.Text || x.BoatLocation.ToString() == Search.Text) 
                                         select x).ToList();
 
 

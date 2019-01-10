@@ -89,7 +89,8 @@ namespace Views
             using (DataBase context = new DataBase())
             {
                 DataUserList.ItemsSource = (from x in context.Users join g in context.Genders on x.GenderID equals g.GenderID
-                                            where x.UserID.ToString() == Search.Text || x.Firstname.Contains(Search.Text) || x.Lastname.Contains(Search.Text) || x.City.Contains(Search.Text) || x.Address.Contains(Search.Text) || x.City.Contains(Search.Text) || x.Zipcode.Contains(Search.Text) || x.Email.Contains(Search.Text) || x.Phonenumber.Contains(Search.Text) || x.Birthday.Day.ToString() == Search.Text || x.Birthday.Month.ToString() == Search.Text || x.Birthday.Year.ToString() == Search.Text || g.GenderName.Contains(Search.Text) && x.DeletedAt == null
+                                            where x.UserID != LoginView.UserId && x.DeletedAt == null
+                                            where x.UserID.ToString() == Search.Text || x.Firstname.Contains(Search.Text) || x.Lastname.Contains(Search.Text) || x.City.Contains(Search.Text) || x.Address.Contains(Search.Text) || x.City.Contains(Search.Text) || x.Zipcode.Contains(Search.Text) || x.Email.Contains(Search.Text) || x.Phonenumber.Contains(Search.Text) || x.Birthday.Day.ToString() == Search.Text || x.Birthday.Month.ToString() == Search.Text || x.Birthday.Year.ToString() == Search.Text || g.GenderName.Contains(Search.Text)  
                                             select new { x.UserID, Firstname = x.Firstname, Middlename = x.Middlename, Lastname = x.Lastname, Gender = g.GenderName, Birthday = x.Birthday, City = x.City, Address = x.Address, Zipcode = x.Zipcode, Phonenumber = x.Phonenumber, Email = x.Email }).ToList();
 
 
