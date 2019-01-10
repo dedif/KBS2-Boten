@@ -12,7 +12,7 @@ namespace BataviaReseveringsSysteem.Controllers
         {
             return notification;
         }
-
+        // check of de velden leeg zijn
         public Boolean WhiteCheck(string title, string message)
         {
             if (string.IsNullOrWhiteSpace(title) || string.IsNullOrWhiteSpace(message))
@@ -27,13 +27,14 @@ namespace BataviaReseveringsSysteem.Controllers
                 return true;
             }
         }
-
-        public void Add_NewsMessage(string title, string message)
+        // maak een nieuw nieuwsbericht aan
+        public void Add_NewsMessage(int userID, string title, string message)
         {
             using (DataBase context = new DataBase())
             {
                 var NewsMessage = new Models.News_Message
                 {
+                    UserID = userID,
                     Title = title,
                     Message = message,
                     CreatedAt = DateTime.Now,
@@ -42,8 +43,8 @@ namespace BataviaReseveringsSysteem.Controllers
                 context.SaveChanges();
             }
         }
-
-        public void Update_NewsMessage(int newsMessageID, string title, string message)
+        // bewerk een bestaand nieuwsbericht
+        public void Update_NewsMessage(int newsMessageID,int userID, string title, string message)
         {
             using (DataBase context = new DataBase())
             {
@@ -51,6 +52,7 @@ namespace BataviaReseveringsSysteem.Controllers
                 if (newsMessage != null)
                 {
                     newsMessage.Title = title;
+                    newsMessage.UserID = userID;
                     newsMessage.Message = message;
                     newsMessage.UpdatedAt = DateTime.Now;
                     newsMessage.DeletedAt = null;
@@ -58,7 +60,7 @@ namespace BataviaReseveringsSysteem.Controllers
                 }
             }
         }
-
+        // verwijder een nieuwsbericht
         public void Delete_NewsMessage(int newsMessageID)
         {
             using (DataBase context = new DataBase())

@@ -26,6 +26,7 @@ namespace BataviaReseveringsSysteem.Views
         private Boat _boat;
 
         private bool _competition;
+        private bool _coach;
         //Deze methode kijkt of je ook voor wedstrijden mag afschrijven
         private void AllowedCompetition()
         {
@@ -35,7 +36,68 @@ namespace BataviaReseveringsSysteem.Views
                              where data.UserID == LoginView.UserId
                              select data.RoleID).ToList();
 
-                if (RolID.Contains(3)) CompetitionCheckbox.Visibility = Visibility.Visible;
+                //Als de gebruiker een coach, wedstrijdcommisaris of het bestuur is dan
+                if (RolID.Contains(2) || RolID.Contains(5) || RolID.Contains(3))
+                {
+                    SelectReservation.Visibility = Visibility.Visible;
+                    KindReservationLabel.Visibility = Visibility.Visible;
+                    SelectReservation.SelectedIndex = 1;
+                   
+                    //De afschrijvingen voor persoonlijk gebruik van een wedstrijdcommisaris en coach
+                    var ReservationsPersonal = (from data in context.Reservations
+                                                where data.UserId == LoginView.UserId
+                                                where data.Coach == false
+                                                where data.Competition == false
+                                                where data.Deleted == null
+                                                select data).ToList();
+
+                    //De afschrijvingen voor de lessen van de coach
+                    var ReservationsCoach = (from data in context.Reservations
+                                                where data.UserId == LoginView.UserId
+                                                where data.Coach == true
+                                                where data.Deleted == null
+                                                select data).ToList();
+
+                    //De afschrijvingen voor de wedsrijden van de wedstrijdcommisaris
+                    var ReservationsCompitions = (from data in context.Reservations
+                                             where data.UserId == LoginView.UserId
+                                             where data.Competition == true
+                                             where data.Deleted == null
+                                             select data).ToList();
+
+                    //De wedstrijdcommisaris/coach mag maximaal 2 afschrijvingen voor de zichzelf afschrijven
+                    if (ReservationsPersonal.Count >= 2)
+                    {
+                        SelectReservation.Items.Remove((ComboBoxItem)Normal);
+                        MaxReservation.Visibility = Visibility.Visible;
+                    }
+                    //De coach mag maximaal 6 afschrijvingen voor de lessen afschrijven
+                    if (ReservationsCoach.Count >= 6)
+                    {
+                        SelectReservation.Items.Remove((ComboBoxItem)Coach);
+                     
+                    }
+                    //De wedstrijdcommisaris mag maximaal 6 afschrijvingen voor de wedstrijden afschrijven
+                    if (ReservationsCompitions.Count >= 6)
+                    {
+                        SelectReservation.Items.Remove((ComboBoxItem)Competition);
+                     
+                    }
+
+                    //Als de gebruiker een coach is dan mag hij afschrijving maken voor lessen.
+                    if (!RolID.Contains(2))
+                    {
+                        SelectReservation.Items.Remove((ComboBoxItem)Coach);
+
+                    }
+                    //Als de gebruiker een wedstrijdcommisaris is dan mag hij afschrijvingen maken voor wedstrijden.
+                    if (!RolID.Contains(3))
+                    {
+                        SelectReservation.Items.Remove((ComboBoxItem)Competition);
+
+                    }
+
+                }
             }
         }
         private void TypeChecked(object sender, RoutedEventArgs e)
@@ -99,7 +161,7 @@ namespace BataviaReseveringsSysteem.Views
                     Board.IsEnabled = false;
                     SteeringToggle.IsEnabled = false;
                     RowersCombo.IsEnabled = false;
-                    CompetitionCheckbox.IsEnabled = false;
+                    SelectReservation.IsEnabled = false;
                     BoatCombo.IsEnabled = false;
                 }
 
@@ -112,8 +174,13 @@ namespace BataviaReseveringsSysteem.Views
                 {
                     //Als de boot licht beschadigd is dan wordt dit vermeld bij het selecteren van een boot
                     if (DamagedBoats.Contains(item.BoatID))
-                        BoatCombo.Items.Add(item.Name + " " + item.Weight + "kg (beschadigd)");
-                    else BoatCombo.Items.Add(item.Name + " " + item.Weight + "kg");
+                    {
+                        BoatCombo.Items.Add(item.Name + " (" + item.Weight +  "kg) (beschadigd)");
+                    }
+                    else
+                    {
+                        BoatCombo.Items.Add(item.Name +  " (" + item.Weight + "kg)");
+                    }
                 }
             }
         }
@@ -137,10 +204,26 @@ namespace BataviaReseveringsSysteem.Views
 
         private void BevestigenBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (CompetitionCheckbox.IsChecked == true) _competition = true;
-            var reserveWindow = new ReserveWindow(_competition);
-            Switcher.Switch(reserveWindow);
-            reserveWindow.Populate(_boat, _competition);
+            int SelectedValue = int.Parse(((ComboBoxItem)SelectReservation.SelectedItem).Tag.ToString());
+            if (SelectedValue == 2)
+            {
+                _competition = false;
+                _coach = true;
+            }
+            else if (SelectedValue == 3)
+            {
+                _competition = true;
+                _coach = false;
+            }
+            else
+            {
+                _coach = false;
+                _competition = false;
+            }
+            var reserveWindow = new ReserveWindow(_competition, _coach, _boat);
+                Switcher.Switch(reserveWindow);
+                reserveWindow.Populate(_boat, _competition, _coach);
+            
         }
 
         private void BoatCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -160,12 +243,14 @@ namespace BataviaReseveringsSysteem.Views
         private Boat GetBoatFromBoatComboBox()
         {
             //Je pakt alleen de naam van de boot, die de gebruiker selecteerd.
-            var BoatName = BoatCombo.SelectedItem.ToString().Substring(0, BoatCombo.SelectedItem.ToString().IndexOf(" "));
-            return new BoatController().GetBoatWithName(BoatName);
+            string BoatName = BoatCombo.SelectedItem.ToString().Substring(0, BoatCombo.SelectedItem.ToString().IndexOf(" ("));
+           return new BoatController().GetBoatWithName(BoatName);
         }
 
         private bool IsBoatSelected() => BoatCombo.SelectedIndex != -1;
 
         private void EnableConfirmButtonIfBoatIsSelected() => BevestigenBtn.IsEnabled = BoatCombo.SelectedIndex != -1;
+
+   
     }
 }

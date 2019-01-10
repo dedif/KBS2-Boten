@@ -33,14 +33,14 @@ namespace Views
         {
             InitializeComponent();
             this.HorizontalAlignment = HorizontalAlignment.Center;
-
+            // laad de tabel in
             Load("");
 
         }
 
       
 
-
+        // voeg items toe aan de tabel
         private void Load(string searchInfo)
         {
 
@@ -56,6 +56,7 @@ namespace Views
 
                 foreach (User u in users)
                 {
+                    // default value voor diplomas
                     string s1 = "X";
                     string s2 = "X";
                     string s3 = "X";
@@ -69,6 +70,7 @@ namespace Views
                                         where d.UserID == u.UserID
                                         select d.DiplomaID).ToList();
 
+                    // als het id gelijks is zet dan een vinkje inplaats van een kruisje
                     if (User1Diploma.Contains(1))
                     {
                         s1 = "\u221A";
@@ -112,26 +114,20 @@ namespace Views
                     }
 
 
-
+                    // voeg toe aan de lijst
                     var dataUserListItems = new { u.UserID, Firstname = u.Firstname, Middlename = u.Middlename, Lastname = u.Lastname, S1 = s1, S2 = s2, S3 = s3, P1 = p1, P2 = p2, B1 = b1, B2 = b2, B3 = b3 };
                     DataUserList.Items.Add(dataUserListItems);
                 }
-
-                
-               
-                //DataGrid.Items.Refresh();
-
             }
-            //DataView.DataBind();
             DataGrid = DataUserList;
         }
-
+        // ga naar de edit userdiploma pagina
         private void ButtonEdit(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
             Switcher.Switch(new EditUserDiplomaView((int)b.Tag));
         }
-
+        //zoek naar een item in de tabel
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
             for (int i = 0; DataUserList.Items.Count > i;)

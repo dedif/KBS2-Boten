@@ -43,7 +43,7 @@ namespace UnitTestProject2
             Boat boatTest = new Boat(boatName, Boat.BoatType.Board, 2, 2, false, 2, DateTime.Now, DateTime.Now);
             context.Boats.Add(boatTest);
             //maak reservering met toegevoegde boot
-            Reservation reservationTest = new Reservation(boatTest, false, DateTime.Now, DateTime.Now);
+            Reservation reservationTest = new Reservation(boatTest, false, false, DateTime.Now, DateTime.Now);
             context.Reservations.Add(reservationTest);
             //maak een damage aan bij de boot die gereserveerd is
             BoatDamage boatDamage = new BoatDamage();
@@ -66,7 +66,7 @@ namespace UnitTestProject2
         {
             //Arrange
             Boat boatTest = new Boat("bootTest", Boat.BoatType.Board, 2, 2, false, 2, DateTime.Now, DateTime.Now);
-            Reservation reservationTest = new Reservation(boatTest, false, DateTime.Now, new DateTime());
+            Reservation reservationTest = new Reservation(boatTest, false, false, DateTime.Now, new DateTime());
             Damage damage = new Damage(2, boatTest.BoatID, "boot kapot", "Lichte schade");
             DateTime dateTest = new DateTime(2025, 2, 10);
             LoginController loginViewTest = new LoginController();

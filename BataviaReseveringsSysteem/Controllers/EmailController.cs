@@ -9,6 +9,7 @@ namespace Controllers
 {
   public class EmailController
     {
+        //Mail configuratie voor het versturen van een email
         public EmailController(string sendTo, string subject, string message)
         {
             SmtpClient client = new SmtpClient( );

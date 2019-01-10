@@ -4,6 +4,7 @@ using ScreenSwitcher;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Views;
 
 namespace BataviaReseveringsSysteem.Views
 {
@@ -17,6 +18,7 @@ namespace BataviaReseveringsSysteem.Views
         public EditNewsMessage(int editNewsMessageID)
         {
             InitializeComponent();
+           
             EditNewsMessageID = editNewsMessageID;
 
             using (DataBase context = new DataBase())
@@ -24,7 +26,7 @@ namespace BataviaReseveringsSysteem.Views
                 var news = from x in context.News_Messages
                             where x.NewsMessageID == editNewsMessageID
                             select x;
-
+                // zet de content van de title en het bericht
                 foreach (var newsMessage in news)
                 {
                     TitleBox.Text = newsMessage.Title;
@@ -34,6 +36,7 @@ namespace BataviaReseveringsSysteem.Views
         }
         private void SaveNewsMessage_Click(object sender, RoutedEventArgs e)
         {
+            // kijk of het bericht leeg is, zo niet pas het bericht aan
             if (nmc.WhiteCheck(TitleBox.Text, NewsMessageBox.Text) == true)
             {
                 NotificationLabel.Content = nmc.Notification();
@@ -44,7 +47,7 @@ namespace BataviaReseveringsSysteem.Views
                 switch (Succes)
                 {
                     case System.Windows.Forms.DialogResult.OK:
-                        nmc.Update_NewsMessage(EditNewsMessageID, TitleBox.Text, NewsMessageBox.Text);
+                        nmc.Update_NewsMessage(LoginView.UserId, EditNewsMessageID, TitleBox.Text, NewsMessageBox.Text);
                         Switcher.Switch(new NewsMessageList());
                         break;
 
@@ -58,7 +61,7 @@ namespace BataviaReseveringsSysteem.Views
         }
 
 
-
+        // ga terug naar de nieuwsberichten lijst
         private void CancelNewsMessage_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new NewsMessageList());

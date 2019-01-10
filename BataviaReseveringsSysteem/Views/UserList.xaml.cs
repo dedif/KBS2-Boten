@@ -27,59 +27,35 @@ namespace Views
         {
             InitializeComponent();
             this.HorizontalAlignment = HorizontalAlignment.Center;
-
+            // laad de tabel in
             Load();
             using (DataBase context = new DataBase())
             {
                 var rol = (from data in context.User_Roles
                            where data.UserID == LoginView.UserId
                            select data.RoleID).ToList();
-
-
-
-
-            
             }
-
         }
-
-
-        public void UtilizeState(object state)
-        {
-            throw new NotImplementedException();
-        }
-
-
-
+        // voeg items toe aan de tabel
         private void Load()
         {
-
-            //DataUserList.ItemsSource = context.Users.ToList();
             using (DataBase context = new DataBase())
             {
                 var users = (from u in context.Users join g in context.Genders on u.GenderID equals g.GenderID
                              where u.DeletedAt == null && u.UserID != LoginView.UserId
                              select new {u.UserID,Firstname = u.Firstname, Middlename = u.Middlename, Lastname = u.Lastname, Gender = g.GenderName , Birthday = u.Birthday, City = u.City, Address = u.Address, Zipcode = u.Zipcode, Phonenumber = u.Phonenumber, Email = u.Email }).ToList();
 
-
-
-
-
                 DataUserList.ItemsSource = users;
               }
 
-
-            
-
             DataGrid = DataUserList;
-
         }
-
+        //ga naar de register pagina om een nieuwe user aante maken
         private void RegisterUserButton(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new Register());
         }
-
+        //verwijder het geselecteerde item
         void ButtonDelete(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
@@ -101,13 +77,13 @@ namespace Views
 
             }
         }
-
+        // ga naar de edit user pagina
         void ButtonEdit(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
             Switcher.Switch(new EditUser((int)b.Tag));
         }
-
+        //zoek naar een item in de tabel
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
             using (DataBase context = new DataBase())

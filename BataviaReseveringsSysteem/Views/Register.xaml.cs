@@ -38,7 +38,7 @@ namespace Views
                     dbc.Add_Diploma("B2");
                     dbc.Add_Diploma("B3");
                 }
-
+                // als er nog geen genders in de database staan maak dan deze genders aan.
                 if (!context.Genders.Any(z => z.GenderName == "Man" || z.GenderName == "Vrouw" || z.GenderName == "Anders"))
                 {
                     uc.Add_Gender("Man");
@@ -58,7 +58,7 @@ namespace Views
                 }
 
                 var roles = context.Roles.ToList();
-
+                // zet de content en de tags van de checkboxen
                 foreach (var role in roles)
                 {
                     if (role.RoleName.Equals("Reparateur"))
@@ -162,6 +162,7 @@ namespace Views
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        //postcode validatie
         private void ZipcodeValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             var regex = new Regex("/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i");

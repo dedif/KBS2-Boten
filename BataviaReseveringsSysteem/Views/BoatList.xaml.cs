@@ -21,9 +21,11 @@ namespace Views
         public BoatList()
         {
             InitializeComponent();
+            // laad de tabel in
             Load();
         }
 
+        // voeg items toe aan de tabel(datagrid)
         private void Load()
         {
 
@@ -37,12 +39,13 @@ namespace Views
             DataGrid = DataBoatList;
 
         }
-
+        // Ga naar de addboat pagina
         private void AddBoatButton(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new AddBoat());
         }
 
+        //verwijder een boot nadat ja op Yes hebt geklikt
         void ButtonDelete(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
@@ -68,7 +71,7 @@ namespace Views
 
 
 
-
+        // ga naar de editboat pagina
         void ButtonEdit(object sender, RoutedEventArgs e)
         {
             Button b = (Button)sender;
@@ -76,6 +79,7 @@ namespace Views
 
         }
 
+        //zoek een item in de tabel
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
 

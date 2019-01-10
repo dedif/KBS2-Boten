@@ -54,7 +54,7 @@ namespace Views
                 textboxLabel.Content = boat.Description;
                 if (boat.TimeOfOccupyForFix != null)
                 {
-                    TimeOfOccupyForFix.SelectedDate = boat.TimeOfOccupyForFix;
+                    TimeOfOccupyForFix.SelectedDate = boat.TimeOfOccupyForFix.Value.Date;
                 }
                 if (boat.TimeOfFix != null)
                 {
@@ -63,12 +63,13 @@ namespace Views
             }
         }
 
-
+        // ga terug naar het dashboard
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new Dashboard());
         }
 
+        // voeg een nieuwe schade toe
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             using (DataBase context = new DataBase())

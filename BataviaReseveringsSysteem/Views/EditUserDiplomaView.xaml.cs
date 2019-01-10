@@ -33,6 +33,7 @@ namespace Views
 
                 foreach (var diploma in Diplomas)
                 {
+                    // zet de content en de tag van de checkboxen
                     if ("S1" == diploma.DiplomaName)
                     {
                         S1CheckBox.Content = diploma.DiplomaName;
@@ -87,7 +88,7 @@ namespace Views
                                   where x.UserID == userID && x.DeletedAt == null
                                   select x;
     
-
+                // zet de checkbox op checked als het id gelijk is aan de checkbox tag
                 foreach (var userRole in User_Diplomas)
                 {
 
@@ -136,6 +137,7 @@ namespace Views
             }
         }
 
+        // voeg een diploma toe als de checkbox geselecteerd is. Anders verwijder de diploma uit de database
         private void ButtonConfirm(object sender, RoutedEventArgs e)
         {
             using (DataBase context = new DataBase())
@@ -203,7 +205,7 @@ namespace Views
 
 
 
-
+        // ga terug naar de userdiploma lijst pagina
         private void ButtonCancel(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new UserDiplomaList());

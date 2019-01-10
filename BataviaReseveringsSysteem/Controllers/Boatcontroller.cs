@@ -91,7 +91,7 @@ namespace Controllers
                 return false;
             }
         }
-
+// check of de locatie een int is
         public Boolean LocationCheckIfInt(string boatLocation)
         {
 
@@ -134,7 +134,7 @@ namespace Controllers
                 }
             }
         }
-
+        // controlleer als de locatie al bestaat
         public Boolean BoatLocationCheck(int boatLocation)
         {
 
@@ -162,7 +162,7 @@ namespace Controllers
                 }
             }
         }
-
+        // controleer of de bootlocatie al bestaat
         public Boolean EditBoatLocationCheck(int boatLocation, int boatID)
         {
 
@@ -190,7 +190,7 @@ namespace Controllers
             }
 
         }
-
+        // controlleer of de bootnaam al bestaat.
         public Boolean EditBoatNameCheck(string name, int boatID)
         {
 
@@ -218,55 +218,8 @@ namespace Controllers
             }
 
         }
+      
 
-        public Boolean BootExist(int boatID)
-        {
-
-            using (DataBase context = new DataBase())
-
-            {
-                var BoatExists = (from b in context.Boats
-                                  where b.BoatID == boatID
-                                  select b).ToList<Boat>();
-                if (BoatExists.Count > 0)
-                {
-                    notification = "Deze bootnaam bestaat al";
-
-
-                    return false;
-
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
-
-
-        public Boolean BootParametersAreGiven(int boatID, string name, string type, int rowers, double weight, bool steering)
-        {
-
-            using (DataBase context = new DataBase())
-
-            {
-                var BoatExists = (from b in context.Boats
-                                  where b.BoatID == boatID && b.Name == name && b.Type.ToString() == type && b.NumberOfRowers == rowers && b.Weight == weight && b.Steering == steering
-                                  select b).ToList<Boat>();
-                if (BoatExists.Count > 0)
-                {
-                    notification = "Parameters zijn gegeven";
-
-
-                    return false;
-
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
 
         //Deze methode voegt een boot toe aan de database
         public void AddBoat(string name, string type, int rowers, double weight, bool steeringwheel, int boatLocation, DateTime availableAt)
@@ -395,7 +348,7 @@ namespace Controllers
 
         }
 
-
+        // bewerk de boot
         public void UpdateBoat(int boatID, string name, string type, int rowers, double weight, bool steeringwheel, int boatLocation, DateTime availableAt)
         {
             using (DataBase context = new DataBase())
@@ -430,7 +383,7 @@ namespace Controllers
             }
 
         }
-
+        // bewerk de bootschade
         public void UpdateBoatDamage(int DamageID, string description, DateTime timeOfAccupyForFix, DateTime timeOfFix, string status)
         {
             using (DataBase context = new DataBase())
@@ -456,24 +409,8 @@ namespace Controllers
             }
 
         }
-
-
-
-
-        public List<Boat> BoatList()
-        {
-
-            using (DataBase context = new DataBase())
-            {
-
-                var boats = (from s in context.Boats
-                             orderby s.BoatID
-                             select s).ToList<Boat>();
-
-                return boats;
-            }
-        }
-
+     
+        // haal een specifieke boot op
         public Boat GetBoatWithName(string name)
         {
 
@@ -482,7 +419,7 @@ namespace Controllers
                 return (from boat in context.Boats where boat.Name.Equals(name) select boat).First();
             }
         }
-
+        // voeg een nieuwe bootdiploma toe
         public void AddDiploma(List<CheckBox> list)
         {
 
@@ -508,7 +445,7 @@ namespace Controllers
             }
         }
 
-
+        // voeg een nieuwe bootdiploma toe
         public void Add_BoatDiploma(int diplomaID, int boatID)
         {
 
@@ -530,7 +467,7 @@ namespace Controllers
 
             }
         }
-
+        // verwijder de bootdiploma
         public void Delete_BoatDiploma(int boatID, int diplomaID)
         {
             using (DataBase context = new DataBase())
@@ -547,30 +484,6 @@ namespace Controllers
 
             }
 
-        }
-
-
-        public List<Boat> GetBoatsReservableWithThisUsersDiplomasThatAreNotBroken()
-        {
-            using (var context = new DataBase())
-            {
-                return
-                    (from boat in context.Boats
-                     join boatDiploma in context.Boat_Diplomas on boat.BoatID equals boatDiploma.BoatID
-                     join userDiploma in context.User_Diplomas on boatDiploma.DiplomaID equals userDiploma.DiplomaID
-                     where userDiploma.UserID == LoginView.UserId
-                     where boatDiploma.BoatID == boat.BoatID
-                     where boat.AvailableAt <= DateTime.Now
-                     where boat.Broken == false
-                     select boat).Distinct().Concat(
-                        from boat in context.Boats
-                        where !(
-                            from boatDiploma in context.Boat_Diplomas
-                            where boatDiploma.BoatID == boat.BoatID
-                            select boatDiploma).Any()
-                        where boat.Broken == false
-                        select boat).ToList();
-            }
         }
     }
 }

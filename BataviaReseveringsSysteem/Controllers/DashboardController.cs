@@ -133,7 +133,7 @@ namespace Controllers
         }
 
         //Deze methode verwijderd de bijbehorende reservatie
-        public void DeleteReservation(int id, bool competition)
+        public void DeleteReservation(int id, bool competition, bool coach)
         {
             using (DataBase context = new DataBase())
             {
@@ -152,40 +152,16 @@ namespace Controllers
                 //Als de gebruiker de reservering wilt verwijderen.
                 if (confirm != MessageBoxResult.Yes) return;
                 //De reservering wordt uit de database verwijderd. 
-                //context.Reservations.Remove(Delete);
-
                 delete.Deleted = DateTime.Now;
                 context.SaveChanges();
                 //Alle oude knoppen en labels worden verwijderd van het scherm.
                 Dashboard.DeleteAllControls();
                 //De nieuwe reserveringen worden op het scherm getoond. 
-                Dashboard.ShowReservations(competition);
+                Dashboard.ShowReservations(competition, coach);
 
             }
         }
         //Deze methode verwijderd alle controls
-
-
-
-        public Button AddChangeButton(int x, int y)
-        {
-            //Er wordt een button aangemaakt. 
-            Button Left = new Button()
-            {
-                Content = "Afschrijving wijzigen",
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(x, y, 0, 0),
-                Height = 30,
-                Width = 200,
-                FontSize = 16,
-                HorizontalContentAlignment = HorizontalAlignment.Left
-            };
-            //De button krijgt een click event
-            Left.Click += Dashboard.Change_Click;
-
-            return Left;
-        }
 
 
         public Button AddDeleteButton(int x, int y, int id)

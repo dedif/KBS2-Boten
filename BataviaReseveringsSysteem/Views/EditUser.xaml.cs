@@ -34,6 +34,7 @@ namespace Views
 
             foreach (var user in users)
             {
+                // zet de waarden van de gebruiker in de text velden
                 Firstname.Text = user.Firstname;
                 Lastname.Text = user.Lastname;
                 Middlename.Text = user.Middlename;
@@ -45,7 +46,8 @@ namespace Views
                 Gender.SelectedIndex = user.GenderID - 1;
                 EndOfSubscription.SelectedDate = user.EndOfSubscription;
 
-                string myString = user.Birthday.ToString("dd-MM-yyyy"); // From Database
+                // date format
+                string myString = user.Birthday.ToString("dd-MM-yyyy"); 
 
                 var split = myString.Split('-');
 
@@ -58,6 +60,7 @@ namespace Views
 
             foreach (var role in Roles)
             {
+                // zet de content en de tag van de checkboxen
                 switch (role.RoleName)
                 {
                     case "Reparateur":
@@ -89,7 +92,7 @@ namespace Views
                              select x.RoleID;
 
 
-
+            // als de gebruikers rol al bestaat bij de gebruiker check de checkbox
             foreach (var userRole in User_Roles)
             {
                 if (userRole == int.Parse(Reparateur.Tag.ToString()))
@@ -161,19 +164,20 @@ namespace Views
             return true;
 
         }
-        // Check if there is are no letters in input box
+        // Check if there are no letters in input box
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
-
+        //postcode validatie
         private void ZipcodeValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("/^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i");
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        // ga terug naar de userlist als je een bestuur bent. Anders ga terug naar het dashboard
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -189,6 +193,7 @@ namespace Views
                 Switcher.Switch(new Dashboard());
             }
         }
+        //verwijder de geselecteerde user 
         private void VerwijderenBtn_Click(object sender, RoutedEventArgs e)
         {
                 System.Windows.Forms.DialogResult Succes = System.Windows.Forms.MessageBoxEx.Show("Wilt u deze gebruiker definitief verwijderen?", "Bevestig verwijdering", System.Windows.Forms.MessageBoxButtons.YesNo, 30000);
@@ -210,6 +215,7 @@ namespace Views
             
         }
 
+        // Pas de gegevens van de gebruiker aan
         private void BewerkBtn_Click(object sender, RoutedEventArgs e)
         {
             if (Controllers.EditController.Edit(Firstname, Middlename, Lastname, City, Zipcode, Address, Phonenumber, Email, Day, Month, Year, Gender, Password, ConfirmPassword, UserID, EndOfSubscription))
@@ -220,9 +226,8 @@ namespace Views
                     if (c.IsChecked == true)
                     {
                         int roleID = int.Parse(c.Tag.ToString());
-                        //int.Parse(c.Tag.ToString());
 
-
+                        // voeg rollen toe aan de database
                         var User_Roles = context.User_Roles.Any(x => x.RoleID == roleID && x.DeletedAt == null && x.UserID == EditID);
 
                         if (!User_Roles)
@@ -237,7 +242,7 @@ namespace Views
                     }
                     else if (c.IsChecked == false)
                     {
-
+                        // verwijder de rollen als de checkboxen niet meer zijn geselecteerd
                         int roleID = int.Parse(c.Tag.ToString());
 
                         var User_Roles = context.User_Roles.Any(x => x.RoleID == roleID && x.DeletedAt == null && x.UserID == EditID);

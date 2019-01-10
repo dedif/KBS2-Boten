@@ -27,6 +27,7 @@ namespace UnitTestProject2
                     new BoatTypeTabItem(
                         boat,
                         false,
+                        false,
                         new List<Reservation>(),
                         new Calendar());
 
@@ -48,6 +49,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boat,
+                        false,
                         false,
                         new List<Reservation>(),
                         new Calendar());
@@ -71,6 +73,7 @@ namespace UnitTestProject2
                     new BoatTypeTabItem(
                         boat,
                         false,
+                        false,
                         new List<Reservation>(),
                         new Calendar());
 
@@ -92,6 +95,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boat,
+                        false,
                         false,
                         new List<Reservation>(),
                         new Calendar());
@@ -115,6 +119,7 @@ namespace UnitTestProject2
                     new BoatTypeTabItem(
                         boat,
                         false,
+                        false,
                         new List<Reservation>(),
                         new Calendar());
 
@@ -136,6 +141,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boat,
+                        false,
                         false,
                         new List<Reservation>(),
                         new Calendar());
@@ -163,6 +169,7 @@ namespace UnitTestProject2
                     new BoatTypeTabItem(
                         boat,
                         false,
+                        false,
                         new List<Reservation>(),
                         new Calendar());
 
@@ -184,6 +191,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boat,
+                        false,
                         false,
                         new List<Reservation>(),
                         new Calendar());
@@ -207,6 +215,7 @@ namespace UnitTestProject2
                     new BoatTypeTabItem(
                         boat,
                         false,
+                        false,
                         new List<Reservation>(),
                         new Calendar());
 
@@ -228,6 +237,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boat,
+                        false,
                         false,
                         new List<Reservation>(),
                         new Calendar());
@@ -251,6 +261,7 @@ namespace UnitTestProject2
                     new BoatTypeTabItem(
                         boat,
                         false,
+                        false,
                         new List<Reservation>(),
                         new Calendar());
 
@@ -272,6 +283,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boat,
+                        false,
                         false,
                         new List<Reservation>(),
                         new Calendar());
@@ -295,6 +307,7 @@ namespace UnitTestProject2
                     new BoatTypeTabItem(
                         boat,
                         false,
+                        false,
                         new List<Reservation>(),
                         new Calendar());
 
@@ -316,6 +329,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boat,
+                        false,
                         false,
                         new List<Reservation>(),
                         new Calendar());
@@ -347,6 +361,7 @@ namespace UnitTestProject2
                     new BoatTypeTabItem(
                         boat,
                         false,
+                        false,
                         new List<Reservation>(),
                         new Calendar());
                 var time1200 = GetDateTimeWithGivenHoursAndMinutes(12, 00);
@@ -367,6 +382,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boat,
+                        false,
                         false,
                         new List<Reservation>(),
                         new Calendar());
@@ -389,6 +405,7 @@ namespace UnitTestProject2
                     new BoatTypeTabItem(
                         boat,
                         false,
+                        false,
                         new List<Reservation>(),
                         new Calendar());
                 var time2345 = GetDateTimeWithGivenHoursAndMinutes(23, 45);
@@ -409,6 +426,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boat,
+                        false,
                         false,
                         new List<Reservation>(),
                         new Calendar());
@@ -438,6 +456,7 @@ namespace UnitTestProject2
                     new BoatTypeTabItem(
                         boat,
                         false,
+                        false,
                         new List<Reservation>(),
                         new Calendar());
                 var now = DateTime.Now;
@@ -460,6 +479,7 @@ namespace UnitTestProject2
                     new BoatTypeTabItem(
                         boat,
                         false,
+                        false,
                         new List<Reservation>(),
                         new Calendar());
                 var now = DateTime.Now;
@@ -481,6 +501,7 @@ namespace UnitTestProject2
                 var boatTypeTabItem =
                     new BoatTypeTabItem(
                         boat,
+                        false,
                         false,
                         new List<Reservation>(),
                         new Calendar());

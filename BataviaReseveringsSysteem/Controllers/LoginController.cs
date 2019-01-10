@@ -9,6 +9,7 @@ namespace Controllers
 {
     public class LoginController
     {
+        // verwijder oude reserveringen
         public void DeleteOldReservations()
         {
             using (DataBase context = new DataBase())
@@ -24,12 +25,9 @@ namespace Controllers
                 }
             }
         }
-
+        // controleer of de login gegevens kloppen en aan alle waarden voldoen
         public static Boolean IsLoginDataValid(TextBox Username, PasswordBox Password, Label LoginError)
         {
-
-
-
             var u = new UserController();
 
             using (var context = new DataBase())

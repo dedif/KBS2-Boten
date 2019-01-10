@@ -17,9 +17,9 @@ namespace UnitTestLoginRegister
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        [TestCase("Omar", "Omar", "Omar", "Omar", "Omar", "Omar", "5555", "Omar", "45", "12", "2458", 0, "Omar", "Omar", false)]
-        [TestCase("", "", "", "", "", "", "", "", "00", "00", "0000", 0, "", "", false)]
-        [TestCase("Omar", "A", "Mazher", "Zwolle", "8023XW", "Westeinde22", "1234567890", "tester@live.nl", "05", "12", "1995", 0, "omar", "omar", true)]
+        [TestCase("Omar", "Omar", "Omar", "Omar", "Omar", "Omar", "5555", "Omar", "45", "12", "2458", 1, "o", "o", false)]
+        [TestCase("", "", "", "", "", "", "", "", "00", "00", "0000", 1, "", "", false)]
+        [TestCase("Omar", "A", "Mazher", "Zwolle", "8023XW", "Westeinde22", "1234567890", "tester@live.nl", "05", "12", "1995", 1, "o", "o", true)]
         public void Register_Register_ReturnTrue(string Firstname,
                                      string Middlename,
                                      string Lastname,
@@ -50,7 +50,7 @@ namespace UnitTestLoginRegister
             TextBox Y = new TextBox() { Text = Year };
 
             ComboBox G = new ComboBox() { Name = "", SelectedIndex = 0, SelectedValue = 0 };
-            G.Items.Add(new ComboBoxItem() { Content = "", Tag = 0 });
+            G.Items.Add(new ComboBoxItem() { Content = "", Tag = 1 });
             G.SelectedItem = 0;
 
 
@@ -66,8 +66,8 @@ namespace UnitTestLoginRegister
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        [TestCase("2", "Omar", false)]
-        [TestCase("1", "omar", true)]
+        [TestCase("2", "om", false)]
+        [TestCase("1", "o", true)]
 
         public void Login_Login_ReturnTrue(string username, string password, bool answer)
         {

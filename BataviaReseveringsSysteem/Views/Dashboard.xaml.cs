@@ -7,6 +7,7 @@ using BataviaReseveringsSysteem.Views;
 using ScreenSwitcher;
 using Controllers;
 using BataviaReseveringsSysteem.Controllers;
+using System;
 
 namespace Views
 {
@@ -26,10 +27,11 @@ namespace Views
         DashboardController dashboardController;
         public static NavigationView navigationview;
         bool competition = false;
+        bool coach = false;
         public Dashboard()
         {
             InitializeComponent();
-
+            
             UserTimeOutController utoc = new UserTimeOutController(System.Windows.Input.FocusManager.GetFocusedElement(this), 90);
 
 
@@ -39,19 +41,39 @@ namespace Views
 
 
             dashboardController = new DashboardController(this);
-
+           
             var rol = (from data in context.User_Roles
                        where data.UserID == LoginView.UserId
                        select data.RoleID).ToList();
-   
+
             //Een wedstrijd commisaris heeft maximaal 8 afschrijvingen. 
             //De wedstrijdcommisaris heeft ook de keuze tussen afschrijvingen voor een wedstrijd en persoonlijke afschrijvingen.
             if (rol.Contains(3))
             {
                 MaxReservationUser = 8;
-                SortReservation.Visibility = Visibility.Visible;
+                //SortReservation.Visibility = Visibility.Visible;
                 SortReservationLabel.Visibility = Visibility.Visible;
+
             }
+            
+
+           
+            if (!rol.Contains(2))
+            {
+                SelectReservation.Items.Remove((ComboBoxItem)Coach);
+            }
+            if (!rol.Contains(3))
+            {
+                SelectReservation.Items.Remove((ComboBoxItem)Competition);
+
+            }
+
+            //Een Coach heeft maximaal 8 afschrijvingen.
+            if (rol.Contains(2))
+            {
+                MaxReservationUser = 8;
+            }
+
             //Een examinator en bestuur mag zoveel afschrijvingen als die wilt
             if (rol.Contains(4) || rol.Contains(5))
             {
@@ -59,12 +81,14 @@ namespace Views
             }
 
             //De reservaties van de gebruiker worden met deze methode getoond op het scherm
-            ShowReservations(competition);
+            ShowReservations(competition, coach);
             dashboardController.Notification(loggedUser.LastLoggedIn);
 
+            // combobox index start op normale reservering
+            int selectedIndex = 0;
+            SelectReservation.SelectedItem = SelectReservation.Items.GetItemAt(selectedIndex);
 
-
-
+            // haal de nieuwsberichten op
             var getNewsMessage = (from data in context.News_Messages
                                   where data.DeletedAt == null
                                   select data).ToList();
@@ -80,18 +104,27 @@ namespace Views
 
 
 
-        public void ShowReservations(bool competition)
+        public void ShowReservations(bool competition, bool coach)
         {
             using (var context = new DataBase())
             {
 
-                //Geeft de reserveringen van de user
+                //Geeft de reserveringen van de gebruiker
                 var reservations = (
                     from data in context.Reservations
                     where data.Deleted == null
                     where data.UserId == LoginView.UserId
                     where data.Competition == competition
+                    where data.Coach == coach
                     select data).ToList();
+
+                //Dit geeft het totale aantal reserveren van de gebruiker
+                var TotalReservations =(
+                    from data in context.Reservations
+                    where data.Deleted == null
+                    where data.UserId == LoginView.UserId
+                    select data).ToList();
+
 
                 //Als de gebruiker nog geen afschrijvingen heeft, dan komt dit op het scherm te staan. 
 
@@ -106,7 +139,7 @@ namespace Views
                 }
 
                 //Als de gebruiker het maximale aantal afschrijvingen heeft bereikt, mag hij geen boten meer afschrijven
-                if (reservations.Count >= MaxReservationUser)
+                if (TotalReservations.Count >= MaxReservationUser)
 
                 {
                     MaxReservations.Visibility = Visibility.Visible;
@@ -131,107 +164,101 @@ namespace Views
                             Width = 235,
                             FontSize = 16,
 
-                            
+
                         };
-                    LabelList.Add(l);
-                    var deleteButton = dashboardController.AddDeleteButton(25, YLeft + 130, r.ReservationID);
-                    var changeButton = dashboardController.AddChangeButton(25, YLeft + 170);
-                    ButtonList.Add(deleteButton);
-                    ButtonList.Add(changeButton);
+                        LabelList.Add(l);
+                        var deleteButton = dashboardController.AddDeleteButton(25, YLeft + 130, r.ReservationID);
+                        ButtonList.Add(deleteButton);
 
-                    //Dit voegt de label en knoppen toe aan het scherm
-                    reservationsCanvas.Children.Add(l);
-                    reservationsCanvas.Children.Add(deleteButton);
+                        //Dit voegt de label en knoppen toe aan het scherm
+                        reservationsCanvas.Children.Add(l);
+                        reservationsCanvas.Children.Add(deleteButton);
 
-
-                    YLeft = YLeft + 200;
-                }
+                        YLeft = YLeft + 200;
+                    }
                     else if (Count % 2 != 0)
-                {
-                    //Hiermee maak je een label
-                    var l2 = new Label
                     {
-                        Content = dashboardController.ReservationContent(r),
-                        Margin = new Thickness(355, YRight, 0, 0),
-                        Width = 235,
-                        FontSize = 16,
-                    };
-                    LabelList.Add(l2);
-                    var deleteButton = dashboardController.AddDeleteButton(360, YRight + 130, r.ReservationID);
-                    var changeButton = dashboardController.AddChangeButton(360, YRight + 170);
-                    ButtonList.Add(deleteButton);
-                    ButtonList.Add(changeButton);
+                        //Hiermee maak je een label
+                        var l2 = new Label
+                        {
+                            Content = dashboardController.ReservationContent(r),
+                            Margin = new Thickness(355, YRight, 0, 0),
+                            Width = 235,
+                            FontSize = 16,
+                        };
+                        LabelList.Add(l2);
+                        var deleteButton = dashboardController.AddDeleteButton(360, YRight + 130, r.ReservationID);
+                        ButtonList.Add(deleteButton);
 
-                    //Dit voegt de label en knoppen toe aan het scherm
-                    reservationsCanvas.Children.Add(l2);
-                    reservationsCanvas.Children.Add(deleteButton);
+                        //Dit voegt de label en knoppen toe aan het scherm
+                        reservationsCanvas.Children.Add(l2);
+                        reservationsCanvas.Children.Add(deleteButton);
 
 
-                    YRight = YRight + 200;
+                        YRight = YRight + 200;
+                    }
+
+
+                    Count++;
                 }
+                reservationsCanvas.Height = YLeft + 10;
 
-
-                Count++;
             }
         }
-    }
 
-    //Deze methode verwijderd alle controls
-    public void DeleteAllControls()
-    {
-        foreach (var t in LabelList)
+        //Deze methode verwijderd alle controls
+        public void DeleteAllControls()
         {
-            reservationsCanvas.Children.Remove(t);
-        }
+            foreach (var t in LabelList)
+            {
+                reservationsCanvas.Children.Remove(t);
+            }
 
-        foreach (var t in ButtonList)
-        {
-            reservationsCanvas.Children.Remove(t);
-        }
+            foreach (var t in ButtonList)
+            {
+                reservationsCanvas.Children.Remove(t);
+            }
             // de posities worden gereset
             YLeft = 10;
-           YRight = 10;
+            YRight = 10;
             Count = 0;
         }
-
-
 
     public void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
         var b = (Button)sender;
-        dashboardController.DeleteReservation((int)b.Tag, competition);
+        dashboardController.DeleteReservation((int)b.Tag, competition, coach);
     }
 
-    public void Change_Click(object sender, RoutedEventArgs e)
-    {
-        Switcher.Switch(new Dashboard());
-    }
-
-    //            var reserveWindow = new ReserveWindow();
-    //            Switcher.Switch(reserveWindow);
-    //            reserveWindow.Populate();
-    private void AddReservationButton_Click(object sender, RoutedEventArgs e) =>
-        Switcher.Switch(new BoatSelectionView());
-
-     
-    //method voor het sorteren van de reserveringen.
-        private void SortReservation_Click(object sender, RoutedEventArgs e)
+        public void Change_Click(object sender, RoutedEventArgs e)
         {
-            if (competition == false)
-            {
-                competition = true;
-                SortReservation.Content = "Mijn afschijvingen";
-                SortReservationLabel.Content = "Wedstrijd afschrijvingen";
-            }
-            else if (competition == true)
+            Switcher.Switch(new Dashboard());
+        }
+
+        private void AddReservationButton_Click(object sender, RoutedEventArgs e) =>
+            Switcher.Switch(new BoatSelectionView());
+
+        private void SelectReservationType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int SelectedValue = int.Parse(((ComboBoxItem)SelectReservation.SelectedItem).Tag.ToString());
+            if (SelectedValue == 2)
             {
                 competition = false;
-                SortReservation.Content = "Wedstrijd afschrijvingen";
-                SortReservationLabel.Content = "Mijn afschijvingen";
-
+                coach = true;
+                SortReservationLabel.Content = "Afschrijvingen coach";
+            } else if (SelectedValue == 3)
+            {
+                competition = true;
+                coach = false;
+                SortReservationLabel.Content = "Afschrijvingen wedstrijd";
+            } else
+            {
+                coach = false;
+                competition = false;
+                SortReservationLabel.Content = "Afschrijvingen Persoonlijk";
             }
             DeleteAllControls();
-            ShowReservations(competition);
+            ShowReservations(competition, coach);
         }
     }
 }

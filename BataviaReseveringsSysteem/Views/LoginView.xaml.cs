@@ -14,7 +14,7 @@ namespace Views
     /// </summary>
     public partial class LoginView
     {
-
+        // inlog id van de gebruiker
         public static int UserId;
         LoginController loginController = new LoginController();
 
@@ -35,7 +35,7 @@ namespace Views
                                 where data.Deleted == null
                                 select boats).ToList();
 
-
+                // kijk of er bestaande reserveringen zijn
                 if (ReservationInfo.Count > 0)
                 {
                     DataReservations.Visibility = Visibility.Visible;
@@ -43,7 +43,7 @@ namespace Views
                 DataReservations.ItemsSource = ReservationInfo;
             }
         }
-
+        // login en ga naar het dashboard
         public void LoginButton(object sender, RoutedEventArgs e)
         {
             if (LoginController.IsLoginDataValid(Username, Password, LoginError))
@@ -66,7 +66,7 @@ namespace Views
 
         }
 
-
+        // controlleer op cijfers
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");

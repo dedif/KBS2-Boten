@@ -38,7 +38,7 @@ namespace Controllers
                 context.SaveChanges();
             }
         }
-
+        // voeg een nieuw geslacht toe
         public void Add_Gender(string GenderName)
         {
             using (var context = new DataBase())
@@ -134,16 +134,7 @@ namespace Controllers
             }
         }
 
-        // Get een gebruiker
-        public void GetUser()
-        {
-            using (DataBase context = new DataBase())
-            {
-                var result = context.Users.ToList();
-                foreach (var results in result) Console.WriteLine(results);
-            }
-        }
-
+       
         //Get een gebruikers ID
         public int GetID()
         {
@@ -154,25 +145,8 @@ namespace Controllers
                     select data.UserID).First();
         }
 
-
-        public void Print()
-        {
-            using (var context = new DataBase())
-            {
-                // Display all courses from the database
-                var users = (from s in context.Users
-                             orderby s.UserID
-                             select s).ToList();
-
-                foreach (var boat in users)
-                    Console.WriteLine(
-                        "ID: {0}, Voornaam: {1}, Achternaam: {2}, Address: {3}, Postcode: {4}, plaats: {5}, Telefoonnummer: {6}, Email: {7}",
-                        boat.UserID, boat.Firstname, boat.Lastname, boat.Address, boat.Zipcode, boat.City,
-                        boat.Phonenumber, boat.Email);
-                Console.ReadKey();
-            }
-        }
-
+     
+        // haal alle gebruikersrollen op van de gebruiker
         public List<Role> GetRolesFromLoggedInUser()
         {
             using (var context = new DataBase())
@@ -183,6 +157,7 @@ namespace Controllers
                         select role).ToList();
         }
 
+        // kijk of iemand een subscription heeft en als die is geweest pas dan bepaalde velden aan voor privacy
         public static void CheckSubscription()
         {
             using (var context = new DataBase())
@@ -211,7 +186,7 @@ namespace Controllers
                 context.SaveChanges();
             }
         }
-
+        // kijken of er geen bestuursleden zijn die zijn verwijdert 
         public bool DataBaseContainsUndeletedManagementUser()
         {
             var now = DateTime.Now;
