@@ -22,7 +22,8 @@ namespace Views
             InitializeComponent();
             this.HorizontalAlignment = HorizontalAlignment.Center;
             EditBoatID = id;
-
+            
+            //haal boot gegevens op
             using (DataBase context = new DataBase())
             {
                 var boats = from x in context.Boats
@@ -96,8 +97,7 @@ namespace Views
                                     }
 
 
-                                    // if (!boatLocationCheck)
-                                    // {
+                                    
 
                                     b.UpdateBoat(EditBoatID, NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation, AvailableAt.SelectedDate.Value);
 

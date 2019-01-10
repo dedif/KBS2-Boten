@@ -140,7 +140,7 @@ namespace Views
             }
             if (LoginView.UserId == EditID && Login_User_Role.Contains(5))
             {
-                VerwijderenBtn.Visibility = Visibility.Hidden;
+                VerwijderenBtn.Visibility = Visibility.Hidden; // een persoon mag zichzelf niet verwijderen
                 Bestuur.Visibility = Visibility.Hidden;
             }
 
