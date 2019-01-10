@@ -156,7 +156,7 @@ namespace Controllers
                         join role in context.Roles on userRole.RoleID equals role.RoleID
                         select role).ToList();
         }
-     
+
         // kijk of iemand een subscription heeft en als die is geweest pas dan bepaalde velden aan voor privacy
         public static void CheckSubscription()
         {
@@ -199,5 +199,7 @@ namespace Controllers
                      where userRole.Role.RoleName.Equals("Bestuur")
                      select userRole).Any();
         }
+
+        public bool LoggedInUserIsCoach() => GetRolesFromLoggedInUser().Any(role => role.RoleName.Equals("Coach"));
     }
 }

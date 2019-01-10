@@ -30,12 +30,11 @@ namespace BataviaReseveringsSysteem.Views
         //Deze methode kijkt of je ook voor wedstrijden mag afschrijven
         private void AllowedCompetition()
         {
-            using (DataBase context = new DataBase())
+            using (var context = new DataBase())
             {
                 var RolID = (from data in context.User_Roles
                              where data.UserID == LoginView.UserId
                              select data.RoleID).ToList();
-
 
                 //Als de gebruiker een coach, wedstrijdcommisaris of het bestuur is dan
                 if (RolID.Contains(2) || RolID.Contains(5) || RolID.Contains(3))
@@ -99,29 +98,23 @@ namespace BataviaReseveringsSysteem.Views
                     }
 
                 }
-
             }
         }
         private void TypeChecked(object sender, RoutedEventArgs e)
         {
-
-
             if (Equals(sender, Skiff))
             {
                 RowersCombo.IsEnabled = false;
                 RowersCombo.SelectedItem = oneRower;
                 SteeringToggle.IsEnabled = false;
+                SteeringToggle.IsChecked = false;
             }
             else
             {
-                if (Equals(RowersCombo.SelectedItem, oneRower))
-                {
-                    RowersCombo.SelectedIndex = 1;
-                }
+                if (Equals(RowersCombo.SelectedItem, oneRower)) RowersCombo.SelectedIndex = 1;
                 RowersCombo.IsEnabled = true;
                 oneRower.IsEnabled = false;
                 SteeringToggle.IsEnabled = true;
-
             }
 
             BoatCombo.Items.Clear();
@@ -145,19 +138,19 @@ namespace BataviaReseveringsSysteem.Views
                              select data).ToList().Distinct();
 
                 var boatsAvailableForUser = (from data in context.Boats
-                             join d in context.Boat_Diplomas on data.BoatID equals d.BoatID
-                             join u in context.User_Diplomas on d.DiplomaID equals u.DiplomaID
-                             where data.BoatID == d.BoatID
-                             where d.DiplomaID == u.DiplomaID
-                             where data.AvailableAt <= DateTime.Now
-                             where data.Deleted == false
-                             where data.Broken == false
-                             select data).ToList();
+                                             join d in context.Boat_Diplomas on data.BoatID equals d.BoatID
+                                             join u in context.User_Diplomas on d.DiplomaID equals u.DiplomaID
+                                             where data.BoatID == d.BoatID
+                                             where d.DiplomaID == u.DiplomaID
+                                             where data.AvailableAt <= DateTime.Now
+                                             where data.Deleted == false
+                                             where data.Broken == false
+                                             select data).ToList();
 
                 if (boatsAvailableForUser.Count < 1)
                 {
                     //Als de gebruiker nit de juiste diploma's heeft
-                    MessageBoxResult NoBoatsAvailable = MessageBox.Show(
+                    MessageBox.Show(
                         "U heeft niet de juiste diploma's om boten te kunnen reserveren",
                         "Melding",
                         MessageBoxButton.OK,
@@ -200,7 +193,7 @@ namespace BataviaReseveringsSysteem.Views
         {
             foreach (var type in Types.Children)
             {
-                RadioButton radioButton = (RadioButton)type;
+                var radioButton = (RadioButton)type;
                 if (radioButton.IsChecked == true) TypeChecked(radioButton, new RoutedEventArgs());
             }
         }

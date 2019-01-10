@@ -6,19 +6,10 @@ namespace ScreenSwitcher
     {
         public static PageSwitcher pageSwitcher;
 
-        public static void Switch(UserControl newPage)
-        {
-            pageSwitcher.Navigate(newPage);
-        }
+        public static void Switch(UserControl newPage) => pageSwitcher.Navigate(newPage);
 
-        public static void MenuMaker()
-        {
-            pageSwitcher.MenuMaker();
-        }
+        public static void MenuMaker() => pageSwitcher.MenuMaker();
 
-        public static void DeleteMenu()
-        {
-            pageSwitcher.DeleteMenu();
-        }
+        public static void DeleteMenu() => pageSwitcher.DeleteMenu();
     }
 }
