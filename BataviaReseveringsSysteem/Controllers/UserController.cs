@@ -183,9 +183,6 @@ namespace Controllers
                         select role).ToList();
         }
 
-        public bool LoggedInUserIsRaceCommissioner() =>
-            GetRolesFromLoggedInUser().Any(role => role.RoleName.Equals("Wedstrijd Commissaris"));
-
         public static void CheckSubscription()
         {
             using (var context = new DataBase())
@@ -227,5 +224,7 @@ namespace Controllers
                      where userRole.Role.RoleName.Equals("Bestuur")
                      select userRole).Any();
         }
+
+        public bool LoggedInUserIsCoach() => GetRolesFromLoggedInUser().Any(role => role.RoleName.Equals("Coach"));
     }
 }

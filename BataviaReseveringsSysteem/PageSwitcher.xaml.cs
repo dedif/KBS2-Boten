@@ -24,28 +24,23 @@ namespace ScreenSwitcher
                     Switcher.Switch(new LoginView());
                 else Switcher.Switch(new Register());
             }
-
         }
 
         public void SwitcherContentCanvas()
         {
             switcherCanvas = new Canvas
             {
-
                 Width = 1024,
-                Height = 768,
+                Height = 768
             };
             switcherGrid.Children.Add(switcherCanvas);
         }
 
-        public void DeleteMenu()
-        {
-            switcherGrid.Children.Remove(menuCanvas);
-        }
+        public void DeleteMenu() => switcherGrid.Children.Remove(menuCanvas);
 
         public void MenuMaker()
         {
-            NavigationView NavigationView = new NavigationView();
+            var NavigationView = new NavigationView();
             menuCanvas.Children.Add(NavigationView);
             switcherGrid.Children.Add(menuCanvas);
         }

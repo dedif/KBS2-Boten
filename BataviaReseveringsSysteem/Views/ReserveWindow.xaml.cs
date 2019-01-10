@@ -16,7 +16,7 @@ namespace Views
         {
             InitializeComponent();
             Calendar.BlackoutDates.AddDatesInPast();
-            Calendar.BlackoutDates.Add(GetDisabledDatesInFuture(reservationIsForCompetition));
+            Calendar.BlackoutDates.Add(GetDisabledDatesInFuture(reservationIsForCompetition, new UserController().LoggedInUserIsCoach()));
         }
 
         public void Populate(Boat boat, bool competition) => AddBoatTypeTabs(boat, competition,
@@ -26,13 +26,13 @@ namespace Views
         private void AddBoatTypeTabs(Boat boat, bool competition, List<Reservation> reservations) =>
             BoatTypeTabControl.Children.Add(new BoatTypeTabItem(boat, competition, reservations, Calendar));
 
-        private CalendarDateRange GetDisabledDatesInFuture(bool reservationIsForCompetition)
+        private CalendarDateRange GetDisabledDatesInFuture(bool reservationIsForCompetition, bool loggedInUserIsCoach)
         {
             var now = DateTime.Now;
             var maxDate = DateTime.MaxValue;
-            return reservationIsForCompetition
-                ? new CalendarDateRange(now.AddYears(1).AddDays(1), maxDate)
-                : new CalendarDateRange(now.AddDays(3), maxDate);
+            if (reservationIsForCompetition) return new CalendarDateRange(now.AddYears(1).AddDays(1), maxDate);
+            else if (loggedInUserIsCoach) return new CalendarDateRange(now.AddDays(8), maxDate);
+            else return new CalendarDateRange(now.AddDays(3), maxDate);
         }
     }
 }
