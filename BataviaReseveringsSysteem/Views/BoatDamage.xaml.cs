@@ -24,7 +24,7 @@ namespace Views
             InitializeComponent();
 
             var NameBoats = (from data in context.Boats
-                             where data.DeletedAt == null
+                             where data.DeletedAt == null && data.AvailableAt <= DateTime.Now
                              select data.Name).ToList();
 
             if (NameBoats.Count < 1)
