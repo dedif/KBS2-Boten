@@ -218,55 +218,8 @@ namespace Controllers
             }
 
         }
-        // controlleer of de boot al bestaat
-        public Boolean BootExist(int boatID)
-        {
+      
 
-            using (DataBase context = new DataBase())
-
-            {
-                var BoatExists = (from b in context.Boats
-                                  where b.BoatID == boatID
-                                  select b).ToList<Boat>();
-                if (BoatExists.Count > 0)
-                {
-                    notification = "Deze bootnaam bestaat al";
-
-
-                    return false;
-
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
-
-        // controlleer of de parameter zijn gegeven
-        public Boolean BootParametersAreGiven(int boatID, string name, string type, int rowers, double weight, bool steering)
-        {
-
-            using (DataBase context = new DataBase())
-
-            {
-                var BoatExists = (from b in context.Boats
-                                  where b.BoatID == boatID && b.Name == name && b.Type.ToString() == type && b.NumberOfRowers == rowers && b.Weight == weight && b.Steering == steering
-                                  select b).ToList<Boat>();
-                if (BoatExists.Count > 0)
-                {
-                    notification = "Parameters zijn gegeven";
-
-
-                    return false;
-
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
 
         //Deze methode voegt een boot toe aan de database
         public void AddBoat(string name, string type, int rowers, double weight, bool steeringwheel, int boatLocation, DateTime availableAt)
@@ -456,20 +409,7 @@ namespace Controllers
             }
 
         }
-        // lijst met boten
-        public List<Boat> BoatList()
-        {
-
-            using (DataBase context = new DataBase())
-            {
-
-                var boats = (from s in context.Boats
-                             orderby s.BoatID
-                             select s).ToList<Boat>();
-
-                return boats;
-            }
-        }
+     
         // haal een specifieke boot op
         public Boat GetBoatWithName(string name)
         {
@@ -544,30 +484,6 @@ namespace Controllers
 
             }
 
-        }
-
-// haal alle gereserveerde boten op waarbij die boot geen schade heeft.
-        public List<Boat> GetBoatsReservableWithThisUsersDiplomasThatAreNotBroken()
-        {
-            using (var context = new DataBase())
-            {
-                return
-                    (from boat in context.Boats
-                     join boatDiploma in context.Boat_Diplomas on boat.BoatID equals boatDiploma.BoatID
-                     join userDiploma in context.User_Diplomas on boatDiploma.DiplomaID equals userDiploma.DiplomaID
-                     where userDiploma.UserID == LoginView.UserId
-                     where boatDiploma.BoatID == boat.BoatID
-                     where boat.AvailableAt <= DateTime.Now
-                     where boat.Broken == false
-                     select boat).Distinct().Concat(
-                        from boat in context.Boats
-                        where !(
-                            from boatDiploma in context.Boat_Diplomas
-                            where boatDiploma.BoatID == boat.BoatID
-                            select boatDiploma).Any()
-                        where boat.Broken == false
-                        select boat).ToList();
-            }
         }
     }
 }

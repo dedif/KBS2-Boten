@@ -134,16 +134,7 @@ namespace Controllers
             }
         }
 
-        // Get een gebruiker
-        public void GetUser()
-        {
-            using (DataBase context = new DataBase())
-            {
-                var result = context.Users.ToList();
-                foreach (var results in result) Console.WriteLine(results);
-            }
-        }
-
+       
         //Get een gebruikers ID
         public int GetID()
         {
@@ -154,24 +145,7 @@ namespace Controllers
                     select data.UserID).First();
         }
 
-        // print alle gebruikers in een lijst
-        public void Print()
-        {
-            using (var context = new DataBase())
-            {
-                // Display all courses from the database
-                var users = (from s in context.Users
-                             orderby s.UserID
-                             select s).ToList();
-
-                foreach (var boat in users)
-                    Console.WriteLine(
-                        "ID: {0}, Voornaam: {1}, Achternaam: {2}, Address: {3}, Postcode: {4}, plaats: {5}, Telefoonnummer: {6}, Email: {7}",
-                        boat.UserID, boat.Firstname, boat.Lastname, boat.Address, boat.Zipcode, boat.City,
-                        boat.Phonenumber, boat.Email);
-                Console.ReadKey();
-            }
-        }
+     
         // haal alle gebruikersrollen op van de gebruiker
         public List<Role> GetRolesFromLoggedInUser()
         {
@@ -182,10 +156,7 @@ namespace Controllers
                         join role in context.Roles on userRole.RoleID equals role.RoleID
                         select role).ToList();
         }
-        // kijk naar alle wedstrijd commissarissen
-        public bool LoggedInUserIsRaceCommissioner() =>
-            GetRolesFromLoggedInUser().Any(role => role.RoleName.Equals("Wedstrijd Commissaris"));
-
+     
         // kijk of iemand een subscription heeft en als die is geweest pas dan bepaalde velden aan voor privacy
         public static void CheckSubscription()
         {
