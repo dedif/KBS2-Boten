@@ -20,28 +20,24 @@ namespace Views
             Calendar.BlackoutDates.AddDatesInPast();
             Calendar.BlackoutDates.Add(GetDisabledDatesInFuture(reservationIsForCompetition, coach));
 
-            using (DataBase context = new DataBase())
+            // Schakel alle data uit waarop de gekozen boot wordt gerepareerd.
+            using (var context = new DataBase())
             {
-
-                var boatRepare = (from data in context.Boats
+                var boatRepair = (from data in context.Boats
                                   join a in context.Damages on data.BoatID equals a.BoatID
                                   where data.Name == boat.Name
                                   select a).ToList();
-
-                foreach (var b in boatRepare)
+                foreach (var b in boatRepair)
                 {
-                    if (b.TimeOfOccupyForFix != DateTime.Today)
-                    {
-                        if (b.TimeOfFix != DateTime.Today)
-                        {
-                            Calendar.BlackoutDates.Add(new CalendarDateRange(b.TimeOfOccupyForFix.Value.Date, b.TimeOfFix.Value.Date));
-                        }
-
-                    }
+                    if (b.TimeOfOccupyForFix == DateTime.Today) continue;
+                    if (b.TimeOfFix != DateTime.Today)
+                        Calendar.BlackoutDates.Add(new CalendarDateRange(b.TimeOfOccupyForFix.Value.Date,
+                            b.TimeOfFix.Value.Date));
                 }
             }
         }
 
+        // Dit kan om technische redenen niet in de constructor.
         public void Populate(Boat boat, bool competition, bool coach) => AddBoatTypeTabs(boat, competition, coach,
             new ReservationController().GetReservationsForBoatThatAreNotDeleted(boat));
 
@@ -49,6 +45,11 @@ namespace Views
         private void AddBoatTypeTabs(Boat boat, bool competition, bool coach, List<Reservation> reservations) =>
             BoatTypeTabControl.Children.Add(new BoatTypeTabItem(boat, competition, coach, reservations, Calendar));
 
+        // Geef de data die te ver in de toekomst zijn om er te mogen reserveren,
+        // en dus onklikbaar worden in de kalender.
+        // Is de afschrijving voor een wedstrijd? 1 jaar na dato is de laatste dag
+        // Is de afschrijving voor een training? 7 dagen na dato
+        // Anders 2 dagen na dato
         private CalendarDateRange GetDisabledDatesInFuture(bool reservationIsForCompetition, bool loggedInUserIsCoach)
         {
             var now = DateTime.Now;

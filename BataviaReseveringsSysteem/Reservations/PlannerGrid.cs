@@ -280,8 +280,10 @@ namespace BataviaReseveringsSysteem.Reservations
                 0)
         };
 
+        // Zet de y-coördinaat van de klik op de PlannerGrid om in het geklikte uur
         public int GetHourFromY(double y) => (int)y / PlannerGridRowHeight + _earliestHourOnPlanningGrid;
 
+        // Zet de x-coördinaat van de klik op de PlannerGrid om in het geklikte kwartier
         public int GetMinutesFromX(double x) => (int)x / PlannerGridColumnWidth * 15;
     }
 }
