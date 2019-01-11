@@ -35,9 +35,9 @@ namespace ScreenSwitcher
             };
             switcherGrid.Children.Add(switcherCanvas);
         }
-
+        // Verwijderen van het Menu balk
         public void DeleteMenu() => switcherGrid.Children.Remove(menuCanvas);
-
+        // Aanmaken vnan 
         public void MenuMaker()
         {
             var NavigationView = new NavigationView();
@@ -45,11 +45,11 @@ namespace ScreenSwitcher
             switcherGrid.Children.Add(menuCanvas);
         }
 
-
+        // het daad werkelijk switchen van 1 pagina naar het andere gebeurt hier
         public void Navigate(UserControl nextPage)
         {
-            switcherCanvas.Children.Clear();
-            switcherCanvas.Children.Add(nextPage);
+            switcherCanvas.Children.Clear(); // leeg de canvas
+            switcherCanvas.Children.Add(nextPage); // voeg nieuwe pagina toe aan canvas
         }
 
         private void PageSwitcher_OnMouseDown(object sender, MouseButtonEventArgs e) => DetectClick?.Invoke(sender, e);

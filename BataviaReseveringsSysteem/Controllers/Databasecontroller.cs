@@ -93,18 +93,17 @@ namespace Controllers
         // haal alle rollen op
         public bool Get_UserRole(int roleID, int userID)
         {
-            try
+           
+            using (DataBase context = new DataBase())
             {
-                using (DataBase context = new DataBase())
+                try
                 {
                     bool hasUserRole = context.User_Roles.Any(cus => cus.User.UserID == userID && cus.Role.RoleID == roleID);
                     return hasUserRole;
-
                 }
-
+                catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+                { return false; }
             }
-            catch (NullReferenceException)
-            { return false; }
 
         }
         // verwijder gebruikers rol

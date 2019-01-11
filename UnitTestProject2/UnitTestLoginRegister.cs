@@ -5,7 +5,7 @@ using Assert = NUnit.Framework.Assert;
 using Controllers;
 using BataviaReseveringsSysteem.Database;
 using BataviaReseveringsSysteem;
-
+using System;
 
 namespace UnitTestLoginRegister
 {
@@ -14,7 +14,6 @@ namespace UnitTestLoginRegister
     [Apartment(ApartmentState.STA)]
     public class UnitTestLoginRegister
     {
-
         [Test]
         [Apartment(ApartmentState.STA)]
         [TestCase("Omar", "Omar", "Omar", "Omar", "Omar", "Omar", "5555", "Omar", "45", "12", "2458", 1, "o", "o", false)]
@@ -120,15 +119,25 @@ namespace UnitTestLoginRegister
         public void AddUserRole_UserRole_Void(int role,int userID,bool answer)
 
         {
-            //Arrage
-            DataBaseController dbC = new DataBaseController();
-            DataBase Db = new DataBase();
-            //Act
+            bool result;
+            try
+            {
+                //Arrage
+                DataBaseController dbC = new DataBaseController();
+                DataBase Db = new DataBase();
 
-            dbC.Add_UserRole(role, userID);
-            bool result = dbC.Get_UserRole(role, userID);
+                //Act
+
+                dbC.Add_UserRole(role, userID);
+                result = dbC.Get_UserRole(role, userID);
+            }
+            catch (Exception e)
+            {
+                result = false;
+            }
             //Assert
             Assert.AreEqual(answer, result);
+            
         }
         
 

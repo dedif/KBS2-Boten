@@ -32,7 +32,7 @@ namespace Views
 
                 foreach (var boat in boats)
                 {
-                    if (TypCombo.SelectedItem == skiffItem)
+                    if (TypCombo.SelectedItem == skiffItem) // als het een skiff boot is, wordt de roeirs kolom disabled. 
                     {
                         RowersCombo.IsEnabled = false;
                         boat.NumberOfRowers = 1;
@@ -43,7 +43,7 @@ namespace Views
                         oneRower.Visibility = Visibility.Hidden;
                         RowersCombo.SelectedItem = boat.NumberOfRowers;
                     }
-
+                    // vullen van velden met data uit het database
                     NameBox.Text = boat.Name;
                     RowersCombo.Text = boat.NumberOfRowers.ToString();
                     WeightBox.Text = boat.Weight.ToString();
@@ -67,7 +67,7 @@ namespace Views
         //bewerk een boot en check daarnaast of alle velden zijn gevuld 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (b.WhiteCheck(NameBox.Text, WeightBox.Text, BoatLocationBox.Text) == true)
+            if (b.WhiteCheck(NameBox.Text, WeightBox.Text, BoatLocationBox.Text) == true) // check of geen spaties in de text zit
             {
                 using (DataBase context = new DataBase())
                 {
@@ -77,14 +77,14 @@ namespace Views
 
                     if (b.WeightCheck(WeightBox.Text) == true)
                     {
-                        if (b.LocationCheckIfInt(BoatLocationBox.Text))
+                        if (b.LocationCheckIfInt(BoatLocationBox.Text)) // check of de locatie die ingevuld is, wel een int is of niet
                         {
                             int BoatLocation = int.Parse(BoatLocationBox.Text);
 
 
-                            if (b.EditBoatLocationCheck(BoatLocation, EditBoatID) == true)
+                            if (b.EditBoatLocationCheck(BoatLocation, EditBoatID) == true) // check of de bootlocatie al bestaat
                             {
-                                if (b.EditBoatNameCheck(NameBox.Text, EditBoatID) == true)
+                                if (b.EditBoatNameCheck(NameBox.Text, EditBoatID) == true) // check of de naam van de boot al bestaat of niet 
                                 {
 
                                     double Weight = double.Parse(WeightBox.Text);
@@ -98,9 +98,9 @@ namespace Views
 
 
                                     
-
+                                    // update de boot in het datebase
                                     b.UpdateBoat(EditBoatID, NameBox.Text, TypCombo.Text, Rowers, Weight, Steeringwheel, BoatLocation, AvailableAt.SelectedDate.Value);
-
+                                    // melding dat het opgeslagen is of niet
                                     System.Windows.Forms.DialogResult Succes = System.Windows.Forms.MessageBoxEx.Show("De boot is succesvol opgeslagen", "Succes", System.Windows.Forms.MessageBoxButtons.OK, 30000);
 
                                     switch (Succes)
